@@ -1,0 +1,416 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ubuntu18_04升级记录 | Echo's Blogs</title><meta name="keywords" content="ubuntu"><meta name="author" content="Echo"><meta name="copyright" content="Echo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="article">
+<meta property="og:title" content="ubuntu18_04升级记录">
+<meta property="og:url" content="http://example.com/2021/03/07/Tutorials/ubuntu_install/index.html">
+<meta property="og:site_name" content="Echo&#39;s Blogs">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2021-03-07T08:10:19.000Z">
+<meta property="article:modified_time" content="2021-04-20T14:14:13.638Z">
+<meta property="article:author" content="Echo">
+<meta property="article:tag" content="ubuntu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="http://example.com/2021/03/07/Tutorials/ubuntu_install/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ubuntu18_04升级记录',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-04-20 22:14:13'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">36</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Echo's Blogs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ubuntu18_04升级记录</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-07T08:10:19.000Z" title="发表于 2021-03-07 16:10:19">2021-03-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-04-20T14:14:13.638Z" title="更新于 2021-04-20 22:14:13">2021-04-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Tutorials/">Tutorials</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ubuntu18_04升级记录"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><hr>
+<span id="more"></span>
+
+<h2 id="1-系统安装"><a href="#1-系统安装" class="headerlink" title="1. 系统安装"></a>1. 系统安装</h2><ol>
+<li><p>关闭secure boot</p>
+</li>
+<li><p>插上系统盘，开机后狂按ESC，暂停启动，然后弹出BIOS设置，选择启动设备，使用U盘启动</p>
+</li>
+<li><p>在选择‘Install UBUNTU’之前，按E进入设置，在quiet splash —那处,把—替换为nomodeset,再按F10进入系统进行安装，否则会报错acpi bios error以及花屏！！！</p>
+</li>
+<li><p>然后正常选择，我选的最小系统安装，免去安装多余的游戏软件等</p>
+</li>
+<li><p>分区设置，先选择something else，自己设置分区，如下</p>
+<ul>
+<li>设置swap空间:主分区/空间起始/交换空间/大小一般是实际内存1-2倍</li>
+<li>设置引导EFI:逻辑分区/空间起始/<strong>EFI分区</strong>/大小一般1GB</li>
+<li>设置挂载的/:这个是ubuntu计算机的安装位置,逻辑分区/空间起始/EXT4/挂载点为/</li>
+<li>最后设置引导,最下面的那个选项,选择之前设置的EFI引导在的那个分区</li>
+</ul>
+<p>注意，这里建议不单独分出来/home的空间，直接全都放在/下面就好，免得空间不够难以重新分区</p>
+</li>
+<li><p>进入安装,完成后会重启,重启后同样按e进入,在quiet splash后加nomodeset再按F10进入</p>
+</li>
+</ol>
+<h2 id="2-换源，更新，升级"><a href="#2-换源，更新，升级" class="headerlink" title="2. 换源，更新，升级"></a>2. 换源，更新，升级</h2><p>进入系统后第一步操作应该就是将源改成国内的清华或者阿里，然后运行以下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt upgrade</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Nvidia驱动安装"><a href="#3-Nvidia驱动安装" class="headerlink" title="3. Nvidia驱动安装"></a>3. Nvidia驱动安装</h2><p>上述操作装完系统后，没有显卡驱动是无法进入的，所以必须加上nomodeset</p>
+<p>除此之外，进系统后的分辨率应该也不对，会更大一些，这一切的原因都是显卡没有驱动程序，以及没有集显导致的</p>
+<p>装一个独显驱动即可，方法：</p>
+<ul>
+<li><p>进入<code>Software &amp; Updates</code></p>
+</li>
+<li><p>在第一个选项卡，<code>ubuntu software</code>处，勾选<code>source code</code></p>
+</li>
+<li><p>在第五个选项卡，<code>additional drivers</code>处，选择nvidia驱动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using nvidia driver metapackage from nvidia-driver-450（proprietary）</span><br></pre></td></tr></table></figure></li>
+<li><p>点击右下角的<code>apply changes</code>，重启即可</p>
+</li>
+</ul>
+<h2 id="4-安装常用软件"><a href="#4-安装常用软件" class="headerlink" title="4. 安装常用软件"></a>4. 安装常用软件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install python python3 gconf-service-backend gconf-service gconf2</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-安装小飞机"><a href="#5-安装小飞机" class="headerlink" title="5. 安装小飞机"></a>5. 安装小飞机</h2><p>先确保安装python以及python3</p>
+<p>建议使用appimage，方便开机自启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="built_in">cd</span> ~/Softwares</span><br><span class="line">./electron-ssr-0.2.6.AppImage</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>自启动将以上写成脚本，在<code>start application</code>里面添加启动程序，直接查找脚本位置即可，不需要    . 或者 sh</li>
+</ul>
+<p>注意权限</p>
+<h2 id="6-挂载其它ntfs磁盘，实现开机自动挂载"><a href="#6-挂载其它ntfs磁盘，实现开机自动挂载" class="headerlink" title="6. 挂载其它ntfs磁盘，实现开机自动挂载"></a>6. 挂载其它ntfs磁盘，实现开机自动挂载</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># 查看磁盘</span><br><span class="line">sudo fdisk -l</span><br><span class="line"># 安装包</span><br><span class="line">sudo apt install ntfs-3g</span><br><span class="line">sudo apt install ntfs-config</span><br><span class="line"># 查看uuid</span><br><span class="line">sudo blkid</span><br><span class="line"></span><br><span class="line"># 创建要挂载的文件夹</span><br><span class="line">mkdir /home/disks</span><br><span class="line">sudo mkdir /media/echo/Docs</span><br><span class="line">sudo mkdir /media/echo/Storage</span><br><span class="line"></span><br><span class="line"># 修改fstab</span><br><span class="line">sudo gedit /etc/fstab</span><br><span class="line">    # 添加以下内容</span><br><span class="line">    #Entry for /dev/sda5 :</span><br><span class="line">    UUID=10AA0A8510AA0A85    /media/echo/Docs    ntfs    defaults,nodev,nosuid,uid=1000,gid=1000,uhelper=udisks2    0    0</span><br><span class="line">    #Entry for /dev/sda1 :</span><br><span class="line">    UUID=10A8073A10A8073A    /media/echo/Storage    ntfs    defaults,nodev,nosuid,uid=1000,gid=1000,uhelper=udisks2    0    0</span><br><span class="line">    #Entry for /dev/nvme0n1p4 :</span><br><span class="line">    UUID=0BE104A20BE104A2    /home/echo/disks    ntfs    defaults    0    0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 测试挂载，不报错即为没问题</span><br><span class="line">sudo umount -a</span><br><span class="line">sudo mount -a</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-安装ipgw"><a href="#7-安装ipgw" class="headerlink" title="7. 安装ipgw"></a>7. 安装ipgw</h2><p>找到对应ipgw安装包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x ipgw</span><br><span class="line">sudo mv ipgw /usr/local/bin</span><br><span class="line">ipgw version</span><br><span class="line">ipgw login -u 1901938 -p xxx -s</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-安装chrome"><a href="#8-安装chrome" class="headerlink" title="8. 安装chrome"></a>8. 安装chrome</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i google-chrome-stable_current_amd64.deb</span><br><span class="line">sudo apt upgrade</span><br></pre></td></tr></table></figure>
+
+<h2 id="9-安装搜狗输入法"><a href="#9-安装搜狗输入法" class="headerlink" title="9. 安装搜狗输入法"></a>9. 安装搜狗输入法</h2><p>先装fcitx</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install fcitx    # 如果报错，使用 sudo apt-get install -f 再执行</span><br><span class="line">sudo dpkg -i sogoupinyin_2.3.1.0112_amd64.deb</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+
+<p>打开设置，找到 <code>language</code>-&gt; <code>Manage Installed Languages</code>, 將“Keyboard input method system”設定為“fcitx”</p>
+<p>在系統中搜索fcitx configuration，點選左下角新增輸入法，在彈出的對話方塊中將Only Show Current Language取消，即可看到sogou Pinyin，選擇新增即可</p>
+<h2 id="10-安装terminator"><a href="#10-安装terminator" class="headerlink" title="10. 安装terminator"></a>10. 安装terminator</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install terminator</span><br><span class="line"># 刷新配置</span><br><span class="line">cp terminator_config ~/.config/terminator/config</span><br></pre></td></tr></table></figure>
+
+<h2 id="11-安装typora"><a href="#11-安装typora" class="headerlink" title="11. 安装typora"></a>11. 安装typora</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># or run:</span></span><br><span class="line"><span class="comment"># sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA300B7755AFCFAE</span></span><br><span class="line">wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -</span><br><span class="line"><span class="comment"># add Typora&#x27;s repository</span></span><br><span class="line">sudo add-apt-repository <span class="string">&#x27;deb https://typora.io/linux ./&#x27;</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"><span class="comment"># install typora</span></span><br><span class="line">sudo apt-get install typora</span><br></pre></td></tr></table></figure>
+
+<h2 id="12-安装CUDA-CUDNN"><a href="#12-安装CUDA-CUDNN" class="headerlink" title="12. 安装CUDA\CUDNN"></a>12. 安装CUDA\CUDNN</h2><h3 id="cuda10-2"><a href="#cuda10-2" class="headerlink" title="cuda10.2"></a>cuda10.2</h3><ol>
+<li><p>cuda下载列表</p>
+<p><a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-toolkit-archive">https://developer.nvidia.com/cuda-toolkit-archive</a></p>
+</li>
+<li><p>选择18.04 cuda10.2 使用deb安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin</span><br><span class="line">sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600</span><br><span class="line">wget https://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb</span><br><span class="line">sudo dpkg -i cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb</span><br><span class="line">sudo apt-key add /var/cuda-repo-10-2-local-10.2.89-440.33.01/7fa2af80.pub</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get -y install cuda</span><br></pre></td></tr></table></figure></li>
+<li><p>在bashrc或者zshrc中加入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># cuda add</span><br><span class="line">export CPATH=/usr/local/cuda/targets/x86_64-linux/include:$CPATH</span><br><span class="line">export LD_LIBRARY_PATH=/usr/local/cuda/targets/x86_64-linux/lib:$LD_LIBRARY_PATH</span><br><span class="line">export PATH=/usr/local/cuda/bin:$PATH</span><br><span class="line">export CUDA_HOME=/usr/local/cuda</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>nvcc -V</code>测试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nvcc: NVIDIA (R) Cuda compiler driver</span><br><span class="line">Copyright (c) 2005-2019 NVIDIA Corporation</span><br><span class="line">Built on Wed_Oct_23_19:24:38_PDT_2019</span><br><span class="line">Cuda compilation tools, release 10.2, V10.2.89</span><br></pre></td></tr></table></figure></li>
+<li><p>安装patch</p>
+<p><a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-10.2-download-archive?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu&amp;target_version=1804&amp;target_type=deblocal">https://developer.nvidia.com/cuda-10.2-download-archive?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu&amp;target_version=1804&amp;target_type=deblocal</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># patch1</span><br><span class="line">sudo dpkg -i cuda-repo-ubuntu1804-10-2-local_10.2.1-1_amd64.deb </span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt -y upgrade</span><br><span class="line"># patch2</span><br><span class="line">sudo dpkg -i cuda-repo-ubuntu1804-10-2-local_10.2.2-1_amd64.deb </span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt -y upgrade</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="cudnn"><a href="#cudnn" class="headerlink" title="cudnn"></a>cudnn</h3><p> 需要登录，使用google账号登录， 下载 <strong>cudnn-10.2-linux-x64-v8.1.1.33</strong></p>
+<ul>
+<li><p>source安装，先解压，出现一个cuda的文件夹</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar -zxf cudnn-10.2-linux-x64-v8.1.1.33.tgz</span><br><span class="line">sudo cp cuda/include/cudnn.h /usr/local/cuda/include</span><br><span class="line">sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64</span><br><span class="line">sudo chmod a+r /usr/local/cuda/include/cudnn.h </span><br><span class="line">sudo chmod a+r /usr/local/cuda/lib64/libcudnn*</span><br></pre></td></tr></table></figure></li>
+<li><p>deb安装-未尝试</p>
+<p>要下载的文件也是两个，分别是<code>cuDNN Runtime Library for Ubuntu18.04 (Deb</code>和 <code>[cuDNN Developer Library for Ubuntu18.04 (Deb)]</code></p>
+<p>下载完成后一次安装这两个文件就可以了<strong>（先安装runtime library，再安装developer library）</strong></p>
+<p>至此，CUDA10.2+cuDNN8就成功的在Ubuntu18.04上安装成功了。</p>
+</li>
+<li><p>更换安装方法！！！！</p>
+<p>由于源码安装的cudnn无法被找到，所以换deb安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo rm /usr/local/cuda/include/cudnn.h</span><br><span class="line">sudo rm /usr/local/cuda/lib64/libcudnn*</span><br><span class="line">sudo dpkg -i libcudnn8_8.1.0.77-1+cuda10.2_amd64.deb</span><br><span class="line">sudo dpkg -i libcudnn8-dev_8.1.0.77-1+cuda10.2_amd64.deb</span><br><span class="line">sudo dpkg -i libcudnn8-samples_8.1.0.77-1+cuda10.2_amd64.deb</span><br></pre></td></tr></table></figure></li>
+<li><p>由于8.1.0无法通过cudnn测试，所以换成7.6.5</p>
+</li>
+<li><p>又安装了源码tar格式的cudnn</p>
+</li>
+</ul>
+<p>关于查看GPU显卡的状态，除了使用显卡驱动中提供的命令 nvidia-smi 外，推荐使用</p>
+<p><a href="https://link.zhihu.com/?target=https://github.com/Syllo/nvtop">https://github.com/Syllo/nvtopgithub.com</a></p>
+<h2 id="13-安装pycharm"><a href="#13-安装pycharm" class="headerlink" title="13. 安装pycharm"></a>13. 安装pycharm</h2><p>由于ubuntu自带了snap，使用snap安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># sudo snap install [pycharm-professional|pycharm-community] --classic</span><br><span class="line">sudo snap install pycharm-professional --classic</span><br></pre></td></tr></table></figure>
+
+<h2 id="14-安装openvpn"><a href="#14-安装openvpn" class="headerlink" title="14. 安装openvpn"></a>14. 安装openvpn</h2><h2 id="补充在ubuntu18-04安装的记录"><a href="#补充在ubuntu18-04安装的记录" class="headerlink" title="补充在ubuntu18.04安装的记录"></a>补充在ubuntu18.04安装的记录</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install openvpn</span><br></pre></td></tr></table></figure>
+
+<p>接下来和ubuntu16.04一致，运行脚本以及ovpn文件即可</p>
+<h2 id="15-安装anaconda"><a href="#15-安装anaconda" class="headerlink" title="15. 安装anaconda"></a>15. 安装anaconda</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh</span><br></pre></td></tr></table></figure>
+
+<p>给权限, 运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod 777 Anaconda3-2020.07-Linux-x86_64.sh</span><br><span class="line">bash Anaconda3-2020.07-Linux-x86_64.sh</span><br></pre></td></tr></table></figure>
+
+<p>安装过程中, 在安装目录处修改目录, 第二个问题选yes</p>
+<h2 id="16-安装git"><a href="#16-安装git" class="headerlink" title="16. 安装git"></a>16. 安装git</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y git</span><br></pre></td></tr></table></figure>
+
+<p>自动保存账户密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global -e</span><br><span class="line"></span><br><span class="line">-&gt; 添加以下行</span><br><span class="line">[credential]</span><br><span class="line">    helper = store</span><br></pre></td></tr></table></figure>
+
+<h2 id="17-安装zsh"><a href="#17-安装zsh" class="headerlink" title="17. 安装zsh"></a>17. 安装zsh</h2><p>确保安装了git</p>
+<p><a target="_blank" rel="noopener" href="https://ohmyz.sh/#install">https://ohmyz.sh/#install</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k">https://github.com/romkatv/powerlevel10k</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install zsh</span><br><span class="line">sh -c &quot;$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)&quot;</span><br><span class="line">git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git $&#123;ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom&#125;/themes/powerlevel10k</span><br><span class="line">git clone https://github.com/zsh-users/zsh-autosuggestions $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure>
+
+<h2 id="18-安装opencv"><a href="#18-安装opencv" class="headerlink" title="18. 安装opencv"></a>18. 安装opencv</h2><h2 id="19-安装ros"><a href="#19-安装ros" class="headerlink" title="19. 安装ros"></a>19. 安装ros</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; sudo sh -c &#x27;echo &quot;deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main&quot; &gt; /etc/apt/sources.list.d/ros-latest.list&#x27;</span><br><span class="line"></span><br><span class="line">&gt; sudo apt-key adv --keyserver &#x27;hkp://keyserver.ubuntu.com:80&#x27; --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654</span><br><span class="line"></span><br><span class="line">Executing: /tmp/apt-key-gpghome.GnF5MH9S4s/gpg.1.sh --keyserver hkp://keyserver.ubuntu.com:80 --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654</span><br><span class="line">gpg: key F42ED6FBAB17C654: public key &quot;Open Robotics &lt;info@osrfoundation.org&gt;&quot; imported</span><br><span class="line">gpg: Total number processed: 1</span><br><span class="line">gpg:               imported: 1</span><br></pre></td></tr></table></figure>
+
+<p>报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_cnn_infer.so.8 is not a symbolic link</span><br><span class="line"></span><br><span class="line">/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_adv_train.so.8 is not a symbolic link</span><br><span class="line"></span><br><span class="line">/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_adv_infer.so.8 is not a symbolic link</span><br><span class="line"></span><br><span class="line">/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_ops_train.so.8 is not a symbolic link</span><br><span class="line"></span><br><span class="line">/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_cnn_train.so.8 is not a symbolic link</span><br><span class="line"></span><br><span class="line">/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn.so.8 is not a symbolic link</span><br><span class="line"></span><br><span class="line">/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_ops_infer.so.8 is not a symbolic link</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -sf libcudnn_adv_infer.so.8.1.1 libcudnn_adv_infer.so.8</span><br><span class="line">sudo ln -sf libcudnn_adv_infer.so.8 libcudnn_adv_infer.so</span><br><span class="line">sudo ln -sf libcudnn_adv_train.so.8.1.1 libcudnn_adv_train.so.8</span><br><span class="line">sudo ln -sf libcudnn_adv_train.so.8 libcudnn_adv_train.so</span><br><span class="line">sudo ln -sf libcudnn_cnn_train.so.8.1.1 libcudnn_cnn_train.so.8</span><br><span class="line">sudo ln -sf libcudnn_cnn_train.so.8 libcudnn_cnn_train.so</span><br><span class="line">sudo ln -sf libcudnn_ops_infer.so.8.1.1 libcudnn_ops_infer.so.8</span><br><span class="line">sudo ln -sf libcudnn_ops_train.so.8.1.1 libcudnn_ops_train.so.8</span><br><span class="line">sudo ln -sf libcudnn_ops_train.so.8 libcudnn_ops_train.so</span><br><span class="line">sudo ln -sf libcudnn.so.8.1.1 libcudnn.so.8</span><br><span class="line">sudo ln -sf libcudnn.so.8 libcudnn.so</span><br></pre></td></tr></table></figure>
+
+<p>执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rosdep init</span><br></pre></td></tr></table></figure>
+
+<p>报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo: rosdep: command not found</span><br></pre></td></tr></table></figure>
+
+<p>执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install rospack-tools</span><br></pre></td></tr></table></figure>
+
+<p>开代理</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo rosdep init</span><br><span class="line">rosdep update</span><br></pre></td></tr></table></figure>
+
+<p>写入bashrc以及zshrc</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias ros=&#x27;source /opt/ros/melodic/setup.zsh&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="20-安装hexo-amp-Gitbook"><a href="#20-安装hexo-amp-Gitbook" class="headerlink" title="20. 安装hexo&amp;Gitbook"></a>20. 安装hexo&amp;Gitbook</h2><h3 id="1-安装nodejs-v10-x"><a href="#1-安装nodejs-v10-x" class="headerlink" title="1. 安装nodejs v10.x"></a>1. 安装nodejs v10.x</h3><p><a target="_blank" rel="noopener" href="https://github.com/nodesource/distributions">https://github.com/nodesource/distributions</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://deb.nodesource.com/setup_10.x | sudo -E bash -</span><br><span class="line">sudo apt-get install -y nodejs</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-安装Git-略"><a href="#2-安装Git-略" class="headerlink" title="2. 安装Git[略]"></a>2. 安装Git[略]</h3><h3 id="3-安装Hexo"><a href="#3-安装Hexo" class="headerlink" title="3. 安装Hexo"></a>3. 安装Hexo</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo</span><br><span class="line">echo &#x27;PATH=&quot;$PATH:~/disks/HexoBlogs/node_modules/.bin&#x27; &gt;&gt; ~/.zshrc</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-安装Gitbook"><a href="#4-安装Gitbook" class="headerlink" title="4. 安装Gitbook"></a>4. 安装Gitbook</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g gitbook-cli</span><br><span class="line">gitbook init </span><br></pre></td></tr></table></figure>
+
+<h2 id="21-安装deepin相关"><a href="#21-安装deepin相关" class="headerlink" title="21. 安装deepin相关"></a>21. 安装deepin相关</h2><p>deepin wine基础框架，星外之神那个不好用，下载下面的安装</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/chenyingzhou/deepin-wine-ubuntu">https://github.com/chenyingzhou/deepin-wine-ubuntu</a></p>
+<p>deepin wine相关软件</p>
+<p><a target="_blank" rel="noopener" href="http://packages.deepin.com/deepin/pool/non-free/d/">http://packages.deepin.com/deepin/pool/non-free/d/</a></p>
+<p>下载里面的deepin.com.wechat/   以及 deepin.com.qq.office/       这两个是好用的</p>
+<p>dpkg安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install chrome-gnome-shell</span><br><span class="line">sudo apt install gnome-shell-extensions</span><br></pre></td></tr></table></figure>
+
+<p>除此之外，还需要安装topicons plus插件，然后使用tweak打开插件，方便图标显示</p>
+<h3 id="微信"><a href="#微信" class="headerlink" title="微信"></a>微信</h3><h4 id="解决中文乱码问题"><a href="#解决中文乱码问题" class="headerlink" title="解决中文乱码问题"></a>解决中文乱码问题</h4><p>装完后中文乱码，按照下列教程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /opt/deepinwine/tools/run.sh</span><br><span class="line">sudo gedit /opt/deepinwine/tools/run_v2.sh</span><br></pre></td></tr></table></figure>
+
+<p>找到WINE_CMD<br>修改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WINE_CMD=&quot;LC_ALL=zh_CN.UTF-8 deepin-wine&quot;</span><br></pre></td></tr></table></figure>
+
+<p>然后下载字体，更换</p>
+<p>修改字体<br>下载字体msyh.ttc,<br>下载地址一：蓝奏云 （推荐）<a target="_blank" rel="noopener" href="https://www.lanzous.com/i5wivmd">https://www.lanzous.com/i5wivmd</a><br>下载地址二：百度网盘 链接: <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1rkjkmGJlpdaijCEWi7TZIw">https://pan.baidu.com/s/1rkjkmGJlpdaijCEWi7TZIw</a> 提取码: btxw</p>
+<p>将下载的字体解压，然后：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp msyh.ttc ~/.deepinwine/Deepin-WeChat/drive_c/windows/Fonts</span><br></pre></td></tr></table></figure>
+
+<p>修改系统注册表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit ~/.deepinwine/Deepin-WeChat/system.reg</span><br></pre></td></tr></table></figure>
+
+<p>更改以下两行内容为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;MS Shell Dlg&quot;=&quot;msyh&quot;</span><br><span class="line">&quot;MS Shell Dlg 2&quot;=&quot;msyh&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit msyh_config.reg</span><br></pre></td></tr></table></figure>
+
+<p>在文件msyh_config.reg内添加如下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">REGEDIT4</span><br><span class="line">[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\FontLink\SystemLink]</span><br><span class="line">&quot;Lucida Sans Unicode&quot;=&quot;msyh.ttc&quot;</span><br><span class="line">&quot;Microsoft Sans Serif&quot;=&quot;msyh.ttc&quot;</span><br><span class="line">&quot;MS Sans Serif&quot;=&quot;msyh.ttc&quot;</span><br><span class="line">&quot;Tahoma&quot;=&quot;msyh.ttc&quot;</span><br><span class="line">&quot;Tahoma Bold&quot;=&quot;msyhbd.ttc&quot;</span><br><span class="line">&quot;msyh&quot;=&quot;msyh.ttc&quot;</span><br><span class="line">&quot;Arial&quot;=&quot;msyh.ttc&quot;</span><br><span class="line">&quot;Arial Black&quot;=&quot;msyh.ttc&quot;</span><br></pre></td></tr></table></figure>
+
+<p>注册字体</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deepin-wine regedit msyh_config.reg</span><br></pre></td></tr></table></figure>
+
+<h4 id="解决中心黑框问题"><a href="#解决中心黑框问题" class="headerlink" title="解决中心黑框问题"></a>解决中心黑框问题</h4><p><a target="_blank" rel="noopener" href="https://blog.diqigan.cn/posts/wine-wechat-black-square-fix.html">https://blog.diqigan.cn/posts/wine-wechat-black-square-fix.html</a></p>
+<p>按照操作，做一遍，调试了一下sleep的值，改为0的话就成功了</p>
+<h2 id="22-定制Mac主题"><a href="#22-定制Mac主题" class="headerlink" title="22. 定制Mac主题"></a>22. 定制Mac主题</h2><p>未尝试</p>
+<ol>
+<li>安装gnome-tweak-tool 和 chrome-gnome-shell 插件 (<code>sudo aptitude install [name]</code>)</li>
+<li>安装GTK3主题 =&gt; <a target="_blank" rel="noopener" href="https://www.gnome-look.org/p/1167049/">X-Arc-Collection</a></li>
+<li>使用tweak载入应用程序主题 =&gt; tweak — 外观 — 应用程序 — 选择X-Arc-Collection</li>
+<li>安装gnome-shell 主题 =&gt; <a target="_blank" rel="noopener" href="https://www.gnome-look.org/p/1167049/">macOS High Sierra</a></li>
+<li>安装gnome-shell 插件 =&gt; <a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/19/user-themes/">User Themes</a> ( 之后重启Gnome =&gt; [Alt + F2] &amp; [输入 r] &amp; [点击 Enter] )</li>
+<li>使用tweak载入shell主题 =&gt; tweak — 外观 — shell — 选择Sierra shell主题</li>
+<li>下载Mac图标主题 <a target="_blank" rel="noopener" href="https://github.com/keeferrourke/la-capitaine-icon-theme/releases">la-capitaine-icon-theme</a> 或 <a target="_blank" rel="noopener" href="https://www.pling.com/p/1305429/">McMojave-circle</a></li>
+<li>图标文件夹移动到 ~/.icons目录下(没有则新建目录)</li>
+<li>使用tweak载入icon主题 =&gt; tweak — 外观 — 图标 — 选择对应的图标主题</li>
+<li>安装gnome-shell插件 =&gt; Dash to dock (将原生dock转变为可定制的浮动dock)</li>
+<li>定制firefox主题 =&gt; <a target="_blank" rel="noopener" href="https://github.com/vinceliuice/Mojave-gtk-theme">Majave-gtk-theme</a></li>
+</ol>
+<h2 id="23-安装handbrake"><a href="#23-安装handbrake" class="headerlink" title="23. 安装handbrake"></a>23. 安装handbrake</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:stebbins/handbrake-releases</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt-get install handbrake-gtk</span><br></pre></td></tr></table></figure>
+
+<h2 id="24-安装ffmpeg"><a href="#24-安装ffmpeg" class="headerlink" title="24. 安装ffmpeg"></a>24. 安装ffmpeg</h2><p><a target="_blank" rel="noopener" href="https://octopuslian.github.io/2019/11/13/ubuntu1804-ffmpeg-install/">https://octopuslian.github.io/2019/11/13/ubuntu1804-ffmpeg-install/</a></p>
+<p>安装在/home/echo/softwares下</p>
+<p>可执行文件在ffmerg_install/bin下，将两个文件复制到/usr/local/bin下面</p>
+<h2 id="25-安装视频播放软件"><a href="#25-安装视频播放软件" class="headerlink" title="25.安装视频播放软件"></a>25.安装视频播放软件</h2><p>vlc</p>
+<h2 id="26-安装notion"><a href="#26-安装notion" class="headerlink" title="26. 安装notion"></a>26. 安装notion</h2><p><a target="_blank" rel="noopener" href="https://appmaker.xyz/web2desk/%E5%B0%86notion%E6%A1%8C%E9%9D%A2%E5%8C%96">https://appmaker.xyz/web2desk/将notion桌面化</a></p>
+<p>解压后，找到notion，./执行即可</p>
+<ul>
+<li>因难于使用，放弃使用snap安装软件版notion<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo snap install notion-snap</span><br><span class="line">sudo apt install fonts-wqy-zenhei    # 解决部分字体变为楷体的问题</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="27-其他appimage"><a href="#27-其他appimage" class="headerlink" title="27. 其他appimage"></a>27. 其他appimage</h2><p>将其放在/home/echo/softwares下，使用terminator右键执行</p>
+<h2 id="28-安装mendeley"><a href="#28-安装mendeley" class="headerlink" title="28. 安装mendeley"></a>28. 安装mendeley</h2><p>下载软件deb，安装</p>
+<p>由于使用了sudo打开，导致正常权限无法打开软件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R $(whoami) ~/.local/share/data/Mendeley Ltd.</span><br></pre></td></tr></table></figure>
+
+<p>运行，注意空格</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R echo ~/.local/share/data/Mendeley\ Ltd.</span><br></pre></td></tr></table></figure>
+
+<p>解决！</p>
+<p>此外，由于1.19.8版本没有文献搜索，所以最好使用1.19.6</p>
+<p><a target="_blank" rel="noopener" href="https://www.mendeley.com/autoupdates/installers/1.19.6">https://www.mendeley.com/autoupdates/installers/1.19.6</a></p>
+<h2 id="29-安装flameshot"><a href="#29-安装flameshot" class="headerlink" title="29. 安装flameshot"></a>29. 安装flameshot</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install flameshot</span><br></pre></td></tr></table></figure>
+
+<p>更改默认截图键为flameshot</p>
+<h4 id="On-Ubuntu-Tested-on-18-04"><a href="#On-Ubuntu-Tested-on-18-04" class="headerlink" title="On Ubuntu (Tested on 18.04)"></a>On Ubuntu (Tested on 18.04)</h4><p>To use Flameshot instead of the default screenshot application in Ubuntu we need to remove the binding on Prt Sc key, and then create a new binding for <code>/usr/bin/flameshot gui</code> (<a target="_blank" rel="noopener" href="https://askubuntu.com/posts/1039949/revisions">adaptated</a> from <a target="_blank" rel="noopener" href="https://askubuntu.com/revisions/1036473/1">Pavel’s answer on AskUbuntu</a>).</p>
+<ol>
+<li>Remove the binding on Prt Sc using the following command.</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gsettings set org.gnome.settings-daemon.plugins.media-keys screenshot &#x27;[]&#x27;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>Go to Settings &gt; Device &gt; Keyboard and press the ‘+’ button at the bottom.</li>
+<li>Name the command as you like it, e.g. <code>flameshot</code>. And in the command insert <code>/usr/bin/flameshot gui</code>.</li>
+<li>Then click “<em>Set Shortcut..</em>“ and press Prt Sc. This will show as “<em>print</em>“.</li>
+</ol>
+<p>Now every time you press Prt Sc, it will start the Flameshot GUI instead of the default application.</p>
+<h2 id="30-安装filezilla"><a href="#30-安装filezilla" class="headerlink" title="30. 安装filezilla"></a>30. 安装filezilla</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install filezilla</span><br></pre></td></tr></table></figure>
+
+<h2 id="31-安装youtube-dl-amp-amp-annie"><a href="#31-安装youtube-dl-amp-amp-annie" class="headerlink" title="31. 安装youtube-dl &amp;&amp; annie"></a>31. 安装youtube-dl &amp;&amp; annie</h2><h3 id="youtube-dl"><a href="#youtube-dl" class="headerlink" title="youtube-dl"></a>youtube-dl</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl</span><br><span class="line">sudo chmod a+rx /usr/local/bin/youtube-dl</span><br></pre></td></tr></table></figure>
+
+<h3 id="annie"><a href="#annie" class="headerlink" title="annie"></a>annie</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/iawia002/annie/releases/download/0.10.3/annie_0.10.3_Linux_64-bit.tar.gz</span><br><span class="line">tar zxvf annie_*.tar.gz</span><br><span class="line">mv annie /usr/local/bin/</span><br></pre></td></tr></table></figure>
+
+<h2 id="32-安装Tex相关"><a href="#32-安装Tex相关" class="headerlink" title="32. 安装Tex相关"></a>32. 安装Tex相关</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install texlive-full</span><br><span class="line">sudo apt install texstudio</span><br></pre></td></tr></table></figure>
+
+<h2 id="33-右键打开terminator"><a href="#33-右键打开terminator" class="headerlink" title="33.右键打开terminator"></a>33.右键打开terminator</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/bestBT/article/details/81221378">https://blog.csdn.net/bestBT/article/details/81221378</a></p>
+<h2 id="34-更新cmake"><a href="#34-更新cmake" class="headerlink" title="34.更新cmake"></a>34.更新cmake</h2><p>不知什么原因，cmake版本是3.10，无法安装pcdet里需要的spconv</p>
+<p>故升级到3.19.6</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./bootstrap --prefix=/usr</span><br><span class="line"> make -j`proc`</span><br><span class="line"> sudo make install</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>cmake --version</code>查看版本</p>
+<h2 id="35-安装tensorrt"><a href="#35-安装tensorrt" class="headerlink" title="35. 安装tensorrt"></a>35. 安装tensorrt</h2><p>在官网下载对应的版本，TensorRT-7.0.0.11.Ubuntu-18.04.x86_64-gnu.cuda-10.2.cudnn7.6</p>
+<p>下载tar版本以及deb版本</p>
+<h3 id="安装tar到python"><a href="#安装tar到python" class="headerlink" title="安装tar到python"></a>安装tar到python</h3><p>tar版本的解压到 /home/echo/misc/extra_libs/</p>
+<p>同时在zshrc中加入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/echo/misc/extra_libs/TensorRT-7.0.0.11.Ubuntu-18.04.x86_64-gnu.cuda-10.2.cudnn7.6/TensorRT-7.0.0.11/lib</span><br></pre></td></tr></table></figure>
+
+<p>进入到python环境，然后到TensorRT-7.0.0.11目录下，打开终端执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd python</span><br><span class="line">pip install tensorrt-7.0.0.11-cp37-none-linux_x86_64.whl</span><br><span class="line">cd ..</span><br><span class="line">cd uff</span><br><span class="line">pip install uff-0.6.5-py2.py3-none-any.whl</span><br><span class="line">cd .. </span><br><span class="line">cd graphsurgeon</span><br><span class="line">pip install graphsurgeon-0.4.1-py2.py3-none-any.whl</span><br></pre></td></tr></table></figure>
+
+<p>测试下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python</span><br><span class="line">import tensorrt    # 无反应即为成功</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装deb版本到c"><a href="#安装deb版本到c" class="headerlink" title="安装deb版本到c++"></a>安装deb版本到c++</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dpkg -i nv-tensorrt-repo-ubuntu1804-cuda10.2-trt7.0.0.11-ga-20191216_1-1_amd64.deb</span><br><span class="line">$ sudo apt-key add /var/nv-tensorrt-repo-cuda10.2-trt7.0.0.11-ga-20191216/7fa2af80.pub</span><br><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install tensorrt</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ dpkg -l | grep TensorRT</span><br><span class="line">----------------------------------</span><br><span class="line">ii  libnvinfer-bin                                               7.0.0-1+cuda10.2                                 amd64        TensorRT binaries</span><br><span class="line">ii  libnvinfer-dev                                               7.0.0-1+cuda10.2                                 amd64        TensorRT development libraries and headers</span><br><span class="line">ii  libnvinfer-doc                                               7.0.0-1+cuda10.2                                 all          TensorRT documentation</span><br><span class="line">ii  libnvinfer-plugin-dev                                        7.0.0-1+cuda10.2                                 amd64        TensorRT plugin libraries</span><br><span class="line">ii  libnvinfer-plugin7                                           7.0.0-1+cuda10.2                                 amd64        TensorRT plugin libraries</span><br><span class="line">ii  libnvinfer-samples                                           7.0.0-1+cuda10.2                                 all          TensorRT samples</span><br><span class="line">ii  libnvinfer7                                                  7.0.0-1+cuda10.2                                 amd64        TensorRT runtime libraries</span><br><span class="line">ii  libnvonnxparsers-dev                                         7.0.0-1+cuda10.2                                 amd64        TensorRT ONNX libraries</span><br><span class="line">ii  libnvonnxparsers7                                            7.0.0-1+cuda10.2                                 amd64        TensorRT ONNX libraries</span><br><span class="line">ii  libnvparsers-dev                                             7.0.0-1+cuda10.2                                 amd64        TensorRT parsers libraries</span><br><span class="line">ii  libnvparsers7                                                7.0.0-1+cuda10.2                                 amd64        TensorRT parsers libraries</span><br><span class="line">ii  tensorrt                                                     7.0.0.11-1+cuda10.2                              amd64        Meta package of TensorRT</span><br></pre></td></tr></table></figure>
+
+<p>说明安装成功</p>
+<h2 id="其他小工具"><a href="#其他小工具" class="headerlink" title="其他小工具"></a>其他小工具</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 小火车</span><br><span class="line">sudo apt install sl # 使用sl调用</span><br><span class="line"># 代码雨</span><br><span class="line">sudo apt install cmatrix</span><br><span class="line"># CPU内存等显示插件 https://www.sohu.com/a/301992941_495675</span><br><span class="line">sudo apt-get install gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0</span><br><span class="line">打开Ubuntu软件，然后搜索“system monitor extension” 选择system monitor 可以显示network的那一个</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Echo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2021/03/07/Tutorials/ubuntu_install/">http://example.com/2021/03/07/Tutorials/ubuntu_install/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Echo's Blogs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ubuntu/">ubuntu</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/03/17/Coding/DataStructure/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">总结数组与链表的区别[转载]</div></div></a></div><div class="next-post pull-right"><a href="/2021/03/06/Coding/Python/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8Byeild%E5%85%B3%E9%94%AE%E5%AD%97/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python还债日记之迭代器/生成器/yeild</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">G</span><span class="switch-btn"></span><span class="second-comment">i</span></div></div><div class="comment-wrap"><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85"><span class="toc-text">1. 系统安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%8D%A2%E6%BA%90%EF%BC%8C%E6%9B%B4%E6%96%B0%EF%BC%8C%E5%8D%87%E7%BA%A7"><span class="toc-text">2. 换源，更新，升级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Nvidia%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%85"><span class="toc-text">3. Nvidia驱动安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%AE%89%E8%A3%85%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6"><span class="toc-text">4. 安装常用软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%AE%89%E8%A3%85%E5%B0%8F%E9%A3%9E%E6%9C%BA"><span class="toc-text">5. 安装小飞机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%8C%82%E8%BD%BD%E5%85%B6%E5%AE%83ntfs%E7%A3%81%E7%9B%98%EF%BC%8C%E5%AE%9E%E7%8E%B0%E5%BC%80%E6%9C%BA%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD"><span class="toc-text">6. 挂载其它ntfs磁盘，实现开机自动挂载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%AE%89%E8%A3%85ipgw"><span class="toc-text">7. 安装ipgw</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%AE%89%E8%A3%85chrome"><span class="toc-text">8. 安装chrome</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E5%AE%89%E8%A3%85%E6%90%9C%E7%8B%97%E8%BE%93%E5%85%A5%E6%B3%95"><span class="toc-text">9. 安装搜狗输入法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E5%AE%89%E8%A3%85terminator"><span class="toc-text">10. 安装terminator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E5%AE%89%E8%A3%85typora"><span class="toc-text">11. 安装typora</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-%E5%AE%89%E8%A3%85CUDA-CUDNN"><span class="toc-text">12. 安装CUDA\CUDNN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#cuda10-2"><span class="toc-text">cuda10.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cudnn"><span class="toc-text">cudnn</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-%E5%AE%89%E8%A3%85pycharm"><span class="toc-text">13. 安装pycharm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-%E5%AE%89%E8%A3%85openvpn"><span class="toc-text">14. 安装openvpn</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E5%9C%A8ubuntu18-04%E5%AE%89%E8%A3%85%E7%9A%84%E8%AE%B0%E5%BD%95"><span class="toc-text">补充在ubuntu18.04安装的记录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15-%E5%AE%89%E8%A3%85anaconda"><span class="toc-text">15. 安装anaconda</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16-%E5%AE%89%E8%A3%85git"><span class="toc-text">16. 安装git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#17-%E5%AE%89%E8%A3%85zsh"><span class="toc-text">17. 安装zsh</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#18-%E5%AE%89%E8%A3%85opencv"><span class="toc-text">18. 安装opencv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#19-%E5%AE%89%E8%A3%85ros"><span class="toc-text">19. 安装ros</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#20-%E5%AE%89%E8%A3%85hexo-amp-Gitbook"><span class="toc-text">20. 安装hexo&amp;Gitbook</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85nodejs-v10-x"><span class="toc-text">1. 安装nodejs v10.x</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85Git-%E7%95%A5"><span class="toc-text">2. 安装Git[略]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85Hexo"><span class="toc-text">3. 安装Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AE%89%E8%A3%85Gitbook"><span class="toc-text">4. 安装Gitbook</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#21-%E5%AE%89%E8%A3%85deepin%E7%9B%B8%E5%85%B3"><span class="toc-text">21. 安装deepin相关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E4%BF%A1"><span class="toc-text">微信</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98"><span class="toc-text">解决中文乱码问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E4%B8%AD%E5%BF%83%E9%BB%91%E6%A1%86%E9%97%AE%E9%A2%98"><span class="toc-text">解决中心黑框问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#22-%E5%AE%9A%E5%88%B6Mac%E4%B8%BB%E9%A2%98"><span class="toc-text">22. 定制Mac主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#23-%E5%AE%89%E8%A3%85handbrake"><span class="toc-text">23. 安装handbrake</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#24-%E5%AE%89%E8%A3%85ffmpeg"><span class="toc-text">24. 安装ffmpeg</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#25-%E5%AE%89%E8%A3%85%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E8%BD%AF%E4%BB%B6"><span class="toc-text">25.安装视频播放软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#26-%E5%AE%89%E8%A3%85notion"><span class="toc-text">26. 安装notion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#27-%E5%85%B6%E4%BB%96appimage"><span class="toc-text">27. 其他appimage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#28-%E5%AE%89%E8%A3%85mendeley"><span class="toc-text">28. 安装mendeley</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#29-%E5%AE%89%E8%A3%85flameshot"><span class="toc-text">29. 安装flameshot</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#On-Ubuntu-Tested-on-18-04"><span class="toc-text">On Ubuntu (Tested on 18.04)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#30-%E5%AE%89%E8%A3%85filezilla"><span class="toc-text">30. 安装filezilla</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#31-%E5%AE%89%E8%A3%85youtube-dl-amp-amp-annie"><span class="toc-text">31. 安装youtube-dl &amp;&amp; annie</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#youtube-dl"><span class="toc-text">youtube-dl</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#annie"><span class="toc-text">annie</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#32-%E5%AE%89%E8%A3%85Tex%E7%9B%B8%E5%85%B3"><span class="toc-text">32. 安装Tex相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#33-%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80terminator"><span class="toc-text">33.右键打开terminator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#34-%E6%9B%B4%E6%96%B0cmake"><span class="toc-text">34.更新cmake</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#35-%E5%AE%89%E8%A3%85tensorrt"><span class="toc-text">35. 安装tensorrt</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85tar%E5%88%B0python"><span class="toc-text">安装tar到python</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85deb%E7%89%88%E6%9C%AC%E5%88%B0c"><span class="toc-text">安装deb版本到c++</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%B0%8F%E5%B7%A5%E5%85%B7"><span class="toc-text">其他小工具</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By Echo</div><div class="footer_custom_text">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">簡</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

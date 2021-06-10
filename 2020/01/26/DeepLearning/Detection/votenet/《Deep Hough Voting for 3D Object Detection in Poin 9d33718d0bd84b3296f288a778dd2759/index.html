@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VoteNet论文阅读 | Echo's Blogs</title><meta name="keywords" content="3D Detection"><meta name="author" content="Echo"><meta name="copyright" content="Echo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="article">
+<meta property="og:title" content="VoteNet论文阅读">
+<meta property="og:url" content="http://example.com/2020/01/26/DeepLearning/Detection/votenet/%E3%80%8ADeep%20Hough%20Voting%20for%203D%20Object%20Detection%20in%20Poin%209d33718d0bd84b3296f288a778dd2759/index.html">
+<meta property="og:site_name" content="Echo&#39;s Blogs">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2020-01-26T08:10:19.000Z">
+<meta property="article:modified_time" content="2021-01-20T05:38:59.657Z">
+<meta property="article:author" content="Echo">
+<meta property="article:tag" content="3D Detection">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="http://example.com/2020/01/26/DeepLearning/Detection/votenet/%E3%80%8ADeep%20Hough%20Voting%20for%203D%20Object%20Detection%20in%20Poin%209d33718d0bd84b3296f288a778dd2759/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'VoteNet论文阅读',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-01-20 13:38:59'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">36</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Echo's Blogs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">VoteNet论文阅读</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-01-26T08:10:19.000Z" title="发表于 2020-01-26 16:10:19">2020-01-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-01-20T05:38:59.657Z" title="更新于 2021-01-20 13:38:59">2021-01-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/DeepLearning/">DeepLearning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="VoteNet论文阅读"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><hr>
+<span id="more"></span>
+
+
+
+<h1 id="《Deep-Hough-Voting-for-3D-Object-Detection-in-Point-Clouds》"><a href="#《Deep-Hough-Voting-for-3D-Object-Detection-in-Point-Clouds》" class="headerlink" title="《Deep Hough Voting for 3D Object Detection in Point Clouds》"></a>《Deep Hough Voting for 3D Object Detection in Point Clouds》</h1><ul>
+<li>作者：<em>Charles R. Qi Or Litany Kaiming He Leonidas J. Guibas</em></li>
+<li>机构：<em>Facebook AI Research &amp;&amp; Stanford University</em></li>
+<li>论文水平：<strong>ICCV19</strong></li>
+<li>关键词：<strong>Deep Hough Voting</strong></li>
+</ul>
+<hr>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p><a target="_blank" rel="noopener" href="https://github.com/facebookresearch/votenet">facebookresearch/votenet</a></p>
+<h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>与 2D 图像相比，3D 点云具有精确的几何形状和对光照变化的鲁棒性。但是，点云是不规则的。因此，典型的 CNN 不太适合直接用于处理点云数据。</p>
+<h3 id="现有的三维目标检测方法"><a href="#现有的三维目标检测方法" class="headerlink" title="现有的三维目标检测方法"></a>现有的三维目标检测方法</h3><p><strong>基于2D检测器</strong></p>
+<ol>
+<li>将 Faster 或 Mask R-CNN 等 2D 检测框架扩展到 3D，</li>
+<li>将点云数据投影为规则的 2D 鸟瞰图像，然后应用 2D 检测器定位对象。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>2D区域提议则将漏检所有2D检测器漏检的目标</li>
+<li>图像视觉转换需要额外的计算开销</li>
+<li>体素化或者网格化导致信息细节丢失，影响检测精度</li>
+</ol>
+<p><strong>基于3D点云处理</strong></p>
+<ol>
+<li>提取点云特征之后，从特征回归候选框的大小和位置</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>点云只是物体表面的点，可能距离物体中心有一定距离，所以单纯根据提取到的点云特征，并不能很好的回归出准确的Bbox</li>
+</ol>
+<h2 id="二、问题"><a href="#二、问题" class="headerlink" title="二、问题"></a>二、问题</h2><p>三维检测的表述形式就是Bbox，而Bbox又可以被几个维度的数据表示，分别是中心点、角度、长宽高，所以在自动驾驶领域中，要跟踪的目标尺度默认不变，感知需要完成的任务其实就是回归出中心点以及朝向角，但是，<strong>基于点云的网络很难在目标中心附近学习场景的上下文</strong></p>
+<p>由于点云数据稀疏性，以及现有的三维激光只能获得物体表面的点云这一特性，在三维目标检测领域中，如何从稀疏且局部的点云获得目标完整的候选框，一直是较为困难的问题。</p>
+<p>2D图片做物体检测时，一般一个物体的中心点会在物体内部，中心点周围的像素，一般也都是该物体的像素。在3D点云里面，由于传感器、雷达只能扫描到物体表面的点，而物体中心点一般距离物体表面会有空白区域。对于2D图片，用CNN（RPN）处理一个区域的像素信息从而得出中心点的方法，直觉上是有意义的，中心点很可能就在这个区域的某个像素点上。而对于3D点云，这种方法感觉不是很可行，因为一个物体表面的点距离中心点，有一些距离，中间有很多空白的区域。除非保证CNN的receptive field能够覆盖到物体的表面。receptive field增大后，必然会消耗额外的计算资源，并且三维空间中增大感受野，会引入更多的无用的点，使模型难以训练。</p>
+<h2 id="三、本文思想"><a href="#三、本文思想" class="headerlink" title="三、本文思想"></a>三、本文思想</h2><p>由于数据的稀疏性，直接从场景点预测边界框参数时面临着一个重大挑战：3D 对象的质心可能远离任何表面点，因此很难用一个步骤准确地回归。为了解决这一问题，作者提出赋予点云深度网络一种类似于经典霍夫投票（Hough voting）的投票机制。通过投票，基本上生成了靠近对象中心的新点，可以对这些点进行分组和聚合（grouped and aggregated），以生成候选框（box proposals），对于每个点，都可以对该点所在物体的中心点进行投票，给出自己的建议。每个点都提出一个中心点的位置，那么，只要所属同一个物体的所有的点中的大部分点的建议不算太差，根据这些大部分点的建议值，就可以大概得出该物体的中心点。</p>
+<p><strong>如果大多数点能给出好的投票结果，那么少数服从多数，即可得到中心点。</strong></p>
+<h2 id="四、网络结构"><a href="#四、网络结构" class="headerlink" title="四、网络结构"></a>四、网络结构</h2><h3 id="1-传统的霍夫投票"><a href="#1-传统的霍夫投票" class="headerlink" title="1. 传统的霍夫投票"></a>1. 传统的霍夫投票</h3><p><img src="https://img-blog.csdnimg.cn/20191217170012490.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTM3MzQ4MA==,size_16,color_FFFFFF,t_70" alt="传统霍夫投票流程"></p>
+<ul>
+<li>训练过程：<ul>
+<li>需要根据带注释的对象边界框的图像集合，使用每一个patch与其中心之间的偏移来构建一个映射关系，叫做 <strong>Code Book</strong></li>
+</ul>
+</li>
+<li>推断过程：<ul>
+<li>提取 interest points（SIFT等）</li>
+<li>根据 interest points 提取 Image patches</li>
+<li>将每一个 Patch 都与 Code Book中的path比较，检索出偏移量，并计算投票</li>
+<li>生成Cluster，通过一些聚类算法就可以得到需要检测物体的中心</li>
+<li>通过 Cluster ，使用一些分类器和回归器得到需要预测的bounding box。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-本文的网络框架"><a href="#2-本文的网络框架" class="headerlink" title="2. 本文的网络框架"></a>2. 本文的网络框架</h3><p><img src="https://img-blog.csdnimg.cn/20191217170841326.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTM3MzQ4MA==,size_16,color_FFFFFF,t_70" alt="深度霍夫投票流程"></p>
+<p>作者提出如何将传统的投票机制用于深度学习中，是一个开放性课题，作者提出了一个框架，分为以下四个部分：</p>
+<hr>
+<p><strong>Interest points:</strong></p>
+<p><img src="%E3%80%8ADeep%20Hough%20Voting%20for%203D%20Object%20Detection%20in%20Poin%209d33718d0bd84b3296f288a778dd2759/Untitled.png" alt="使用PointNet++提取兴趣点"></p>
+<p><img src="%E3%80%8ADeep%20Hough%20Voting%20for%203D%20Object%20Detection%20in%20Poin%209d33718d0bd84b3296f288a778dd2759/Untitled%201.png" alt="interest points可视化"></p>
+<ul>
+<li>Nx3 points → Pointnet++ → Mx(3+C) seeds</li>
+<li>输入N个点，经过 Pointnet++， 进行了四层的SA层以及两层FP层，取最后的1024个点作为选出的Seeds，每一个Seed都带有坐标的三个维度特征以及C个其他特征</li>
+<li>网络各层参数如下：</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20191217171821638.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTM3MzQ4MA==,size_16,color_FFFFFF,t_70" alt="pointnet++各层参数"></p>
+<hr>
+<p><strong>Vote</strong>:</p>
+<p><img src="%E3%80%8ADeep%20Hough%20Voting%20for%203D%20Object%20Detection%20in%20Poin%209d33718d0bd84b3296f288a778dd2759/144.png" alt="投票网络"></p>
+<p><img src="%E3%80%8ADeep%20Hough%20Voting%20for%203D%20Object%20Detection%20in%20Poin%209d33718d0bd84b3296f288a778dd2759/VoteNet2.png" alt="投票结果可视化"></p>
+<ul>
+<li><p>Mx(3+C) seeds → MLP → Mx(3+C) seeds with pos offset and feature offset</p>
+</li>
+<li><p>通过MLP对对应的(3+C)个通道进行投票，所谓的投票操作就是逐点进行多层感知机的变换，通过有监督的训练，让这一层多层感知机学习参数，进而让得到的(3+C)个维度的特征除了自身的三维坐标以及特性信息外，还额外带有中心点相对于当前点的坐标偏置以及特征偏置</p>
+</li>
+<li><p>这部分在训练时的label是通过预先计算Box中心到每一个点的距离，相当于每一个点都有一个label，label的值就是距离，然后根据网络预测的值与label计算loss，进而训练网络模型</p>
+</li>
+<li><p>Loss如下：</p>
+<p>  <img src="%E3%80%8ADeep%20Hough%20Voting%20for%203D%20Object%20Detection%20in%20Poin%209d33718d0bd84b3296f288a778dd2759/Untitled%202.png" alt="loss"></p>
+<ul>
+<li><em>∆xi：</em>是模型的预测输出</li>
+<li><em>∆xi</em>：*是根据Box提前计算出来的真值</li>
+<li><em>Mpos：</em>指在物体表面的点的数量</li>
+<li><em>1[Si on object]：</em>指物体是否在表面，在的话就是1，否则为0，表示这个点不参加loss计算</li>
+<li>整体Loss函数其实就是将每一个在表面上的点，其针对偏置的预测和真值之间的欧式距离进行累加，再除以点数</li>
+</ul>
+</li>
+<li><p>整个投票的过程是用seed的256维度的特征生成259维度的偏置，包括坐标和特征的偏置</p>
+</li>
+<li><p><strong>判断点在表面上的基准不同数据集不一样，但都是在数据集加载阶段判断的，如果有语义的label，那么直接判断语义的label是否属于当前目标的类别，如果没有，则判断当前点是否在中心点的一定半径范围内</strong></p>
+</li>
+</ul>
+<hr>
+<p><strong>Vote aggregation</strong>:</p>
+<p><img src="%E3%80%8ADeep%20Hough%20Voting%20for%203D%20Object%20Detection%20in%20Poin%209d33718d0bd84b3296f288a778dd2759/149.png" alt="投票点聚类网络"></p>
+<p><img src="%E3%80%8ADeep%20Hough%20Voting%20for%203D%20Object%20Detection%20in%20Poin%209d33718d0bd84b3296f288a778dd2759/145.png" alt="投票点聚类可视化"></p>
+<ul>
+<li>Mx(3+C) seeds → SA Module → K x n x (3+C) vote clusters</li>
+<li>这一步是通过对点云的<strong>采样和聚合</strong>来产生K个投票点的聚类结果.</li>
+<li>sampling : FPS<ul>
+<li>通过不断计算欧式距离, 产生K个中心点</li>
+</ul>
+</li>
+<li>grouping : BallQuery<ul>
+<li>以K个点为中心, 人工设置半径, 聚类产生K个聚类结果</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>Object proposals</strong>:</p>
+<p><img src="%E3%80%8ADeep%20Hough%20Voting%20for%203D%20Object%20Detection%20in%20Poin%209d33718d0bd84b3296f288a778dd2759/148.png" alt="对生成的目标进行筛选"></p>
+<p><img src="%E3%80%8ADeep%20Hough%20Voting%20for%203D%20Object%20Detection%20in%20Poin%209d33718d0bd84b3296f288a778dd2759/147.png" alt="筛选结果可视化"></p>
+<ul>
+<li>K x n x (3+C) → Maxpool + MLP → K x Cout → 3D NMS → K boxes</li>
+<li>通过前面产生的K个聚类结果, 经过最大池化</li>
+</ul>
+<h2 id="代码测试"><a href="#代码测试" class="headerlink" title="代码测试"></a>代码测试</h2><h3 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">(psrpn) echo@OMEN:~<span class="regexp">/disks/</span>DeepLearning_Projects/Detection/votenet$ python models/votenet.py </span><br><span class="line">--------------------------------------------------------</span><br><span class="line">************* pointnet++ PointnetSAModuleVotes ************</span><br><span class="line">sa1_inds torch.Size([<span class="number">1</span>, <span class="number">2048</span>])</span><br><span class="line">sa1_xyz torch.Size([<span class="number">1</span>, <span class="number">2048</span>, <span class="number">3</span>])</span><br><span class="line">sa1_features torch.Size([<span class="number">1</span>, <span class="number">128</span>, <span class="number">2048</span>])</span><br><span class="line"></span><br><span class="line">sa2_inds torch.Size([<span class="number">1</span>, <span class="number">1024</span>])</span><br><span class="line">sa2_xyz torch.Size([<span class="number">1</span>, <span class="number">1024</span>, <span class="number">3</span>])</span><br><span class="line">sa2_features torch.Size([<span class="number">1</span>, <span class="number">256</span>, <span class="number">1024</span>])</span><br><span class="line"></span><br><span class="line">sa3_xyz torch.Size([<span class="number">1</span>, <span class="number">512</span>, <span class="number">3</span>])</span><br><span class="line">sa3_features torch.Size([<span class="number">1</span>, <span class="number">256</span>, <span class="number">512</span>])</span><br><span class="line"></span><br><span class="line">sa4_xyz torch.Size([<span class="number">1</span>, <span class="number">256</span>, <span class="number">3</span>])</span><br><span class="line">sa4_features torch.Size([<span class="number">1</span>, <span class="number">256</span>, <span class="number">256</span>])</span><br><span class="line"></span><br><span class="line">************* pointnet++ PointnetFPModule ************</span><br><span class="line">fp2_features torch.Size([<span class="number">1</span>, <span class="number">256</span>, <span class="number">1024</span>])</span><br><span class="line">fp2_xyz torch.Size([<span class="number">1</span>, <span class="number">1024</span>, <span class="number">3</span>])</span><br><span class="line">fp2_inds torch.Size([<span class="number">1</span>, <span class="number">1024</span>])</span><br><span class="line"></span><br><span class="line">************* pointnet++ Output Seeds ************</span><br><span class="line">seed_inds torch.Size([<span class="number">1</span>, <span class="number">1024</span>])</span><br><span class="line">seed_xyz torch.Size([<span class="number">1</span>, <span class="number">1024</span>, <span class="number">3</span>])</span><br><span class="line">seed_features torch.Size([<span class="number">1</span>, <span class="number">256</span>, <span class="number">1024</span>])</span><br><span class="line"></span><br><span class="line">|- ([<span class="number">1</span>, <span class="number">1024</span>, <span class="number">256</span>])</span><br><span class="line">|- ([<span class="number">1</span>, <span class="number">1024</span>, <span class="number">256</span>])</span><br><span class="line">|- ([<span class="number">1</span>, <span class="number">1024</span>, <span class="number">256</span>]) + ([<span class="number">1</span>, <span class="number">1024</span>, <span class="number">3</span>])</span><br><span class="line"></span><br><span class="line">************* Seeds -&gt; Votes through MLP ************</span><br><span class="line">vote_xyz torch.Size([<span class="number">1</span>, <span class="number">1024</span>, <span class="number">3</span>])</span><br><span class="line">vote_features torch.Size([<span class="number">1</span>, <span class="number">256</span>, <span class="number">1024</span>])</span><br><span class="line"></span><br><span class="line">|- ([<span class="number">1</span>, <span class="number">1024</span>, <span class="number">256</span>])</span><br><span class="line">************* Aggregate Votes through Maxpool and MLP ************</span><br><span class="line">aggregated_vote_xyz torch.Size([<span class="number">1</span>, <span class="number">128</span>, <span class="number">3</span>])</span><br><span class="line">aggregated_vote_inds torch.Size([<span class="number">1</span>, <span class="number">128</span>])</span><br><span class="line"></span><br><span class="line"># 表示目标</span><br><span class="line">objectness_scores torch.Size([<span class="number">1</span>, <span class="number">128</span>, <span class="number">2</span>])</span><br><span class="line">center torch.Size([<span class="number">1</span>, <span class="number">128</span>, <span class="number">3</span>])</span><br><span class="line"></span><br><span class="line">heading_scores torch.Size([<span class="number">1</span>, <span class="number">128</span>, <span class="number">12</span>])</span><br><span class="line">heading_residuals_normalized torch.Size([<span class="number">1</span>, <span class="number">128</span>, <span class="number">12</span>])</span><br><span class="line">heading_residuals torch.Size([<span class="number">1</span>, <span class="number">128</span>, <span class="number">12</span>])</span><br><span class="line"></span><br><span class="line">size_scores torch.Size([<span class="number">1</span>, <span class="number">128</span>, <span class="number">10</span>])</span><br><span class="line">size_residuals_normalized torch.Size([<span class="number">1</span>, <span class="number">128</span>, <span class="number">10</span>, <span class="number">3</span>])</span><br><span class="line">size_residuals torch.Size([<span class="number">1</span>, <span class="number">128</span>, <span class="number">10</span>, <span class="number">3</span>])</span><br><span class="line"></span><br><span class="line">sem_cls_scores torch.Size([<span class="number">1</span>, <span class="number">128</span>, <span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+
+<h3 id="backbone-module-py"><a href="#backbone-module-py" class="headerlink" title="backbone_module.py"></a>backbone_module.py</h3><p>pointnet++中, 每一层SA都使用了normalize</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">self.sa1 = PointnetSAModuleVotes(</span><br><span class="line">                npoint=<span class="number">2048</span>,</span><br><span class="line">                radius=<span class="number">0.2</span>,</span><br><span class="line">                nsample=<span class="number">64</span>,</span><br><span class="line">                mlp=[input_feature_dim, <span class="number">64</span>, <span class="number">64</span>, <span class="number">128</span>],</span><br><span class="line">                use_xyz=True,</span><br><span class="line">                normalize_xyz=True</span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__==<span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    backbone_net = Pointnet2Backbone(input_feature_dim=<span class="number">3</span>).cuda()</span><br><span class="line">    print(backbone_net)</span><br><span class="line">    backbone_net.eval()</span><br><span class="line">    out = backbone_net(torch.rand(<span class="number">16</span>,<span class="number">20000</span>,<span class="number">6</span>).cuda())</span><br><span class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> sorted(out.keys()):</span><br><span class="line">        print(key, <span class="string">&#x27;\t&#x27;</span>, out[key].shape)</span><br></pre></td></tr></table></figure>
+
+<p>输入的是6个维度, 分别是xyzrgb</p>
+<h3 id="voting-module-py"><a href="#voting-module-py" class="headerlink" title="voting_module.py"></a>voting_module.py</h3><p>259 → 256 → 259是直接MLP计算的,并不是将三维坐标分开再加回去</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">self.conv1 = torch.nn.Conv1d(self.in_dim, self.in_dim, <span class="number">1</span>)</span><br><span class="line">self.conv2 = torch.nn.Conv1d(self.in_dim, self.in_dim, <span class="number">1</span>)</span><br><span class="line">self.conv3 = torch.nn.Conv1d(self.in_dim, (<span class="number">3</span>+self.out_dim) * self.vote_factor, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="网络结构框图"><a href="#网络结构框图" class="headerlink" title="网络结构框图"></a>网络结构框图</h2><p><img src="%E3%80%8ADeep%20Hough%20Voting%20for%203D%20Object%20Detection%20in%20Poin%209d33718d0bd84b3296f288a778dd2759/VoteNet_Graph.svg" alt="Network"></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/phy12321/article/details/103440161">Deep Hough Voting</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/94355668">VoteNet: Object Detection in Point Clouds ICCV2019</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42606990/article/details/106796476?utm_medium=distribute.pc_relevant.none-task-blog-title-1&spm=1001.2101.3001.4242">votenet的简单理解Deep Hough Voting for 3D Object Detection in Point Clouds_weixin_42606990的博客-CSDN博客_votenet: object detection in point clouds</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/WA8UDIkvPiuC3krbNgNl">何恺明团队开源3D目标检测新框架VoteNet：模型更简单、效率更高-InfoQ</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/63755003">何恺明团队最新研究：3D目标检测新框架VoteNet，直接处理点云数据，刷新最高精度</a></p>
+<hr>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Echo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2020/01/26/DeepLearning/Detection/votenet/%E3%80%8ADeep%20Hough%20Voting%20for%203D%20Object%20Detection%20in%20Poin%209d33718d0bd84b3296f288a778dd2759/">http://example.com/2020/01/26/DeepLearning/Detection/votenet/%E3%80%8ADeep%20Hough%20Voting%20for%203D%20Object%20Detection%20in%20Poin%209d33718d0bd84b3296f288a778dd2759/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Echo's Blogs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/3D-Detection/">3D Detection</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/03/06/Coding/Python/python%E4%B8%8Eros%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Python与ros兼容问题记录</div></div></a></div><div class="next-post pull-right"><a href="/2020/01/10/Tutorials/solve-pic-error/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hexo主题使用总结</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/01/26/DeepLearning/Detection/3D-SSD/" title="3D-SSD论文阅读"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-26</div><div class="title">3D-SSD论文阅读</div></div></a></div><div><a href="/2020/08/26/DeepLearning/Detection/pixor/" title="PIXOR论文阅读"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-26</div><div class="title">PIXOR论文阅读</div></div></a></div><div><a href="/2020/07/26/DeepLearning/Detection/pointpillars/" title="PointPillars论文阅读"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-26</div><div class="title">PointPillars论文阅读</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">G</span><span class="switch-btn"></span><span class="second-comment">i</span></div></div><div class="comment-wrap"><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%8ADeep-Hough-Voting-for-3D-Object-Detection-in-Point-Clouds%E3%80%8B"><span class="toc-text">《Deep Hough Voting for 3D Object Detection in Point Clouds》</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%83%8C%E6%99%AF"><span class="toc-text">一、背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%B0%E6%9C%89%E7%9A%84%E4%B8%89%E7%BB%B4%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%96%B9%E6%B3%95"><span class="toc-text">现有的三维目标检测方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%97%AE%E9%A2%98"><span class="toc-text">二、问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%9C%AC%E6%96%87%E6%80%9D%E6%83%B3"><span class="toc-text">三、本文思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="toc-text">四、网络结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BC%A0%E7%BB%9F%E7%9A%84%E9%9C%8D%E5%A4%AB%E6%8A%95%E7%A5%A8"><span class="toc-text">1. 传统的霍夫投票</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9C%AC%E6%96%87%E7%9A%84%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6"><span class="toc-text">2. 本文的网络框架</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%B5%8B%E8%AF%95"><span class="toc-text">代码测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="toc-text">网络结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#backbone-module-py"><span class="toc-text">backbone_module.py</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#voting-module-py"><span class="toc-text">voting_module.py</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84%E6%A1%86%E5%9B%BE"><span class="toc-text">网络结构框图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By Echo</div><div class="footer_custom_text">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">簡</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

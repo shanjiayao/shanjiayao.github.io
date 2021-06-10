@@ -1,0 +1,242 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Python还债日记之迭代器/生成器/yeild | Echo's Blogs</title><meta name="keywords" content="python-yeild"><meta name="author" content="Echo"><meta name="copyright" content="Echo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="转载自： https:&#x2F;&#x2F;liam.page&#x2F;2017&#x2F;06&#x2F;30&#x2F;understanding-yield-in-python&#x2F;   生成器 &#x3D; 迭代器 + yeild  概述  逐个获取元素的过程，就是「迭代」  迭代器中没有元素时，调用 next() 方法会抛出 StopIteration 异常  如果提供了 __iter__() 或者 __getitem__() 方法，那么该类的对象就是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python还债日记之迭代器&#x2F;生成器&#x2F;yeild">
+<meta property="og:url" content="http://example.com/2021/03/06/Coding/Python/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8Byeild%E5%85%B3%E9%94%AE%E5%AD%97/index.html">
+<meta property="og:site_name" content="Echo&#39;s Blogs">
+<meta property="og:description" content="转载自： https:&#x2F;&#x2F;liam.page&#x2F;2017&#x2F;06&#x2F;30&#x2F;understanding-yield-in-python&#x2F;   生成器 &#x3D; 迭代器 + yeild  概述  逐个获取元素的过程，就是「迭代」  迭代器中没有元素时，调用 next() 方法会抛出 StopIteration 异常  如果提供了 __iter__() 或者 __getitem__() 方法，那么该类的对象就是">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2021-03-06T08:10:19.000Z">
+<meta property="article:modified_time" content="2021-06-08T08:30:42.384Z">
+<meta property="article:author" content="Echo">
+<meta property="article:tag" content="python-yeild">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="http://example.com/2021/03/06/Coding/Python/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8Byeild%E5%85%B3%E9%94%AE%E5%AD%97/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Python还债日记之迭代器/生成器/yeild',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-06-08 16:30:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">36</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Echo's Blogs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Python还债日记之迭代器/生成器/yeild</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-06T08:10:19.000Z" title="发表于 2021-03-06 16:10:19">2021-03-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-06-08T08:30:42.384Z" title="更新于 2021-06-08 16:30:42">2021-06-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Coding/">Coding</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Python还债日记之迭代器/生成器/yeild"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><span id="more"></span>
+
+<p>转载自：</p>
+<p><a target="_blank" rel="noopener" href="https://liam.page/2017/06/30/understanding-yield-in-python/">https://liam.page/2017/06/30/understanding-yield-in-python/</a></p>
+<hr>
+<blockquote>
+<p><mark>生成器 = 迭代器 + yeild</mark></p>
+</blockquote>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><hr>
+<ol>
+<li><p>逐个获取元素的过程，就是「迭代」</p>
+</li>
+<li><p>迭代器中没有元素时，调用 <code>next()</code> 方法会抛出 <code>StopIteration</code> 异常</p>
+</li>
+<li><p>如果提供了 <code>__iter__()</code> 或者 <code>__getitem__()</code> 方法，那么该类的对象就是可迭代的</p>
+</li>
+<li><p>如果一个函数包含 <code>yield</code> 表达式，那么它是一个生成器函数；调用它会返回一个特殊的迭代器，称为生成器</p>
+</li>
+<li><p>对生成器执行<code>next()</code>：从上一次在 <code>yield</code> 表达式暂停的状态恢复，继续执行到下一次遇见 <code>yield</code> 表达式</p>
+</li>
+<li><p>在 Python 3 中，<code>range</code> 相当于 Python 2 中的 <code>xrange</code>，大大节省了内存占用</p>
+</li>
+<li><p>python3.3以后，新增了<code>yeild from</code>语法， <code>yield from g</code>相当于<code>for v in g: yield v</code></p>
+</li>
+<li><p>对于一个生成器对象<code>g</code>，可以使用<code>list(g)</code>将其转换成列表</p>
+</li>
+</ol>
+<h2 id="迭代、可迭代、迭代器"><a href="#迭代、可迭代、迭代器" class="headerlink" title="迭代、可迭代、迭代器"></a>迭代、可迭代、迭代器</h2><h3 id="迭代（iteration）与可迭代（iterable）"><a href="#迭代（iteration）与可迭代（iterable）" class="headerlink" title="迭代（iteration）与可迭代（iterable）"></a>迭代（iteration）与可迭代（iterable）</h3><blockquote>
+<p>迭代是一种操作，是遍历方式的一种（另一种是递归）；可迭代是对象的一种特性。</p>
+</blockquote>
+<p>很多数据都是「容器」；它们包含了很多其他类型的元素。实际使用容器时，我们常常需要逐个获取其中的元素。<strong>逐个获取元素的过程，就是「迭代」</strong>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># iteration</span></span><br><span class="line">a_list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> a_list:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
+
+<p>如果我们可以从一个对象中，逐个地获取元素，那么我们就说这个对象是「可迭代的」。</p>
+<p>Python 中的顺序类型，都是可迭代的（<code>list</code>, <code>tuple</code>, <code>string</code>）。其余包括 <code>dict</code>, <code>set</code>, <code>file</code> 也是可迭代的。对于用户自己实现的类型，如果提供了 <code>__iter__()</code> 或者 <code>__getitem__()</code> 方法，那么该类的对象也是可迭代的。</p>
+<h3 id="迭代器（iterator）"><a href="#迭代器（iterator）" class="headerlink" title="迭代器（iterator）"></a>迭代器（iterator）</h3><blockquote>
+<p>迭代器是一种对象。</p>
+</blockquote>
+<p>迭代器抽象的是一个「数据流」，是只允许迭代一次的对象。对迭代器不断调用 <code>next()</code> 方法，则可以依次获取下一个元素；当迭代器中没有元素时，调用 <code>next()</code> 方法会抛出 <code>StopIteration</code> 异常。迭代器的 <code>__iter__()</code> 方法返回迭代器自身；因此迭代器也是可迭代的。</p>
+<h3 id="迭代器协议（iterator-protocol）"><a href="#迭代器协议（iterator-protocol）" class="headerlink" title="迭代器协议（iterator protocol）"></a>迭代器协议（iterator protocol）</h3><blockquote>
+<p>迭代器协议指的是容器类需要包含一个特殊方法。</p>
+</blockquote>
+<p>如果一个容器类提供了 <code>__iter__()</code> 方法，并且该方法能返回一个能够逐个访问容器内所有元素的迭代器，则我们说该容器类实现了迭代器协议。</p>
+<p>Python 中的迭代器协议和 Python 中的 <code>for</code> 循环是紧密相连的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># iterator protocol and for loop</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> something:</span><br><span class="line">    <span class="built_in">print</span>(x)</span><br></pre></td></tr></table></figure>
+
+<p>Python 处理 <code>for</code> 循环时，首先会调用内建函数 <code>iter(something)</code>，它实际上会调用 <code>something.__iter__()</code>，返回 <code>something</code> 对应的迭代器。而后，<code>for</code> 循环会调用内建函数 <code>next()</code>，作用在迭代器上，获取迭代器的下一个元素，并赋值给 <code>x</code>。此后，Python 才开始执行循环体。</p>
+<h2 id="生成器、yield-表达式"><a href="#生成器、yield-表达式" class="headerlink" title="生成器、yield 表达式"></a>生成器、<code>yield</code> 表达式</h2><h3 id="生成器函数（generator-function）和生成器（generator）"><a href="#生成器函数（generator-function）和生成器（generator）" class="headerlink" title="生成器函数（generator function）和生成器（generator）"></a>生成器函数（generator function）和生成器（generator）</h3><blockquote>
+<p>生成器函数是一种特殊的函数；生成器则是特殊的迭代器。</p>
+</blockquote>
+<p>如果一个函数包含 <code>yield</code> 表达式，那么它是一个生成器函数；调用它会返回一个特殊的迭代器，称为生成器。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>():</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gen</span>():</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(func))   <span class="comment"># &lt;class &#x27;function&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(gen))    <span class="comment"># &lt;class &#x27;function&#x27;&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(func())) <span class="comment"># &lt;class &#x27;int&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(gen()))  <span class="comment"># &lt;class &#x27;generator&#x27;&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如上，生成器 <code>gen</code> 看起来和普通的函数没有太大区别。仅只是将 <code>return</code> 换成了 <code>yield</code>。用 <code>type()</code> 函数打印二者的类型也能发现，<code>func</code> 和 <code>gen</code> 都是函数。然而，二者的返回值的类型就不同了。<code>func()</code> 是一个 <code>int</code> 类型的对象；而 <code>gen()</code> 则是一个迭代器对象。</p>
+<h3 id="yield-表达式"><a href="#yield-表达式" class="headerlink" title="yield 表达式"></a><code>yield</code> 表达式</h3><p>如前所述，如果一个函数定义中包含 <code>yield</code> 表达式，那么该函数是一个生成器函数（而非普通函数）。实际上，<code>yield</code> 仅能用于定义生成器函数。</p>
+<p>与普通函数不同，生成器函数被调用后，其函数体内的代码并不会立即执行，而是返回一个生成器（generator-iterator）。当返回的生成器调用成员方法时，相应的生成器函数中的代码才会执行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square</span>():</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">        <span class="keyword">yield</span> x ** <span class="number">2</span></span><br><span class="line">square_gen = square()</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> square_gen:</span><br><span class="line">    <span class="built_in">print</span>(x)</span><br></pre></td></tr></table></figure>
+
+<p>前面说到，<code>for</code> 循环会调用 <code>iter()</code> 函数，获取一个生成器；而后调用 <code>next()</code> 函数，将生成器中的下一个值赋值给 <code>x</code>；再执行循环体。因此，上述 <code>for</code> 循环基本等价于：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">genitor = square_gen.__iter__()</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    x = geniter.<span class="built_in">next</span>() <span class="comment"># Python 3 是 __next__()</span></span><br><span class="line">    <span class="built_in">print</span>(x)</span><br></pre></td></tr></table></figure>
+
+<p>注意到，<code>square</code> 是一个生成器函数；作为它的返回值，<code>square_gen</code> 已经是一个迭代器；迭代器的 <code>__iter__()</code> 返回它自己。因此 <code>geniter</code> 对应的生成器函数，即是 <code>square</code>。</p>
+<p>每次执行到 <code>x = geniter.next()</code> 时，<code>square</code> 函数会从上一次暂停的位置开始，一直执行到下一个 <code>yield</code> 表达式，将 <code>yield</code> 关键字后的表达式列表返回给调用者，并再次暂停。注意，<strong>每次从暂停恢复时，生成器函数的内部变量、指令指针、内部求值栈等内容和暂停时完全一致</strong>。</p>
+<h3 id="生成器的方法"><a href="#生成器的方法" class="headerlink" title="生成器的方法"></a>生成器的方法</h3><p>生成器有一些方法。调用这些方法可以控制对应的生成器函数；不过，若是生成器函数已在执行过程中，调用这些方法则会抛出 <code>ValueError</code> 异常。</p>
+<ul>
+<li><code>generator.next()</code>：从上一次在 <code>yield</code> 表达式暂停的状态恢复，继续执行到下一次遇见 <code>yield</code> 表达式。当该方法被调用时，当前 <code>yield</code> 表达式的值为 <code>None</code>，下一个 <code>yield</code> 表达式中的表达式列表会被返回给该方法的调用者。若没有遇到 <code>yield</code> 表达式，生成器函数就已经退出，那么该方法会抛出 <code>StopIterator</code> 异常。</li>
+<li><code>generator.send(value)</code>：和 <code>generator.next()</code> 类似，差别仅在与它会将当前 <code>yield</code> 表达式的值设置为 <code>value</code>。</li>
+<li><code>generator.throw(type[, value[, traceback]])</code>：向生成器函数抛出一个类型为 <code>type</code> 值为 <code>value</code> 调用栈为 <code>traceback</code> 的异常，而后让生成器函数继续执行到下一个 <code>yield</code> 表达式。其余行为与 <code>generator.next()</code> 类似。</li>
+<li><code>generator.close()</code>：告诉生成器函数，当前生成器作废不再使用。</li>
+</ul>
+<h3 id="举例和说明"><a href="#举例和说明" class="headerlink" title="举例和说明"></a>举例和说明</h3><h3 id="如果你看不懂生成器函数"><a href="#如果你看不懂生成器函数" class="headerlink" title="如果你看不懂生成器函数"></a>如果你看不懂生成器函数</h3><p>如果你还是不太能理解生成器函数，那么大致上你可以这样去理解。</p>
+<ul>
+<li>在函数开始处，加入 <code>result = list()</code>；</li>
+<li>将每个 <code>yield</code> 表达式 <code>yield expr</code> 替换为 <code>result.append(expr)</code>；</li>
+<li>在函数末尾处，加入 <code>return result</code>。</li>
+</ul>
+<h3 id="关于「下一个」yield-表达式"><a href="#关于「下一个」yield-表达式" class="headerlink" title="关于「下一个」yield 表达式"></a>关于「下一个」<code>yield</code> 表达式</h3><p>介绍「生成器的方法」时，我们说当调用 <code>generator.next()</code> 时，生成器函数会从当前位置开始执行到下一个 <code>yield</code> 表达式。这里的「下一个」指的是执行逻辑的下一个。因此</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f123</span>():</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> f123(): <span class="comment"># 1, 2, and 3, will be printed</span></span><br><span class="line">    <span class="built_in">print</span>(item)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f13</span>():</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">False</span>:</span><br><span class="line">        <span class="keyword">yield</span> <span class="number">2</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> f13(): <span class="comment"># 1 and 3, will be printed</span></span><br><span class="line">    <span class="built_in">print</span>(item)</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-send-方法与生成器函数通信"><a href="#使用-send-方法与生成器函数通信" class="headerlink" title="使用 send() 方法与生成器函数通信"></a>使用 <code>send()</code> 方法与生成器函数通信</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>():</span></span><br><span class="line">    x = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        y = (<span class="keyword">yield</span> x)</span><br><span class="line">        x += y</span><br><span class="line"></span><br><span class="line">geniter = func()</span><br><span class="line">geniter.<span class="built_in">next</span>()  <span class="comment"># 1</span></span><br><span class="line">geniter.send(<span class="number">3</span>) <span class="comment"># 4</span></span><br><span class="line">geniter.send(<span class="number">10</span>)<span class="comment"># 14</span></span><br></pre></td></tr></table></figure>
+
+<p>此处，生成器函数 <code>func</code> 用 <code>yield</code> 表达式，将处理好的 <code>x</code> 发送给生成器的调用者；与此同时，生成器的调用者通过 <code>send</code> 函数，将外部信息作为生成器函数内部的 <code>yield</code> 表达式的值，保存在 <code>y</code> 当中，并参与后续的处理。</p>
+<p>这一特性是使用 <code>yield</code> 在 Python 中使用协程的基础。</p>
+<h2 id="yield-的好处"><a href="#yield-的好处" class="headerlink" title="yield 的好处"></a><code>yield</code> 的好处</h2><p>Python 的老用户应该会熟悉 Python 2 中的一个特性：内建函数 <code>range</code> 和 <code>xrange</code>。其中，<code>range</code> 函数返回的是一个列表，而 <code>xrange</code> 返回的是一个迭代器。</p>
+<blockquote>
+<p>在 Python 3 中，range 相当于 Python 2 中的 xrange；而 Python 2 中的 range 可以用 list(range()) 来实现。</p>
+</blockquote>
+<p>Python 之所以要提供这样的解决方案，是因为在很多时候，我们只是需要逐个顺序访问容器内的元素。大多数时候，我们不需要「一口气获取容器内所有的元素」。比方说，顺序访问容器内的前 5 个元素，可以有两种做法：</p>
+<ul>
+<li>获取容器内的所有元素，然后取出前 5 个；</li>
+<li>从头开始，逐个迭代容器内的元素，迭代 5 个元素之后停止。</li>
+</ul>
+<p>显而易见，如果容器内的元素数量非常多（比如有 <code>10 ** 8</code> 个），或者容器内的元素体积非常大，那么后一种方案能节省巨大的时间、空间开销。</p>
+<p>现在假设，我们有一个函数，其产出（返回值）是一个列表。而若我们知道，调用者对该函数的返回值，只有逐个迭代这一种方式。那么，如果函数生产列表中的每一个元素都需要耗费非常多的时间，或者生成所有元素需要等待很长时间，则使用 <code>yield</code> 把函数变成一个生成器函数，每次只产生一个元素，就能节省很多开销了。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Echo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2021/03/06/Coding/Python/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8Byeild%E5%85%B3%E9%94%AE%E5%AD%97/">http://example.com/2021/03/06/Coding/Python/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8Byeild%E5%85%B3%E9%94%AE%E5%AD%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Echo's Blogs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python-yeild/">python-yeild</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/03/07/Tutorials/ubuntu_install/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">ubuntu18_04升级记录</div></div></a></div><div class="next-post pull-right"><a href="/2021/01/27/DeepLearning/Tracking/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">目标跟踪中的边界效应与余弦窗平滑</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">G</span><span class="switch-btn"></span><span class="second-comment">i</span></div></div><div class="comment-wrap"><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E3%80%81%E5%8F%AF%E8%BF%AD%E4%BB%A3%E3%80%81%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-text">迭代、可迭代、迭代器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%EF%BC%88iteration%EF%BC%89%E4%B8%8E%E5%8F%AF%E8%BF%AD%E4%BB%A3%EF%BC%88iterable%EF%BC%89"><span class="toc-text">迭代（iteration）与可迭代（iterable）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88iterator%EF%BC%89"><span class="toc-text">迭代器（iterator）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%8D%8F%E8%AE%AE%EF%BC%88iterator-protocol%EF%BC%89"><span class="toc-text">迭代器协议（iterator protocol）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%99%A8%E3%80%81yield-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">生成器、yield 表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0%EF%BC%88generator-function%EF%BC%89%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8%EF%BC%88generator%EF%BC%89"><span class="toc-text">生成器函数（generator function）和生成器（generator）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#yield-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">yield 表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%99%A8%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">生成器的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BE%E4%BE%8B%E5%92%8C%E8%AF%B4%E6%98%8E"><span class="toc-text">举例和说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E4%BD%A0%E7%9C%8B%E4%B8%8D%E6%87%82%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0"><span class="toc-text">如果你看不懂生成器函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E3%80%8C%E4%B8%8B%E4%B8%80%E4%B8%AA%E3%80%8Dyield-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">关于「下一个」yield 表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-send-%E6%96%B9%E6%B3%95%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0%E9%80%9A%E4%BF%A1"><span class="toc-text">使用 send() 方法与生成器函数通信</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#yield-%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="toc-text">yield 的好处</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By Echo</div><div class="footer_custom_text">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">簡</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
