@@ -1,17 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FPS采样算法 | Echo's Blogs</title><meta name="keywords" content="FPS"><meta name="author" content="Echo"><meta name="copyright" content="Echo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="FPS采样一种通过计算欧式空间距离信息进行采样的方法  优点：  可以控制采样点数 可以最大程度上保留原始点集欧式空间上的特征    - 采样之后的点集在空间上分布较为均匀（最远点采样的特性）    缺点：  采样场景较大时，算法耗时较为严重 采样场景前景背景分布不均匀时，采样结果不理想，背景点偏多     方法详解假设有 N 个点，要从里面按照FPS算法，采样出 M 个点(M&lt;N)。逻">
-<meta property="og:type" content="article">
-<meta property="og:title" content="FPS采样算法">
-<meta property="og:url" content="http://example.com/2021/01/25/Algorithms/FarthestPointSampling/index.html">
-<meta property="og:site_name" content="Echo&#39;s Blogs">
-<meta property="og:description" content="FPS采样一种通过计算欧式空间距离信息进行采样的方法  优点：  可以控制采样点数 可以最大程度上保留原始点集欧式空间上的特征    - 采样之后的点集在空间上分布较为均匀（最远点采样的特性）    缺点：  采样场景较大时，算法耗时较为严重 采样场景前景背景分布不均匀时，采样结果不理想，背景点偏多     方法详解假设有 N 个点，要从里面按照FPS算法，采样出 M 个点(M&lt;N)。逻">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
-<meta property="article:published_time" content="2021-01-25T08:10:19.000Z">
-<meta property="article:modified_time" content="2021-06-11T13:26:11.333Z">
-<meta property="article:author" content="Echo">
-<meta property="article:tag" content="FPS">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="http://example.com/2021/01/25/Algorithms/FarthestPointSampling/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FPS采样算法 | Echo's Blogs</title><meta name="keywords" content="FPS"><meta name="author" content="Echo"><meta name="copyright" content="Echo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="FPS采样一种通过计算欧式空间距离信息进行采样的方法  优点：  可以控制采样点数 可以最大程度上保留原始点集欧式空间上的特征    - 采样之后的点集在空间上分布较为均匀（最远点采样的特性）    缺点：  采样场景较大时，算法耗时较为严重 采样场景前景背景分布不均匀时，采样结果不理想，背景点"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="http://example.com/2021/01/25/Algorithms/FarthestPointSampling/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
   localSearch: undefined,

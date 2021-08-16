@@ -1,17 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>目标跟踪中的边界效应与余弦窗平滑 | Echo's Blogs</title><meta name="keywords" content="2D Tracking"><meta name="author" content="Echo"><meta name="copyright" content="Echo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文主要介绍学习目标跟踪算法时遇到的关于边界效应以及余弦窗平滑的相关知识 1. 边界效应1.1 背景在目标跟踪算法中，边界效应最早在的出现，是在基于相关滤波方法的目标跟踪算法中。 先简述相关滤波的目标跟踪算法，相关滤波(correlation filter)是一种模板类方法，采用在线模板匹配的方式，在线学习模板变化，但是相关滤波的缺点也很明显，对快速变形和快速运动情况的跟踪效果不好。 快速变形效">
-<meta property="og:type" content="article">
-<meta property="og:title" content="目标跟踪中的边界效应与余弦窗平滑">
-<meta property="og:url" content="http://example.com/2021/01/27/DeepLearning/Tracking/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/index.html">
-<meta property="og:site_name" content="Echo&#39;s Blogs">
-<meta property="og:description" content="本文主要介绍学习目标跟踪算法时遇到的关于边界效应以及余弦窗平滑的相关知识 1. 边界效应1.1 背景在目标跟踪算法中，边界效应最早在的出现，是在基于相关滤波方法的目标跟踪算法中。 先简述相关滤波的目标跟踪算法，相关滤波(correlation filter)是一种模板类方法，采用在线模板匹配的方式，在线学习模板变化，但是相关滤波的缺点也很明显，对快速变形和快速运动情况的跟踪效果不好。 快速变形效">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
-<meta property="article:published_time" content="2021-01-27T08:10:19.000Z">
-<meta property="article:modified_time" content="2021-07-05T02:25:12.157Z">
-<meta property="article:author" content="Echo">
-<meta property="article:tag" content="2D Tracking">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="http://example.com/2021/01/27/DeepLearning/Tracking/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>目标跟踪中的边界效应与余弦窗平滑 | Echo's Blogs</title><meta name="keywords" content="2D Tracking"><meta name="author" content="Echo"><meta name="copyright" content="Echo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文主要介绍学习目标跟踪算法时遇到的关于边界效应以及余弦窗平滑的相关知识 1. 边界效应1.1 背景在目标跟踪算法中，边界效应最早在的出现，是在基于相关滤波方法的目标跟踪算法中。 先简述相关滤波的目标跟踪算法，相关滤波(correlation filter)是一种模板类方法，采用在线模板匹配的方式"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="http://example.com/2021/01/27/DeepLearning/Tracking/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
   localSearch: undefined,

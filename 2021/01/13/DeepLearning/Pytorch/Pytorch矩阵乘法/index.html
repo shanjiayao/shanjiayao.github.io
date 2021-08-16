@@ -1,15 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pytorch中的矩阵乘法 | Echo's Blogs</title><meta name="keywords" content="Pytorch"><meta name="author" content="Echo"><meta name="copyright" content="Echo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="article">
-<meta property="og:title" content="Pytorch中的矩阵乘法">
-<meta property="og:url" content="http://example.com/2021/01/13/DeepLearning/Pytorch/Pytorch%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95/index.html">
-<meta property="og:site_name" content="Echo&#39;s Blogs">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
-<meta property="article:published_time" content="2021-01-13T08:10:19.000Z">
-<meta property="article:modified_time" content="2021-07-05T01:41:28.417Z">
-<meta property="article:author" content="Echo">
-<meta property="article:tag" content="Pytorch">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="http://example.com/2021/01/13/DeepLearning/Pytorch/Pytorch%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pytorch中的矩阵乘法 | Echo's Blogs</title><meta name="keywords" content="Pytorch"><meta name="author" content="Echo"><meta name="copyright" content="Echo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Pytorch 矩阵乘法关于广播机制，参考  torch.mul 1torch.mul(input, other, *, out&amp;#x3D;None)  按位相乘，对维度的要求是，两个张量尽量维度对齐，或者是可以遵循广播机制 比如： 1234567891011121314&amp;gt;&amp;gt;&amp;gt; a &amp;#x3D;"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="http://example.com/2021/01/13/DeepLearning/Pytorch/Pytorch%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
   localSearch: undefined,
