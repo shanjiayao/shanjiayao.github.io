@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>总结数组与链表的区别[转载] - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="总结数组与链表的区别[转载]" />
+<meta property="og:description" content="总结 比较项目 数组 链表 大小定义 声明时给定好，增删会重新定义数组大小 无需指定，在执行过程中自行增长和收缩 元素位置 编译时分配 运行时分配 元素顺序 连续" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-17T01:10:19+00:00" />
+<meta property="article:modified_time" content="2021-03-17T01:10:19+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="总结数组与链表的区别[转载]"/>
+<meta name="twitter:description" content="总结 比较项目 数组 链表 大小定义 声明时给定好，增删会重新定义数组大小 无需指定，在执行过程中自行增长和收缩 元素位置 编译时分配 运行时分配 元素顺序 连续"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/" /><link rel="prev" href="http://shanjiayao.com/ubuntu_install/" /><link rel="next" href="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "总结数组与链表的区别[转载]",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB\/"
+        },"genre": "posts","keywords": "DataStructure, Coding","wordcount":  1682 ,
+        "url": "http:\/\/shanjiayao.com\/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB\/","datePublished": "2021-03-17T01:10:19+00:00","dateModified": "2021-03-17T01:10:19+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">总结数组与链表的区别[转载]</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-03-17">2021-03-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1682 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#comparison-chart">Comparison Chart</a>
+      <ul>
+        <li><a href="#definition-of-array">Definition of Array</a></li>
+        <li><a href="#points-to-ponder">Points to Ponder</a></li>
+        <li><a href="#operations-performed-on-arrays">Operations performed on arrays</a></li>
+        <li><a href="#example">Example</a></li>
+        <li><a href="#definition-of-linked-list">Definition of Linked List</a></li>
+        <li><a href="#operations-performed-on-linked-list">Operations performed on Linked List</a></li>
+        <li><a href="#example-1">Example</a></li>
+      </ul>
+    </li>
+    <li><a href="#key-differences-between-array-and-linked-list">Key Differences Between Array and Linked List</a>
+      <ul>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><hr>
+<!-- more -->
+<h2 id="总结">总结</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">比较项目</th>
+<th>数组</th>
+<th>链表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">大小定义</td>
+<td>声明时给定好，增删会重新定义数组大小</td>
+<td>无需指定，在执行过程中自行增长和收缩</td>
+</tr>
+<tr>
+<td style="text-align:left">元素位置</td>
+<td>编译时分配</td>
+<td>运行时分配</td>
+</tr>
+<tr>
+<td style="text-align:left">元素顺序</td>
+<td>连续空间</td>
+<td>随机空间</td>
+</tr>
+<tr>
+<td style="text-align:left">增</td>
+<td>时间复杂度O(n)， 空间复杂度O(n)</td>
+<td>时间复杂度O(1)， 空间复杂度O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left">删</td>
+<td>时间复杂度O(n)， 空间复杂度O(n)</td>
+<td>时间复杂度O(1)， 空间复杂度O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left">查</td>
+<td>时间复杂度O(1)， 空间复杂度O(1)</td>
+<td>时间复杂度O(n)， 空间复杂度O(1)</td>
+</tr>
+</tbody>
+</table>
+<p>注：</p>
+<ul>
+<li>
+<p>数组的增删操作，平均时间复杂度最好情况是在最后一个元素，最坏情况是在第一个元素，平均为O(n/2)，所以等同于O(n)，空间复杂度类似</p>
+</li>
+<li>
+<p>链表的增删操作，不考虑遍历到需要更改的元素位置所需要的时间复杂度的，所以时间复杂度可以认为是O(1)</p>
+</li>
+<li>
+<p>因为数组在内存空间是连续的，所以内存利用率，数组要低于链表</p>
+</li>
+<li>
+<p>注重数据的随机访问效率的话，不考虑数据的增删操作，选择数组</p>
+</li>
+<li>
+<p>经常增加删除数据，又不是太在意数据访问时间，选择链表</p>
+</li>
+</ul>
+<p>下面内容转自<a href="https://techdifferences.com/difference-between-array-and-linked-list.html" target="_blank" rel="noopener noreffer">Difference Between Array and Linked List (with Comparison Chart) - Tech Differences</a> 侵删</p>
+<p>The major difference between <strong>Array</strong> and <strong>Linked list</strong> regards to their structure. Arrays are <strong>index based</strong> data structure where each element associated with an index. On the other hand, Linked list relies on <strong>references</strong> where each node consists of the data and the references to the previous and next element.</p>
+<p>Basically, an array is a set of similar data objects stored in sequential memory locations under a common heading or a variable name.</p>
+<p>While a linked list is a data structure which contains a sequence of the elements where each element is linked to its next element. There are two fields in an element of linked list. One is Data field, and other is link field, Data field contains the actual value to be stored and processed. Furthermore, the link field holds the address of the next data item in the linked list. The address used to access a particular node is known as a pointer.</p>
+<p>Another significant difference between an array and linked list is that Array has a fixed size and required to be declared prior, but Linked List is not restricted to size and expand and contract during execution.</p>
+<h2 id="comparison-chart">Comparison Chart</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/10-13-58-38-2021-04-10-13-58-26-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/10-13-58-38-2021-04-10-13-58-26-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/10-13-58-38-2021-04-10-13-58-26-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/10-13-58-38-2021-04-10-13-58-26-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/10-13-58-38-2021-04-10-13-58-26-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/10-13-58-38-2021-04-10-13-58-26-image.png" /></p>
+<h3 id="definition-of-array">Definition of Array</h3>
+<p>An array is defined as a set of a definite number of homogeneous elements or data items. It means an array can contain one type of data only, either all integers, all floating-point numbers, or all characters. Declaration of an array is as follows:</p>
+<p>int a [10];</p>
+<p>Where int specifies the data type or type elements array stores. “a” is the name of an array, and the number specified inside the square brackets is the number of elements an array can store, this is also called size or length of the array.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://techdifferences.com/wp-content/uploads/2017/08/Array.jpg"
+        data-srcset="https://techdifferences.com/wp-content/uploads/2017/08/Array.jpg, https://techdifferences.com/wp-content/uploads/2017/08/Array.jpg 1.5x, https://techdifferences.com/wp-content/uploads/2017/08/Array.jpg 2x"
+        data-sizes="auto"
+        alt="https://techdifferences.com/wp-content/uploads/2017/08/Array.jpg"
+        title="Array" /></p>
+<h3 id="points-to-ponder">Points to Ponder</h3>
+<p>Let us look at some of the concepts to be remembered about arrays:</p>
+<ul>
+<li>The individual elements of an array can be accessed by describing the name of the array, followed by index or subscript (determining the location of the element in the array) inside the square brackets. For example, to retrieve 5th element of the array, we need to write a statement a[4].</li>
+<li>In any case the elements of an array will be stored in a consecutive memory location.</li>
+<li>The very first element of the array has index zero [0]. It means the first and last element will be specified as a[0], and a[9] respectively.</li>
+<li>The number of elements that can be stored in an array, i.e., the size of an array or its length is given by the following equation: (upper bound-lower bound) + 1 For the above array, it would be (9-0) + 1 =10. Where 0 is the lower bound of the array, and 9 is the upper bound of the array.</li>
+<li>Arrays can be read or written through the loop. If we read the one-dimensional array, it requires one loop for reading and other for writing (printing) the array, for example: a. For reading an array for ( i= 0; i &lt;= 9; i++) { scanf ( “%d”, &amp;a[ i ] ) ; } b. For writing an array for (i = 0 ; i &lt;= 9 ; i++) {printf ( “%d”, a[ i ] ) ; }</li>
+<li>In the case of a 2-D array, it would require two loops and similarly n-dimensional array would need n loops.</li>
+</ul>
+<h3 id="operations-performed-on-arrays">Operations performed on arrays</h3>
+<ol>
+<li>Creation of array</li>
+<li>Traversing an array</li>
+<li>Insertion of new elements</li>
+<li>Deletion of required elements.</li>
+<li>Modification of an element.</li>
+<li>Merging of arrays</li>
+</ol>
+<h3 id="example">Example</h3>
+<p>The following program illustrates the reading and writing of the array.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;conio.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">void</span> <span class="nf">main</span> <span class="p">()</span>
+<span class="p">{</span>
+        <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span><span class="n">i</span><span class="p">;</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Enter the array&#34;</span><span class="p">);</span>
+
+        <span class="k">for</span> <span class="p">(</span> <span class="n">i</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="n">scanf</span> <span class="p">(</span> <span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">[</span> <span class="n">i</span> <span class="p">]</span> <span class="p">)</span> <span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">printf</span><span class="p">(</span> <span class="s">&#34;Enter the array&#34;</span> <span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">9</span> <span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="n">printf</span> <span class="p">(</span> <span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span> <span class="n">i</span> <span class="p">]</span> <span class="p">)</span> <span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">getch</span> <span class="p">();</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="definition-of-linked-list">Definition of Linked List</h3>
+<p>Linked list is a particular list of some data elements linked to one other. In this every element point to the next element which represents the logical ordering. Each element is called a node, which has two parts.</p>
+<p>INFO part which stores the information and POINTER which points to the next element. As you know for storing address, we have a unique data structures in C called pointers. Hence the second field of the list must be a pointer type.</p>
+<p>Types of linked lists are Singly-linked list, Doubly linked list, Circular linked list, Circular double linked list.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://techdifferences.com/wp-content/uploads/2017/08/linked-list.jpg"
+        data-srcset="https://techdifferences.com/wp-content/uploads/2017/08/linked-list.jpg, https://techdifferences.com/wp-content/uploads/2017/08/linked-list.jpg 1.5x, https://techdifferences.com/wp-content/uploads/2017/08/linked-list.jpg 2x"
+        data-sizes="auto"
+        alt="https://techdifferences.com/wp-content/uploads/2017/08/linked-list.jpg"
+        title="Linked list" /></p>
+<h3 id="operations-performed-on-linked-list">Operations performed on Linked List</h3>
+<ol>
+<li>Creation</li>
+<li>Traversing</li>
+<li>Insertion</li>
+<li>Deletion</li>
+<li>Searching</li>
+<li>Concatenation</li>
+<li>Display</li>
+</ol>
+<h3 id="example-1">Example</h3>
+<p>The following snippet illustrates the creation of a linked list:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">node</span>
+<span class="p">{</span>
+        <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+        <span class="n">stuct</span> <span class="n">node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">start</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">create</span><span class="p">()</span>
+<span class="p">{</span>
+        <span class="k">typedef</span> <span class="k">struct</span> <span class="n">node</span> <span class="n">NODE</span><span class="p">;</span>
+        <span class="n">NODE</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="o">*</span><span class="n">q</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="n">choice</span><span class="p">;</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+        <span class="k">do</span>
+        <span class="p">{</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">NODE</span> <span class="o">*</span><span class="p">)</span> <span class="n">malloc</span> <span class="p">(</span><span class="k">sizeof</span> <span class="p">(</span><span class="n">NODE</span><span class="p">));</span>
+                <span class="n">printf</span> <span class="p">(</span><span class="s">&#34;Enter the data item</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+                <span class="n">scanf</span> <span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span> <span class="n">p</span> <span class="o">-&gt;</span> <span class="n">num</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+                <span class="p">{</span>
+                        <span class="n">q</span> <span class="o">=</span> <span class="n">start</span><span class="p">;</span>
+                        <span class="k">while</span> <span class="p">(</span><span class="n">q</span> <span class="o">-&gt;</span> <span class="n">next</span> <span class="o">!</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">)</span>
+                        <span class="p">{</span> <span class="n">q</span> <span class="o">=</span> <span class="n">q</span> <span class="o">-&gt;</span> <span class="n">next</span>
+                        <span class="p">}</span>
+                        <span class="n">p</span> <span class="o">-&gt;</span> <span class="n">next</span> <span class="o">=</span> <span class="n">q</span> <span class="o">-&gt;</span> <span class="n">next</span><span class="p">;</span>
+                        <span class="n">q</span> <span class="o">-&gt;</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span>
+                <span class="p">{</span>
+                        <span class="n">p</span> <span class="o">-&gt;</span> <span class="n">next</span> <span class="o">=</span> <span class="n">start</span><span class="p">;</span>
+                        <span class="n">start</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="n">printf</span> <span class="p">(</span><span class="s">&#34;Do you want to continue (type y or n) ? </span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+                <span class="n">scanf</span> <span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">choice</span><span class="p">)</span> <span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">while</span> <span class="p">((</span><span class="n">choice</span> <span class="o">==</span> <span class="o">&amp;</span><span class="err">#</span><span class="mi">39</span><span class="p">;</span><span class="n">y</span><span class="o">&amp;</span><span class="err">#</span><span class="mi">39</span><span class="p">;)</span> <span class="o">||</span> <span class="p">(</span><span class="n">choice</span> <span class="o">==</span> <span class="o">&amp;</span><span class="err">#</span><span class="mi">39</span><span class="p">;</span><span class="n">Y</span><span class="o">&amp;</span><span class="err">#</span><span class="mi">39</span><span class="p">;));</span>
+
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="key-differences-between-array-and-linked-list">Key Differences Between Array and Linked List</h2>
+<ol>
+<li>An array is the data structure contains a collection of similar type data elements whereas the Linked list is considered as non-primitive data structure contains a collection of unordered linked elements known as nodes.</li>
+<li>In the array the elements belong to indexes, i.e., if you want to get into the fourth element you have to write the variable name with its index or location within the square bracket. In a linked list though, you have to start from the head and work your way through until you get to the fourth element.</li>
+<li>While accessing an element array is fast while Linked list takes linear time so, it is quite bit slower.</li>
+<li>Operations like insertion and deletion in arrays consume a lot of time. On the other hand, the performance of these operations in Linked lists is fast.</li>
+<li>Arrays are of fixed size. In contrast, Linked lists are dynamic and flexible and can expand and contract its size.</li>
+<li>In an array, memory is assigned during compile time while in a Linked list it is allocated during execution or runtime.</li>
+<li>Elements are stored consecutively in arrays whereas it is stored randomly in Linked lists.</li>
+<li>The requirement of memory is less due to actual data being stored within the index in the array. As against, there is a need for more memory in Linked Lists due to storage of additional next and previous referencing elements.</li>
+<li>In addition memory utilization is inefficient in the array. Conversely, memory utilization is efficient in the array.</li>
+</ol>
+<h3 id="conclusion">Conclusion</h3>
+<p>Array and Linked lists are the types of data structures differ in their structure, accessing and manipulation methods, memory requirement and utilization. And have particular advantage and disadvantage over its implementation. Consequently, either one can be used as per need.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-03-17</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/" data-title="总结数组与链表的区别[转载]" data-hashtags="DataStructure,Coding"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/" data-hashtag="DataStructure"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/" data-title="总结数组与链表的区别[转载]" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/" data-title="总结数组与链表的区别[转载]"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/" data-title="总结数组与链表的区别[转载]"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/" data-title="总结数组与链表的区别[转载]" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/" data-title="总结数组与链表的区别[转载]" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/" data-title="总结数组与链表的区别[转载]"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/datastructure/">DataStructure</a>,&nbsp;<a href="/tags/coding/">Coding</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/ubuntu_install/" class="prev" rel="prev" title="ubuntu18_04升级记录"><i class="fas fa-angle-left fa-fw"></i>ubuntu18_04升级记录</a>
+            <a href="/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/" class="next" rel="next" title="算法学习之基础排序">算法学习之基础排序<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

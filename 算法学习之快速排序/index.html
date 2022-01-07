@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>算法学习之快速排序 - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="算法学习之快速排序" />
+<meta property="og:description" content="本文是学习排序系列的第四篇，主要介绍较为常用的排序算法：快速排序 前文学习了归并排序，该排序算法采用了分治(divide and conquer, D&amp;C)的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-05-25T16:10:19+00:00" />
+<meta property="article:modified_time" content="2021-05-25T16:10:19+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="算法学习之快速排序"/>
+<meta name="twitter:description" content="本文是学习排序系列的第四篇，主要介绍较为常用的排序算法：快速排序 前文学习了归并排序，该排序算法采用了分治(divide and conquer, D&amp;C)的"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" /><link rel="prev" href="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%88%97%E8%A1%A8%E8%A7%A3%E6%9E%90%E5%BC%8F/" /><link rel="next" href="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%8E%92%E5%BA%8F%E4%BB%A3%E7%A0%81/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "算法学习之快速排序",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F\/"
+        },"genre": "posts","keywords": "Sorting, Algorithms","wordcount":  2741 ,
+        "url": "http:\/\/shanjiayao.com\/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F\/","datePublished": "2021-05-25T16:10:19+00:00","dateModified": "2021-05-25T16:10:19+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">算法学习之快速排序</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-05-25">2021-05-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2741 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-常见排序算法性能对比">0. 常见排序算法性能对比</a></li>
+    <li><a href="#1-快速排序">1. 快速排序</a>
+      <ul>
+        <li><a href="#排序的简化情况">排序的简化情况</a></li>
+        <li><a href="#如何递归且o1">如何递归且O(1)？</a></li>
+        <li><a href="#快速排序初版">快速排序初版</a></li>
+        <li><a href="#复杂度分析">复杂度分析</a></li>
+        <li><a href="#优化方案动态选取哨兵节点双指针">优化方案：动态选取哨兵节点[双指针]</a></li>
+        <li><a href="#优化后复杂度分析">优化后复杂度分析</a></li>
+        <li><a href="#稳定性分析">稳定性分析</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本文是学习排序系列的第四篇，主要介绍较为常用的排序算法：快速排序</p>
+<p>前文学习了归并排序，该排序算法采用了<strong>分治</strong>(<code>divide and conquer, D&amp;C</code>)的思想，我们可以使用递归对输入序列进行排序。但是归并排序与输入序列的有序程度无关，并且需要额外创建线性的空间，这对于数据规模较大的场景不是很友好。</p>
+<p>本文要学习的快速排序同样也是基于分治思想的排序算法，相比于归并，快排的空间复杂度为常数级别，在C中，sort方法的底层实现的原型就是<code>qsort</code>快速排序~</p>
+<blockquote>
+<p>注：本文的排序算法默认升序</p>
+</blockquote>
+<!-- more -->
+<h2 id="0-常见排序算法性能对比">0. 常见排序算法性能对比</h2>
+<p>再贴一张常见排序算法的性能对比，方便查看~</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png" /></p>
+<hr>
+<h2 id="1-快速排序">1. 快速排序</h2>
+<blockquote>
+<p>快排是使用分治思想的排序算法，其巧妙地使用哨兵节点(<code>pivot</code>)，递归地将待排序的序列分为大于<code>pivot</code>和小于<code>pivot</code>两部分，进而达到分而治之，化大为小的目的。<strong><mark>快速排序就是个二叉树的前序遍历</mark></strong></p>
+</blockquote>
+<h3 id="排序的简化情况">排序的简化情况</h3>
+<p>因为快排使用了递归的方法，所以为了明确递归思路，我们先对排序任务进行简单的剖析。</p>
+<ul>
+<li>
+<p>如果待排序的序列长度小于2，那么可以直接返回</p>
+</li>
+<li>
+<p>如果待排序的序列长度等于2，那么比较两个元素即可</p>
+</li>
+<li>
+<p>如果待排序的序列长度大于2，可以递归到小于等于2的情况</p>
+</li>
+</ul>
+<p>以上就是递归的想法雏形，其实递归的终止条件就是将大问题简化，简化到极端的情况，进而使用简化来反推复杂情况。</p>
+<h3 id="如何递归且o1">如何递归且O(1)？</h3>
+<p>前面说过，归并排序同样使用了分治与递归，但是空间复杂度为O(N)，所以快排应该如何将空间复杂度降低为常数级别的呢？</p>
+<p>快排的思路就是<strong>原地分组</strong>，通过定义一个<strong>哨兵节点</strong>来实现。具体操作是将所有元素与哨兵节点的值相比较，小于哨兵节点的放在左侧，大于哨兵节点的放在右侧，这样逐层递归，就完成了排序的过程。</p>
+<p>如下图所示，展示的是两次递归完成排序的过程，每次都取第一个元素为哨兵节点：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-21-15-57-2021-05-26-21-15-54-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-21-15-57-2021-05-26-21-15-54-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-21-15-57-2021-05-26-21-15-54-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-21-15-57-2021-05-26-21-15-54-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-21-15-57-2021-05-26-21-15-54-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-21-15-57-2021-05-26-21-15-54-image.png" /></p>
+<p>从上图可以发现，其实快排的基本思想可以认为是一个二叉树的模型，从上面不断地将当前数组分为两部分，直到达到递归终止条件。所以快排与归并排序的不同点在计算方式上也有体现，</p>
+<ul>
+<li>
+<p>归并是直接分组，然后从子问题开始处理，最后归并，是自下而上的算法，先处理子问题，再归并</p>
+</li>
+<li>
+<p>但是快排是分组时就进行比较，一直到子问题无法继续划分，这时数组就排序完成了，是自上而下的算法，<strong>快速排序通过哨兵节点以及原地分组的方式，解决了归并排序中的内存占用</strong></p>
+</li>
+</ul>
+<h3 id="快速排序初版">快速排序初版</h3>
+<p>根据上述思路，我们可以总结一下算法步骤</p>
+<ol>
+<li>
+<p>确定递归终止条件，也称为 base case</p>
+<p>这里的终止条件是排序数组为空，否则继续向下递归</p>
+</li>
+<li>
+<p>确定哨兵节点</p>
+<p>为了简单容易理解，这里先将哨兵节点设为输入数组的第一个元素</p>
+</li>
+<li>
+<p>根据哨兵节点进行递归排序</p>
+<p>此时我们可以宏观地将数组分为两部分，比pivot小的，比<code>pivot</code>大的，与<code>pivot</code>相等的。分组完毕后，我们就可以调用自身进一步地对比<code>pivot</code>小的以及<code>pivot</code>大的两组进行再一次的划分，直到达到终止条件。</p>
+</li>
+</ol>
+<p>python版本代码如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">quicksort</span><span class="p">(</span><span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">nums</span> <span class="o">==</span> <span class="p">[]:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="n">pivot</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">nums</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="n">sort</span><span class="p">([</span><span class="n">num</span> <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">nums</span> <span class="k">if</span> <span class="n">num</span> <span class="o">&lt;=</span> <span class="n">pivot</span><span class="p">])</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="n">sort</span><span class="p">([</span><span class="n">num</span> <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">nums</span> <span class="k">if</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="n">pivot</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">left</span> <span class="o">+</span> <span class="p">[</span><span class="n">pivot</span><span class="p">]</span> <span class="o">+</span> <span class="n">right</span>
+
+    <span class="k">return</span> <span class="n">sort</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="复杂度分析">复杂度分析</h3>
+<p>递归时间以及空间复杂度计算方式如下：</p>
+<blockquote>
+<p>时间复杂度 = 递归调用栈深度 × 每次递归操作次数
+空间复杂度 = 递归调用栈深度 × 每次递归开辟的空间</p>
+</blockquote>
+<p>所以为了分析递归的复杂度，我们需要确定递归调用栈的深度。</p>
+<p>那么仔细思考一下，其实上述代码中的递归调用栈的深度是不确定的，因为我们的<strong>哨兵节点与其余元素的大小关系未知</strong>，我们可以分两种情况讨论，设待排序序列长度为N</p>
+<ol>
+<li>
+<p>最好情况，每次的哨兵节点都<strong>恰巧</strong>是当前序列的中位数，那么我们每次都可以完美地将输入序列分成近乎均等的两部分，这时的递归调用栈的深度为log2(N)，每次递归操作次数为N，开辟空间为常数级别。</p>
+<p>那么时间复杂度就是 <code>O(Nlog2(N))</code>，空间复杂度为<code>O(log2(N))</code></p>
+</li>
+<li>
+<p>最坏情况，每次的哨兵节点都恰巧是当前序列中的极值，要么极大要么极小，这时我们的分治处理模型就从二叉树退化成了一维的结构，对应的递归调用栈深度为N，每次递归操作次数为N，开辟空间为常数级别。</p>
+<p>那么对应的时间复杂度为<code>O(N^2)</code>，空间复杂度为<code>O(N)</code></p>
+</li>
+</ol>
+<p>由此可见，上述快速排序可以称之为<strong>乞丐版</strong>，因为它不能很好地控制复杂度，所以我们可以进一步地改进，改进方案就是哨兵节点的选取。</p>
+<h3 id="优化方案动态选取哨兵节点双指针">优化方案：动态选取哨兵节点[双指针]</h3>
+<blockquote>
+<p>想要尽可能地分组均匀，哨兵节点的值应该尽可能地接近当前数组的中值</p>
+</blockquote>
+<p>目的已经很明确了，就是要在当前数组中，遍历一遍，然后选取哨兵节点，我们可以使用双指针的方法来完成这个任务。</p>
+<ol>
+<li>
+<p>先假定基准值是数组中的第一个元素</p>
+</li>
+<li>
+<p>定义两个指针<code>left</code>和<code>right</code>，分别指向第二个元素以及最后一个元素，规定<code>left</code>只能向右移动，<code>right</code>只能向左移动，且<code>left</code>不能超过<code>right</code></p>
+<p>(这里再说明一下双指针的作用，左指针负责维护一个小于基准值的区间，右指针则负责维护一个大于基准值的区间)</p>
+</li>
+<li>
+<p>右指针先向左移动，每移动一位，都和基准值比较，如果遇到比基准值<code>小</code>的元素，停止，反之继续移动。移动左指针，同样边移动边比较，直到遇到比基准值<code>大</code>的元素，停止，与右指针交换位置(为了保证各自维护区间的元素值符合预期要求)</p>
+</li>
+<li>
+<p>重复3直到左右指针相遇，将相遇位置的元素与基准值交换位置</p>
+</li>
+</ol>
+<p>这里借用<a href="https://github.com/chefyuan/algorithm-base/blob/main/animation-simulation/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F.md" target="_blank" rel="noopener noreffer">袁厨</a>的动图来可视化整个过程，侵删哈</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://camo.githubusercontent.com/3c1e72fc69bf0d65de842ae4adb9ebcd7778fc75057c1bffa4d925ac022c957c/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303231303331373139303135333637372e676966237069635f63656e746572"
+        data-srcset="https://camo.githubusercontent.com/3c1e72fc69bf0d65de842ae4adb9ebcd7778fc75057c1bffa4d925ac022c957c/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303231303331373139303135333637372e676966237069635f63656e746572, https://camo.githubusercontent.com/3c1e72fc69bf0d65de842ae4adb9ebcd7778fc75057c1bffa4d925ac022c957c/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303231303331373139303135333637372e676966237069635f63656e746572 1.5x, https://camo.githubusercontent.com/3c1e72fc69bf0d65de842ae4adb9ebcd7778fc75057c1bffa4d925ac022c957c/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303231303331373139303135333637372e676966237069635f63656e746572 2x"
+        data-sizes="auto"
+        alt="https://camo.githubusercontent.com/3c1e72fc69bf0d65de842ae4adb9ebcd7778fc75057c1bffa4d925ac022c957c/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303231303331373139303135333637372e676966237069635f63656e746572"
+        title="https://camo.githubusercontent.com/3c1e72fc69bf0d65de842ae4adb9ebcd7778fc75057c1bffa4d925ac022c957c/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303231303331373139303135333637372e676966237069635f63656e746572" /></p>
+<p>经过以上过程，基准值所在的位置就是我们想要的哨兵节点，这时哨兵节点左侧都是较小元素，右侧都是较大元素，当前区间分组完毕！继续进行下一次递归的分组即可</p>
+<p>python代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">quicksort</span><span class="p">(</span><span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">partition</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="n">left</span>
+        <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span> <span class="ow">and</span> <span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">arr</span><span class="p">[</span><span class="n">base</span><span class="p">]:</span>
+                <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span> <span class="ow">and</span> <span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">arr</span><span class="p">[</span><span class="n">base</span><span class="p">]:</span>
+                <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">right</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">]</span>
+        <span class="n">nums</span><span class="p">[</span><span class="n">base</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">base</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">left</span>
+
+    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="o">&gt;=</span> <span class="n">end</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="n">pivot</span> <span class="o">=</span> <span class="n">partition</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+        <span class="n">sort</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">pivot</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">sort</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">pivot</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+
+    <span class="n">sort</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">nums</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="优化后复杂度分析">优化后复杂度分析</h3>
+<p>如果不考虑极端情况的话，时间复杂度为<strong>O(NlogN)</strong>，空间复杂度为<strong>O(log2N)</strong></p>
+<p>但是不妨想一下，尽管我们使用双指针来优化了哨兵节点的选取，从而使每次哨兵节点的选择都尽可能靠近中间，但是如果输入的序列原本就是<strong>顺序</strong>或者<strong>倒序</strong>，那么退化的问题依旧会存在，所以极端情况下，时间复杂度依旧是O(N^2)，空间复杂度依旧是O(N)</p>
+<p>为了解决上述问题，一般来讲都会将输入的序列进行<strong>打乱</strong>（shuffle），如果输入的序列规模很大，那么其实也可以尝试下随机选取一个哨兵节点，平均下来的时间复杂度是最优的。</p>
+<h3 id="稳定性分析">稳定性分析</h3>
+<p>不稳定，因为分组时会发生随机的数据交换，从而导致值相同的元素相对位置变化</p>
+<h2 id="总结">总结</h2>
+<ol>
+<li>
+<p>快速排序一般比归并排序要快</p>
+</li>
+<li>
+<p>快速排序是不稳定的，因为在分组时会发生随机的数据位置交换</p>
+</li>
+<li>
+<p>上述优化过后的快排代码针对数组中大量重复数据的情况效果不是那么地好(比如从0-200范围内随机选取50000个数值，快排的速度可能比希尔排序还慢，更别说归并排序了)，如果重复数据较多，可以单独处理</p>
+</li>
+</ol>
+<p>最后，贴一张快排和归并排序耗时比较的图~</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/27-15-33-33-2021-05-27-15-33-25-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/27-15-33-33-2021-05-27-15-33-25-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/27-15-33-33-2021-05-27-15-33-25-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/27-15-33-33-2021-05-27-15-33-25-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/27-15-33-33-2021-05-27-15-33-25-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/27-15-33-33-2021-05-27-15-33-25-image.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-05-25</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" data-title="算法学习之快速排序" data-hashtags="Sorting,Algorithms"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" data-hashtag="Sorting"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" data-title="算法学习之快速排序" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" data-title="算法学习之快速排序"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" data-title="算法学习之快速排序"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" data-title="算法学习之快速排序" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" data-title="算法学习之快速排序" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" data-title="算法学习之快速排序"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/sorting/">Sorting</a>,&nbsp;<a href="/tags/algorithms/">Algorithms</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%88%97%E8%A1%A8%E8%A7%A3%E6%9E%90%E5%BC%8F/" class="prev" rel="prev" title="Python还债日记之列表解析式"><i class="fas fa-angle-left fa-fw"></i>Python还债日记之列表解析式</a>
+            <a href="/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%8E%92%E5%BA%8F%E4%BB%A3%E7%A0%81/" class="next" rel="next" title="算法学习之排序算法对比">算法学习之排序算法对比<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

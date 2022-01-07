@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Python还债日记之对象(二) - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="Python还债日记之对象(二)" />
+<meta property="og:description" content="前文链接： Python还债日记之对象(一) 1. 对象的操作之对比 python中有两种对变量的比较方式，分别是 == 以及调用 is 关键词，不同点在于： == 只" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%BA%8C/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-01-02T15:10:19+00:00" />
+<meta property="article:modified_time" content="2021-01-02T15:10:19+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="Python还债日记之对象(二)"/>
+<meta name="twitter:description" content="前文链接： Python还债日记之对象(一) 1. 对象的操作之对比 python中有两种对变量的比较方式，分别是 == 以及调用 is 关键词，不同点在于： == 只"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%BA%8C/" /><link rel="prev" href="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%B8%80/" /><link rel="next" href="http://shanjiayao.com/%E8%87%AA%E5%AE%9A%E4%B9%89c-cuda-extensions/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Python还债日记之对象(二)",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%BA%8C\/"
+        },"genre": "posts","keywords": "python, Coding, 对象","wordcount":  1984 ,
+        "url": "http:\/\/shanjiayao.com\/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%BA%8C\/","datePublished": "2021-01-02T15:10:19+00:00","dateModified": "2021-01-02T15:10:19+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Python还债日记之对象(二)</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-02">2021-01-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1984 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-对象的操作之对比">1. 对象的操作之对比</a></li>
+    <li><a href="#2-对象的操作之赋值">2. 对象的操作之赋值</a></li>
+    <li><a href="#3-对象的操作之拷贝">3. 对象的操作之拷贝</a>
+      <ul>
+        <li><a href="#31-浅拷贝">3.1 浅拷贝</a></li>
+        <li><a href="#32-深拷贝">3.2 深拷贝</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-传值还是传引用">4. 传值还是传引用？</a></li>
+    <li><a href="#5-总结">5. 总结</a></li>
+    <li><a href="#6-参考">6. 参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><hr>
+<!-- more -->
+<p>前文链接：</p>
+<p><a href="https://shmilywh.github.io/2021/04/24/Coding/Python/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%28%E4%B8%80%29/" target="_blank" rel="noopener noreffer">Python还债日记之对象(一)</a></p>
+<hr>
+<h2 id="1-对象的操作之对比">1. 对象的操作之对比</h2>
+<p>python中有两种对变量的比较方式，分别是 <code>==</code> 以及调用 <code>is</code> 关键词，不同点在于：</p>
+<ul>
+<li>
+<p><code>==</code> 只比较两个变量的值是否相等，相等则返回True</p>
+</li>
+<li>
+<p><code>is</code> 则即比较两个变量值，又比较两个变量地址，都相等才返回True</p>
+</li>
+</ul>
+<p><code>is</code>等同于调用<code>id</code>判断地址是否相等，再和操作<code>==</code>判断值是否相等相<code>与</code></p>
+<h2 id="2-对象的操作之赋值">2. 对象的操作之赋值</h2>
+<p><strong>个人理解，在python中，赋值就是将对象的地址通过引用的方式传递给变量，同时对象的引用次数加1</strong></p>
+<p>赋值的内在操作是地址的传递，这个地址指<code>对象个体</code>的地址，而不是子对象地址</p>
+<p>赋值操作具有以下几点特征：</p>
+<ul>
+<li>
+<p>赋值与被赋值的两个对象，在python中可以认为是完全一样的，用一个变量给另一个变量<strong>赋值</strong>，其实就是给当前内存中的对象增加一个“<strong>标签</strong>”而已</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="mi">10914816</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+<span class="mi">10914816</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="ow">is</span> <span class="n">a</span>
+<span class="kc">True</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>对于可变对象，如List，赋值时不需要重新开辟空间（因为可变对象是可变的，赋值时相当于给对象添加了一个新的标签）</p>
+</li>
+<li>
+<p>对于不可变对象，如Tuple、Set等，在赋值时需要开辟新的空间（因为需要破坏原有的引用，将变量的引用指向新的对象）但是python中的<strong>小对象整数池、短字符串缓冲区</strong>需要特殊考虑</p>
+</li>
+<li>
+<p><strong>对于可变对象，b是a的赋值，那么改变b的值，或者改变b的值，都会更新另外一方的值</strong></p>
+</li>
+</ul>
+<h2 id="3-对象的操作之拷贝">3. 对象的操作之拷贝</h2>
+<p>拷贝操作有两种，在python中，只拷贝浅层对象的操作叫做<strong>浅拷贝</strong>，递归拷贝所有对象的操作叫做<strong>深拷贝</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-15-57-53-2021-04-26-15-57-50-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-15-57-53-2021-04-26-15-57-50-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-15-57-53-2021-04-26-15-57-50-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-15-57-53-2021-04-26-15-57-50-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-15-57-53-2021-04-26-15-57-50-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-15-57-53-2021-04-26-15-57-50-image.png" /></p>
+<h3 id="31-浅拷贝">3.1 浅拷贝</h3>
+<blockquote>
+<p>python中的浅拷贝操作包括：<strong>copy 模块的 copy 函数 ，对象的 copy 函数 ，工厂方法，切片</strong>等</p>
+</blockquote>
+<p>对于不可变对象，浅拷贝操作是传递引用，相当于赋值</p>
+<p>对于可变对象，浅拷贝操作是对浅层对象进行拷贝，子对象不变</p>
+<p>这里的浅层对象，对于字典、列表等类型来说，指的就是最外层的对象，也就是列表或者字典本身。可变对象的浅拷贝过程，实际上是在堆区分配了一块新内存，但是这块新内存内部的子对象，依旧是指向原内存中的位置的。</p>
+<p>举例说明：</p>
+<ol>
+<li>
+<p>不可变对象的浅拷贝</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">555</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">140441428658224</span><span class="p">,</span> <span class="mi">140441428658224</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>因为是赋值的过程，所以内存地址一致，这时如果改变b，相当于一次新的赋值，a不会一起改变</p>
+</li>
+<li>
+<p>可变对象的浅拷贝</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">listA</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">listB</span> <span class="o">=</span> <span class="n">listA</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">listA</span><span class="p">,</span> <span class="n">listB</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">listA</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">listB</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">140441428382344</span><span class="p">,</span> <span class="mi">140441428382408</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">listA</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">id</span><span class="p">(</span><span class="n">listB</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="mi">10914496</span><span class="p">,</span> <span class="mi">10914496</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>因为是拷贝后的变量<code>listB</code>是新开辟的内存，所以<code>listA</code>与<code>listB</code>内存地址不一致</p>
+<p>这时如果改变<code>listB</code>，情况分为两种：</p>
+<ul>
+<li>
+<p>添加、删除或改动不可变对象，<code>listA</code>都不会随着改变</p>
+</li>
+<li>
+<p>改动可变对象，<code>listA</code>会一起改变，比如在<code>listB</code>中第二个位置，向列表<code>[1, 2]</code>中添加一个元素，那么<code>listA</code>也会改变</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="32-深拷贝">3.2 深拷贝</h3>
+<blockquote>
+<p><strong>Python中的深拷贝操作，只有copy模块的 deepcopy 函数</strong></p>
+</blockquote>
+<p>深拷贝也可以理解成递归拷贝，在Python中，<strong>深拷贝对于子对象中的可变对象进行复制，而不可变对象则沿用之前的引用</strong>。</p>
+<p>深拷贝的最终结果就是，即使改变原来的变量，新变量也不会改变，二者互不影响</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">copy</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="4-传值还是传引用">4. 传值还是传引用？</h2>
+<p>在函数传参时，我们都知道基本的参数传递机制有两种，<strong>传值</strong>以及<strong>传引用</strong>。我们先梳理一下传值以及传引用的异同，然后再分析python中是传值还是传引用。</p>
+<p>首先回顾一下<strong>形参与实参</strong>的区别，形参是指被调用的函数的形式参数，其作为函数内部的<strong>局部变量</strong>。实参是指调用函数时，实际传递的参数。函数会在其对应的堆栈中开辟一块空间，来存放传递进来的实参的值。在这个过程中，值传递的特点是，对于形参的任何操作，都<strong>不会改变</strong>传递进来的实参的值。而引用传递，传递的是实参的引用，也可以理解为地址，即形参和实参指向同一个地址，这时改变形参，实参的值也<strong>会发生改变</strong>。</p>
+<p>对于python中，前面我们分析了，由于其动态语言的特性，python中的变量都是引用，所以调用函数时，传递的都是引用！但是如果我们从改变形参实参是否发生改变的角度来分析，python中存在可变和不可变对象，所以对于不可变对象，形参改变，相当于重新开辟了空间以及再次进行引用的传递，并不会改变实参，相当于传值。对于可变对象，形参改变，指向的原对象也会改变，所以相当于传引用！</p>
+<p>总结一下：</p>
+<ul>
+<li>
+<p>从传递参数自身的性质来分析，python属于传引用</p>
+</li>
+<li>
+<p>从形参与实参的关系来分析，python中不可变对象是传值，可变对象是传引用</p>
+</li>
+</ul>
+<h2 id="5-总结">5. 总结</h2>
+<ol>
+<li>
+<p>不可变对象在赋值时会开辟新空间</p>
+</li>
+<li>
+<p>可变对象进行赋值前后，改变一个，另外一个也会改变</p>
+</li>
+<li>
+<p>深浅拷贝对于不可变对象进行拷贝时，不开辟新空间，相当于赋值操作</p>
+</li>
+<li>
+<p>浅拷贝拷贝的是浅层对象，深拷贝才会递归拷贝所有子对象（只针对可变对象才进行新建操作，直到最后所有对象都是不可变为止）</p>
+</li>
+<li>
+<p>python默认使用的是浅拷贝，因为其速度快、占用空间小、效率高</p>
+</li>
+<li>
+<p>python中的传值还是传引用，要辩解地分析，可变与不可变对象，其传递过程的本质不同。</p>
+</li>
+</ol>
+<h2 id="6-参考">6. 参考</h2>
+<p><a href="https://mp.weixin.qq.com/s/VVKq40A4H6u4gFC1yoMB_w" target="_blank" rel="noopener noreffer">https://mp.weixin.qq.com/s/VVKq40A4H6u4gFC1yoMB_w</a></p>
+<p><a href="https://songlee24.github.io/2014/08/12/python-FAQ-01/" target="_blank" rel="noopener noreffer">Python FAQ1：传值，还是传引用？</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-01-02</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%BA%8C/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%BA%8C/" data-title="Python还债日记之对象(二)" data-hashtags="python,Coding,对象"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%BA%8C/" data-hashtag="python"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%BA%8C/" data-title="Python还债日记之对象(二)" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%BA%8C/" data-title="Python还债日记之对象(二)"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%BA%8C/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%BA%8C/" data-title="Python还债日记之对象(二)"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%BA%8C/" data-title="Python还债日记之对象(二)" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%BA%8C/" data-title="Python还债日记之对象(二)" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%BA%8C/" data-title="Python还债日记之对象(二)"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/python/">python</a>,&nbsp;<a href="/tags/coding/">Coding</a>,&nbsp;<a href="/tags/%E5%AF%B9%E8%B1%A1/">对象</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%B8%80/" class="prev" rel="prev" title="Python还债日记之对象(一)"><i class="fas fa-angle-left fa-fw"></i>Python还债日记之对象(一)</a>
+            <a href="/%E8%87%AA%E5%AE%9A%E4%B9%89c-cuda-extensions/" class="next" rel="next" title="自定义C&#43;&#43;/CUDA扩展">自定义C&#43;&#43;/CUDA扩展<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

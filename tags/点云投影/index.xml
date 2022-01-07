@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>点云投影 - 标签 - Jiayao&#39;s blog</title>
+        <link>http://shanjiayao.com/tags/%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1/</link>
+        <description>点云投影 - 标签 - Jiayao&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
+            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Sun, 22 Mar 2020 12:10:19 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/tags/%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1/" rel="self" type="application/rss+xml" /><item>
+    <title>KITTI数据集点云图像的投影</title>
+    <link>http://shanjiayao.com/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F/</link>
+    <pubDate>Sun, 22 Mar 2020 12:10:19 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F/</guid>
+    <description><![CDATA[本文要完成的工作是将KITTI数据集中的点云信息投影到图像中，以达到信息融合的目的. 使用KITTI中的经过时钟同步和校准后的数据文件 raw_data 来进行]]></description>
+</item></channel>
+</rss>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Pytorch中的Convolution layers - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="Pytorch中的Convolution layers" />
+<meta property="og:description" content="互相关和卷积的区别 在CNN中，互相关和卷积都是使用filter/kernel对一张图像进行操作 互相关是从上到下，从左到右 卷积是从下到上，从右" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/pytorch-conv1d/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-01-21T16:10:19+00:00" />
+<meta property="article:modified_time" content="2021-01-21T16:10:19+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="Pytorch中的Convolution layers"/>
+<meta name="twitter:description" content="互相关和卷积的区别 在CNN中，互相关和卷积都是使用filter/kernel对一张图像进行操作 互相关是从上到下，从左到右 卷积是从下到上，从右"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/pytorch-conv1d/" /><link rel="prev" href="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8Bsort%E5%92%8Csorted/" /><link rel="next" href="http://shanjiayao.com/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Pytorch中的Convolution layers",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/pytorch-conv1d\/"
+        },"genre": "posts","keywords": "Pytorch, DeepLearning, Convolution","wordcount":  2044 ,
+        "url": "http:\/\/shanjiayao.com\/pytorch-conv1d\/","datePublished": "2021-01-21T16:10:19+00:00","dateModified": "2021-01-21T16:10:19+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Pytorch中的Convolution layers</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-21">2021-01-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2044 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#互相关和卷积的区别">互相关和卷积的区别</a></li>
+    <li><a href="#pytorch-中的convnd"><code>Pytorch</code> 中的<code>ConvNd</code></a>
+      <ul>
+        <li><a href="#1-卷积是如何实现维度变化的">1. 卷积是如何实现维度变化的</a></li>
+        <li><a href="#2-卷积核的大小如何影响卷积效果的">2. 卷积核的大小如何影响卷积效果的</a></li>
+        <li><a href="#3-11卷积核的作用bottleneck">3. 1*1卷积核的作用[Bottleneck]</a></li>
+        <li><a href="#4-空洞卷积核的机制">4. 空洞卷积核的机制</a></li>
+        <li><a href="#5-可变形卷积核的原理">5. 可变形卷积核的原理</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><hr>
+<!-- more -->
+<h2 id="互相关和卷积的区别">互相关和卷积的区别</h2>
+<blockquote>
+<p>在CNN中，互相关和卷积都是使用filter/kernel对一张图像进行操作</p>
+<p>互相关是从上到下，从左到右</p>
+<p>卷积是从下到上，从右到左</p>
+<p>卷积等同于将卷积核沿着x轴y轴翻转后，再进行互相关操作</p>
+</blockquote>
+<p>在CNN中，为了简化操作，通常直接使用互相关来代替卷积，因为<strong>对于网络来说，无论是否翻转，都只不过是网络要学习的参数</strong>，翻转与否其实并无影响，所以互相关和卷积在这种情况下是等同的</p>
+<h2 id="pytorch-中的convnd"><code>Pytorch</code> 中的<code>ConvNd</code></h2>
+<p>[官方文档](<a href="https://pytorch.org/docs/stable/_modules/torch/nn/modules/conv.html#Conv1d" target="_blank" rel="noopener noreffer">torch.nn.modules.conv — PyTorch 1.9.0 documentation</a>)</p>
+<p>[中文文档](<a href="https://pytorch.apachecn.org/docs/1.0/nn.html" target="_blank" rel="noopener noreffer">torch.nn · Pytorch 中文文档</a>)</p>
+<p><code>Pytorch</code>中的卷积层操作有三种，分别对应了一维，二维和三维，对于函数的参数以及相关说明，文档中都有详细的介绍，这里略过不提，本文更多的是对自己的理解以及感悟的记录，将会以问题的形式表达</p>
+<h3 id="1-卷积是如何实现维度变化的">1. 卷积是如何实现维度变化的</h3>
+<p>无论卷积操作的维度是多少，通过卷积核之后，输入的特征都可以发生维度的变化，比如输入的是点云数据的张量，维度是<code>[B, 3， N]</code>，对应的一维卷积的卷积核是<code>[Cout, 3, Size]</code>，其中<code>Cout</code>就代表了输出的维度，<code>Size</code>就是卷积核的大小，因为是一维卷积核，所以大小<u>维度</u>是1[注意是维度，不代表大小直接为1]</p>
+<p>关于卷积核尺寸的定义，我将相关参数分为两种，<strong>一种参数定义卷积核的数量</strong>，这些参数包括了卷积操作的输入维度，以及卷积操作的输出维度；<strong>另一种参数定义卷积核的大小</strong>，比如在一维卷积中，kernel size就是一个一维的数值，如果需要关注上下文信息，就将其大小设置为大于1，或者像<code>PointNet</code>网络中设定的那样，将一维卷积核的大小设置为1，只学习一个点的特征信息</p>
+<p>那么最终，一个卷积核的shape应该是 <code>[Cout， Cin， kernelSize]</code>，具体来说，<code>Cin*kernelSize</code>大小的卷积核与输入的<code>Cin</code>维度的特征进行卷积，然后为了输出<code>Cout</code>维度的特征，需要重复<code>Cout</code>份，所以总的大小就是<code>Cout*Cin*kernelSize</code></p>
+<p><strong>注</strong>：既然明确了卷积核的参数以及卷积核的shape，那么还有一点要知道，这些卷积参数都是需要经过网络学习的，那么对应的<strong>卷积操作的参数量计算</strong>，结果等同于上述计算的卷积核大小</p>
+<h3 id="2-卷积核的大小如何影响卷积效果的">2. 卷积核的大小如何影响卷积效果的</h3>
+<p>首先说明，这个卷积核的大小指的是上述卷积核shape中的<code>kernelSize</code></p>
+<p>关于这个问题，是我在学习<code>PointNet</code>时想到的，因为点云数据索引的无序性，所以<code>PointNet</code>学习点云特征时，不能让网络学习到点与相邻点的局部信息，只能单独地学习每个点的特征，那么从感官上来看这样做是有问题的。后面的<code>PointNet++</code>用了那么多繁复的操作，其实最终目的也是为了让网络学习更多的局部感知信息而已</p>
+<p>所以经过思考后，关于卷积核的尺寸大小如何影响卷积效果的，其最直观的答案就是，<code>kernelSize</code>设置不同大小尺寸时，会直接影响网络对于输入特征的感知能力，而这在深度学习领域有一个专有名词，叫做感受野（<code>Receptive Field</code>）</p>
+<p>虽说卷积核的尺寸越大，越能感知更多的局部信息，但是对应的也会带来两个问题</p>
+<ul>
+<li>背景噪声的加入</li>
+<li>参数量的增加</li>
+</ul>
+<p>所以实际设计网络结构时，还是尽可能地考虑周全</p>
+<h3 id="3-11卷积核的作用bottleneck">3. 1*1卷积核的作用[Bottleneck]</h3>
+<p><code>Bottleneck</code>机制的产生，就是为了让CNN能够在少量参数的前提下，学习到深层次的特征</p>
+<p>具体方案就是使用 1×1的卷积升维，卷积核是小-&gt; 大 -&gt; 小的结构</p>
+<img title="" src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-09-42-02-one-by-one-kernel.jpg" alt="1x1 卷积核" style="zoom: 50%;">
+<p>第一种的参数量为：<code>256×3×3×256 = 589824</code></p>
+<p>第二种的参数量为：<code>256×1×1×64 + 64×3×3×64 + 64×1×1×256 = 69632</code></p>
+<p>可见这种<code>Bottleneck</code>机制能有效降低CNN的参数量</p>
+<p>参考：https://davex.pw/2018/02/01/guide-for-kernel/</p>
+<h3 id="4-空洞卷积核的机制">4. 空洞卷积核的机制</h3>
+<p>空洞卷积的原理就是通过对卷积核进行改变，将卷积核增加了扩张率（dilation rate）的概念，如下图，对卷积核每个卷积核之间加入了扩张距离，这样做的好处就是让<strong>网络在不增加参数量的情况下，提高感受野</strong>，下图的感受野从3*3变为了5×5</p>
+<img title="" src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-09-46-29-2021-07-05-09-46-26-image.png" alt="" style="zoom:50%;">
+<p>不过空洞卷积也有缺点：</p>
+<ul>
+<li>不适用于精度较高的任务，比如像素级别的任务，因为计算卷积时，不是感受野中所有的像素都用来计算了，这样会损失信息，这也叫<code>Gridding Effect</code>网格效应</li>
+<li>想不起来了，，等想起来再补充。。。</li>
+</ul>
+<h3 id="5-可变形卷积核的原理">5. 可变形卷积核的原理</h3>
+<p>接下来这个卷积核的设计思路是我认为比较合理的，因为卷积核的作用是改变维度，进而提高感受野，那么对于不同的任务来说，可能一味提高感受野并不是好事，因为感受野如果不能较好地覆盖前景目标，反而引入了太多的背景信息，那么就会让网络学习到错误的特征，所以如何让感受野<code>可变形</code>？似乎是一个很好的研究方向</p>
+<p>微软亚洲研究院（MSRA）就做了相关的研究，让卷积核自己形变，通过参数学习来决定感受野的覆盖区域，这是更加智能的方式</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-09-41-25-deformable_kernel.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-09-41-25-deformable_kernel.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-09-41-25-deformable_kernel.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-09-41-25-deformable_kernel.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-09-41-25-deformable_kernel.png"
+        title="空洞卷积核" />图片目标跟踪算法Ocean中，也使用了这种可变形卷积核，来让网络更好地关注前景目标，也得到了不错的结果，感兴趣的小伙伴可以了解下</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-01-21</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/pytorch-conv1d/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/pytorch-conv1d/" data-title="Pytorch中的Convolution layers" data-hashtags="Pytorch,DeepLearning,Convolution"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/pytorch-conv1d/" data-hashtag="Pytorch"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/pytorch-conv1d/" data-title="Pytorch中的Convolution layers" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/pytorch-conv1d/" data-title="Pytorch中的Convolution layers"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/pytorch-conv1d/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/pytorch-conv1d/" data-title="Pytorch中的Convolution layers"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/pytorch-conv1d/" data-title="Pytorch中的Convolution layers" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/pytorch-conv1d/" data-title="Pytorch中的Convolution layers" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/pytorch-conv1d/" data-title="Pytorch中的Convolution layers"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/pytorch/">Pytorch</a>,&nbsp;<a href="/tags/deeplearning/">DeepLearning</a>,&nbsp;<a href="/tags/convolution/">Convolution</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8Bsort%E5%92%8Csorted/" class="prev" rel="prev" title="Python还债日记之sort和sorted"><i class="fas fa-angle-left fa-fw"></i>Python还债日记之sort和sorted</a>
+            <a href="/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/" class="next" rel="next" title="目标跟踪中的边界效应与余弦窗平滑">目标跟踪中的边界效应与余弦窗平滑<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

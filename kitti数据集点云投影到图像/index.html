@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>KITTI数据集点云图像的投影 - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="KITTI数据集点云图像的投影" />
+<meta property="og:description" content="本文要完成的工作是将KITTI数据集中的点云信息投影到图像中，以达到信息融合的目的. 使用KITTI中的经过时钟同步和校准后的数据文件 raw_data 来进行" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-03-22T12:10:19+00:00" />
+<meta property="article:modified_time" content="2020-03-22T12:10:19+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="KITTI数据集点云图像的投影"/>
+<meta name="twitter:description" content="本文要完成的工作是将KITTI数据集中的点云信息投影到图像中，以达到信息融合的目的. 使用KITTI中的经过时钟同步和校准后的数据文件 raw_data 来进行"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F/" /><link rel="prev" href="http://shanjiayao.com/python%E4%B8%8Eros%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/" /><link rel="next" href="http://shanjiayao.com/git%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "KITTI数据集点云图像的投影",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F\/"
+        },"genre": "posts","keywords": "KITTI, DeepLearning, 点云投影","wordcount":  1416 ,
+        "url": "http:\/\/shanjiayao.com\/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F\/","datePublished": "2020-03-22T12:10:19+00:00","dateModified": "2020-03-22T12:10:19+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">KITTI数据集点云图像的投影</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-03-22">2020-03-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1416 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-kitti数据集介绍">1. KITTI数据集介绍</a></li>
+        <li><a href="#2-kitti数据集中的raw_data">2. KITTI数据集中的raw_data</a></li>
+        <li><a href="#3-利用kitti提供的devkit以及相应数据集的calib文件">3. 利用kitti提供的devkit以及相应数据集的calib文件</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#解读calib文件夹">解读calib文件夹</a></li>
+                <li><a href="#解读devkit">解读devkit</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><hr>
+<!-- more -->
+<p>本文要完成的工作是将KITTI数据集中的点云信息投影到图像中，以达到信息融合的目的.　使用KITTI中的经过时钟同步和校准后的数据文件 raw_data 来进行投影变换。其主要操作就是坐标系之间的变换。</p>
+<h3 id="1-kitti数据集介绍">1. KITTI数据集介绍</h3>
+<p>kitti的数据采集平台，配置有四个摄像机和一个激光雷达，四个摄像机中有两个灰度摄像机，两个彩色摄像机</p>
+<p>从图中可看出，关于相机坐标系(camera)的方向与雷达坐标系(velodyne)的方向规定</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/yanglysysu/pic_assets/raw/master/kitti_coord.png"
+        data-srcset="https://gitee.com/yanglysysu/pic_assets/raw/master/kitti_coord.png, https://gitee.com/yanglysysu/pic_assets/raw/master/kitti_coord.png 1.5x, https://gitee.com/yanglysysu/pic_assets/raw/master/kitti_coord.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/yanglysysu/pic_assets/raw/master/kitti_coord.png"
+        title="kitti_coordinate" /></p>
+<p>camera: x = right, y = down, z = forward</p>
+<p>velodyne: x = forward, y = left, z = up</p>
+<p>那么velodyne所采集到的点云数据中，各点的x轴坐标，即为所需的深度信息。</p>
+<p>更多详细的简介网络上都能搜索到，这里只列举了与当前目的相关的必要信息。</p>
+<h3 id="2-kitti数据集中的raw_data">2. KITTI数据集中的raw_data</h3>
+<p>raw_data对于每个序列都提供了同步且校准后的数据、标定数据。</p>
+<p>同步且校准后的数据：</p>
+<ul>
+<li>
+<p>./imageXX 包含有各个摄像机采集到的图像序列</p>
+<ul>
+<li>&lsquo;image_00&rsquo;: left rectified grayscale image sequence
+<ul>
+<li>&lsquo;image_01&rsquo;: right rectified grayscale image sequence</li>
+<li>&lsquo;image_02&rsquo;: left rectified color image sequence</li>
+<li>&lsquo;image_03&rsquo;: right rectified color image sequence</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>./velodyne_points 包含有雷达扫描到的数据，点云形式，每个点以 (x,y,z,i) 格式存储，i为反射值</p>
+<ul>
+<li>雷达采集数据时，是绕着竖直轴旋转扫描，只有当雷达旋转到与相机的朝向一致时会触发相机采集图像。不过在这里无需关注这一点，直接使用给出的同步且校准后的数据即可，它已将雷达数据与相机数据对齐，也就是可以认为同一文件名对应的图像数据与雷达点云数据属于同一个场景。</li>
+</ul>
+</li>
+</ul>
+<p>标定数据：</p>
+<ul>
+<li>
+<p>./cam_to_cam 包含有各个摄像机的标定参数</p>
+</li>
+<li>
+<p>./velo_to_cam 包含有雷达到摄像机的变换参数</p>
+</li>
+</ul>
+<p>对于raw_data，kitti还提供了样例工具，方便读取各种数据文件并输出，参见官网raw_data下载页的development kit</p>
+<h3 id="3-利用kitti提供的devkit以及相应数据集的calib文件">3. 利用kitti提供的devkit以及相应数据集的calib文件</h3>
+<h5 id="解读calib文件夹">解读calib文件夹</h5>
+<ul>
+<li>cam_to_cam，包含各相机的标定参数
+<ul>
+<li>S_xx: 1x2 矫正前xx号相机的图片尺寸</li>
+<li>K_xx: 3x3 矫正前xx号相机的标定参数</li>
+<li>D_xx: 1x5 矫正前xx号相机的畸变系数</li>
+<li>R_xx: 3x3 外参，xx号相机的旋转矩阵</li>
+<li>T_xx: 3x1 外参，xx号相机的平移矩阵</li>
+<li>S_rect_xx: 1x2 矫正后XX号相机的图片尺寸</li>
+<li>R_rect_xx: 3x3 旋转矩阵，用于矫正xx号相机，使得图像平面共面(原话是make image planes co-planar)。</li>
+<li>P_rect_0x: 3x4 投影矩阵，用于从矫正后的0号相机坐标系 投影到 X号相机的图像平面。</li>
+</ul>
+</li>
+</ul>
+<p>这里只用到最后两个矩阵R_rect和P_rect</p>
+<ul>
+<li>velo_to_cam，从雷达坐标系到0号相机坐标系的转换
+<ul>
+<li>R: 3x3 旋转矩阵</li>
+<li>T:  3x1 平移矩阵</li>
+<li>delta_f 和delta_c 已被弃用</li>
+</ul>
+</li>
+</ul>
+<p>由此可以得出从雷达坐标系变换到xx号相机的图像坐标系的公式：</p>
+<p>设X为雷达坐标系中的齐次坐标 X = [x y z 1]'，对应于xx号相机的图像坐标系的齐次坐标Y = [u v 1]'，则：</p>
+<p><strong>Y = P_rect_xx * R_rect_00 * (R|T)_velo_to_cam * X</strong></p>
+<ul>
+<li>(R|T) ： 雷达坐标系 -&gt; 0号相机坐标系</li>
+<li>R_rect_00： 0号相机坐标系 -&gt; 矫正后的0号相机坐标系</li>
+<li>P_rect_0x： 矫正后的0号相机坐标系 -&gt; 0号相机的图像平面</li>
+</ul>
+<h5 id="解读devkit">解读devkit</h5>
+<p>官网提供的样例代码中 run_demoVelodyne.m 实现了将雷达点云投影到相机图像</p>
+<p>大致说一下步骤：</p>
+<p>从所给路径中读取标定文件，获取具体矩阵数值</p>
+<ul>
+<li>根据上述公式，计算投影矩阵 P_velo_to_img，即 Y = P_velo_to_img * X</li>
+<li>从所给路径中读取相机图片，并加载雷达的点云数据。由于只做展示用，为了加快运行速度，对于雷达点云，每隔5个点只保留1个点</li>
+<li>移除那些距离雷达5米之内(雷达的x方向)的点 (猜测这些点落在相机和雷达之间，故不会出现在图像平面上)</li>
+<li>作投影计算，得到投影到二维图像上的点</li>
+<li>在图像上画出投影后的点，按照深度(雷达点的x方向值)确定颜色，彩色则是暖色越近，冷色越远；灰度则是深色越近，浅色越远。</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-03-22</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F/" data-title="KITTI数据集点云图像的投影" data-hashtags="KITTI,DeepLearning,点云投影"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F/" data-hashtag="KITTI"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F/" data-title="KITTI数据集点云图像的投影" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F/" data-title="KITTI数据集点云图像的投影"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F/" data-title="KITTI数据集点云图像的投影"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F/" data-title="KITTI数据集点云图像的投影" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F/" data-title="KITTI数据集点云图像的投影" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F/" data-title="KITTI数据集点云图像的投影"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/kitti/">KITTI</a>,&nbsp;<a href="/tags/deeplearning/">DeepLearning</a>,&nbsp;<a href="/tags/%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1/">点云投影</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/python%E4%B8%8Eros%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/" class="prev" rel="prev" title="Python与ros兼容问题记录"><i class="fas fa-angle-left fa-fw"></i>Python与ros兼容问题记录</a>
+            <a href="/git%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="next" rel="next" title="git学习记录">git学习记录<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>算法学习之希尔排序 - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="算法学习之希尔排序" />
+<meta property="og:description" content="本文是学习排序系列的第二篇，主要介绍插入排序的进阶版-&gt;希尔排序 注：本文的排序算法默认升序 0. 常见排序算法性能对比 再贴一张常见排序算法的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-04-28T16:10:19+00:00" />
+<meta property="article:modified_time" content="2021-04-28T16:10:19+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="算法学习之希尔排序"/>
+<meta name="twitter:description" content="本文是学习排序系列的第二篇，主要介绍插入排序的进阶版-&gt;希尔排序 注：本文的排序算法默认升序 0. 常见排序算法性能对比 再贴一张常见排序算法的"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" /><link rel="prev" href="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/" /><link rel="next" href="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "算法学习之希尔排序",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F\/"
+        },"genre": "posts","keywords": "Sorting, Algorithms","wordcount":  1553 ,
+        "url": "http:\/\/shanjiayao.com\/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F\/","datePublished": "2021-04-28T16:10:19+00:00","dateModified": "2021-04-28T16:10:19+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">算法学习之希尔排序</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-04-28">2021-04-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1553 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-常见排序算法性能对比">0. 常见排序算法性能对比</a></li>
+    <li><a href="#1-希尔排序插入in-place">1. 希尔排序(<code>插入</code>)(<code>In-place</code>)</a>
+      <ul>
+        <li><a href="#定义与可视化">定义与可视化</a></li>
+        <li><a href="#定义人话版">定义(人话版)</a></li>
+        <li><a href="#增量设定如何递减">增量设定&amp;如何递减</a>
+          <ul>
+            <li><a href="#最简单的增量方案折半">最简单的增量方案(折半)</a></li>
+            <li><a href="#极端情况">极端情况</a></li>
+            <li><a href="#比较">比较</a></li>
+            <li><a href="#代码">代码</a></li>
+            <li><a href="#复杂度分析">复杂度分析</a></li>
+            <li><a href="#稳定性分析">稳定性分析</a></li>
+            <li><a href="#可视化网站">可视化网站</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><hr>
+<p>本文是学习排序系列的第二篇，主要介绍插入排序的进阶版-&gt;希尔排序</p>
+<blockquote>
+<p>注：本文的排序算法默认升序</p>
+</blockquote>
+<!-- more -->
+<h2 id="0-常见排序算法性能对比">0. 常见排序算法性能对比</h2>
+<p>再贴一张常见排序算法的性能对比，方便查看~</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png" /></p>
+<hr>
+<h2 id="1-希尔排序插入in-place">1. 希尔排序(<code>插入</code>)(<code>In-place</code>)</h2>
+<h3 id="定义与可视化">定义与可视化</h3>
+<blockquote>
+<p>希尔排序也叫递减增量排序，其在直接插入排序的基础上，巧妙使用<strong>增量</strong>的概念，让插入排序的作用对象<strong>逐层有序</strong>，而递减增量指的是增量的数值依次减小最终为1</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/01-00-04-07-shell-sort.gif"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/01-00-04-07-shell-sort.gif, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/01-00-04-07-shell-sort.gif 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/01-00-04-07-shell-sort.gif 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/01-00-04-07-shell-sort.gif"
+        title="shell-sort.gif" /></p>
+<h3 id="定义人话版">定义(人话版)</h3>
+<p>OK，说人话，上一篇总结了<a href="https://shmilywh.github.io/2021/04/26/Algorithms/sorting/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%8E%92%E5%BA%8F%28%E4%B8%80%29/#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F-%E6%8F%92%E5%85%A5-In-place" target="_blank" rel="noopener noreffer">插入排序</a>的原理和特点，我们知道<u>插入排序</u>在输入序列基本有序的情况下是蛮快的，时间复杂度可以达到O(N)级别，只不过插入排序针对基本<strong>逆序</strong>的输入处理依旧不够简洁。那么希尔排序，则是插入排序的升级版，通过<code>预处理</code>+<code>插入排序</code>的方案，最优情况下可以达到O(N)的时间复杂度。输入不够有序？先处理成相对有序，再进行插入排序操作就好~</p>
+<p>那么具体如何实现呢？希尔排序中用到了一个名词，叫做<strong>增量</strong>，记做gap，这个增量的作用是将原输入序列分批，与其直接处理原输入，先处理第1个元素与第gap+1个元素，将二者作为一组进行插入排序，原数组不够有序？其实减小输入规模，也相当于间接地减小无序程度。此外，希尔排序的定义中为什么说<strong>递减增量</strong>呢？其实换个角度理解，增量越大，每批处理的元素越多，那么<u><strong>增量递减相当于逐渐增加插入排序每次处理的数据规模</strong></u>，而且当前的数据又是在上一个增量时已经提前<strong>预处理</strong>过了，所以插入排序处理起来会更简单。</p>
+<h3 id="增量设定如何递减">增量设定&amp;如何递减</h3>
+<h4 id="最简单的增量方案折半">最简单的增量方案(折半)</h4>
+<p>我们先以折半的方案为例，熟悉希尔排序的具体操作过程，便于写代码实现</p>
+<ul>
+<li>
+<p>首先，给定一些定义，我们设定增量为gap，输入序列长度为N，gap初始值为<code>N//2</code></p>
+</li>
+<li>
+<p>根据gap的值进行分批插入排序</p>
+<ul>
+<li>
+<p>遍历的起止索引是gap -&gt; (len(N)-1)</p>
+</li>
+<li>
+<p>当前索引如果是cur，那么当前批的索引是</p>
+<p>&hellip;, cur-3gap, cur-2gap, cur-gap, cur</p>
+<p>将当前批索引对应的元素进行插入排序</p>
+</li>
+<li>
+<p>将索引cur右移一位，重复上一过程</p>
+</li>
+</ul>
+</li>
+<li>
+<p>更新gap的值为 <code>gap = gap//2</code></p>
+</li>
+<li>
+<p>gap为0时，遍历结束</p>
+</li>
+</ul>
+<p>在上述过程中，折半增量的作用就是每次都将插入排序的对象数量扩大一倍，而且扩大前后的两批数据并不是相互独立的，而是扩大前的数据已经是有序的。一直到最后，gap为1时，插入排序拿到的数据已经是近乎有序的了，这就是预处理的作用。</p>
+<h4 id="极端情况">极端情况</h4>
+<p>折半增量虽然简单容易理解，但是存在一种极端的情况，那就是<code>当gap的值等于1之前，可能每批数据都是有序的，这时gap=1，插入排序拿到的序列顺序与原始顺序一致，相当于gap等于1之前的操作都是额外的，这样反而比直接插入排序还要耗时</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/06-09-51-24-2021-05-06-09-51-20-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/06-09-51-24-2021-05-06-09-51-20-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/06-09-51-24-2021-05-06-09-51-20-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/06-09-51-24-2021-05-06-09-51-20-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/06-09-51-24-2021-05-06-09-51-20-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/06-09-51-24-2021-05-06-09-51-20-image.png" /></p>
+<p>如上图，gap初始为4，然后为2，你会发现这两种情况对应的数据都已经是有序的。</p>
+<p>造成这种情况的原因就是：<strong>增量方案不够严谨</strong>。事实上，希尔排序的时间复杂度的确取决于增量递减的方案，那么，为了保证分组粗调没有盲区，每一轮的增量需要彼此“互质”，也就是没有除1之外的公约数，这样才能保证希尔排序不会<code>好心办坏事</code>。</p>
+<p>所以，为了使增量互质，人们又提出了Hibbard增量：2^k-1[1, 3, 7, 15, &hellip;]，后续还有很多其他方案被提出，不过这不是我们关注的重点了。</p>
+<h4 id="比较">比较</h4>
+<p>相比于直接插入排序</p>
+<ul>
+<li>
+<p>希尔排序是不稳定的，数据交换过程中可能丢失稳定性</p>
+</li>
+<li>
+<p>希尔排序的比较次数和移动次数比直接插入排序要少，N越大效果越明显</p>
+</li>
+<li>
+<p>希尔排序中增量gap的取法必须满足最后一个步长为1</p>
+</li>
+</ul>
+<h4 id="代码">代码</h4>
+<p>以折半增量为例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">shellsort</span><span class="p">(</span><span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="n">gap</span> <span class="o">=</span> <span class="n">length</span>
+
+    <span class="k">while</span> <span class="n">gap</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">gap</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+            <span class="n">cur_val</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">last_id</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">gap</span>
+            <span class="k">while</span> <span class="n">last_id</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">last_id</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">cur_val</span><span class="p">:</span>
+                <span class="n">nums</span><span class="p">[</span><span class="n">last_id</span> <span class="o">+</span> <span class="n">gap</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">last_id</span><span class="p">]</span>
+                <span class="n">last_id</span> <span class="o">-=</span> <span class="n">gap</span>
+            <span class="n">nums</span><span class="p">[</span><span class="n">last_id</span> <span class="o">+</span> <span class="n">gap</span><span class="p">]</span> <span class="o">=</span> <span class="n">cur_val</span>
+        <span class="n">gap</span> <span class="o">//=</span> <span class="mi">2</span>
+
+    <span class="k">return</span> <span class="n">nums</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="复杂度分析">复杂度分析</h4>
+<p>设定序列长度为N</p>
+<ul>
+<li>
+<p>时间复杂度</p>
+<p>最坏时间复杂度为𝑂(𝑁^(3/2))，平均时间复杂度约为𝑂(𝑁^(5/4))</p>
+</li>
+<li>
+<p>空间复杂度</p>
+<p>因为是原地操作，所以空间复杂度为<code>O(1)</code></p>
+</li>
+</ul>
+<h4 id="稳定性分析">稳定性分析</h4>
+<p>希尔排序是不稳定的，因为其在插入元素的过程中可能会交换相等元素的顺序。</p>
+<h4 id="可视化网站">可视化网站</h4>
+<p><a href="http://sorting.at/" target="_blank" rel="noopener noreffer">SORTING</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-04-28</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" data-title="算法学习之希尔排序" data-hashtags="Sorting,Algorithms"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" data-hashtag="Sorting"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" data-title="算法学习之希尔排序" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" data-title="算法学习之希尔排序"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" data-title="算法学习之希尔排序"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" data-title="算法学习之希尔排序" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" data-title="算法学习之希尔排序" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" data-title="算法学习之希尔排序"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/sorting/">Sorting</a>,&nbsp;<a href="/tags/algorithms/">Algorithms</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/" class="prev" rel="prev" title="算法学习之基础排序"><i class="fas fa-angle-left fa-fw"></i>算法学习之基础排序</a>
+            <a href="/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="next" rel="next" title="算法学习之归并排序">算法学习之归并排序<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

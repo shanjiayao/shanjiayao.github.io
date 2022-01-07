@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>yeild - 标签 - Jiayao&#39;s blog</title>
+        <link>http://shanjiayao.com/tags/yeild/</link>
+        <description>yeild - 标签 - Jiayao&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
+            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Sat, 06 Mar 2021 16:10:19 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/tags/yeild/" rel="self" type="application/rss+xml" /><item>
+    <title>Python还债日记之迭代器/生成器/yeild</title>
+    <link>http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8Byeild%E5%85%B3%E9%94%AE%E5%AD%97/</link>
+    <pubDate>Sat, 06 Mar 2021 16:10:19 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8Byeild%E5%85%B3%E9%94%AE%E5%AD%97/</guid>
+    <description><![CDATA[转载自： https://liam.page/2017/06/30/understanding-yield-in-python/ 生成器 = 迭代器 + yeild 概述 逐个获取元素的过程，就是「迭代」 迭代器中没有元素时，调用 next() 方法会抛出 StopIteration 异常 如果提供了 __iter__() 或者 __getitem__() 方法，那么该类的]]></description>
+</item></channel>
+</rss>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>算法学习之基础排序 - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="算法学习之基础排序" />
+<meta property="og:description" content="本文是学习排序系列的第一篇，主要介绍一些基本概念，对常见排序算法进行总结，以及介绍三种初级排序算法：冒泡、选择、插入 注：本文的排序算法默认升" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-04-26T16:10:19+00:00" />
+<meta property="article:modified_time" content="2021-04-26T16:10:19+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="算法学习之基础排序"/>
+<meta name="twitter:description" content="本文是学习排序系列的第一篇，主要介绍一些基本概念，对常见排序算法进行总结，以及介绍三种初级排序算法：冒泡、选择、插入 注：本文的排序算法默认升"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/" /><link rel="prev" href="http://shanjiayao.com/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/" /><link rel="next" href="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "算法学习之基础排序",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F\/"
+        },"genre": "posts","keywords": "Sorting, Algorithms","wordcount":  3626 ,
+        "url": "http:\/\/shanjiayao.com\/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F\/","datePublished": "2021-04-26T16:10:19+00:00","dateModified": "2021-04-26T16:10:19+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">算法学习之基础排序</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-04-26">2021-04-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3626 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-写在前面">0. 写在前面</a>
+      <ul>
+        <li><a href="#关于排序">关于排序</a></li>
+        <li><a href="#大o表示法">大O表示法</a></li>
+        <li><a href="#排序算法的稳定性">排序算法的稳定性</a></li>
+      </ul>
+    </li>
+    <li><a href="#1-常见排序算法概览">1. 常见排序算法概览</a>
+      <ul>
+        <li><a href="#11-按照排序方式分类">1.1 按照排序方式分类</a></li>
+        <li><a href="#12-各排序算法对比">1.2 各排序算法对比</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-常见排序算法学习">2. 常见排序算法学习</a>
+      <ul>
+        <li><a href="#21-初级排序算法">2.1 初级排序算法</a>
+          <ul>
+            <li><a href="#冒泡排序交换in-place">冒泡排序(<code>交换</code>)(<code>In-place</code>)</a></li>
+            <li><a href="#选择排序选择in-place">选择排序(<code>选择</code>)(<code>In-place</code>)</a></li>
+            <li><a href="#插入排序插入in-place">插入排序(<code>插入</code>)(<code>In-place</code>)</a></li>
+            <li><a href="#可视化网页">可视化网页</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><hr>
+<p>本文是学习排序系列的第一篇，主要介绍一些基本概念，对常见排序算法进行总结，以及介绍三种初级排序算法：冒泡、选择、插入</p>
+<blockquote>
+<p>注：本文的排序算法默认升序</p>
+</blockquote>
+<!-- more -->
+<h2 id="0-写在前面">0. 写在前面</h2>
+<h3 id="关于排序">关于排序</h3>
+<p>排序算法是算法中较为基础的知识，给定一个无需序列，如何使其有序？这个问题目前拥有很多种解决方案，并且不同的方法也会涉及到不同的算法知识，比如常见的比较与非比较策略、迭代与递归的实现、分治策略、对算法的时间复杂度分析等</p>
+<h3 id="大o表示法">大O表示法</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://visualgo.net/img/growth_rates.png"
+        data-srcset="https://visualgo.net/img/growth_rates.png, https://visualgo.net/img/growth_rates.png 1.5x, https://visualgo.net/img/growth_rates.png 2x"
+        data-sizes="auto"
+        alt="https://visualgo.net/img/growth_rates.png"
+        title="不同时间复杂度随N变化" /></p>
+<h3 id="排序算法的稳定性">排序算法的稳定性</h3>
+<p>衡量一个排序算法的性能，我们不仅可以使用上述的大O表示法来表示算法的时间和空间复杂度，还可以判断其是否稳定。</p>
+<blockquote>
+<p>如果Ai= Aj，排序前Ai在Aj之前，排序后Ai还在Aj之前，则称这种排序算法是稳定的。通俗地讲就是保证排序前后两个相等的数的相对顺序不变</p>
+</blockquote>
+<ul>
+<li>对于不稳定的排序算法，只要举出一个实例，即可说明它的不稳定性；而对于稳定的排序算法，必须对算法进行分析从而得到稳定的特性。</li>
+<li><strong>排序算法是否为稳定的是由具体算法决定的</strong>，不稳定的算法在某种条件下可以变为稳定的算法，而稳定的算法在某种条件下也可以变为不稳定的算法。例如，对于冒泡排序，原本是稳定的排序算法，如果将记录交换的条件改成A[i] &gt;= A[i + 1]，则两个相等的记录就会交换位置，从而变成不稳定的排序算法。</li>
+<li><strong>排序算法稳定性的好处</strong>。排序算法如果是稳定的，那么从一个键上排序，然后再从另一个键上排序，前一个键排序的结果可以为后一个键排序所用。基数排序就是这样，先按低位排序，逐次按高位排序，低位排序后元素的顺序在高位也相同时是不会改变的</li>
+</ul>
+<h2 id="1-常见排序算法概览">1. 常见排序算法概览</h2>
+<h3 id="11-按照排序方式分类">1.1 按照排序方式分类</h3>
+<ol>
+<li>
+<p>一种是<strong>比较排序</strong>，时间复杂度<code>O(nlogn) ~ O(n^2)</code></p>
+<blockquote>
+<p>基于比较的排序算法，都免不了两种操作：<u>比较与交换</u>，所以在排序的过程中，我们可以通过计算<u>比较操作与交换操作的次数</u>来进一步衡量算法的有效性</p>
+</blockquote>
+<ul>
+<li>
+<p>交换：冒泡排序、快速排序</p>
+</li>
+<li>
+<p>插入：简单插入排序、希尔排序</p>
+</li>
+<li>
+<p>选择：简单选择排序、堆排序</p>
+</li>
+<li>
+<p>归并：二路归并排序、多路归并排序</p>
+</li>
+</ul>
+</li>
+<li>
+<p>另一种是<strong>非比较排序</strong>，时间复杂度可以达到<code>O(n)</code></p>
+<ul>
+<li>
+<p>计数排序</p>
+</li>
+<li>
+<p>桶排序</p>
+</li>
+<li>
+<p>基数排序</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="12-各排序算法对比">1.2 各排序算法对比</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/26-18-44-47-2021-05-26-18-44-43-image.png" /></p>
+<hr>
+<h2 id="2-常见排序算法学习">2. 常见排序算法学习</h2>
+<h3 id="21-初级排序算法">2.1 初级排序算法</h3>
+<p>先来看三种基于比较的排序算法，这三种算法较容易实现，但却不是最有效的，因为时间复杂度是平方级别。</p>
+<hr>
+<h4 id="冒泡排序交换in-place">冒泡排序(<code>交换</code>)(<code>In-place</code>)</h4>
+<blockquote>
+<p>冒泡排序是较为初级的排序算法，思想简单，易实现，但其算法复杂度不友好，一般仅做为入门学习。算法核心思想就是通过不断的比较以及交换，使极值元素向一端移动，类似冒泡的过程</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/20-11-28-14-bubble-sort.gif"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/20-11-28-14-bubble-sort.gif, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/20-11-28-14-bubble-sort.gif 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/20-11-28-14-bubble-sort.gif 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/20-11-28-14-bubble-sort.gif"
+        title="bubble-sort.gif" /></p>
+<p>给定一个N个元素的数组，冒泡排序将：</p>
+<ol>
+<li>比较一对相邻元素（a，b）</li>
+<li>如果元素大小关系不正确，交换这两个数（在本例中为a&gt; b），</li>
+<li>重复步骤1和2，直到我们到达数组的末尾（最后一对是第（N-2）和（N-1）项，因为我们的数组从零开始）</li>
+<li>到目前为止，最大的元素将在最后的位置。 然后我们将N减少1，并重复步骤1，直到N = 1。</li>
+</ol>
+<p><strong>问题分析及优化</strong></p>
+<ul>
+<li>
+<p>原始冒泡排序较为耗时，且其比较次数与序列无序程度无关，即使输入完全有序的序列，比较次数还是<code>N * (N-1) / 2</code> 次</p>
+</li>
+<li>
+<p>针对上述问题，可以维护一个标志位，如果当前这一层的迭代过程中，没有发生元素位置的交换，那么说明前面所有元素都已经是有序的，就可以结束排序了</p>
+</li>
+</ul>
+<p><strong>代码</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">bubblesort</span><span class="p">(</span><span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+        <span class="n">sort_over</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="o">-</span><span class="n">i</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">sort_over</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">sort_over</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">nums</span>
+    <span class="k">return</span> <span class="n">nums</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>讨论</strong></p>
+<p>虽然优化后，冒泡排序在一般情况下运行得更快，但这种改进的想法并没有改变冒泡排序的 <strong>O(n^2)</strong> 时间复杂性&hellip;为什么？</p>
+<p>优化的情况只是针对有序的条件，当序列完全逆序时，冒泡排序的比较次数和交换次数仍然非常多，不够有效</p>
+<p><strong>复杂度分析</strong></p>
+<p>针对优化后的冒泡排序，设定序列长度为N</p>
+<ul>
+<li>
+<p>时间复杂度</p>
+<p>最好情况下，序列完全有序，仅需比较 <code>N-1</code> 次，即可完成排序，无需交换，故时间复杂度为<code>O(N)</code></p>
+<p>最坏情况下，序列完全逆序，需要比较<code>(N-1) + (N-2) + ... + 1 + 0 = N*(N-1)/2</code>，同理，需要交换<code>N*(N-1)/2</code>次，故时间复杂度为<code>O(N^2)</code></p>
+</li>
+<li>
+<p>空间复杂度</p>
+<p>因为是原地操作，所以空间复杂度为<code>O(1)</code></p>
+</li>
+</ul>
+<p><strong>是否稳定</strong></p>
+<p>冒泡排序是稳定的，因为其不改变相对顺序</p>
+<hr>
+<h4 id="选择排序选择in-place">选择排序(<code>选择</code>)(<code>In-place</code>)</h4>
+<blockquote>
+<p>选择排序也是基于比较的排序，其核心思想是<u>比较(选择)、交换</u>。相比与冒泡排序，选择排序大大减少了交换操作的次数，虽然时间复杂度与冒泡排序相同，但却更加高效</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/20-11-24-54-select-sort.gif"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/20-11-24-54-select-sort.gif, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/20-11-24-54-select-sort.gif 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/20-11-24-54-select-sort.gif 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/20-11-24-54-select-sort.gif"
+        title="select-sort.gif" /></p>
+<p>给定一个N个元素的数组，选择排序将从前向后遍历，假设当前元素为L，那么选择排序的方法是维护两部分内容，第一部分是<strong>L左侧的序列</strong>，该序列是<u>升序有序</u>的，第二部分是<strong>L以及L右侧的数据</strong>，可以理解为<u>未排序的元素</u>。所谓选择，就是每次都遍历从L到最后一个元素，选择最小的元素，并使其与L的位置交换。宏观上来看就是从L右边找到一个最小的，放到左边，然后不断右移L直到整个序列完全有序。具体可以分为三步</p>
+<ol>
+<li>
+<p>在 [L &hellip; N-1]范围内找出最小项目X的位置</p>
+</li>
+<li>
+<p>用第 L 项交换X</p>
+</li>
+<li>
+<p>将下限 L 增加1并重复步骤1直到 L = N-2</p>
+</li>
+</ol>
+<p>看到这里，不难发现，相比于冒泡排序，选择排序的比较次数与冒泡排序一致，都是O(n^2)级别，但是实际交换的次数却只有O(n)次，这也是为什么选择排序会比冒泡排序快的原因。</p>
+<p><strong>代码</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">selectsort</span><span class="p">(</span><span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+        <span class="n">min_id</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+            <span class="n">min_id</span> <span class="o">=</span> <span class="n">j</span> <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">min_id</span><span class="p">]</span> <span class="k">else</span> <span class="n">min_id</span>
+        <span class="k">if</span> <span class="n">min_id</span> <span class="o">!=</span> <span class="n">i</span><span class="p">:</span>    <span class="c1"># 判断是否是当前元素最小，是的话就不用交换</span>
+            <span class="n">nums</span><span class="p">[</span><span class="n">min_id</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">min_id</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">nums</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>复杂度分析</strong></p>
+<p>设定序列长度为N</p>
+<ul>
+<li>
+<p>时间复杂度</p>
+<p>最好情况下，序列完全有序，需比较 <code>(N-1) + (N-2) + ... + 1 + 0 = N*(N-1)/2</code> 次，即可完成排序，无需交换，故时间复杂度为<code>O(N^2)</code></p>
+<p>最坏情况下，序列完全逆序，需要比较<code>(N-1) + (N-2) + ... + 1 + 0 = N*(N-1)/2</code>，同理，需要交换<code>N-1</code>次(无重复元素)，故时间复杂度为<code>O(N^2)</code></p>
+</li>
+<li>
+<p>空间复杂度</p>
+<p>因为是原地操作，所以空间复杂度为<code>O(1)</code></p>
+</li>
+</ul>
+<p><strong>是否稳定</strong></p>
+<p>选择排序是不稳定的，因为其在交换元素时可能改变相对顺序</p>
+<hr>
+<h4 id="插入排序插入in-place">插入排序(<code>插入</code>)(<code>In-place</code>)</h4>
+<blockquote>
+<p>插入排序类似<u>‘<a href="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/30-22-51-57-insertsort.jpg" target="_blank" rel="noopener noreffer">打扑克</a>’</u>中我们抓牌码牌的过程，并且插入的思想使其平均操作次数小于选择排序，依据<u>比较(交换)、插入</u>的流程，插入排序的速度是三种基础排序算法中最快的</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/30-23-00-38-insert-sort.gif"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/30-23-00-38-insert-sort.gif, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/30-23-00-38-insert-sort.gif 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/30-23-00-38-insert-sort.gif 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/30-23-00-38-insert-sort.gif"
+        title="insert-sort.gif" /></p>
+<p>给定一个N个元素的数组，插入排序将从前向后遍历，假设当前元素为L，那么插入排序的方法是维护两部分内容，第一部分是<strong>L左侧的序列</strong>，该序列是<u>升序有序</u>的，第二部分是<strong>L以及L右侧的数据</strong>，可以理解为<u>未排序的元素</u>。所谓<strong>插入</strong>，就是在左侧有序序列中找到当前元素L的位置，使插入L后的序列依旧有序，然后依次右移L。可以总结为两步：</p>
+<ol>
+<li>
+<p>将L依次与L左侧第n个元素比较(n=1,2,&hellip;)，我们称被比较的元素叫Ln，如果L大于Ln，交换二者位置，并继续向前比较，直到L小于或等于Ln，设定当前Ln的位置后一位为L，这时插入完毕</p>
+</li>
+<li>
+<p>更新L，重复1，直到遍历结束</p>
+</li>
+</ol>
+<p><strong>代码</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">insertsort</span><span class="p">(</span><span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+        <span class="n">cur_val</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">last_id</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="k">while</span> <span class="n">last_id</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">last_id</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">cur_val</span><span class="p">:</span>
+            <span class="n">nums</span><span class="p">[</span><span class="n">last_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">last_id</span><span class="p">]</span>
+            <span class="n">last_id</span> <span class="o">-=</span> <span class="mi">1</span>
+
+        <span class="n">nums</span><span class="p">[</span><span class="n">last_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">cur_val</span>
+    <span class="k">return</span> <span class="n">nums</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>复杂度分析</strong></p>
+<p>设定序列长度为N</p>
+<ul>
+<li>
+<p>时间复杂度</p>
+<p>最好情况下，序列完全有序，外循环需<code>N-1</code>次，内循环主需要比较1次就会发现不需要交换，即可完成排序，故时间复杂度为<code>O(N)</code></p>
+<p>最坏情况下，序列完全逆序，外循环需<code>N-1</code>次，内循环需要比较和交换O(n)级别的次数，故时间复杂度为<code>O(N^2)</code></p>
+</li>
+<li>
+<p>空间复杂度</p>
+<p>因为是原地操作，所以空间复杂度为<code>O(1)</code></p>
+</li>
+</ul>
+<p><strong>分析</strong></p>
+<p>上述过程说明了，插入排序在输入基本<strong>有序</strong>的情况下，时间复杂度可以达到O(N)级别，这已经很快了，但是当序列基本<strong>逆序</strong>的情况下，插入排序较为耗时的步骤在于，不断地比较与交换的操作，我们假设当前元素为L，L前面有K个元素已经处于有序状态，那么序列完全逆序时，L需要与这K个元素逐一比较并交换，对应的时间复杂度就是O(2K)，约等于O(K)级别，这依旧是较为耗时的，改进的方案有两种：</p>
+<ol>
+<li>
+<p><strong>二分</strong></p>
+<p>将插入步骤中的比较过程，改为二分法，二分查找的方案比线性查找的时间复杂度低，毕竟是O(logK)与O(K)级别的对比，规模越大越明显，通过二分查找得到当前元素L应该插入的位置后，再将这个位置后面的元素统一后移一位，将L插入即可</p>
+</li>
+<li>
+<p><strong>预处理</strong></p>
+<p>这个思想仅需记住一点，插入排序对基本<strong>有序</strong>的输入，时间是很快的。</p>
+<p>那么所谓的预处理，我们可以通过某种方式使输入先变得相对有序一些，再进行插入排序，这样就会大大降低处理的耗时啦，这个思想其实就对应着插入排序的升级版本&mdash;希尔排序，下篇文章会详细介绍～</p>
+</li>
+</ol>
+<p><strong>是否稳定</strong></p>
+<p>插入排序是稳定的，因为其在比较插入的过程中，遇到相等的元素并不进行交换</p>
+<h4 id="可视化网页">可视化网页</h4>
+<p><a href="https://visualgo.net/zh/sorting" target="_blank" rel="noopener noreffer">https://visualgo.net/zh/sorting</a></p>
+<h2 id="总结">总结</h2>
+<ol>
+<li>
+<p>衡量排序算法好坏的标准有两个：复杂度以及稳定性</p>
+</li>
+<li>
+<p>冒泡排序通过不断比较、交换来使序列中的极值元素向序列的一端移动，形如<strong>冒泡</strong></p>
+</li>
+<li>
+<p>选择排序则是通过<strong>选择</strong>操作取代了冒泡排序中冗余的交换次数，但却牺牲了稳定性</p>
+</li>
+<li>
+<p>插入排序在小数量级且序列基本有序时，表现的最快，原因是其在基本有序情况下，时间复杂度最小可以是O(N)级别，且操作次数少于冒泡排序。</p>
+</li>
+<li>
+<p>注意，复杂度分析是针对数量级进行的，同等数量级下，插入排序的操作次数就比冒泡排序少很多</p>
+</li>
+</ol>
+<p>最后，贴出个人测试的三种排序方式的时间对比，可见插入排序还是厉害的呀</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/01-12-02-14-basic-sort-com.jpg"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/01-12-02-14-basic-sort-com.jpg, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/01-12-02-14-basic-sort-com.jpg 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/01-12-02-14-basic-sort-com.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/05/01-12-02-14-basic-sort-com.jpg"
+        title="basic-sort-com.jpg" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-04-26</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/" data-title="算法学习之基础排序" data-hashtags="Sorting,Algorithms"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/" data-hashtag="Sorting"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/" data-title="算法学习之基础排序" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/" data-title="算法学习之基础排序"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/" data-title="算法学习之基础排序"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/" data-title="算法学习之基础排序" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/" data-title="算法学习之基础排序" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/" data-title="算法学习之基础排序"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/sorting/">Sorting</a>,&nbsp;<a href="/tags/algorithms/">Algorithms</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/" class="prev" rel="prev" title="总结数组与链表的区别[转载]"><i class="fas fa-angle-left fa-fw"></i>总结数组与链表的区别[转载]</a>
+            <a href="/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" class="next" rel="next" title="算法学习之希尔排序">算法学习之希尔排序<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>目标跟踪中的边界效应与余弦窗平滑 - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="目标跟踪中的边界效应与余弦窗平滑" />
+<meta property="og:description" content="本文主要介绍学习目标跟踪算法时遇到的关于边界效应以及余弦窗平滑的相关知识 1. 边界效应 1.1 背景 在目标跟踪算法中，边界效应最早在的出现，是在基于相关" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-01-27T16:10:19+00:00" />
+<meta property="article:modified_time" content="2021-01-27T16:10:19+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="目标跟踪中的边界效应与余弦窗平滑"/>
+<meta name="twitter:description" content="本文主要介绍学习目标跟踪算法时遇到的关于边界效应以及余弦窗平滑的相关知识 1. 边界效应 1.1 背景 在目标跟踪算法中，边界效应最早在的出现，是在基于相关"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/" /><link rel="prev" href="http://shanjiayao.com/pytorch-conv1d/" /><link rel="next" href="http://shanjiayao.com/transformer%E4%B9%8Bself-attention/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "目标跟踪中的边界效应与余弦窗平滑",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97\/"
+        },"genre": "posts","keywords": "Tracking, DeepLearning","wordcount":  1814 ,
+        "url": "http:\/\/shanjiayao.com\/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97\/","datePublished": "2021-01-27T16:10:19+00:00","dateModified": "2021-01-27T16:10:19+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">目标跟踪中的边界效应与余弦窗平滑</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-27">2021-01-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1814 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-边界效应">1. 边界效应</a>
+      <ul>
+        <li><a href="#11-背景">1.1 背景</a></li>
+        <li><a href="#12-定义">1.2 定义</a></li>
+        <li><a href="#13-总结">1.3 总结</a></li>
+        <li><a href="#14-解决方案">1.4 解决方案</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-余弦窗机制">2. 余弦窗机制</a>
+      <ul>
+        <li><a href="#21-作用原理">2.1 作用原理</a></li>
+        <li><a href="#22-缺点">2.2 缺点</a></li>
+        <li><a href="#23-实现">2.3 实现</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><hr>
+<p>本文主要介绍学习目标跟踪算法时遇到的关于边界效应以及余弦窗平滑的相关知识</p>
+<h2 id="1-边界效应">1. 边界效应</h2>
+<h3 id="11-背景">1.1 背景</h3>
+<p>在目标跟踪算法中，<code>边界效应</code>最早在的出现，是在基于相关滤波方法的目标跟踪算法中。</p>
+<p>先简述相关滤波的目标跟踪算法，相关滤波(correlation filter)是一种模板类方法，采用在线模板匹配的方式，在线学习模板变化，但是相关滤波的缺点也很明显，对<strong>快速变形和快速运动情况的跟踪效果不好</strong>。</p>
+<p><code>快速变形</code>效果差是因为模板类方法的机制，快速形变的时候，对于目标模板的基于HOG的梯度计算很难跟上目标，目标快速变色也会导致模板无法准确适应的情况，此外，在线学习的模板更新策略与更新频率都会影响跟踪效果</p>
+<p>而<code>快速运动</code>效果差则是因为所谓的边界效应，目标的快速运动会导致相邻两帧之间目标在图像中的像素距离过大，从到导致跟踪效果差甚至跟踪失败的现象</p>
+<h3 id="12-定义">1.2 定义</h3>
+<p>对于边界效应的<strong>定义</strong>，如下：</p>
+<p><em><strong>宏观上来看，目标在被跟踪过程中，在下一帧图像中的位置偏离了search window中心太远，比如非常靠近边缘、出去一半、全部出去，叫做边界效应</strong></em></p>
+<p>边界效应的产生原因，经查阅资料，源于在跟踪算法中引入了离散傅里叶变换，这极大地提高了算法的计算效率，不过也产生了副作用，就是边界效应</p>
+<h3 id="13-总结">1.3 总结</h3>
+<p>对于边界效应，其根本原因可以概括为三个字，<code>大位移</code>，其实实际应用中，这种情况都是经常遇到的，因为我们所说的位移是针对传感器坐标系下的，是相对量，并不一定是世界坐标系下，所以产生的原因可能有两点</p>
+<ul>
+<li>
+<p>处理频率低</p>
+<p>包括传感器的采样频率以及算法的运行频率，我统称他们为处理频率，如果处理频率上不去，那么每次在新的搜索区域中寻找目标时，就会发现目标的位移<code>大</code></p>
+</li>
+<li>
+<p>实际运动快</p>
+<p>另外一种原因就是在世界坐标系下，目标的确处于高速运动，相对于传感器来说，两帧之间位置变化较大</p>
+</li>
+</ul>
+<h3 id="14-解决方案">1.4 解决方案</h3>
+<p>通常来说有两种经典的解决方案，分别是余弦窗机制以及增加搜索区域面积</p>
+<ol>
+<li>
+<p>增加搜索区域面积</p>
+<p>这个很好理解，大的搜索区域可以很有效的解决边界效应，因为边界的概念是相对于搜索区域大小来定义的，但是缺陷是搜索区域的扩大同样也引入了更多的背景信息，容易造成跟踪模板的漂移，导致模板跟着背景走，一去不回头～</p>
+</li>
+<li>
+<p>余弦窗机制</p>
+<p>这也是本文想着重记录的，余弦窗机制不仅仅是出现在基于相关滤波的目标算法中，基于深度学习孪生网络的目标跟踪器也有很多都用到了余弦窗来做平滑</p>
+<p>但是这种机制自身也有一定的弊端，用的时候需要做取舍</p>
+</li>
+</ol>
+<h2 id="2-余弦窗机制">2. 余弦窗机制</h2>
+<h3 id="21-作用原理">2.1 作用原理</h3>
+<p>余弦窗机制为什么能处理边界效应？</p>
+<p>在相关滤波算法中，余弦窗的机制作用在像素上：<em><strong>对搜索区域的像素做更改，使搜索区域边界的像素值接近0，这样可以消除边界的不连续性</strong></em></p>
+<p>而在基于深度学习的目标跟踪算法中，余弦窗的引入则是针对于特征学习到的<code>score map</code>，<em>对得到的得分根据余弦窗进行重新加权，越靠近中心，认为得分越准确</em>，这时余弦窗的作用其实说成对错误检测结果的抑制更合理一点，因为在 <code>score map</code>中，大位移还有一种情况就是目标检测错误，这样使用余弦窗机制可以很好的对其进行抑制和惩罚</p>
+<h3 id="22-缺点">2.2 缺点</h3>
+<p>在相关滤波中，余弦窗直接让边界像素趋近于0，这样会导致背景信息的弱化，甚至前景信息的丢失。背景信息的弱化是指像素趋近0让模板不能学习背景的特征，前景目标的丢失是说，当目标产生大位移，运动到边界时，余弦窗会让目标仅存的像素也被过滤掉，就导致无法跟踪快速运动的目标</p>
+<p>在孪生网络中，在<code>score map</code>上使用余弦窗，个人感觉更多的是对分数的加权，这样做的目的是保证搜索区域中间的目标拥有最高的优先级，但是同样，这并不是一个可以适应所有情况的方案，比如说一个目标快速运动经过了另外一个相似目标，那么跟踪器可能就跟踪错误了</p>
+<h3 id="23-实现">2.3 实现</h3>
+<p>深入了解余弦窗，我只找了其在深度学习中的应用，看的代码是<a href="https://github.com/foolwood/SiamMask/blob/master/tools/test.py#L157" target="_blank" rel="noopener noreffer">SiamMask</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python">    <span class="c1"># 定义</span>
+    <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">windowing</span> <span class="o">==</span> <span class="s1">&#39;cosine&#39;</span><span class="p">:</span>  <span class="c1"># 默认cosine</span>
+        <span class="n">window</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hanning</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">score_size</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">hanning</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">score_size</span><span class="p">))</span>   <span class="c1"># 求外积 &lt;(25, 25), float64&gt;</span>
+    <span class="c1"># 调用，更新score map中的分数</span>
+    <span class="n">pscore</span> <span class="o">=</span> <span class="n">pscore</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">window_influence</span><span class="p">)</span> <span class="o">+</span> <span class="n">window</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">window_influence</span>  <span class="c1"># ndarray&lt;(3125,), float64&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>调用的是<code>numpy</code>中的汉宁窗(<code>hanning</code>)和计算外积(<code>outer</code>)的函数</p>
+<p>简单解释就是，使用汉宁窗初始化两个向量分别作为长和宽方向的定义，这里的余弦窗其实是正方形，所以两个向量大小一致，类似这样</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">hanning</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">array</span><span class="p">([</span><span class="mf">0.</span>        <span class="p">,</span> <span class="mf">0.07937323</span><span class="p">,</span> <span class="mf">0.29229249</span><span class="p">,</span> <span class="mf">0.57115742</span><span class="p">,</span> <span class="mf">0.82743037</span><span class="p">,</span>
+       <span class="mf">0.97974649</span><span class="p">,</span> <span class="mf">0.97974649</span><span class="p">,</span> <span class="mf">0.82743037</span><span class="p">,</span> <span class="mf">0.57115742</span><span class="p">,</span> <span class="mf">0.29229249</span><span class="p">,</span>
+       <span class="mf">0.07937323</span><span class="p">,</span> <span class="mf">0.</span>        <span class="p">])</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后<code>np.outer</code>这个函数的作用就是计算两个向量的外积，结果是一个矩阵，大小等于向量大小的平方，类似这样</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/01/27-13-56-27-%E9%80%89%E5%8C%BA_584.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/01/27-13-56-27-%E9%80%89%E5%8C%BA_584.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/01/27-13-56-27-%E9%80%89%E5%8C%BA_584.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/01/27-13-56-27-%E9%80%89%E5%8C%BA_584.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/01/27-13-56-27-%E9%80%89%E5%8C%BA_584.png"
+        title="外积结果" /></p>
+<p>这样就得到了一个余弦窗，越靠近中心，其加权分数越大，将这个分数作用在得到的 <code>score map</code> 上，就可以起到对跟踪结果的惩罚和抑制作用了</p>
+<h2 id="参考">参考</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/26417182" target="_blank" rel="noopener noreffer">https://zhuanlan.zhihu.com/p/26417182</a></p>
+<p><a href="https://gsy00517.github.io/computer-vision20200120120823/" target="_blank" rel="noopener noreffer">https://gsy00517.github.io/computer-vision20200120120823/</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/59624151" target="_blank" rel="noopener noreffer">https://zhuanlan.zhihu.com/p/59624151</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/66757733" target="_blank" rel="noopener noreffer">https://zhuanlan.zhihu.com/p/66757733</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-01-27</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/" data-title="目标跟踪中的边界效应与余弦窗平滑" data-hashtags="Tracking,DeepLearning"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/" data-hashtag="Tracking"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/" data-title="目标跟踪中的边界效应与余弦窗平滑" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/" data-title="目标跟踪中的边界效应与余弦窗平滑"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/" data-title="目标跟踪中的边界效应与余弦窗平滑"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/" data-title="目标跟踪中的边界效应与余弦窗平滑" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/" data-title="目标跟踪中的边界效应与余弦窗平滑" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/" data-title="目标跟踪中的边界效应与余弦窗平滑"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/tracking/">Tracking</a>,&nbsp;<a href="/tags/deeplearning/">DeepLearning</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/pytorch-conv1d/" class="prev" rel="prev" title="Pytorch中的Convolution layers"><i class="fas fa-angle-left fa-fw"></i>Pytorch中的Convolution layers</a>
+            <a href="/transformer%E4%B9%8Bself-attention/" class="next" rel="next" title="Transformer之self-attention机制">Transformer之self-attention机制<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Python还债日记之对象(一) - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="Python还债日记之对象(一)" />
+<meta property="og:description" content="1. 关于python中的对象 Python中万物皆对象 这是一个很通俗的说法，但却十分准确，python用对象的概念来解释程序中的元素，比如整数、" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%B8%80/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-01-01T23:10:19+00:00" />
+<meta property="article:modified_time" content="2021-01-01T23:10:19+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="Python还债日记之对象(一)"/>
+<meta name="twitter:description" content="1. 关于python中的对象 Python中万物皆对象 这是一个很通俗的说法，但却十分准确，python用对象的概念来解释程序中的元素，比如整数、"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%B8%80/" /><link rel="prev" href="http://shanjiayao.com/%E5%AE%89%E8%A3%85docker/" /><link rel="next" href="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%BA%8C/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Python还债日记之对象(一)",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%B8%80\/"
+        },"genre": "posts","keywords": "python, Coding, 对象","wordcount":  2215 ,
+        "url": "http:\/\/shanjiayao.com\/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%B8%80\/","datePublished": "2021-01-01T23:10:19+00:00","dateModified": "2021-01-01T23:10:19+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Python还债日记之对象(一)</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-01">2021-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2215 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-关于python中的对象">1. 关于python中的对象</a></li>
+    <li><a href="#2-对象引用与变量">2. 对象、引用与变量</a></li>
+    <li><a href="#3-对象的内存地址">3. 对象的内存地址</a></li>
+    <li><a href="#4-对象的类型">4. 对象的类型</a>
+      <ul>
+        <li><a href="#41-不可变对象">4.1 不可变对象</a></li>
+        <li><a href="#42-特殊不可变对象">4.2 特殊不可变对象</a></li>
+        <li><a href="#43-可变对象">4.3 可变对象</a></li>
+        <li><a href="#44-特殊可变对象">4.4 特殊可变对象</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-总结">5. 总结</a></li>
+    <li><a href="#6-参考">6. 参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><!-- more -->
+<h2 id="1-关于python中的对象">1. 关于python中的对象</h2>
+<blockquote>
+<p>Python中万物皆对象</p>
+</blockquote>
+<p>这是一个很通俗的说法，但却十分准确，python用对象的概念来解释程序中的元素，比如整数、字符串、元组等。甚至，表示对象类型的方法<code>type</code>也是一个对象。</p>
+<h2 id="2-对象引用与变量">2. 对象、引用与变量</h2>
+<p>对象在创建时，Python解释器会为其分配内存空间，如果对象的值被传递给了一个变量，那么该变量就会通过引用的方式使用该对象，这时也可以称为，变量是对对象的引用。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/03/28-17-13-17-2021-03-28-17-13-13-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/03/28-17-13-17-2021-03-28-17-13-13-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/03/28-17-13-17-2021-03-28-17-13-13-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/03/28-17-13-17-2021-03-28-17-13-13-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/03/28-17-13-17-2021-03-28-17-13-13-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/03/28-17-13-17-2021-03-28-17-13-13-image.png" /></p>
+<h2 id="3-对象的内存地址">3. 对象的内存地址</h2>
+<p>其实在python中，变量的地位很尴尬，因为python动态语言的特性以及万物皆对象的特性，导致变量往往都是对对象的引用。这时变量与对象可以被理解成两部分，在存储时，二者也是分开的。变量代表着对象的地址，存储在栈区，而对象的实际内容存储在堆区。我们可以通过<code>id()</code>来获取对象或者说变量在堆区中的内存地址。<strong>也可以理解成返回当前对象在其生命周期内独一无二的标识符。</strong></p>
+<p>下图可以很好地说明在python中对象与变量的存储方式，以及堆区和栈区的内存分配。</p>
+<ul>
+<li>
+<p>栈区：</p>
+<ul>
+<li>
+<p>栈区存放真实的对象，当新对象创建时，堆区中就会被开辟出一块新的内存地址分配给这个新的对象。</p>
+</li>
+<li>
+<p>此外，python还为一些特殊的数据独立分配了特定的空间，分别是小对象整数池、匿名列表、字典对象缓冲区以及短字符串缓冲区。这样做的原因在后文会详细说明，总结来说就是，为不可变对象（小整数、字符串）以及匿名对象（未赋值的字典和列表）提供一个固定的地址。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>栈区：</p>
+<ul>
+<li>栈区存放的是前面说的，地位很尴尬的变量，下图可以看到，变量A、B、C、D其实表示的是堆区对象的引用，其本身存放的也不是对象的值，而是对象在堆区的地址。可以通过id方法获取变量指向对象的地址</li>
+</ul>
+</li>
+<li>
+<p>栈区和堆区之间，从对象指向变量的，就是引用</p>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/25-22-39-37-2021-04-25-22-39-32-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/25-22-39-37-2021-04-25-22-39-32-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/25-22-39-37-2021-04-25-22-39-32-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/25-22-39-37-2021-04-25-22-39-32-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/25-22-39-37-2021-04-25-22-39-32-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/25-22-39-37-2021-04-25-22-39-32-image.png" /></p>
+<p>注意：</p>
+<ul>
+<li>
+<p>变量在栈中的地址与变量自身存储的地址是不同的，注意区分</p>
+</li>
+<li>
+<p>可以思考下，变量与对象之间的关系是一一对应的么？</p>
+</li>
+</ul>
+<h2 id="4-对象的类型">4. 对象的类型</h2>
+<p>python中的对象都存储在堆区，但是其类型却不尽相同，根据是否可变，我们将对象分为可变对象和不可变对象。</p>
+<blockquote>
+<p><strong>注意：这里的可变与不可变，指的是变量指向的内存地址是否可以改变，如果指向一个对象地址的变量可以被<code>修改</code>，那么该对象就是可变的</strong></p>
+</blockquote>
+<h3 id="41-不可变对象">4.1 不可变对象</h3>
+<p>不可变对象，就是无法修改的对象，我们无法在内存中直接修改这个变量。必须断开原来的引用，才可以使这个变量拥有新的值。</p>
+<p>所以在python中，当我们尝试修改不可变类型的值，比如初始化<code>a = 5</code>，然后再改变<code>a</code>的值，<code>a = 4</code>，这时，由于指向对象<code>5</code>的地址是不可变的，所以对象<code>5</code>到<code>a</code>的引用会断开，然后一个新的对象<code>4</code>的引用会分配给该变量。这个过程前后，变量<code>a</code>虽然没有改变变量名称，但是其指向的对象地址发生了变化，如果调用<code>id()</code>方法也可以证明这一点。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="mi">10914624</span><span class="p">,</span> <span class="mi">10914624</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="mi">10914592</span><span class="p">,</span> <span class="mi">10914592</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在Python中， 常见的不可变对象有：</p>
+<ul>
+<li>
+<p>int</p>
+</li>
+<li>
+<p>float</p>
+</li>
+<li>
+<p>bool</p>
+</li>
+<li>
+<p>tuple</p>
+</li>
+<li>
+<p>string</p>
+</li>
+</ul>
+<p>再强调一遍，以上五种类型之所以被称为不可变对象，是因为一旦变量与对象通过引用绑定之后，再想修改变量的值，只能通过解除引用、重新引用的方式。所以我们可以发现，<strong>对于不可变对象，如果变量的值不同，其对应对象一定不同，同一个变量修改内容后，其指向的对象也一定是改变了的。</strong></p>
+<h3 id="42-特殊不可变对象">4.2 特殊不可变对象</h3>
+<p>如果两个变量的值相同，那么他们在堆中的地址一定一样么？答案是不一定</p>
+<p>再放一下关于对象存储在堆区中的图</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-10-36-43-2021-04-26-10-36-38-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-10-36-43-2021-04-26-10-36-38-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-10-36-43-2021-04-26-10-36-38-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-10-36-43-2021-04-26-10-36-38-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-10-36-43-2021-04-26-10-36-38-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-10-36-43-2021-04-26-10-36-38-image.png" /></p>
+<p>python中关于对象的存储，有几处特殊的空间，这里只说两处，分别是短字符串缓冲区以及小对象整数池。二者的作用是，当字符串的长度较短或者是整数的数值较小时，python会将值相同的变量分配相同的引用，换句话说，值相同的变量指向相同的对象。</p>
+<p>小对象整数池的作用范围是(-5, 256)，在这范围内的整数，只要值相同，堆中的内存地址也相同</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="mi">10914624</span><span class="p">,</span> <span class="mi">10914624</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">555</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">555</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="mi">140122211533680</span><span class="p">,</span> <span class="mi">140122211533712</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>短字符串指的是没有空格的字符串，不带空格的字符串，只要内容相同，其在堆中的地址就一致</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="s1">&#39;dddddddddddddddddddddddddddddddddd&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="s1">&#39;dddddddddddddddddddddddddddddddddd&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="mi">140599787760344</span><span class="p">,</span> <span class="mi">140599787760344</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="s1">&#39;a b&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="s1">&#39;a b&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="mi">140599787781456</span><span class="p">,</span> <span class="mi">140599787781400</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="43-可变对象">4.3 可变对象</h3>
+<p>明白了不可变对象的定义之后，可变对象的定义也就很清楚了，<strong>对于一个变量和其绑定的对象，如果是可变的，那么修改变量可以通过直接改变变量指向的堆中的内存地址来实现，不需要破坏对象与变量之间的引用</strong>。</p>
+<p>在Python中，常见的可变对象有：</p>
+<ul>
+<li>
+<p>list</p>
+</li>
+<li>
+<p>dict</p>
+</li>
+<li>
+<p>set</p>
+</li>
+</ul>
+<p>对于这三种可变对象，<strong>不管值是否相同，不同变量对应堆中的内存地址一定不同，同一变量对应的内存地址一定不变。</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="mi">140176052670856</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="mi">140176052699720</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="44-特殊可变对象">4.4 特殊可变对象</h3>
+<p>依旧是这张图</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-10-47-45-2021-04-26-10-47-42-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-10-47-45-2021-04-26-10-47-42-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-10-47-45-2021-04-26-10-47-42-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-10-47-45-2021-04-26-10-47-42-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-10-47-45-2021-04-26-10-47-42-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/04/26-10-47-45-2021-04-26-10-47-42-image.png" /></p>
+<p>对于可变对象，python中也有一些特殊的情况，比如匿名的可变对象。所以python同样给匿名的列表和字典对象准备了特殊待遇，对于这两类匿名对象，其在堆中的内存地址是一样的。（注，匿名表示的就是没有被赋值的对象，也可以理解为对象没有被变量引用）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span> <span class="nb">id</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="mi">139883205481032</span><span class="p">,</span> <span class="mi">139883205481032</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}),</span> <span class="nb">id</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="mi">139883230991992</span><span class="p">,</span> <span class="mi">139883230991992</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="5-总结">5. 总结</h2>
+<p>本文内容总结如下：</p>
+<ol>
+<li>
+<p>Python是一门动态语言</p>
+</li>
+<li>
+<p>Python中万物皆对象</p>
+</li>
+<li>
+<p>Python中变量存储的是对象的<code>引用</code></p>
+</li>
+<li>
+<p>Python中对象可以分为可变对象与不可变对象</p>
+<ol>
+<li>
+<p>对于不可变对象，小整数、短字符串以及布尔值这三类，只要值相同，那么变量指向的地址就相同，其余类型则值相同、地址也不同</p>
+</li>
+<li>
+<p>对于可变对象，单个变量的值无论怎么改变，其内存地址都不变，但是多个变量的值就算相同，其内存地址也不同</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="6-参考">6. 参考</h2>
+<p><a href="https://blog.csdn.net/Victor2code/article/details/106959552" target="_blank" rel="noopener noreffer">python3中各类变量的内存堆栈分配和函数传参区别实例详解</a></p>
+<p><a href="https://blog.csdn.net/qq_41065770/article/details/104623012" target="_blank" rel="noopener noreffer">Python内存管理中的堆和栈以及id，is，== 的区别和使用</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-01-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%B8%80/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%B8%80/" data-title="Python还债日记之对象(一)" data-hashtags="python,Coding,对象"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%B8%80/" data-hashtag="python"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%B8%80/" data-title="Python还债日记之对象(一)" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%B8%80/" data-title="Python还债日记之对象(一)"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%B8%80/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%B8%80/" data-title="Python还债日记之对象(一)"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%B8%80/" data-title="Python还债日记之对象(一)" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%B8%80/" data-title="Python还债日记之对象(一)" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%B8%80/" data-title="Python还债日记之对象(一)"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/python/">python</a>,&nbsp;<a href="/tags/coding/">Coding</a>,&nbsp;<a href="/tags/%E5%AF%B9%E8%B1%A1/">对象</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E5%AE%89%E8%A3%85docker/" class="prev" rel="prev" title="docker安装记录"><i class="fas fa-angle-left fa-fw"></i>docker安装记录</a>
+            <a href="/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%AF%B9%E8%B1%A1%E4%BA%8C/" class="next" rel="next" title="Python还债日记之对象(二)">Python还债日记之对象(二)<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

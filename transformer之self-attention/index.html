@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Transformer之self-attention机制 - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="Transformer之self-attention机制" />
+<meta property="og:description" content="记录学习Transformer过程中的一些个人理解与思考 self-attention 1. 宏观理解 关于注意力机制，在此不做赘述，不过关于自注意力，可能还是先要从宏观上分析" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/transformer%E4%B9%8Bself-attention/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-01-27T16:10:19+00:00" />
+<meta property="article:modified_time" content="2021-01-27T16:10:19+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="Transformer之self-attention机制"/>
+<meta name="twitter:description" content="记录学习Transformer过程中的一些个人理解与思考 self-attention 1. 宏观理解 关于注意力机制，在此不做赘述，不过关于自注意力，可能还是先要从宏观上分析"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/transformer%E4%B9%8Bself-attention/" /><link rel="prev" href="http://shanjiayao.com/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/" /><link rel="next" href="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8Byeild%E5%85%B3%E9%94%AE%E5%AD%97/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Transformer之self-attention机制",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/transformer%E4%B9%8Bself-attention\/"
+        },"genre": "posts","keywords": "Transformer, DeepLearning","wordcount":  2778 ,
+        "url": "http:\/\/shanjiayao.com\/transformer%E4%B9%8Bself-attention\/","datePublished": "2021-01-27T16:10:19+00:00","dateModified": "2021-01-27T16:10:19+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Transformer之self-attention机制</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-27">2021-01-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2778 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#self-attention">self-attention</a>
+      <ul>
+        <li><a href="#1-宏观理解">1. 宏观理解</a></li>
+        <li><a href="#2-微观分析">2. 微观分析</a>
+          <ul>
+            <li><a href="#输入输出">输入输出？</a></li>
+            <li><a href="#如何对输入进行学习">如何对输入进行学习？</a></li>
+            <li><a href="#pos-encoding">Pos Encoding</a></li>
+            <li><a href="#提高网络感知信息的维度-----multi-head">提高网络感知信息的维度 &mdash; <code>Multi Head</code></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><hr>
+<!-- more -->
+<p>记录学习Transformer过程中的一些个人理解与思考</p>
+<h2 id="self-attention">self-attention</h2>
+<h3 id="1-宏观理解">1. 宏观理解</h3>
+<p>关于注意力机制，在此不做赘述，不过关于自注意力，可能还是先要从宏观上分析一下他是如何进行工作的</p>
+<p>给定一个输入，可以是sequence或是图片或是点云，Transformer如何利用self-attention机制对输入进行深层次理解与学习？这其实就是self-attention的工作方式，总的来说，可以概括为</p>
+<blockquote>
+<p>self-attention[自注意力层]是对输入信息做深层自我剖析，探究不同输入之间的相关性</p>
+<p>在编码阶段，self-attention让每个当前向量“看”到其他位置向量的信息，进而编码成对应的特征</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-45-2021-07-05-10-27-42-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-45-2021-07-05-10-27-42-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-45-2021-07-05-10-27-42-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-45-2021-07-05-10-27-42-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-45-2021-07-05-10-27-42-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-45-2021-07-05-10-27-42-image.png" /></p>
+<p>比如这张图片，在编码<code>it</code>时，self-attention就计算了<code>it</code>和其他单词向量之间的关系，进而让网络更好的编码<code>it</code>的特征</p>
+<h3 id="2-微观分析">2. 微观分析</h3>
+<p>下面从细节上分析self-attention机制，以问题的方式记录</p>
+<h4 id="输入输出">输入输出？</h4>
+<p>一般来说，self-attention的输入和输出一般都是特征张量，因为其主要作用是通过编码来对特征进行加权，除此之外还会涉及到Pos Encoding需要的位置信息等</p>
+<h4 id="如何对输入进行学习">如何对输入进行学习？</h4>
+<p><strong>这里其实self-attention可以抽象地表达输入信息，如下图</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-11-2021-07-05-10-27-05-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-11-2021-07-05-10-27-05-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-11-2021-07-05-10-27-05-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-11-2021-07-05-10-27-05-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-11-2021-07-05-10-27-05-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-11-2021-07-05-10-27-05-image.png" /></p>
+<ol>
+<li>
+<p><strong>输入向量化</strong>（<strong>Embedding</strong>）</p>
+<p>如果输入的是原始数据，那么需要将其向量化，进行 <code>Embedding Vector</code> 转换，其实就是转换成固定大小的特征向量，毕竟同一尺寸的特征对于网络比较友好</p>
+</li>
+<li>
+<p><strong>从三个角度学习输入的特征</strong>（<strong>Queries、Keys、Values</strong>）</p>
+<p>在self-attention中，可以理解为将输入<strong>拆解</strong>成三个参数，分别是<code>Q</code> <code>K</code> <code>V</code>，这个拆解是指输入的特征经过一个<code>共享权值</code>的网络层学习三个参数矩阵的具体值，如下图</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-03-2021-07-05-10-26-55-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-03-2021-07-05-10-26-55-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-03-2021-07-05-10-26-55-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-03-2021-07-05-10-26-55-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-03-2021-07-05-10-26-55-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-03-2021-07-05-10-26-55-image.png" /></p>
+<ul>
+<li>其中<code>Q</code>代表着query，<code>K</code>代表Key，这两个向量的作用是对每个输入的特征向量做加权，让当前这个输入向量可以<code>看</code>到其他位置的特征信息，具体的做法就是，每个当前位置的Q与其他所有位置的K依次进行点积运算，得到的结果我们认为一定程度上代表了两个位置之间的相关性</li>
+<li><code>V</code>的意义，我个人理解很大程度上是对输入的更鲁棒的表达，类似于卷积网络提取图片特征，这个V经过了矩阵Wv之后，其本身应该学习到了输入特征向量的一些高层次特征，这些特征较为鲁棒，所以可以更好的用来表达自身特征向量</li>
+</ul>
+</li>
+<li>
+<p><strong>计算self-attention的三步骤</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-26-42-2021-07-05-10-26-35-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-26-42-2021-07-05-10-26-35-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-26-42-2021-07-05-10-26-35-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-26-42-2021-07-05-10-26-35-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-26-42-2021-07-05-10-26-35-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-26-42-2021-07-05-10-26-35-image.png" /></p>
+<p>那下面来说具体如何计算self-attention的，以及上面所有的Q、K、V是如何使用的</p>
+<ul>
+<li>第一步，通过共享权值的参数矩阵W学习出三个矩阵Q、K、V</li>
+<li>第二步，重复计算每个Q和所有K的内积，得到<code>scaled inner product</code>，并除以维度的开方以及做softmax归一化处理，这样就得到了每个向量的注意力加权得分，0-1之间</li>
+<li>第三步，将每个向量的注意力加权得分与V进行点乘，也就是对每个向量进行注意力加权，在这个过程中，将Q和K计算得到的特征编码到了加权之后的V中</li>
+<li>这里的自注意力，指的是，当前向量对全局的注意力，也可以理解为当前向量和全局所有向量的关联程度</li>
+</ul>
+</li>
+<li>
+<p><strong>self-attention与编码的关系</strong></p>
+<p>这里所谓的自注意力机制，就是在编码的过程中，增加全局线索，具体做法就是将当前向量和其他向量做计算，得到相关性，这个相关性经过正则化之后作为权重，分别乘上所有向量，最后将计算结果加和，其实上述过程就是在对当前向量编码的过程中，设定编码方式为计算当前向量与所有向量的相关度，然后加权求和，得到当前向量的特征编码。而体现全局线索的部分就是当前向量与所有向量计算相关性的操作</p>
+</li>
+<li>
+<p><strong>并行化加速的可能 矩阵运算</strong></p>
+<p>注意，上述说的计算self-attention过程中，都可以通过矩阵来对运算进行表达，这也实现了加速的目的，相比于RNN的序列化计算，Transformer使用的self-attention就会快得多</p>
+</li>
+<li>
+<p><strong>一些问题</strong></p>
+<ul>
+<li>
+<p>为什么学习q k v的参数矩阵是权值共享的？能否单独计算？</p>
+<p>这里的权值共享，指的是<strong>所有的输入都经过同样的W（包括Wq Wk Wv）来学习q k v</strong>，而如果权值不共享的话，应该是每个输入单独学习一个权重矩阵</p>
+</li>
+<li>
+<p>q k v的维度一定全部相同么？</p>
+<p>不是，是q和k计算relation之后得到的张量维度与v相同即可，因为relation function不仅有点乘这一种，也有相减</p>
+</li>
+<li>
+<p>为什么q和k是做点乘的？这样可以很好的表达向量之间的相关性么？</p>
+<p>这种做法是通用的，此外，这种方式还有一种名字，叫做 <strong>scalar self-attention</strong>，这样计算的结果更多是对全局信息的一种表达，标量是对每个输入都一致的</p>
+<p>还有一种方案叫做 <strong>vector self-attention</strong>，具体做法就是将q和k做类似减法计算，然后得到的是每个特征向量都单独的结果，向量是每个输入得到的加权都不同</p>
+</li>
+<li>
+<p>为什么需要做softmax？可不可以替换其他？功能要求是什么？</p>
+<p>这里的softmax其实可以概括为 <strong>normalization function</strong>，主要作用就是归一化，不过softmax是非线性的，这样可以是网络对于复杂的非线性系统拥有更好的表达</p>
+</li>
+<li>
+<p>最终self attention的权重表示什么？atte与v一定要相乘么？系数相加不行么？</p>
+<p>最终的self attention权重表示的意义其实更多的取决于如何计算q和k之间的关系，如果是计算点乘，最终得到的是一个标量，那么这个权重更多是倾向一些全局信息的表达，如果是得到一个向量，那么每个权重不一致，则会更好的表达输入特征向量之间的相关性</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="pos-encoding">Pos Encoding</h4>
+<blockquote>
+<p>位置编码层是为了让网络在另一个维度对输入数据进行理解，比如空间位置或序列信息</p>
+</blockquote>
+<p>位置编码的概念就是在把原始数据向量化后，输入网络之前，让特征向量级联上一个表示位置信息或者序列信息的向量，这样可以让网络学习到一些序列化的信息</p>
+<p>举个例子，如果没有位置编码，那么网络则更像是在计算<code>组合</code>，他不会考虑位置上的不同，注意这个位置是广泛的，可以是空间、时间等，那么这样的结果就是，输入一个语句，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">你借了我100块钱
+</code></pre></td></tr></table>
+</div>
+</div><p>那么这句话也可能被翻译成</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">我借了你100块钱
+</code></pre></td></tr></table>
+</div>
+</div><p>所以加上位置编码，就可以让网络理解上下文信息的顺序特征，这是很重要的</p>
+<h4 id="提高网络感知信息的维度-----multi-head">提高网络感知信息的维度 &mdash; <code>Multi Head</code></h4>
+<p>所谓的Multi Head机制，其实就是将每个特征向量原本学习到一组q k v，扩展到了N组，这样子分别计算注意力权重，那么每个输入的特征向量其实就得到了N个不同的加权之后的特征，经过网络的训练可以让这N个不同特征关注不同的点，这样更符合我们人类的注意力机制的方案</p>
+<p>注意：</p>
+<ul>
+<li>
+<p>各个head之间，学习q k v参数矩阵的W矩阵也不相同</p>
+</li>
+<li>
+<p>假如有N个head，那么最终得到的输出特征，其维度由N个head级联组成的，需要先将N个head进行concat，然后使用维度变换矩阵对其做维度对齐。</p>
+</li>
+<li>
+<p>Multi-head Self-attention的不同head分别关注了global和local的讯息</p>
+</li>
+</ul>
+<h2 id="参考">参考</h2>
+<p><a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener noreffer">The Illustrated Transformer – Jay Alammar – Visualizing machine learning one concept at a time.</a></p>
+<p>本来想自己翻译了，不过找到了对应的翻译版，链接如下</p>
+<p><a href="https://blog.csdn.net/yujianmin1990/article/details/85221271" target="_blank" rel="noopener noreffer">The Illustrated Transformer[翻译]</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-01-27</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/transformer%E4%B9%8Bself-attention/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/transformer%E4%B9%8Bself-attention/" data-title="Transformer之self-attention机制" data-hashtags="Transformer,DeepLearning"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/transformer%E4%B9%8Bself-attention/" data-hashtag="Transformer"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/transformer%E4%B9%8Bself-attention/" data-title="Transformer之self-attention机制" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/transformer%E4%B9%8Bself-attention/" data-title="Transformer之self-attention机制"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/transformer%E4%B9%8Bself-attention/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/transformer%E4%B9%8Bself-attention/" data-title="Transformer之self-attention机制"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/transformer%E4%B9%8Bself-attention/" data-title="Transformer之self-attention机制" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/transformer%E4%B9%8Bself-attention/" data-title="Transformer之self-attention机制" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/transformer%E4%B9%8Bself-attention/" data-title="Transformer之self-attention机制"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/transformer/">Transformer</a>,&nbsp;<a href="/tags/deeplearning/">DeepLearning</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/" class="prev" rel="prev" title="目标跟踪中的边界效应与余弦窗平滑"><i class="fas fa-angle-left fa-fw"></i>目标跟踪中的边界效应与余弦窗平滑</a>
+            <a href="/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8Byeild%E5%85%B3%E9%94%AE%E5%AD%97/" class="next" rel="next" title="Python还债日记之迭代器/生成器/yeild">Python还债日记之迭代器/生成器/yeild<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

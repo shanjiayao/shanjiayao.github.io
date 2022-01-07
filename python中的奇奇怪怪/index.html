@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Python中的奇奇怪怪 - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="Python中的奇奇怪怪" />
+<meta property="og:description" content="本文主要记录python中的一些零散琐碎的知识点，便于之后整理成系统性的学习笔记～ 在个人的角度来看，Python作为一门被深度学习、数据处理" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/python%E4%B8%AD%E7%9A%84%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-07-10T16:10:19+00:00" />
+<meta property="article:modified_time" content="2021-07-10T16:10:19+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="Python中的奇奇怪怪"/>
+<meta name="twitter:description" content="本文主要记录python中的一些零散琐碎的知识点，便于之后整理成系统性的学习笔记～ 在个人的角度来看，Python作为一门被深度学习、数据处理"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/python%E4%B8%AD%E7%9A%84%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA/" /><link rel="prev" href="http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%8E%92%E5%BA%8F%E4%BB%A3%E7%A0%81/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Python中的奇奇怪怪",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/python%E4%B8%AD%E7%9A%84%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA\/"
+        },"genre": "posts","keywords": "python, Coding","wordcount":  1903 ,
+        "url": "http:\/\/shanjiayao.com\/python%E4%B8%AD%E7%9A%84%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA\/","datePublished": "2021-07-10T16:10:19+00:00","dateModified": "2021-07-10T16:10:19+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Python中的奇奇怪怪</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-10">2021-07-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1903 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#python中的奇奇怪怪">python中的奇奇怪怪</a>
+      <ul>
+        <li><a href="#1--ab和aab的区别">1.  a+=b和a=a+b的区别</a></li>
+        <li><a href="#2-python中的幂运算">2. Python中的幂运算</a></li>
+        <li><a href="#3-python中变量的作用域变量的查找顺序">3. Python中变量的作用域（变量的查找顺序）</a></li>
+        <li><a href="#4-python的加速运行">4. Python的加速运行</a></li>
+        <li><a href="#5-python中的闭包">5. Python中的闭包</a></li>
+        <li><a href="#6-python中的__new__与__init_">6. Python中的<code>__new__</code>与<code>__init_</code></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><hr>
+<p>本文主要记录python中的一些零散琐碎的知识点，便于之后整理成系统性的学习笔记～</p>
+<p>在个人的角度来看，Python作为一门被深度学习、数据处理等领域大力推广的编程语言，其很多语法糖都是很有意思的，特此记录～</p>
+<!-- more -->
+<h2 id="python中的奇奇怪怪">python中的奇奇怪怪</h2>
+<h3 id="1--ab和aab的区别">1.  a+=b和a=a+b的区别</h3>
+<p>二者的区别与否，取决于a和b的对象类型，如果是不可变对象，这两种表达相同；如果是可变对象，两种表达不同，不同之处在于：</p>
+<ul>
+<li>a+=b 会调用 <code>__iadd__</code>方法，没有该方法时，再尝试调用<code>__add__</code>方法</li>
+<li>a=a+b 会调用<code>__add__</code>方法</li>
+</ul>
+<p>对于两种内置的方法接口，不同在于：</p>
+<ul>
+<li><code>__iadd__</code>返回值是None，直接在原对象上进行更新，也就是说，原有的变量a和对象之间的引用并没有被打破</li>
+<li><code>__add__</code>会返回一个新的对象，原对象不做修改，但是这里会将变量a的引用破坏，将返回的新的对象与变量a建立引用</li>
+</ul>
+<h3 id="2-python中的幂运算">2. Python中的幂运算</h3>
+<p>Python 中常见有三种幂计算函数： * 和 pow() 的时间复杂度均为 O(\log a)O(loga) ；而 math.pow() 始终调用 C 库的 pow() 函数，其执行浮点取幂，时间复杂度为 O(1)O(1) 。</p>
+<h3 id="3-python中变量的作用域变量的查找顺序">3. Python中变量的作用域（变量的查找顺序）</h3>
+<p>Python中的变量名可以指代变量、函数、类、对象等</p>
+<p>python解释器查找变量的顺序，总结起来可以分为LEGB四种，分别是 Local -&gt; Enclosed -&gt; Global -&gt; Built-in</p>
+<ul>
+<li><strong>L</strong>ocal 定义在函数内部的变量、定义在函数声明中的形式参数，视为局部变量。</li>
+<li><strong>E</strong>nclosed 定义在函数中，嵌套函数外，且被嵌套函数引用的变量，视为自由变量。</li>
+<li><strong>G</strong>lobal 定义在 <code>.py</code> 文件内的，且函数、类之外的变量，视为全局变量。</li>
+<li><strong>B</strong>uilt-in 定义在<code>built in</code>中的变量，视为内置变量。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shanjiayao/PicturesForBlog/master/2021/08/10-15-10-13-image-20210808220953665.png"
+        data-srcset="https://raw.githubusercontent.com/shanjiayao/PicturesForBlog/master/2021/08/10-15-10-13-image-20210808220953665.png, https://raw.githubusercontent.com/shanjiayao/PicturesForBlog/master/2021/08/10-15-10-13-image-20210808220953665.png 1.5x, https://raw.githubusercontent.com/shanjiayao/PicturesForBlog/master/2021/08/10-15-10-13-image-20210808220953665.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shanjiayao/PicturesForBlog/master/2021/08/10-15-10-13-image-20210808220953665.png"
+        title="image-20210808220953665.png" /></p>
+<p>定义变量的位置决定了变量的作用域;</p>
+<p>为了在局部作用域中修改全局变量和自由变量，引入了 global 关键字和 nonlocal 关键字</p>
+<ul>
+<li>global用于调用全局变量</li>
+<li>nonlocal用于调用 闭包变量，也就是自由变量</li>
+</ul>
+<p>此外，对于函数内部再定义一个函数，以形成闭包的情况，在内部函数中调用内部函数外的变量时，是否修改也是一个值得注意的问题</p>
+<ul>
+<li>内部函数，不修改全局变量可以访问全局变量，不需要nonlocal或global</li>
+<li>内部函数，修改同名全局变量，则python会认为它是一个局部变量</li>
+<li>在内部函数修改同名全局变量之前调用变量名称（如print sum），则引发Unbound-LocalError，解决办法就是，加上nonlocal或者global关键字，具体用哪个视情况而定。</li>
+</ul>
+<h3 id="4-python的加速运行">4. Python的加速运行</h3>
+<p>参考：https://zhuanlan.zhihu.com/p/143052860</p>
+<h3 id="5-python中的闭包">5. Python中的闭包</h3>
+<p>需要明确的是，闭包是一个<strong>函数</strong>，可以理解为特殊的函数，并且闭包的说法并不是Python特有的，javascript等语言也涉及闭包的概念。</p>
+<p>具体地，参考Wiki上对闭包的解释：</p>
+<p><em>在计算机科学中，闭包（英语：Closure），又称词法闭包（Lexical Closure）或函数闭包（function closures），是<strong>引用了自由变量的函数</strong>。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创造它的环境也不例外。所以，有另一种说法认为闭包是由函数和与其相关的引用环境组合而成的实体。闭包在运行时可以有多个实例，不同的引用环境和相同的函数组合可以产生不同的实例。</em></p>
+<p>总的来看就是，闭包等同于函数引用了函数外定义地变量，并且该函数可以在其定义环境外被执行。这样地函数叫做闭包，类似地，C++中地<strong>static</strong>关键字定义的就是一个独立函数外地变量，二者有异曲同工之妙。</p>
+<p>闭包的一些特性</p>
+<ul>
+<li>闭包中的引用的自由变量只和具体的闭包有关联，闭包的每个实例引用的自由变量互不干扰。</li>
+<li>一个闭包实例对其自由变量的修改会被传递到下一次该闭包实例的调用。</li>
+</ul>
+<p>具体见：https://www.cnblogs.com/yssjun/p/9887239.html</p>
+<h3 id="6-python中的__new__与__init_">6. Python中的<code>__new__</code>与<code>__init_</code></h3>
+<p><code>__new__(cls[, ...])</code> 是在一个对象实例化的时候所调用的第一个方法，在调用<code>__init__</code>初始化前，先调用<code>__new__</code>。</p>
+<p><code>__new__</code>至少要有一个参数<code>cls</code>，代表要实例化的类，此参数在实例化时由 Python 解释器自动提供，后面的参数直接传递给<code>__init__</code>。</p>
+<p><code>__new__</code>对当前类进行了实例化，并将实例返回，传给<code>__init__</code>的<code>self</code>。但是，执行了<code>__new__</code>，并不一定会进入<code>__init__</code>，只有<code>__new__</code>返回了，当前类<code>cls</code>的实例，当前类的<code>__init__</code>才会进入。</p>
+<p>若<code>__new__</code>没有正确返回当前类<code>cls</code>的实例，那<code>__init__</code>是不会被调用的，即使是父类的实例也不行，将没有<code>__init__</code>被调用。</p>
+<p><code>__new__</code>方法主要是当你继承一些不可变的 class 时（比如<code>int, str, tuple</code>）， 提供给你一个自定义这些类的实例化过程的途径。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-07-10</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/python%E4%B8%AD%E7%9A%84%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/python%E4%B8%AD%E7%9A%84%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA/" data-title="Python中的奇奇怪怪" data-hashtags="python,Coding"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/python%E4%B8%AD%E7%9A%84%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA/" data-hashtag="python"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/python%E4%B8%AD%E7%9A%84%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA/" data-title="Python中的奇奇怪怪" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/python%E4%B8%AD%E7%9A%84%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA/" data-title="Python中的奇奇怪怪"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/python%E4%B8%AD%E7%9A%84%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/python%E4%B8%AD%E7%9A%84%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA/" data-title="Python中的奇奇怪怪"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/python%E4%B8%AD%E7%9A%84%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA/" data-title="Python中的奇奇怪怪" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/python%E4%B8%AD%E7%9A%84%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA/" data-title="Python中的奇奇怪怪" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/python%E4%B8%AD%E7%9A%84%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA/" data-title="Python中的奇奇怪怪"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/python/">python</a>,&nbsp;<a href="/tags/coding/">Coding</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%8E%92%E5%BA%8F%E4%BB%A3%E7%A0%81/" class="prev" rel="prev" title="算法学习之排序算法对比"><i class="fas fa-angle-left fa-fw"></i>算法学习之排序算法对比</a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
