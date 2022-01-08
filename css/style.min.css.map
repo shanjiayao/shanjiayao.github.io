@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "style.min.css",
-	"sourceRoot": "/home/echo/Downloads/my_site",
+	"sourceRoot": "/media/echo/Docs/研究生相关/BaiduNetdiskWorkspace/hugo_blog",
 	"sources": [
 		"themes/LoveIt/assets/css/style.scss",
 		"themes/LoveIt/assets/css/_variables.scss",
