@@ -154,7 +154,7 @@ gitbook init    # then system will download gitbook automatically
   
   这时打开浏览器，输入`http://localhost:4000`，即可查看本地版的`gitbook`
   
-  ![show](how-to-use-gitbooks/3a20712b8d287db8641417a818b67b670f864e77.png)
+  ![show](hugo_blog/public/posts/Tools/how-to-use-gitbooks/3a20712b8d287db8641417a818b67b670f864e77.png)
 
 OK，到这里关于`gitbook`的简单使用就介绍完了，下面记录下如何在个人主页上使用`gitbook`
 
