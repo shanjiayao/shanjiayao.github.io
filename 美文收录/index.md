@@ -1,10 +1,10 @@
 # 美文收录
 
 
----
+
+![tp.web.random_picture](https://images.unsplash.com/photo-1459789430239-a17acb6b6dfc?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=1080&ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlLHdhdGVyfHx8fHx8MTY0MjA2MTI4NA&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1920)
 
 <!-- more -->
-
 
 
 1. 若能避开猛烈的欢喜，自然也不会有悲痛的来袭。我尝试绕开那些悲痛，却也错过了所有欢喜，倘若真的无从避免，倒不如先享受那顽固的欢喜。《人间失格》

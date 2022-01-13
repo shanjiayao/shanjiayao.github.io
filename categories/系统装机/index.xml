@@ -1,0 +1,22 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>系统装机 - 分类 - Jiayao&#39;s blog</title>
+        <link>http://shanjiayao.com/categories/%E7%B3%BB%E7%BB%9F%E8%A3%85%E6%9C%BA/</link>
+        <description>系统装机 - 分类 - Jiayao&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
+            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Sun, 07 Mar 2021 16:10:19 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/categories/%E7%B3%BB%E7%BB%9F%E8%A3%85%E6%9C%BA/" rel="self" type="application/rss+xml" /><item>
+    <title>ubuntu18_04升级记录</title>
+    <link>http://shanjiayao.com/ubuntu_install/</link>
+    <pubDate>Sun, 07 Mar 2021 16:10:19 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/ubuntu_install/</guid>
+    <description><![CDATA[1. 系统安装 关闭secure boot 插上系统盘，开机后狂按ESC，暂停启动，然后弹出BIOS设置，选择启动设备，使用U盘启动 在选择‘Install U]]></description>
+</item><item>
+    <title>docker安装记录</title>
+    <link>http://shanjiayao.com/%E5%AE%89%E8%A3%85docker/</link>
+    <pubDate>Sat, 26 Sep 2020 16:10:19 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/%E5%AE%89%E8%A3%85docker/</guid>
+    <description><![CDATA[nvidia-docker2已经弃用，现在都是装nvidia-container-toolkit 清除旧版本 1 2 3 4 sudo apt-get remove docker docker-engine docker-ce docker.io sudo rm -rf /var/lib/docker dpkg -l]]></description>
+</item></channel>
+</rss>

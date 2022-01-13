@@ -3,11 +3,13 @@
 
 ---
 
-<!-- more -->
+
 
 ## Gitbook简介
 
 `gitbook`是`github`与`markdown`的结合体，我们可以通过`markdown`笔记记录书籍内容，然后发布到`gitbook`上，使用操作和流程与`github`类似，详细了解见[官网](https://www.gitbook.com/)以及[Git](https://github.com/GitbookIO/gitbook)
+
+<!-- more -->
 
 ## Gitbook安装及使用
 
