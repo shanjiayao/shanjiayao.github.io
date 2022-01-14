@@ -99,3 +99,5 @@ hugo new posts/first_post.md
 ```
 
 对应地，需要在content目录下创建collections文件夹，这样我们就完成了导航栏到自定义页面的链接。
+
+综上，具体的config配置我就不记录太多了，各凭喜好~
