@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>NuScenes数据集笔记 - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="NuScenes数据集笔记" />
+<meta property="og:description" content="数据集简介 nuScenes数据集是由Motional（以前为nuTonomy）的团队开发的用于自动驾驶的公共大型数据集，其中，Motiona" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-12T10:47:04+00:00" />
+<meta property="article:modified_time" content="2022-01-12T10:47:04+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="NuScenes数据集笔记"/>
+<meta name="twitter:description" content="数据集简介 nuScenes数据集是由Motional（以前为nuTonomy）的团队开发的用于自动驾驶的公共大型数据集，其中，Motiona"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/" /><link rel="prev" href="http://shanjiayao.com/%E5%9F%BA%E4%BA%8Ehugo%E7%9A%84loveit%E4%B8%BB%E9%A2%98%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "NuScenes数据集笔记",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B\/"
+        },"genre": "posts","keywords": "Dataset","wordcount":  2117 ,
+        "url": "http:\/\/shanjiayao.com\/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B\/","datePublished": "2022-01-12T10:47:04+00:00","dateModified": "2022-01-12T10:47:04+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/collections/"> 收集 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/collections/" title="">收集</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">NuScenes数据集笔记</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>深度学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-12">2022-01-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2117 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#数据集简介">数据集简介</a>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#benchmarks">Benchmarks</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据集下载">数据集下载</a></li>
+    <li><a href="#数据集使用以及devkit说明">数据集使用以及devkit说明</a>
+      <ul>
+        <li><a href="#数据集文件结构">数据集文件结构</a></li>
+        <li><a href="#架构中的基础概念">架构中的基础概念</a></li>
+        <li><a href="#架构示意图解析">架构示意图解析</a></li>
+        <li><a href="#数据集中类别定义">数据集中类别定义</a></li>
+        <li><a href="#tutorial示例超详细">Tutorial示例（超详细）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://camo.githubusercontent.com/25210c94eb51537bb7ad7f6bd87da0751416b0640c33a9942bb6e16054688792/68747470733a2f2f7777772e6e757363656e65732e6f72672f7075626c69632f696d616765732f726f61642e6a7067"
+        data-srcset="https://camo.githubusercontent.com/25210c94eb51537bb7ad7f6bd87da0751416b0640c33a9942bb6e16054688792/68747470733a2f2f7777772e6e757363656e65732e6f72672f7075626c69632f696d616765732f726f61642e6a7067, https://camo.githubusercontent.com/25210c94eb51537bb7ad7f6bd87da0751416b0640c33a9942bb6e16054688792/68747470733a2f2f7777772e6e757363656e65732e6f72672f7075626c69632f696d616765732f726f61642e6a7067 1.5x, https://camo.githubusercontent.com/25210c94eb51537bb7ad7f6bd87da0751416b0640c33a9942bb6e16054688792/68747470733a2f2f7777772e6e757363656e65732e6f72672f7075626c69632f696d616765732f726f61642e6a7067 2x"
+        data-sizes="auto"
+        alt="https://camo.githubusercontent.com/25210c94eb51537bb7ad7f6bd87da0751416b0640c33a9942bb6e16054688792/68747470733a2f2f7777772e6e757363656e65732e6f72672f7075626c69632f696d616765732f726f61642e6a7067"
+        title="https://github.com/nutonomy/nuscenes-devkit" /></p>
+<!-- more -->
+<h2 id="数据集简介">数据集简介</h2>
+<p>nuScenes数据集是由Motional（以前为nuTonomy）的团队开发的用于自动驾驶的公共大型数据集，其中，Motional是由现代汽车集团(Hyundai Motor Group)和Aptiv PLC的合资企业，在2020年成立后，将原有的nuTonomy团队进行了扩展。哦对，这个团队还是<code>PointPainting</code>以及<code>PointPillars</code>的作者。</p>
+<p>数据集部分，目前全部的nuScenes数据集包含四部分，分别是nuPlan、nuScenes、nuImages以及nuReality，其中nuReality是用作VR(Virtual Reality)的数据集。</p>
+<p>对于nuScenes这部分三维场景的数据集来说，</p>
+<ul>
+<li>2019 年 3 月，发布了包含全部 1000 个场景的完整 nuScenes 数据集，其数据量大概是KITTI数据集的7倍左右。</li>
+<li>2020 年 7 月，发布了 nuScenes-lidarseg。在 nuScenes-lidarseg 中，共有 32 种语义标签（即激光雷达语义分割）对 nuScenes 中关键帧中的每个激光雷达点进行注释。因此，nuScenes-lidarseg 在 40,000 个点云和 1000 个场景（850 个用于训练和验证的场景，以及 150 个用于测试的场景）中包含 14 亿个注释点。</li>
+</ul>
+<h3 id="features">Features</h3>
+<p>这里只关注数据集中一些三维数据的feature，更多信息可以自行查阅<a href="https://www.nuscenes.org/" target="_blank" rel="noopener noreffer">官网</a>.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://www.nuscenes.org/static/media/data.9ef46c59.png"
+        data-srcset="https://www.nuscenes.org/static/media/data.9ef46c59.png, https://www.nuscenes.org/static/media/data.9ef46c59.png 1.5x, https://www.nuscenes.org/static/media/data.9ef46c59.png 2x"
+        data-sizes="auto"
+        alt="https://www.nuscenes.org/static/media/data.9ef46c59.png"
+        title="https://www.nuscenes.org/static/media/data.9ef46c59.png" /></p>
+<ul>
+<li>传感器部署
+<ul>
+<li><code>lidar x 1</code>
+<ul>
+<li>20Hz  32 channels</li>
+<li>水平FOV360° ,  竖直FOV +10° 到 -30°</li>
+<li>点云范围在 80m-100m左右, 最远70m左右仍可以保证点云具有 ± 2 cm 的精度</li>
+<li>每秒点云最多 ~139万个点</li>
+</ul>
+</li>
+<li><code>radar x 5</code>
+<ul>
+<li>77GHz的波频  13Hz 采样频率</li>
+<li>最远可测250m</li>
+<li>测速精度大概 ±0.1 km/h</li>
+</ul>
+</li>
+<li><code>camera x 6</code>
+<ul>
+<li>12Hz 采样频率</li>
+<li>1/1.8'' CMOS，1600x1200 分辨率</li>
+<li>像素编码格式为 Bayer8</li>
+</ul>
+</li>
+<li><code>imu x 1</code></li>
+<li><code>gps x 1</code></li>
+</ul>
+</li>
+<li>数据量信息
+<ul>
+<li>1000个场景，每个场景20s，地点在波士顿和新加坡这两个城市；20s时长以显示各种驾驶操作，交通状况和意外行为</li>
+<li>140万帧相机的图片</li>
+<li>39万帧lidar点云</li>
+<li>覆盖23种类别的目标以及1.4M的手动标注的3D bounding boxes</li>
+<li>覆盖了32种类别以及1.1B个手动标注的lidar points</li>
+</ul>
+</li>
+<li>各传感器时间同步
+<ul>
+<li>为了在 LIDAR 和摄像头之间实现良好的跨模态数据对齐，当顶部 LIDAR 扫过摄像头 FOV 的中心时，会触发摄像头的曝光。图像的时间戳为曝光触发时间；而激光雷达扫描的时间戳是当前激光雷达帧实现全旋转的时间。鉴于相机的曝光时间几乎是瞬时的，这种方法通常会产生良好的数据对齐。请注意，相机以 12Hz 运行，而 LIDAR 以 20Hz 运行。12 次相机曝光尽可能均匀地分布在 20 次激光雷达扫描中，因此并非所有激光雷达扫描都有相应的相机帧。</li>
+</ul>
+</li>
+</ul>
+<h3 id="benchmarks">Benchmarks</h3>
+<p>由于NuScenes包含了时序信息，所以除了常见的检测跟踪分割任务，还有一些轨迹预测以及规划的任务benchmarks，具体包括：<code>detection</code>、<code>tracking</code>、<code>prediction</code>、<code>lidar segmentation</code>、<code>panoptic</code>、<code>planning</code></p>
+<h2 id="数据集下载">数据集下载</h2>
+<p>需要注册账号并登陆后才可下载，界面如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115105120.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115105120.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115105120.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115105120.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115105120.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115105120.png" /></p>
+<h2 id="数据集使用以及devkit说明">数据集使用以及devkit说明</h2>
+<p>官方给了非常详细的使用教程，具体可以参考github上的<a href="https://github.com/nutonomy/nuscenes-devkit" target="_blank" rel="noopener noreffer">devkit</a></p>
+<h3 id="数据集文件结构">数据集文件结构</h3>
+<p>我这里只下载了nuScenes部分的数据集，下载好的目录结构如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">/data/sets/nuscenes
+    samples	-	关键帧的传感器数据.
+    sweeps	-	所有帧的传感器数据.
+    maps	-	地图相关文件.
+    v1.0-*	-	trainval对应的元数据以及标注文件，json格式
+</code></pre></td></tr></table>
+</div>
+</div><p>值得注意的是，nuScenes采用了token的方式，将传感器、时间戳、帧id等都抽象成token，对应地，上述目录结构中，sweeps以及samples中也是根据不同传感器的名称来存放的，如下所示。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">.
+├── CAM_BACK
+├── CAM_BACK_LEFT
+├── CAM_BACK_RIGHT
+├── CAM_FRONT
+├── CAM_FRONT_LEFT
+├── CAM_FRONT_RIGHT
+├── LIDAR_TOP
+├── RADAR_BACK_LEFT
+├── RADAR_BACK_RIGHT
+├── RADAR_FRONT
+├── RADAR_FRONT_LEFT
+└── RADAR_FRONT_RIGHT
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="架构中的基础概念">架构中的基础概念</h3>
+<p>此外，nuScenes中的一些基础概念如下：</p>
+<ol>
+<li><code>log</code> - Log information from which the data was extracted.</li>
+<li><code>scene</code> - 20 second snippet of a car&rsquo;s journey.</li>
+<li><code>sample</code> - An annotated snapshot of a scene at a particular timestamp.</li>
+<li><code>sample_data</code> - Data collected from a particular sensor.</li>
+<li><code>ego_pose</code> - Ego vehicle poses at a particular timestamp.</li>
+<li><code>sensor</code> - A specific sensor type.</li>
+<li><code>calibrated sensor</code> - Definition of a particular sensor as calibrated on a particular vehicle.</li>
+<li><code>instance</code> - Enumeration of all object instance we observed.</li>
+<li><code>category</code> - Taxonomy of object categories (e.g. vehicle, human).</li>
+<li><code>attribute</code> - Property of an instance that can change while the category remains the same.</li>
+<li><code>visibility</code> - Fraction of pixels visible in all the images collected from 6 different cameras.</li>
+<li><code>sample_annotation</code> - An annotated instance of an object within our interest.</li>
+<li><code>map</code> - Map data that is stored as binary semantic masks from a top-down view.</li>
+</ol>
+<h3 id="架构示意图解析">架构示意图解析</h3>
+<p>nuScenes数据集中的架构是基于token的机制，将上述13个概念连接起来，如下图所示：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://www.nuscenes.org/public/images/nuscenes-schema.svg"
+        data-srcset="https://www.nuscenes.org/public/images/nuscenes-schema.svg, https://www.nuscenes.org/public/images/nuscenes-schema.svg 1.5x, https://www.nuscenes.org/public/images/nuscenes-schema.svg 2x"
+        data-sizes="auto"
+        alt="https://www.nuscenes.org/public/images/nuscenes-schema.svg"
+        title="https://www.nuscenes.org/public/images/nuscenes-schema.svg" /></p>
+<p><strong>首先</strong>，我们可以从左到右看，采集数据的车在运行时会直接记录一些实时的信息，比如车辆编号，地点，日期，地图文件名，传感器之间的内外参等。</p>
+<p><strong>接着</strong>，我们可以对采集到的数据做解析，将所有数据分成一个又一个的scene，每个场景20s。场景之下是sample，表示的是某个特定时间戳在场景中的<code>关键帧</code>，它是有标注的（注意，在nuScenes中对每个scene，只以<code>2hz</code>的频率标注，也就是说，20Hz的lidar，10Hz只有一帧是有label的）。与sample对应的是sample data，其关联了底层的传感器数据源文件以及一些标定数据和ego的位姿信息。</p>
+<p><strong>最后</strong>，就是对数据的整理和标注，对于一个scene中不同帧之间相同的object，其表示为一个instance。此外还会有一些属性、类别和可见性的表达。注意，可见程度是根据目标在6个相机视野中的状态来衡量的。</p>
+<h3 id="数据集中类别定义">数据集中类别定义</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115155626.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115155626.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115155626.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115155626.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115155626.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115155626.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115155643.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115155643.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115155643.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115155643.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115155643.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220115155643.png" /></p>
+<h3 id="tutorial示例超详细">Tutorial示例（超详细）</h3>
+<p><a href="https://www.nuscenes.org/nuscenes?tutorial=nuscenes" target="_blank" rel="noopener noreffer">https://www.nuscenes.org/nuscenes?tutorial=nuscenes</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-12</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/" data-title="NuScenes数据集笔记" data-hashtags="Dataset"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/" data-hashtag="Dataset"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/" data-title="NuScenes数据集笔记" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/" data-title="NuScenes数据集笔记"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/" data-title="NuScenes数据集笔记"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/" data-title="NuScenes数据集笔记" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/" data-title="NuScenes数据集笔记" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/" data-title="NuScenes数据集笔记"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/dataset/">Dataset</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E5%9F%BA%E4%BA%8Ehugo%E7%9A%84loveit%E4%B8%BB%E9%A2%98%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/" class="prev" rel="prev" title="基于hugo的Loveit主题博客搭建记录"><i class="fas fa-angle-left fa-fw"></i>基于hugo的Loveit主题博客搭建记录</a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-THB0NH45ZM', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-THB0NH45ZM" async></script></body>
+</html>
