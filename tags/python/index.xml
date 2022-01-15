@@ -60,5 +60,12 @@
     <author>作者</author>
     <guid>http://shanjiayao.com/python%E4%B8%8Eros%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/</guid>
     <description><![CDATA[1. python与ros兼容性问题 如果使用了conda环境或者是系统本身的python环境，但是在运行某一条命令时，显示在某一个路径下找不到固]]></description>
+</item><item>
+    <title>python中的time模块</title>
+    <link>http://shanjiayao.com/python%E4%B8%AD%E7%9A%84time%E6%A8%A1%E5%9D%97/</link>
+    <pubDate>Sat, 11 Jan 2020 13:51:31 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/python%E4%B8%AD%E7%9A%84time%E6%A8%A1%E5%9D%97/</guid>
+    <description><![CDATA[使用python中的time模块计算代码运行时间 在计算算法的耗时性时，需要通过一些方法计算代码实际运行的时间，在python中time模块集]]></description>
 </item></channel>
 </rss>

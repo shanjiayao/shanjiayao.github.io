@@ -9,7 +9,7 @@ nvidia-docker2已经弃用，现在都是装nvidia-container-toolkit
 
 1. 清除旧版本
    
-   ```
+   ```bash
    sudo apt-get remove docker docker-engine docker-ce docker.io
    sudo rm -rf /var/lib/docker
    dpkg -l | grep docker
@@ -18,39 +18,39 @@ nvidia-docker2已经弃用，现在都是装nvidia-container-toolkit
 
 2. 更新apt-get
    
-   ```
+   ```bash
    sudo apt-get update
    ```
 
 3. 安装添加使用 HTTPS 传输的软件包
    
-   ```
+   ```bash
    sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common
    ```
 
 4. 添加软件源的GPG密钥---清华源
    
-   ```
+   ```bash
    curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
    sudo add-apt-repository "deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
    ```
 
 5. 更新apt-get，安装docker
    
-   ```
+   ```bash
    sudo apt-get update
    sudo apt-get install docker-ce
    ```
 
 6. 查看docker版本
    
-   ```
+   ```bash
    docker version
    ```
 
 7. 这里docker安装初步完成，可以使用`docker hello-world`测试，如果出现权限问题报错，可以尝试如下方法：
    
-   ```python
+   ```bash
    # 添加一个docker属组（如果没有）
    sudo groupadd docker
    
@@ -68,7 +68,7 @@ nvidia-docker2已经弃用，现在都是装nvidia-container-toolkit
    
    参考[官网git](https://github.com/NVIDIA/nvidia-docker)
    
-   ```
+   ```bash
    # Add the package repositories
    distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
    curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
@@ -82,7 +82,7 @@ nvidia-docker2已经弃用，现在都是装nvidia-container-toolkit
    
    参考[官网git](https://github.com/nvidia/nvidia-container-runtime#environment-variables-oci-spec)
    
-   ```python
+   ```bash
    sudo apt-get install nvidia-container-runtime
    sudo mkdir -p /etc/systemd/system/docker.service.d
    sudo tee /etc/systemd/system/docker.service.d/override.conf <<EOF
@@ -109,13 +109,14 @@ nvidia-docker2已经弃用，现在都是装nvidia-container-toolkit
    sudo dockerd --add-runtime=nvidia=/usr/bin/nvidia-container-runtime [...]
    ```
 
+
 10. 修改镜像和容器的存放路径
     
     1. 指定镜像和容器存放路径的参数是–graph=/var/lib/docker，我们只需要修改配置文件指定启动参数即可。Docker 的配置文件可以设置大部分的后台进程参数，在各个操作系统中的存放位置不一致，在 Ubuntu 中的位置是：`/etc/default/docker`，在 CentOS 中的位置是：`/etc/sysconfig/docker`
     
     2. 打开`/etc/default/docker`
        
-       ```python
+       ```bash
        sudo gedit /etc/default/docker
        
        # 如果是 CentOS 则添加下面这行：
@@ -135,7 +136,7 @@ nvidia-docker2已经弃用，现在都是装nvidia-container-toolkit
     
     4. 如果没有生效，按如下操作
        
-       ```python
+       ```bash
        mkdir -p /etc/systemd/system/docker.service.d  
        
        cat /etc/systemd/system/docker.service.d/Using_Environment_File.conf  
@@ -152,7 +153,7 @@ nvidia-docker2已经弃用，现在都是装nvidia-container-toolkit
 
 11. 修改为阿里的镜像仓库
     
-    ```python
+    ```bash
     # 这里我在注册阿里云之后，将镜像仓库更改为阿里的云仓库，使用如下命令
     
     sudo tee /etc/docker/daemon.json <<-'EOF'
