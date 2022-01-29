@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/shanjiayao.com\/ubuntu_install\/"
-        },"genre": "posts","keywords": "ubuntu","wordcount":  4437 ,
+        },"genre": "posts","keywords": "ubuntu","wordcount":  5069 ,
         "url": "http:\/\/shanjiayao.com\/ubuntu_install\/","datePublished": "2021-03-07T16:10:19+00:00","dateModified": "2021-03-07T16:10:19+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,8 +106,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">ubuntu18_04升级记录</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%B3%BB%E7%BB%9F%E8%A3%85%E6%9C%BA/"><i class="far fa-folder fa-fw"></i>系统装机</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-03-07">2021-03-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4437 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-03-07">2021-03-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5069 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -121,18 +121,37 @@
     <li><a href="#4-安装常用软件">4. 安装常用软件</a></li>
     <li><a href="#5-安装小飞机">5. 安装小飞机</a></li>
     <li><a href="#6-挂载其它ntfs磁盘实现开机自动挂载">6. 挂载其它ntfs磁盘，实现开机自动挂载</a></li>
+  </ul>
+
+  <ul>
     <li><a href="#7-安装ipgw">7. 安装ipgw</a></li>
     <li><a href="#8-安装chrome">8. 安装chrome</a></li>
     <li><a href="#9-安装搜狗输入法">9. 安装搜狗输入法</a></li>
     <li><a href="#10-安装terminator">10. 安装terminator</a></li>
+  </ul>
+
+  <ul>
     <li><a href="#11-安装typora">11. 安装typora</a></li>
+  </ul>
+
+  <ul>
     <li><a href="#12-安装cudacudnn">12. 安装CUDA\CUDNN</a>
       <ul>
         <li><a href="#cuda102">cuda10.2</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
         <li><a href="#cudnn">cudnn</a></li>
       </ul>
     </li>
     <li><a href="#13-安装pycharm">13. 安装pycharm</a></li>
+  </ul>
+
+  <ul>
     <li><a href="#14-安装openvpn">14. 安装openvpn</a></li>
     <li><a href="#补充在ubuntu1804安装的记录">补充在ubuntu18.04安装的记录</a></li>
     <li><a href="#15-安装anaconda">15. 安装anaconda</a></li>
@@ -140,12 +159,13 @@
     <li><a href="#17-安装zsh">17. 安装zsh</a></li>
     <li><a href="#18-安装opencv">18. 安装opencv</a></li>
     <li><a href="#19-安装ros">19. 安装ros</a></li>
-    <li><a href="#20-安装hexogitbook">20. 安装hexo&amp;Gitbook</a>
+    <li><a href="#20-安装hexogitbookslidev">20. 安装hexo&amp;Gitbook&amp;slidev</a>
       <ul>
         <li><a href="#1-安装nodejs-v10x">1. 安装nodejs v10.x</a></li>
         <li><a href="#2-安装git略">2. 安装Git[略]</a></li>
         <li><a href="#3-安装hexo">3. 安装Hexo</a></li>
         <li><a href="#4-安装gitbook">4. 安装Gitbook</a></li>
+        <li><a href="#6-重装hexo以及部署新的博客主题还有gitbook2021-6-10">6. 重装hexo以及部署新的博客主题，还有gitbook[2021-6-10]</a></li>
       </ul>
     </li>
     <li><a href="#21-安装deepin相关">21. 安装deepin相关</a>
@@ -190,7 +210,19 @@
         <li><a href="#安装deb版本到c">安装deb版本到c++</a></li>
       </ul>
     </li>
+    <li><a href="#-dpkg--l--grep-tensorrt">$ dpkg -l | grep TensorRT</a></li>
+    <li><a href="#36-安装苹果主题">36. 安装苹果主题</a></li>
+    <li><a href="#37-安装惠普打印机驱动">37. 安装惠普打印机驱动</a></li>
     <li><a href="#其他小工具">其他小工具</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#更改锁屏输入密码时的壁纸">更改锁屏输入密码时的壁纸</a></li>
+    <li><a href="#安装ceres">安装Ceres</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#安装网络可视化工具zetane">安装网络可视化工具zetane</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><hr>
@@ -212,10 +244,18 @@
 <li>
 <p>分区设置，先选择something else，自己设置分区，如下</p>
 <ul>
-<li>设置swap空间:主分区/空间起始/交换空间/大小一般是实际内存1-2倍</li>
-<li>设置引导EFI:逻辑分区/空间起始/<strong>EFI分区</strong>/大小一般1GB</li>
-<li>设置挂载的/:这个是ubuntu计算机的安装位置,逻辑分区/空间起始/EXT4/挂载点为/</li>
-<li>最后设置引导,最下面的那个选项,选择之前设置的EFI引导在的那个分区</li>
+<li>
+<p>设置swap空间:主分区/空间起始/交换空间/大小一般是实际内存1-2倍</p>
+</li>
+<li>
+<p>设置引导EFI:逻辑分区/空间起始/<strong>EFI分区</strong>/大小一般1GB</p>
+</li>
+<li>
+<p>设置挂载的/:这个是ubuntu计算机的安装位置,逻辑分区/空间起始/EXT4/挂载点为/</p>
+</li>
+<li>
+<p>最后设置引导,最下面的那个选项,选择之前设置的EFI引导在的那个分区</p>
+</li>
 </ul>
 <p>注意，这里建议不单独分出来/home的空间，直接全都放在/下面就好，免得空间不够难以重新分区</p>
 </li>
@@ -225,17 +265,9 @@
 </ol>
 <h2 id="2-换源更新升级">2. 换源，更新，升级</h2>
 <p>进入系统后第一步操作应该就是将源改成国内的清华或者阿里，然后运行以下命令</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt update
-sudo apt upgrade
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="3-nvidia驱动安装">3. Nvidia驱动安装</h2>
+<p>sudo apt update<br>
+sudo apt upgrade</p>
+<h2 id="3-nvidia驱动安装">3. Nvidia驱动安装</h2>
 <p>上述操作装完系统后，没有显卡驱动是无法进入的，所以必须加上nomodeset</p>
 <p>除此之外，进系统后的分辨率应该也不对，会更大一些，这一切的原因都是显卡没有驱动程序，以及没有集显导致的</p>
 <p>装一个独显驱动即可，方法：</p>
@@ -248,191 +280,85 @@ sudo apt upgrade
 </li>
 <li>
 <p>在第五个选项卡，<code>additional drivers</code>处，选择nvidia驱动</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">using</span> <span class="nx">nvidia</span> <span class="nx">driver</span> <span class="nx">metapackage</span> <span class="nx">from</span> <span class="nx">nvidia</span><span class="o">-</span><span class="nx">driver</span><span class="o">-</span><span class="mi">450</span><span class="err">（</span><span class="nx">proprietary</span><span class="err">）</span>
-</code></pre></td></tr></table>
-</div>
-</div></li>
+<p>using nvidia driver metapackage from nvidia-driver-450（proprietary）</p>
+</li>
 <li>
 <p>点击右下角的<code>apply changes</code>，重启即可</p>
 </li>
 </ul>
 <h2 id="4-安装常用软件">4. 安装常用软件</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt install python python3 gconf-service-backend gconf-service gconf2
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="5-安装小飞机">5. 安装小飞机</h2>
+<p>sudo apt install python python3 gconf-service-backend gconf-service gconf2</p>
+<h2 id="5-安装小飞机">5. 安装小飞机</h2>
 <p>先确保安装python以及python3</p>
 <p>建议使用appimage，方便开机自启动</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#! /bin/bash
-</span><span class="cp"></span><span class="nb">cd</span> ~/Softwares
-./electron-ssr-0.2.6.AppImage
-</code></pre></td></tr></table>
-</div>
-</div><ul>
+<p>#! /bin/bash<br>
+cd ~/Softwares<br>
+./electron-ssr-0.2.6.AppImage</p>
+<ul>
 <li>
 <p>自启动</p>
-<p>将以上写成脚本，在<code>start application</code>里面添加启动程序，直接查找脚本位置即可，不需要    . 或者 sh</p>
+<p>将以上写成脚本，在<code>start application</code>里面添加启动程序，直接查找脚本位置即可，不需要 . 或者 sh</p>
 </li>
 </ul>
 <p>注意权限</p>
 <h2 id="6-挂载其它ntfs磁盘实现开机自动挂载">6. 挂载其它ntfs磁盘，实现开机自动挂载</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 查看磁盘
-sudo fdisk -l
-# 安装包
-sudo apt install ntfs-3g
-sudo apt install ntfs-config
-# 查看uuid
-sudo blkid
-
-# 创建要挂载的文件夹
-mkdir /home/disks
-sudo mkdir /media/echo/Docs
-sudo mkdir /media/echo/Storage
-
-# 修改fstab
-sudo gedit /etc/fstab
-    # 添加以下内容
-    #Entry for /dev/sda5 :
-    UUID=10AA0A8510AA0A85    /media/echo/Docs    ntfs    defaults,nodev,nosuid,uid=1000,gid=1000,uhelper=udisks2    0    0
-    #Entry for /dev/sda1 :
-    UUID=10A8073A10A8073A    /media/echo/Storage    ntfs    defaults,nodev,nosuid,uid=1000,gid=1000,uhelper=udisks2    0    0
-    #Entry for /dev/nvme0n1p4 :
-    UUID=0BE104A20BE104A2    /home/echo/disks    ntfs    defaults    0    0
-
-
-# 测试挂载，不报错即为没问题
-sudo umount -a
-sudo mount -a
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="7-安装ipgw">7. 安装ipgw</h2>
+<h1 id="查看磁盘">查看磁盘</h1>
+<p>sudo fdisk -l</p>
+<h1 id="安装包">安装包</h1>
+<p>sudo apt install ntfs-3g<br>
+sudo apt install ntfs-config</p>
+<h1 id="查看uuid">查看uuid</h1>
+<p>sudo blkid<br>
+​</p>
+<h1 id="创建要挂载的文件夹">创建要挂载的文件夹</h1>
+<p>mkdir /home/disks<br>
+sudo mkdir /media/echo/Docs<br>
+sudo mkdir /media/echo/Storage<br>
+​</p>
+<h1 id="修改fstab">修改fstab</h1>
+<p>sudo gedit /etc/fstab</p>
+<h1 id="添加以下内容">添加以下内容</h1>
+<p>#Entry for /dev/sda5 :<br>
+UUID=10AA0A8510AA0A85    /media/echo/Docs    ntfs    defaults,nodev,nosuid,uid=1000,gid=1000,uhelper=udisks2    0    0<br>
+#Entry for /dev/sda1 :<br>
+UUID=10A8073A10A8073A    /media/echo/Storage    ntfs    defaults,nodev,nosuid,uid=1000,gid=1000,uhelper=udisks2    0    0<br>
+#Entry for /dev/nvme0n1p4 :<br>
+UUID=0BE104A20BE104A2    /home/echo/disks    ntfs    defaults    0    0<br>
+​<br>
+​</p>
+<h1 id="测试挂载不报错即为没问题">测试挂载，不报错即为没问题</h1>
+<p>sudo umount -a<br>
+sudo mount -a</p>
+<h2 id="7-安装ipgw">7. 安装ipgw</h2>
 <p>找到对应ipgw安装包</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo chmod +x ipgw
-sudo mv ipgw /usr/local/bin
-ipgw version
-ipgw login -u 1901938 -p xxx -s
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="8-安装chrome">8. 安装chrome</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo dpkg -i google-chrome-stable_current_amd64.deb
-sudo apt upgrade
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="9-安装搜狗输入法">9. 安装搜狗输入法</h2>
+<p>sudo chmod +x ipgw<br>
+sudo mv ipgw /usr/local/bin<br>
+ipgw version<br>
+ipgw login -u 1901938 -p xxx -s</p>
+<h2 id="8-安装chrome">8. 安装chrome</h2>
+<p>sudo dpkg -i google-chrome-stable_current_amd64.deb<br>
+sudo apt upgrade</p>
+<h2 id="9-安装搜狗输入法">9. 安装搜狗输入法</h2>
 <p>先装fcitx</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt install fcitx    # 如果报错，使用 sudo apt-get install -f 再执行
-sudo dpkg -i sogoupinyin_2.3.1.0112_amd64.deb
-reboot
-</code></pre></td></tr></table>
-</div>
-</div><p>打开设置，找到 <code>language</code>-&gt; <code>Manage Installed Languages</code>, 將“Keyboard input method system”設定為“fcitx”</p>
+<p>sudo apt install fcitx    # 如果报错，使用 sudo apt-get install -f 再执行<br>
+sudo dpkg -i sogoupinyin_2.3.1.0112_amd64.deb<br>
+reboot</p>
+<p>打开设置，找到 <code>language</code>-&gt; <code>Manage Installed Languages</code>, 將“Keyboard input method system”設定為“fcitx”</p>
 <p>在系統中搜索fcitx configuration，點選左下角新增輸入法，在彈出的對話方塊中將Only Show Current Language取消，即可看到sogou Pinyin，選擇新增即可</p>
 <h2 id="10-安装terminator">10. 安装terminator</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt install terminator
-# 刷新配置
-cp terminator_config ~/.config/terminator/config
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="11-安装typora">11. 安装typora</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># or run:</span>
-<span class="c1"># sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA300B7755AFCFAE</span>
-wget -qO - https://typora.io/linux/public-key.asc <span class="p">|</span> sudo apt-key add -
-<span class="c1"># add Typora&#39;s repository</span>
-sudo add-apt-repository <span class="s1">&#39;deb https://typora.io/linux ./&#39;</span>
-sudo apt-get update
-<span class="c1"># install typora</span>
-sudo apt-get install typora
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="12-安装cudacudnn">12. 安装CUDA\CUDNN</h2>
+<p>sudo apt install terminator</p>
+<h1 id="刷新配置">刷新配置</h1>
+<p>cp terminator_config ~/.config/terminator/config</p>
+<h2 id="11-安装typora">11. 安装typora</h2>
+<h1 id="or-run">or run:</h1>
+<h1 id="sudo-apt-key-adv---keyserver-keyserverubuntucom---recv-keys-ba300b7755afcfae">sudo apt-key adv &ndash;keyserver keyserver.ubuntu.com &ndash;recv-keys BA300B7755AFCFAE</h1>
+<p>wget -qO - <a href="https://typora.io/linux/public-key.asc" target="_blank" rel="noopener noreffer">https://typora.io/linux/public-key.asc</a> | sudo apt-key add -</p>
+<h1 id="add-typoras-repository">add Typora&rsquo;s repository</h1>
+<p>sudo add-apt-repository &lsquo;deb <a href="https://typora.io/linux" target="_blank" rel="noopener noreffer">https://typora.io/linux</a> ./&rsquo;
+sudo apt-get update</p>
+<h1 id="install-typora">install typora</h1>
+<p>sudo apt-get install typora</p>
+<h2 id="12-安装cudacudnn">12. 安装CUDA\CUDNN</h2>
 <h3 id="cuda102">cuda10.2</h3>
 <ol>
 <li>
@@ -441,110 +367,51 @@ sudo apt-get install typora
 </li>
 <li>
 <p>选择18.04 cuda10.2 使用deb安装</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
+<p>wget <a href="https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin" target="_blank" rel="noopener noreffer">https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin</a>
 sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
-wget https://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb
+wget <a href="https://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb" target="_blank" rel="noopener noreffer">https://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb</a>
 sudo dpkg -i cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb
 sudo apt-key add /var/cuda-repo-10-2-local-10.2.89-440.33.01/7fa2af80.pub
 sudo apt-get update
-sudo apt-get -y install cuda
-</code></pre></td></tr></table>
-</div>
-</div></li>
+sudo apt-get -y install cuda</p>
+</li>
 <li>
 <p>在bashrc或者zshrc中加入</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># cuda add
-export CPATH=/usr/local/cuda/targets/x86_64-linux/include:$CPATH
+<h1 id="cuda-add">cuda add</h1>
+<p>export CPATH=/usr/local/cuda/targets/x86_64-linux/include:$CPATH
 export LD_LIBRARY_PATH=/usr/local/cuda/targets/x86_64-linux/lib:$LD_LIBRARY_PATH
 export PATH=/usr/local/cuda/bin:$PATH
-export CUDA_HOME=/usr/local/cuda
-</code></pre></td></tr></table>
-</div>
-</div><p>使用<code>nvcc -V</code>测试</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">nvcc: NVIDIA (R) Cuda compiler driver
+export CUDA_HOME=/usr/local/cuda</p>
+<p>使用<code>nvcc -V</code>测试</p>
+<p>nvcc: NVIDIA (R) Cuda compiler driver
 Copyright (c) 2005-2019 NVIDIA Corporation
 Built on Wed_Oct_23_19:24:38_PDT_2019
-Cuda compilation tools, release 10.2, V10.2.89
-</code></pre></td></tr></table>
-</div>
-</div></li>
+Cuda compilation tools, release 10.2, V10.2.89</p>
+</li>
 <li>
 <p>安装patch</p>
-<p><a href="https://developer.nvidia.com/cuda-10.2-download-archive?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu&amp;target_version=1804&amp;target_type=deblocal" target="_blank" rel="noopener noreffer">https://developer.nvidia.com/cuda-10.2-download-archive?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=deblocal</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># patch1
-sudo dpkg -i cuda-repo-ubuntu1804-10-2-local_10.2.1-1_amd64.deb 
+<p><a href="https://developer.nvidia.com/cuda-10.2-download-archive?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu&amp;target_version=1804&amp;target_type=deblocal" target="_blank" rel="noopener noreffer">https://developer.nvidia.com/cuda-10.2-download-archive?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu&amp;target_version=1804&amp;target_type=deblocal</a></p>
+<h1 id="patch1">patch1</h1>
+<p>sudo dpkg -i cuda-repo-ubuntu1804-10-2-local_10.2.1-1_amd64.deb
 sudo apt update
-sudo apt -y upgrade
-# patch2
-sudo dpkg -i cuda-repo-ubuntu1804-10-2-local_10.2.2-1_amd64.deb 
+sudo apt -y upgrade</p>
+<h1 id="patch2">patch2</h1>
+<p>sudo dpkg -i cuda-repo-ubuntu1804-10-2-local_10.2.2-1_amd64.deb
 sudo apt update
-sudo apt -y upgrade
-</code></pre></td></tr></table>
-</div>
-</div></li>
+sudo apt -y upgrade</p>
+</li>
 </ol>
 <h3 id="cudnn">cudnn</h3>
 <p>需要登录，使用google账号登录， 下载 <strong>cudnn-10.2-linux-x64-v8.1.1.33</strong></p>
 <ul>
 <li>
 <p>source安装，先解压，出现一个cuda的文件夹</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">tar -zxf cudnn-10.2-linux-x64-v8.1.1.33.tgz
+<p>tar -zxf cudnn-10.2-linux-x64-v8.1.1.33.tgz
 sudo cp cuda/include/cudnn.h /usr/local/cuda/include
 sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
-sudo chmod a+r /usr/local/cuda/include/cudnn.h 
-sudo chmod a+r /usr/local/cuda/lib64/libcudnn*
-</code></pre></td></tr></table>
-</div>
-</div></li>
+sudo chmod a+r /usr/local/cuda/include/cudnn.h
+sudo chmod a+r /usr/local/cuda/lib64/libcudnn*</p>
+</li>
 <li>
 <p>deb安装-未尝试</p>
 <p>要下载的文件也是两个，分别是<code>cuDNN Runtime Library for Ubuntu18.04 (Deb</code>和 <code>[cuDNN Developer Library for Ubuntu18.04 (Deb)]</code></p>
@@ -554,23 +421,12 @@ sudo chmod a+r /usr/local/cuda/lib64/libcudnn*
 <li>
 <p>更换安装方法！！！！</p>
 <p>由于源码安装的cudnn无法被找到，所以换deb安装</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo rm /usr/local/cuda/include/cudnn.h
+<p>sudo rm /usr/local/cuda/include/cudnn.h
 sudo rm /usr/local/cuda/lib64/libcudnn*
 sudo dpkg -i libcudnn8_8.1.0.77-1+cuda10.2_amd64.deb
 sudo dpkg -i libcudnn8-dev_8.1.0.77-1+cuda10.2_amd64.deb
-sudo dpkg -i libcudnn8-samples_8.1.0.77-1+cuda10.2_amd64.deb
-</code></pre></td></tr></table>
-</div>
-</div></li>
+sudo dpkg -i libcudnn8-samples_8.1.0.77-1+cuda10.2_amd64.deb</p>
+</li>
 <li>
 <p>由于8.1.0无法通过cudnn测试，所以换成7.6.5</p>
 </li>
@@ -582,167 +438,55 @@ sudo dpkg -i libcudnn8-samples_8.1.0.77-1+cuda10.2_amd64.deb
 <p><a href="https://link.zhihu.com/?target=https%3A//github.com/Syllo/nvtop" target="_blank" rel="noopener noreffer">https://github.com/Syllo/nvtopgithub.com</a></p>
 <h2 id="13-安装pycharm">13. 安装pycharm</h2>
 <p>由于ubuntu自带了snap，使用snap安装</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># sudo snap install [pycharm-professional|pycharm-community] --classic
-sudo snap install pycharm-professional --classic
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="14-安装openvpn">14. 安装openvpn</h2>
+<h1 id="sudo-snap-install-pycharm-professionalpycharm-community---classic">sudo snap install [pycharm-professional|pycharm-community] &ndash;classic</h1>
+<p>sudo snap install pycharm-professional &ndash;classic</p>
+<h2 id="14-安装openvpn">14. 安装openvpn</h2>
 <h2 id="补充在ubuntu1804安装的记录">补充在ubuntu18.04安装的记录</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt update
-sudo apt install openvpn
-</code></pre></td></tr></table>
-</div>
-</div><p>接下来和ubuntu16.04一致，运行脚本以及ovpn文件即可</p>
+<p>sudo apt update
+sudo apt install openvpn</p>
+<p>接下来和ubuntu16.04一致，运行脚本以及ovpn文件即可</p>
 <h2 id="15-安装anaconda">15. 安装anaconda</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">wget https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh
-</code></pre></td></tr></table>
-</div>
-</div><p>给权限, 运行</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo chmod 777 Anaconda3-2020.07-Linux-x86_64.sh
-bash Anaconda3-2020.07-Linux-x86_64.sh
-</code></pre></td></tr></table>
-</div>
-</div><p>安装过程中, 在安装目录处修改目录, 第二个问题选yes</p>
+<p>wget <a href="https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh" target="_blank" rel="noopener noreffer">https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh</a></p>
+<p>给权限, 运行</p>
+<p>sudo chmod 777 Anaconda3-2020.07-Linux-x86_64.sh
+bash Anaconda3-2020.07-Linux-x86_64.sh</p>
+<p>安装过程中, 在安装目录处修改目录, 第二个问题选yes</p>
 <h2 id="16-安装git">16. 安装git</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt install -y git
-</code></pre></td></tr></table>
-</div>
-</div><p>自动保存账户密码</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">git config --global -e
-
--&gt; 添加以下行
+<p>sudo apt install -y git</p>
+<p>自动保存账户密码</p>
+<p>git config &ndash;global -e</p>
+<p>-&gt; 添加以下行
 [credential]
-    helper = store
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="17-安装zsh">17. 安装zsh</h2>
+helper = store</p>
+<h2 id="17-安装zsh">17. 安装zsh</h2>
 <p>确保安装了git</p>
 <p><a href="https://ohmyz.sh/#install" target="_blank" rel="noopener noreffer">https://ohmyz.sh/#install</a></p>
 <p><a href="https://github.com/romkatv/powerlevel10k" target="_blank" rel="noopener noreffer">https://github.com/romkatv/powerlevel10k</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt-get install zsh
-sh -c &#34;$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)&#34;
-git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="18-安装opencv">18. 安装opencv</h2>
+<p>sudo apt-get install zsh
+sh -c &ldquo;$(wget <a href="https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh" target="_blank" rel="noopener noreffer">https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh</a> -O -)&rdquo;
+git clone &ndash;depth=1 <a href="https://gitee.com/romkatv/powerlevel10k.git" target="_blank" rel="noopener noreffer">https://gitee.com/romkatv/powerlevel10k.git</a> ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+git clone <a href="https://github.com/zsh-users/zsh-autosuggestions" target="_blank" rel="noopener noreffer">https://github.com/zsh-users/zsh-autosuggestions</a> ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions</p>
+<h2 id="18-安装opencv">18. 安装opencv</h2>
 <h2 id="19-安装ros">19. 安装ros</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&gt; sudo sh -c &#39;echo &#34;deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main&#34; &gt; /etc/apt/sources.list.d/ros-latest.list&#39;
-
-&gt; sudo apt-key adv --keyserver &#39;hkp://keyserver.ubuntu.com:80&#39; --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-
-Executing: /tmp/apt-key-gpghome.GnF5MH9S4s/gpg.1.sh --keyserver hkp://keyserver.ubuntu.com:80 --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-gpg: key F42ED6FBAB17C654: public key &#34;Open Robotics &lt;info@osrfoundation.org&gt;&#34; imported
+<blockquote>
+<p>sudo sh -c &lsquo;echo &ldquo;deb <a href="http://packages.ros.org/ros/ubuntu" target="_blank" rel="noopener noreffer">http://packages.ros.org/ros/ubuntu</a> $(lsb_release -sc) main&rdquo; &gt; /etc/apt/sources.list.d/ros-latest.list&rsquo;</p>
+</blockquote>
+<blockquote>
+<p>sudo apt-key adv &ndash;keyserver &lsquo;hkp://keyserver.ubuntu.com:80&rsquo; &ndash;recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654</p>
+</blockquote>
+<p>Executing: /tmp/apt-key-gpghome.GnF5MH9S4s/gpg.1.sh &ndash;keyserver hkp://keyserver.ubuntu.com:80 &ndash;recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+gpg: key F42ED6FBAB17C654: public key &ldquo;Open Robotics <a href="mailto:info@osrfoundation.org" rel="">info@osrfoundation.org</a>&rdquo; imported
 gpg: Total number processed: 1
-gpg:               imported: 1
-</code></pre></td></tr></table>
-</div>
-</div><p>报错</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_cnn_infer.so.8 is not a symbolic link
-
-/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_adv_train.so.8 is not a symbolic link
-
-/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_adv_infer.so.8 is not a symbolic link
-
-/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_ops_train.so.8 is not a symbolic link
-
-/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_cnn_train.so.8 is not a symbolic link
-
-/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn.so.8 is not a symbolic link
-
-/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_ops_infer.so.8 is not a symbolic link
-</code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo ln -sf libcudnn_adv_infer.so.8.1.1 libcudnn_adv_infer.so.8
+gpg:               imported: 1</p>
+<p>报错</p>
+<p>/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_cnn_infer.so.8 is not a symbolic link</p>
+<p>/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_adv_train.so.8 is not a symbolic link</p>
+<p>/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_adv_infer.so.8 is not a symbolic link</p>
+<p>/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_ops_train.so.8 is not a symbolic link</p>
+<p>/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_cnn_train.so.8 is not a symbolic link</p>
+<p>/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn.so.8 is not a symbolic link</p>
+<p>/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_ops_infer.so.8 is not a symbolic link</p>
+<p>sudo ln -sf libcudnn_adv_infer.so.8.1.1 libcudnn_adv_infer.so.8
 sudo ln -sf libcudnn_adv_infer.so.8 libcudnn_adv_infer.so
 sudo ln -sf libcudnn_adv_train.so.8.1.1 libcudnn_adv_train.so.8
 sudo ln -sf libcudnn_adv_train.so.8 libcudnn_adv_train.so
@@ -752,243 +496,164 @@ sudo ln -sf libcudnn_ops_infer.so.8.1.1 libcudnn_ops_infer.so.8
 sudo ln -sf libcudnn_ops_train.so.8.1.1 libcudnn_ops_train.so.8
 sudo ln -sf libcudnn_ops_train.so.8 libcudnn_ops_train.so
 sudo ln -sf libcudnn.so.8.1.1 libcudnn.so.8
-sudo ln -sf libcudnn.so.8 libcudnn.so
-</code></pre></td></tr></table>
-</div>
-</div><p>执行</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo rosdep init
-</code></pre></td></tr></table>
-</div>
-</div><p>报错</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo: rosdep: command not found
-</code></pre></td></tr></table>
-</div>
-</div><p>执行</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt install rospack-tools
-</code></pre></td></tr></table>
-</div>
-</div><p>开代理</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo rosdep init
-rosdep update
-</code></pre></td></tr></table>
-</div>
-</div><p>写入bashrc以及zshrc</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">alias ros=&#39;source /opt/ros/melodic/setup.zsh&#39;
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="20-安装hexogitbook">20. 安装hexo&amp;Gitbook</h2>
+sudo ln -sf libcudnn.so.8 libcudnn.so</p>
+<p>执行</p>
+<p>sudo rosdep init</p>
+<p>报错</p>
+<p>sudo: rosdep: command not found</p>
+<p>执行</p>
+<p>sudo apt install rospack-tools</p>
+<p>开代理</p>
+<p>sudo rosdep init
+rosdep update</p>
+<p>写入bashrc以及zshrc</p>
+<p>alias ros=&lsquo;source /opt/ros/melodic/setup.zsh&rsquo;</p>
+<h2 id="20-安装hexogitbookslidev">20. 安装hexo&amp;Gitbook&amp;slidev</h2>
 <h3 id="1-安装nodejs-v10x">1. 安装nodejs v10.x</h3>
 <p><a href="https://github.com/nodesource/distributions" target="_blank" rel="noopener noreffer">https://github.com/nodesource/distributions</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">curl -fsSL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-sudo apt-get install -y nodejs
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="2-安装git略">2. 安装Git[略]</h3>
+<p>curl -fsSL <a href="https://deb.nodesource.com/setup_10.x" target="_blank" rel="noopener noreffer">https://deb.nodesource.com/setup_10.x</a> | sudo -E bash -
+sudo apt-get install -y nodejs</p>
+<h3 id="2-安装git略">2. 安装Git[略]</h3>
 <h3 id="3-安装hexo">3. 安装Hexo</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">npm install hexo
-echo &#39;PATH=&#34;$PATH:~/disks/HexoBlogs/node_modules/.bin&#39; &gt;&gt; ~/.zshrc
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="4-安装gitbook">4. 安装Gitbook</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo npm install -g gitbook-cli
-gitbook init 
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="21-安装deepin相关">21. 安装deepin相关</h2>
+<p>npm install hexo
+PATH=&quot;$PATH:/home/echo/disks/HexoBlogs/node_modules/.bin&quot;</p>
+<h3 id="4-安装gitbook">4. 安装Gitbook</h3>
+<p>sudo npm install -g gitbook-cli
+gitbook init</p>
+<p>将node升级到了14，但是发现hexo不好用，无法hexo d，所以降级到12，但是gitbook还不好使，于是修改gitbook</p>
+<p>查看和更改node版本</p>
+<p>node -v
+sudo n</p>
+<p>查看hexo版本</p>
+<p>hexo -v</p>
+<hr>
+<h3 id="6-重装hexo以及部署新的博客主题还有gitbook2021-6-10">6. 重装hexo以及部署新的博客主题，还有gitbook[2021-6-10]</h3>
+<ol>
+<li>
+<p>解决npm全局安装的问题</p>
+<p>在 /home 下</p>
+<p>mkdir ~/.npm-global
+npm config set prefix &lsquo;~/.npm-global&rsquo;   # 设置npm全局包的安装路径:
+export PATH=~/.npm-global/bin:$PATH   # 在用户的根目录下查看有没有.profile文件, 如果没有就创建
+source ~/.profile</p>
+</li>
+<li>
+<p>安装hexo</p>
+<p>npm install -g hexo-cli</p>
+<p>| 注：还有第二种安装方式</p>
+<p>在blog目录下安装</p>
+<p>npm install hexo</p>
+<p>然后在 <code>~/.profile</code>中添加路径，就可以在终端启动hexo命令了</p>
+<p>PATH=&quot;$PATH:/home/echo/disks/blog/node_modules/.bin&quot;</p>
+</li>
+<li>
+<p>接下来就可以初始化并创建博客了，新建一个博客文件夹（原来的HexoBlogs被我弄的坏了，运行命令报错）</p>
+<p>hexo init blog #初始化博客站点
+cd blog
+npm install #安装依赖</p>
+</li>
+<li>
+<p>把原来的博客文件夹 HexoBlogs路径下的 source 拷贝到新建的 blog对应的source下面</p>
+</li>
+<li>
+<p>运行命令</p>
+<p>hexo g &amp; hexo s</p>
+<p>这时没改config里面的主题，还应该是可以显示原来博客内容的，只是主题不对</p>
+</li>
+<li>
+<p>更改主题为butterfly</p>
+<p>在blog目录下，开终端，先下载，然后安装渲染器</p>
+<p>git clone -b master <a href="https://github.com/jerryc127/hexo-theme-butterfly.git" target="_blank" rel="noopener noreffer">https://github.com/jerryc127/hexo-theme-butterfly.git</a> themes/butterfly
+npm install hexo-renderer-pug hexo-renderer-stylus &ndash;save</p>
+</li>
+</ol>
+<p>npm install hexo-deployer-git &ndash;save
+npm install &ndash;save hexo-word-counter</p>
+<h2 id="21-安装deepin相关">21. 安装deepin相关</h2>
 <p>deepin wine基础框架，星外之神那个不好用，下载下面的安装</p>
 <p><a href="https://github.com/chenyingzhou/deepin-wine-ubuntu" target="_blank" rel="noopener noreffer">https://github.com/chenyingzhou/deepin-wine-ubuntu</a></p>
 <p>deepin wine相关软件</p>
 <p><a href="http://packages.deepin.com/deepin/pool/non-free/d/" target="_blank" rel="noopener noreffer">http://packages.deepin.com/deepin/pool/non-free/d/</a></p>
-<p>下载里面的deepin.com.wechat/   以及 deepin.com.qq.office/       这两个是好用的</p>
+<p>下载里面的deepin.com.wechat/ 以及 deepin.com.qq.office/ 这两个是好用的</p>
 <p>dpkg安装</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt install chrome-gnome-shell
-sudo apt install gnome-shell-extensions
-</code></pre></td></tr></table>
-</div>
-</div><p>除此之外，还需要安装topicons plus插件，然后使用tweak打开插件，方便图标显示</p>
+<p>sudo apt install chrome-gnome-shell
+sudo apt install gnome-shell-extensions</p>
+<p>除此之外，还需要安装topicons plus插件，然后使用tweak打开插件，方便图标显示</p>
 <h3 id="微信">微信</h3>
 <h4 id="解决中文乱码问题">解决中文乱码问题</h4>
 <p>装完后中文乱码，按照下列教程</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo gedit /opt/deepinwine/tools/run.sh
-sudo gedit /opt/deepinwine/tools/run_v2.sh
-</code></pre></td></tr></table>
-</div>
-</div><p>找到WINE_CMD
-修改为：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">WINE_CMD=&#34;LC_ALL=zh_CN.UTF-8 deepin-wine&#34;
-</code></pre></td></tr></table>
-</div>
-</div><p>然后下载字体，更换</p>
-<p>修改字体
-下载字体msyh.ttc,
-下载地址一：蓝奏云 （推荐）https://www.lanzous.com/i5wivmd
-下载地址二：百度网盘 链接: <a href="https://pan.baidu.com/s/1rkjkmGJlpdaijCEWi7TZIw" target="_blank" rel="noopener noreffer">https://pan.baidu.com/s/1rkjkmGJlpdaijCEWi7TZIw</a> 提取码: btxw</p>
+<p>sudo gedit /opt/deepinwine/tools/run.sh
+sudo gedit /opt/deepinwine/tools/run_v2.sh</p>
+<p>找到WINE_CMD 修改为：</p>
+<p>WINE_CMD=&ldquo;LC_ALL=zh_CN.UTF-8 deepin-wine&rdquo;</p>
+<p>然后下载字体，更换</p>
+<p>修改字体 下载字体msyh.ttc, 下载地址一：蓝奏云 （推荐）<a href="https://www.lanzous.com/i5wivmd" target="_blank" rel="noopener noreffer">https://www.lanzous.com/i5wivmd</a> 下载地址二：百度网盘 链接: <a href="https://pan.baidu.com/s/1rkjkmGJlpdaijCEWi7TZIw" target="_blank" rel="noopener noreffer">https://pan.baidu.com/s/1rkjkmGJlpdaijCEWi7TZIw</a> 提取码: btxw</p>
 <p>将下载的字体解压，然后：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cp msyh.ttc ~/.deepinwine/Deepin-WeChat/drive_c/windows/Fonts
-</code></pre></td></tr></table>
-</div>
-</div><p>修改系统注册表</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">gedit ~/.deepinwine/Deepin-WeChat/system.reg
-</code></pre></td></tr></table>
-</div>
-</div><p>更改以下两行内容为：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&#34;MS Shell Dlg&#34;=&#34;msyh&#34;
-&#34;MS Shell Dlg 2&#34;=&#34;msyh&#34;
-</code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">gedit msyh_config.reg
-</code></pre></td></tr></table>
-</div>
-</div><p>在文件msyh_config.reg内添加如下内容：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">REGEDIT4
+<p>cp msyh.ttc ~/.deepinwine/Deepin-WeChat/drive_c/windows/Fonts</p>
+<p>修改系统注册表</p>
+<p>gedit ~/.deepinwine/Deepin-WeChat/system.reg</p>
+<p>更改以下两行内容为：</p>
+<p>&ldquo;MS Shell Dlg&rdquo;=&ldquo;msyh&rdquo;
+&ldquo;MS Shell Dlg 2&rdquo;=&ldquo;msyh&rdquo;</p>
+<p>gedit msyh_config.reg</p>
+<p>在文件msyh_config.reg内添加如下内容：</p>
+<p>REGEDIT4
 [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\FontLink\SystemLink]
-&#34;Lucida Sans Unicode&#34;=&#34;msyh.ttc&#34;
-&#34;Microsoft Sans Serif&#34;=&#34;msyh.ttc&#34;
-&#34;MS Sans Serif&#34;=&#34;msyh.ttc&#34;
-&#34;Tahoma&#34;=&#34;msyh.ttc&#34;
-&#34;Tahoma Bold&#34;=&#34;msyhbd.ttc&#34;
-&#34;msyh&#34;=&#34;msyh.ttc&#34;
-&#34;Arial&#34;=&#34;msyh.ttc&#34;
-&#34;Arial Black&#34;=&#34;msyh.ttc&#34;
-</code></pre></td></tr></table>
-</div>
-</div><p>注册字体</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">deepin-wine regedit msyh_config.reg
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="解决中心黑框问题">解决中心黑框问题</h4>
+&ldquo;Lucida Sans Unicode&rdquo;=&ldquo;msyh.ttc&rdquo;
+&ldquo;Microsoft Sans Serif&rdquo;=&ldquo;msyh.ttc&rdquo;
+&ldquo;MS Sans Serif&rdquo;=&ldquo;msyh.ttc&rdquo;
+&ldquo;Tahoma&rdquo;=&ldquo;msyh.ttc&rdquo;
+&ldquo;Tahoma Bold&rdquo;=&ldquo;msyhbd.ttc&rdquo;
+&ldquo;msyh&rdquo;=&ldquo;msyh.ttc&rdquo;
+&ldquo;Arial&rdquo;=&ldquo;msyh.ttc&rdquo;
+&ldquo;Arial Black&rdquo;=&ldquo;msyh.ttc&rdquo;</p>
+<p>注册字体</p>
+<p>deepin-wine regedit msyh_config.reg</p>
+<h4 id="解决中心黑框问题">解决中心黑框问题</h4>
 <p><a href="https://blog.diqigan.cn/posts/wine-wechat-black-square-fix.html" target="_blank" rel="noopener noreffer">https://blog.diqigan.cn/posts/wine-wechat-black-square-fix.html</a></p>
 <p>按照操作，做一遍，调试了一下sleep的值，改为0的话就成功了</p>
 <h2 id="22-定制mac主题">22. 定制Mac主题</h2>
 <p>未尝试</p>
 <ol>
-<li>安装gnome-tweak-tool 和 chrome-gnome-shell 插件 (<code>sudo aptitude install [name]</code>)</li>
-<li>安装GTK3主题 =&gt; <a href="https://www.gnome-look.org/p/1167049/" target="_blank" rel="noopener noreffer">X-Arc-Collection</a></li>
-<li>使用tweak载入应用程序主题 =&gt; tweak — 外观 — 应用程序 — 选择X-Arc-Collection</li>
-<li>安装gnome-shell 主题 =&gt; <a href="https://www.gnome-look.org/p/1167049/" target="_blank" rel="noopener noreffer">macOS High Sierra</a></li>
-<li>安装gnome-shell 插件 =&gt; <a href="https://extensions.gnome.org/extension/19/user-themes/" target="_blank" rel="noopener noreffer">User Themes</a> ( 之后重启Gnome =&gt; [Alt + F2] &amp; [输入 r] &amp; [点击 Enter] )</li>
-<li>使用tweak载入shell主题 =&gt; tweak — 外观 — shell — 选择Sierra shell主题</li>
-<li>下载Mac图标主题 <a href="https://github.com/keeferrourke/la-capitaine-icon-theme/releases" target="_blank" rel="noopener noreffer">la-capitaine-icon-theme</a> 或 <a href="https://www.pling.com/p/1305429/" target="_blank" rel="noopener noreffer">McMojave-circle</a></li>
-<li>图标文件夹移动到 ~/.icons目录下(没有则新建目录)</li>
-<li>使用tweak载入icon主题 =&gt; tweak — 外观 — 图标 — 选择对应的图标主题</li>
-<li>安装gnome-shell插件 =&gt; Dash to dock (将原生dock转变为可定制的浮动dock)</li>
-<li>定制firefox主题 =&gt; <a href="https://github.com/vinceliuice/Mojave-gtk-theme" target="_blank" rel="noopener noreffer">Majave-gtk-theme</a></li>
+<li>
+<p>安装gnome-tweak-tool 和 chrome-gnome-shell 插件 (<code>sudo aptitude install [name]</code>)</p>
+</li>
+<li>
+<p>安装GTK3主题 =&gt; <a href="https://www.gnome-look.org/p/1167049/" target="_blank" rel="noopener noreffer">X-Arc-Collection</a></p>
+</li>
+<li>
+<p>使用tweak载入应用程序主题 =&gt; tweak — 外观 — 应用程序 — 选择X-Arc-Collection</p>
+</li>
+<li>
+<p>安装gnome-shell 主题 =&gt; <a href="https://www.gnome-look.org/p/1167049/" target="_blank" rel="noopener noreffer">macOS High Sierra</a></p>
+</li>
+<li>
+<p>安装gnome-shell 插件 =&gt; <a href="https://extensions.gnome.org/extension/19/user-themes/" target="_blank" rel="noopener noreffer">User Themes</a> ( 之后重启Gnome =&gt; [Alt + F2] &amp; [输入 r] &amp; [点击 Enter] )</p>
+</li>
+<li>
+<p>使用tweak载入shell主题 =&gt; tweak — 外观 — shell — 选择Sierra shell主题</p>
+</li>
+<li>
+<p>下载Mac图标主题 <a href="https://github.com/keeferrourke/la-capitaine-icon-theme/releases" target="_blank" rel="noopener noreffer">la-capitaine-icon-theme</a> 或 <a href="https://www.pling.com/p/1305429/" target="_blank" rel="noopener noreffer">McMojave-circle</a></p>
+</li>
+<li>
+<p>图标文件夹移动到 ~/.icons目录下(没有则新建目录)</p>
+</li>
+<li>
+<p>使用tweak载入icon主题 =&gt; tweak — 外观 — 图标 — 选择对应的图标主题</p>
+</li>
+<li>
+<p>安装gnome-shell插件 =&gt; Dash to dock (将原生dock转变为可定制的浮动dock)</p>
+</li>
+<li>
+<p>定制firefox主题 =&gt; <a href="https://github.com/vinceliuice/Mojave-gtk-theme" target="_blank" rel="noopener noreffer">Majave-gtk-theme</a></p>
+</li>
 </ol>
 <h2 id="23-安装handbrake">23. 安装handbrake</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo add-apt-repository ppa:stebbins/handbrake-releases
+<p>sudo add-apt-repository ppa:stebbins/handbrake-releases
 sudo apt update
-sudo apt-get install handbrake-gtk
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="24-安装ffmpeg">24. 安装ffmpeg</h2>
+sudo apt-get install handbrake-gtk</p>
+<h2 id="24-安装ffmpeg">24. 安装ffmpeg</h2>
 <p><a href="https://octopuslian.github.io/2019/11/13/ubuntu1804-ffmpeg-install/" target="_blank" rel="noopener noreffer">https://octopuslian.github.io/2019/11/13/ubuntu1804-ffmpeg-install/</a></p>
 <p>安装在/home/echo/softwares下</p>
 <p>可执行文件在ffmerg_install/bin下，将两个文件复制到/usr/local/bin下面</p>
@@ -1001,257 +666,177 @@ sudo apt-get install handbrake-gtk
 <li>
 <p>因难于使用，放弃</p>
 <p>使用snap安装软件版notion</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo snap install notion-snap
-sudo apt install fonts-wqy-zenhei    # 解决部分字体变为楷体的问题
-</code></pre></td></tr></table>
-</div>
-</div></li>
+<p>sudo snap install notion-snap
+sudo apt install fonts-wqy-zenhei    # 解决部分字体变为楷体的问题</p>
+</li>
 </ul>
 <h2 id="27-其他appimage">27. 其他appimage</h2>
 <p>将其放在/home/echo/softwares下，使用terminator右键执行</p>
 <h2 id="28-安装mendeley">28. 安装mendeley</h2>
 <p>下载软件deb，安装</p>
 <p>由于使用了sudo打开，导致正常权限无法打开软件</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo chown -R $(whoami) ~/.local/share/data/Mendeley Ltd.
-</code></pre></td></tr></table>
-</div>
-</div><p>运行，注意空格</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo chown -R echo ~/.local/share/data/Mendeley\ Ltd.
-</code></pre></td></tr></table>
-</div>
-</div><p>解决！</p>
+<p>sudo chown -R $(whoami) ~/.local/share/data/Mendeley Ltd.</p>
+<p>运行，注意空格</p>
+<p>sudo chown -R echo ~/.local/share/data/Mendeley\ Ltd.</p>
+<p>解决！</p>
 <p>此外，由于1.19.8版本没有文献搜索，所以最好使用1.19.6</p>
 <p><a href="https://www.mendeley.com/autoupdates/installers/1.19.6" target="_blank" rel="noopener noreffer">https://www.mendeley.com/autoupdates/installers/1.19.6</a></p>
 <h2 id="29-安装flameshot">29. 安装flameshot</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt install flameshot
-</code></pre></td></tr></table>
-</div>
-</div><p>更改默认截图键为flameshot</p>
+<p>sudo apt install flameshot</p>
+<p>更改默认截图键为flameshot</p>
 <h4 id="on-ubuntu-tested-on-1804">On Ubuntu (Tested on 18.04)</h4>
 <p>To use Flameshot instead of the default screenshot application in Ubuntu we need to remove the binding on Prt Sc key, and then create a new binding for <code>/usr/bin/flameshot gui</code> (<a href="https://askubuntu.com/posts/1039949/revisions" target="_blank" rel="noopener noreffer">adaptated</a> from <a href="https://askubuntu.com/revisions/1036473/1" target="_blank" rel="noopener noreffer">Pavel&rsquo;s answer on AskUbuntu</a>).</p>
 <ol>
 <li>Remove the binding on Prt Sc using the following command.</li>
 </ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">gsettings set org.gnome.settings-daemon.plugins.media-keys screenshot &#39;[]&#39;
-</code></pre></td></tr></table>
-</div>
-</div><ol>
-<li>Go to Settings &gt; Device &gt; Keyboard and press the &lsquo;+&rsquo; button at the bottom.</li>
-<li>Name the command as you like it, e.g. <code>flameshot</code>. And in the command insert <code>/usr/bin/flameshot gui</code>.</li>
-<li>Then click &ldquo;<em>Set Shortcut..</em>&rdquo; and press Prt Sc. This will show as &ldquo;<em>print</em>&rdquo;.</li>
+<p>gsettings set org.gnome.settings-daemon.plugins.media-keys screenshot &lsquo;[]&rsquo;</p>
+<ol>
+<li>
+<p>Go to Settings &gt; Device &gt; Keyboard and press the &lsquo;+&rsquo; button at the bottom.</p>
+</li>
+<li>
+<p>Name the command as you like it, e.g. <code>flameshot</code>. And in the command insert <code>/usr/bin/flameshot gui</code>.</p>
+</li>
+<li>
+<p>Then click &ldquo;<em>Set Shortcut..</em>&rdquo; and press Prt Sc. This will show as &ldquo;<em>print</em>&rdquo;.</p>
+</li>
 </ol>
 <p>Now every time you press Prt Sc, it will start the Flameshot GUI instead of the default application.</p>
 <h2 id="30-安装filezilla">30. 安装filezilla</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt-get install filezilla
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="31-安装youtube-dl--annie">31. 安装youtube-dl &amp;&amp; annie</h2>
+<p>sudo apt-get install filezilla</p>
+<h2 id="31-安装youtube-dl--annie">31. 安装youtube-dl &amp;&amp; annie</h2>
 <h3 id="youtube-dl">youtube-dl</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
-sudo chmod a+rx /usr/local/bin/youtube-dl
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="annie">annie</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">wget https://github.com/iawia002/annie/releases/download/0.10.3/annie_0.10.3_Linux_64-bit.tar.gz
+<p>sudo curl -L <a href="https://yt-dl.org/downloads/latest/youtube-dl" target="_blank" rel="noopener noreffer">https://yt-dl.org/downloads/latest/youtube-dl</a> -o /usr/local/bin/youtube-dl
+sudo chmod a+rx /usr/local/bin/youtube-dl</p>
+<h3 id="annie">annie</h3>
+<p>wget <a href="https://github.com/iawia002/annie/releases/download/0.10.3/annie_0.10.3_Linux_64-bit.tar.gz" target="_blank" rel="noopener noreffer">https://github.com/iawia002/annie/releases/download/0.10.3/annie_0.10.3_Linux_64-bit.tar.gz</a>
 tar zxvf annie_*.tar.gz
-mv annie /usr/local/bin/
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="32-安装tex相关">32. 安装Tex相关</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt update
+mv annie /usr/local/bin/</p>
+<h2 id="32-安装tex相关">32. 安装Tex相关</h2>
+<p>sudo apt update
 sudo apt install texlive-full
-sudo apt install texstudio
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="33右键打开terminator">33.右键打开terminator</h2>
+sudo apt install texstudio</p>
+<h2 id="33右键打开terminator">33.右键打开terminator</h2>
 <p><a href="https://blog.csdn.net/bestBT/article/details/81221378" target="_blank" rel="noopener noreffer">https://blog.csdn.net/bestBT/article/details/81221378</a></p>
 <h2 id="34更新cmake">34.更新cmake</h2>
 <p>不知什么原因，cmake版本是3.10，无法安装pcdet里需要的spconv</p>
 <p>故升级到3.19.6</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="p">.</span><span class="o">/</span><span class="n">bootstrap</span><span class="w"> </span><span class="o">--</span><span class="n">prefix</span><span class="o">=/</span><span class="n">usr</span><span class="w">
-</span><span class="w"> </span><span class="n">make</span><span class="w"> </span><span class="o">-</span><span class="n">j</span><span class="o">`</span><span class="n">proc</span><span class="o">`</span><span class="w">
-</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">make</span><span class="w"> </span><span class="n">install</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>使用<code>cmake --version</code>查看版本</p>
+<p>./bootstrap &ndash;prefix=/usr
+make -j<code>proc</code>
+sudo make install</p>
+<p>使用<code>cmake --version</code>查看版本</p>
 <h2 id="35-安装tensorrt">35. 安装tensorrt</h2>
 <p>在官网下载对应的版本，TensorRT-7.0.0.11.Ubuntu-18.04.x86_64-gnu.cuda-10.2.cudnn7.6</p>
 <p>下载tar版本以及deb版本</p>
 <h3 id="安装tar到python">安装tar到python</h3>
 <p>tar版本的解压到 /home/echo/misc/extra_libs/</p>
 <p>同时在zshrc中加入</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/echo/misc/extra_libs/TensorRT-7.0.0.11.Ubuntu-18.04.x86_64-gnu.cuda-10.2.cudnn7.6/TensorRT-7.0.0.11/lib
-</code></pre></td></tr></table>
-</div>
-</div><p>进入到python环境，然后到TensorRT-7.0.0.11目录下，打开终端执行：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cd python
+<p>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/echo/misc/extra_libs/TensorRT-7.0.0.11.Ubuntu-18.04.x86_64-gnu.cuda-10.2.cudnn7.6/TensorRT-7.0.0.11/lib</p>
+<p>进入到python环境，然后到TensorRT-7.0.0.11目录下，打开终端执行：</p>
+<p>cd python
 pip install tensorrt-7.0.0.11-cp37-none-linux_x86_64.whl
 cd ..
 cd uff
 pip install uff-0.6.5-py2.py3-none-any.whl
-cd .. 
+cd ..
 cd graphsurgeon
-pip install graphsurgeon-0.4.1-py2.py3-none-any.whl
-</code></pre></td></tr></table>
-</div>
-</div><p>测试下</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">python
-import tensorrt    # 无反应即为成功
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="安装deb版本到c">安装deb版本到c++</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ sudo dpkg -i nv-tensorrt-repo-ubuntu1804-cuda10.2-trt7.0.0.11-ga-20191216_1-1_amd64.deb
+pip install graphsurgeon-0.4.1-py2.py3-none-any.whl</p>
+<p>测试下</p>
+<p>python
+import tensorrt    # 无反应即为成功</p>
+<h3 id="安装deb版本到c">安装deb版本到c++</h3>
+<p>$ sudo dpkg -i nv-tensorrt-repo-ubuntu1804-cuda10.2-trt7.0.0.11-ga-20191216_1-1_amd64.deb
 $ sudo apt-key add /var/nv-tensorrt-repo-cuda10.2-trt7.0.0.11-ga-20191216/7fa2af80.pub
 $ sudo apt-get update
-$ sudo apt-get install tensorrt
-</code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="err">$</span> <span class="nx">dpkg</span> <span class="o">-</span><span class="nx">l</span> <span class="p">|</span> <span class="nx">grep</span> <span class="nx">TensorRT</span>
-<span class="o">----------------------------------</span>
-<span class="nx">ii</span>  <span class="nx">libnvinfer</span><span class="o">-</span><span class="nx">bin</span>                                               <span class="mf">7.0.0</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nx">cuda10</span><span class="mf">.2</span>                                 <span class="nx">amd64</span>        <span class="nx">TensorRT</span> <span class="nx">binaries</span>
-<span class="nx">ii</span>  <span class="nx">libnvinfer</span><span class="o">-</span><span class="nx">dev</span>                                               <span class="mf">7.0.0</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nx">cuda10</span><span class="mf">.2</span>                                 <span class="nx">amd64</span>        <span class="nx">TensorRT</span> <span class="nx">development</span> <span class="nx">libraries</span> <span class="nx">and</span> <span class="nx">headers</span>
-<span class="nx">ii</span>  <span class="nx">libnvinfer</span><span class="o">-</span><span class="nx">doc</span>                                               <span class="mf">7.0.0</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nx">cuda10</span><span class="mf">.2</span>                                 <span class="nx">all</span>          <span class="nx">TensorRT</span> <span class="nx">documentation</span>
-<span class="nx">ii</span>  <span class="nx">libnvinfer</span><span class="o">-</span><span class="nx">plugin</span><span class="o">-</span><span class="nx">dev</span>                                        <span class="mf">7.0.0</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nx">cuda10</span><span class="mf">.2</span>                                 <span class="nx">amd64</span>        <span class="nx">TensorRT</span> <span class="nx">plugin</span> <span class="nx">libraries</span>
-<span class="nx">ii</span>  <span class="nx">libnvinfer</span><span class="o">-</span><span class="nx">plugin7</span>                                           <span class="mf">7.0.0</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nx">cuda10</span><span class="mf">.2</span>                                 <span class="nx">amd64</span>        <span class="nx">TensorRT</span> <span class="nx">plugin</span> <span class="nx">libraries</span>
-<span class="nx">ii</span>  <span class="nx">libnvinfer</span><span class="o">-</span><span class="nx">samples</span>                                           <span class="mf">7.0.0</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nx">cuda10</span><span class="mf">.2</span>                                 <span class="nx">all</span>          <span class="nx">TensorRT</span> <span class="nx">samples</span>
-<span class="nx">ii</span>  <span class="nx">libnvinfer7</span>                                                  <span class="mf">7.0.0</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nx">cuda10</span><span class="mf">.2</span>                                 <span class="nx">amd64</span>        <span class="nx">TensorRT</span> <span class="nx">runtime</span> <span class="nx">libraries</span>
-<span class="nx">ii</span>  <span class="nx">libnvonnxparsers</span><span class="o">-</span><span class="nx">dev</span>                                         <span class="mf">7.0.0</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nx">cuda10</span><span class="mf">.2</span>                                 <span class="nx">amd64</span>        <span class="nx">TensorRT</span> <span class="nx">ONNX</span> <span class="nx">libraries</span>
-<span class="nx">ii</span>  <span class="nx">libnvonnxparsers7</span>                                            <span class="mf">7.0.0</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nx">cuda10</span><span class="mf">.2</span>                                 <span class="nx">amd64</span>        <span class="nx">TensorRT</span> <span class="nx">ONNX</span> <span class="nx">libraries</span>
-<span class="nx">ii</span>  <span class="nx">libnvparsers</span><span class="o">-</span><span class="nx">dev</span>                                             <span class="mf">7.0.0</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nx">cuda10</span><span class="mf">.2</span>                                 <span class="nx">amd64</span>        <span class="nx">TensorRT</span> <span class="nx">parsers</span> <span class="nx">libraries</span>
-<span class="nx">ii</span>  <span class="nx">libnvparsers7</span>                                                <span class="mf">7.0.0</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nx">cuda10</span><span class="mf">.2</span>                                 <span class="nx">amd64</span>        <span class="nx">TensorRT</span> <span class="nx">parsers</span> <span class="nx">libraries</span>
-<span class="nx">ii</span>  <span class="nx">tensorrt</span>                                                     <span class="mf">7.0.0.11</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nx">cuda10</span><span class="mf">.2</span>                              <span class="nx">amd64</span>        <span class="nx">Meta</span> <span class="kn">package</span> <span class="nx">of</span> <span class="nx">TensorRT</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>说明安装成功</p>
+$ sudo apt-get install tensorrt</p>
+<h2 id="-dpkg--l--grep-tensorrt">$ dpkg -l | grep TensorRT</h2>
+<p>ii  libnvinfer-bin                                               7.0.0-1+cuda10.2                                 amd64        TensorRT binaries
+ii  libnvinfer-dev                                               7.0.0-1+cuda10.2                                 amd64        TensorRT development libraries and headers
+ii  libnvinfer-doc                                               7.0.0-1+cuda10.2                                 all          TensorRT documentation
+ii  libnvinfer-plugin-dev                                        7.0.0-1+cuda10.2                                 amd64        TensorRT plugin libraries
+ii  libnvinfer-plugin7                                           7.0.0-1+cuda10.2                                 amd64        TensorRT plugin libraries
+ii  libnvinfer-samples                                           7.0.0-1+cuda10.2                                 all          TensorRT samples
+ii  libnvinfer7                                                  7.0.0-1+cuda10.2                                 amd64        TensorRT runtime libraries
+ii  libnvonnxparsers-dev                                         7.0.0-1+cuda10.2                                 amd64        TensorRT ONNX libraries
+ii  libnvonnxparsers7                                            7.0.0-1+cuda10.2                                 amd64        TensorRT ONNX libraries
+ii  libnvparsers-dev                                             7.0.0-1+cuda10.2                                 amd64        TensorRT parsers libraries
+ii  libnvparsers7                                                7.0.0-1+cuda10.2                                 amd64        TensorRT parsers libraries
+ii  tensorrt                                                     7.0.0.11-1+cuda10.2                              amd64        Meta package of TensorRT</p>
+<p>说明安装成功</p>
+<h2 id="36-安装苹果主题">36. 安装苹果主题</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/71588449" target="_blank" rel="noopener noreffer">https://zhuanlan.zhihu.com/p/71588449</a></p>
+<p>按照以上链接执行即可</p>
+<p>sudo apt install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell</p>
+<p>sudo apt-get install gtk2-engines-murrine gtk2-engines-pixbuf
+sudo add-apt-repository ppa:dyatlov-igor/sierra-theme
+sudo apt update
+sudo apt install sierra-gtk-theme</p>
+<p>git clone <a href="https://github.com/USBA/Cupertino-iCons" target="_blank" rel="noopener noreffer">https://github.com/USBA/Cupertino-iCons</a>
+sudo unzip -o Cupertino-iCons.zip -d /usr/share/icons</p>
+<p>安装gnome插件的方法如下</p>
+<p><a href="https://zhuanlan.zhihu.com/p/36265103" target="_blank" rel="noopener noreffer">https://zhuanlan.zhihu.com/p/36265103</a></p>
+<h2 id="37-安装惠普打印机驱动">37. 安装惠普打印机驱动</h2>
+<p>sudo apt-get install hplip hplip-gui</p>
+<p>然后找到hplip toolsbox，按照提示安装即可</p>
 <h2 id="其他小工具">其他小工具</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 小火车
-sudo apt install sl # 使用sl调用
-# 代码雨
-sudo apt install cmatrix
-# CPU内存等显示插件 https://www.sohu.com/a/301992941_495675
-sudo apt-get install gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0
-打开Ubuntu软件，然后搜索“system monitor extension” 选择system monitor 可以显示network的那一个
-</code></pre></td></tr></table>
-</div>
-</div></div><div class="post-footer" id="post-footer">
+<h1 id="小火车">小火车</h1>
+<p>sudo apt install sl # 使用sl调用</p>
+<h1 id="代码雨">代码雨</h1>
+<p>sudo apt install cmatrix</p>
+<h1 id="cpu内存等显示插件-httpswwwsohucoma301992941_495675">CPU内存等显示插件 <a href="https://www.sohu.com/a/301992941_495675" target="_blank" rel="noopener noreffer">https://www.sohu.com/a/301992941_495675</a></h1>
+<p>sudo apt-get install gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0
+打开Ubuntu软件，然后搜索“system monitor extension” 选择system monitor 可以显示network的那一个</p>
+<h2 id="更改锁屏输入密码时的壁纸">更改锁屏输入密码时的壁纸</h2>
+<p>sudo cp /usr/share/gnome-shell/theme/ubuntu.css /usr/share/gnome-shell/theme/ubuntu.css.bak
+sudo gedit /usr/share/gnome-shell/theme/ubuntu.css</p>
+<p>修改配置文件，记得修改路径</p>
+<p>#lockDialogGroup {
+background: #2c001e url(resource:///org/gnome/shell/theme/noise-texture.png);
+background-repeat: repeat; }</p>
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;- 改为 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;</p>
+<p>#lockDialogGroup {
+background: #2c001e url(file:///home/echo/.lock.jpg);
+height: 100%;
+background-size: contain;
+background-attachment: fixed;
+background-position: 0px 0px;
+background-repeat: repeat;
+}
+这个版本可以解决多显示器问题
+注意壁纸的分辨率应该符合显示器分辨率</p>
+<h2 id="安装ceres">安装Ceres</h2>
+<p><a href="http://ceres-solver.org/installation.html" target="_blank" rel="noopener noreffer">http://ceres-solver.org/installation.html</a> 官网安装教程</p>
+<p><a href="http://ceres-solver.org/ceres-solver-2.0.0.tar.gz" target="_blank" rel="noopener noreffer">http://ceres-solver.org/ceres-solver-2.0.0.tar.gz</a></p>
+<p>下载最新的 2.0.0 的压缩包</p>
+<h1 id="cmake">CMake</h1>
+<p>sudo apt-get install cmake</p>
+<h1 id="google-glog--gflags">google-glog + gflags</h1>
+<p>sudo apt-get install libgoogle-glog-dev libgflags-dev</p>
+<h1 id="blas--lapack">BLAS &amp; LAPACK</h1>
+<p>sudo apt-get install libatlas-base-dev</p>
+<h1 id="eigen3">Eigen3</h1>
+<p>sudo apt-get install libeigen3-dev</p>
+<h1 id="suitesparse-and-cxsparse-optional">SuiteSparse and CXSparse (optional)</h1>
+<p>sudo apt-get install libsuitesparse-dev</p>
+<p>tar zxf ceres-solver-2.0.0.tar.gz
+mkdir ceres-bin
+cd ceres-bin
+cmake ../ceres-solver-2.0.0
+make -j3
+make test
+sudo make install    # 这个和官网安装教程不一致，需要sudo</p>
+<p>2.0.0版本不满足，安装1.14</p>
+<p>进入 ceres-bin 执行<code>sudo make uninstall</code></p>
+<p>然后解压</p>
+<p>mkdir ceres-bin
+cd ceres-bin
+cmake ../ceres-solver-1.14.0
+make -j3
+make test
+sudo make install    # 这个和官网安装教程不一致，需要sudo</p>
+<h2 id="安装网络可视化工具zetane">安装网络可视化工具zetane</h2>
+<p><a href="https://github.com/shanjiayao/viewer" target="_blank" rel="noopener noreffer">https://github.com/shanjiayao/viewer</a></p>
+</div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
