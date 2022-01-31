@@ -13,6 +13,6 @@
 
 [1] J. Shan, S. Zhou, Z. Fang and Y. Cui, "**PTT**: *Point-Track-Transformer Module for 3D Single Object Tracking in Point Clouds*," 2021 IEEE/RSJ International Conference on Intelligent Robots and Systems ([IROS](https://www.iros2021.org/)), 2021, pp. 1310-1316, doi: 10.1109/IROS51168.2021.9636821. 
 
-[2] J. Shan, S. Zhou, Y. Cui, and Z. Fang, "*Real-time 3D Single Object Tracking with Transformer*", Accepted by [IEEE Transactions on Multimedia](https://signalprocessingsociety.org/publications-resources/ieee-transactions-multimedia), 2022.1
+[2] J. S. Jiayao, S. Zhou, Y. Cui and Z. Fang, "Real-time 3D Single Object Tracking with Transformer," in  [IEEE Transactions on Multimedia](https://signalprocessingsociety.org/publications-resources/ieee-transactions-multimedia), doi: 10.1109/TMM.2022.3146714.
 
 
