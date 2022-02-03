@@ -2,12 +2,15 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://shanjiayao.com/categories/</loc><lastmod>2022-01-12T10:47:04&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>http://shanjiayao.com/categories/</loc><lastmod>2022-01-13T16:10:19&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
+            <loc>http://shanjiayao.com/</loc><lastmod>2022-01-13T16:10:19&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
+            <loc>http://shanjiayao.com/posts/</loc><lastmod>2022-01-13T16:10:19&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
+            <loc>http://shanjiayao.com/tags/</loc><lastmod>2022-01-13T16:10:19&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
+            <loc>http://shanjiayao.com/tags/%E7%BE%8E%E6%96%87%E6%94%B6%E5%BD%95/</loc><lastmod>2022-01-13T16:10:19&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
+            <loc>http://shanjiayao.com/%E7%BE%8E%E6%96%87%E6%94%B6%E5%BD%95/</loc><lastmod>2022-01-13T16:10:19&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
+            <loc>http://shanjiayao.com/categories/%E8%AF%BB%E4%B9%A6%E8%A7%82%E5%BD%B1/</loc><lastmod>2022-01-13T16:10:19&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
             <loc>http://shanjiayao.com/tags/dataset/</loc><lastmod>2022-01-12T10:47:04&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>http://shanjiayao.com/</loc><lastmod>2022-01-12T10:47:04&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
             <loc>http://shanjiayao.com/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/</loc><lastmod>2022-01-12T10:47:04&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>http://shanjiayao.com/posts/</loc><lastmod>2022-01-12T10:47:04&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>http://shanjiayao.com/tags/</loc><lastmod>2022-01-12T10:47:04&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
             <loc>http://shanjiayao.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc><lastmod>2022-01-12T10:47:04&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
             <loc>http://shanjiayao.com/tags/misc/</loc><lastmod>2022-01-11T10:05:27&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
             <loc>http://shanjiayao.com/%E5%9F%BA%E4%BA%8Ehugo%E7%9A%84loveit%E4%B8%BB%E9%A2%98%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</loc><lastmod>2022-01-11T10:05:27&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
@@ -77,7 +80,4 @@
             <loc>http://shanjiayao.com/matching-based-pipeline.excalidraw/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://shanjiayao.com/booklist/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://shanjiayao.com/collections/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://shanjiayao.com/tags/%E7%BE%8E%E6%96%87%E6%94%B6%E5%BD%95/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://shanjiayao.com/%E7%BE%8E%E6%96%87%E6%94%B6%E5%BD%95/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://shanjiayao.com/categories/%E8%AF%BB%E4%B9%A6%E8%A7%82%E5%BD%B1/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://shanjiayao.com/projects/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>
