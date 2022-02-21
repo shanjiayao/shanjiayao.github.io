@@ -1,9 +1,9 @@
 # Pytorch中的Convolution layers
 
 
-------
+学习Pytorch中的卷积相关。
 
-<!-- more -->
+<!--more-->
 
 ## 互相关和卷积的区别
 

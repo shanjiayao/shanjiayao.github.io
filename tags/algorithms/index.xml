@@ -10,34 +10,39 @@
     <pubDate>Thu, 27 May 2021 16:10:19 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%8E%92%E5%BA%8F%E4%BB%A3%E7%A0%81/</guid>
-    <description><![CDATA[本文是学习排序系列的第五篇，主要对比三种基本排序算法以及三种进阶排序算法，对应的排序算法学习笔记如下 基础排序(冒泡、插入、选择) 希尔排序 归并]]></description>
+    <description><![CDATA[<p>本文是学习排序系列的第五篇，主要对比三种基本排序算法以及三种进阶排序算法，对应的排序算法学习笔记可以翻阅本博客前面的内容。</p>]]></description>
 </item><item>
     <title>算法学习之快速排序</title>
     <link>http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</link>
     <pubDate>Tue, 25 May 2021 16:10:19 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</guid>
-    <description><![CDATA[本文是学习排序系列的第四篇，主要介绍较为常用的排序算法：快速排序 前文学习了归并排序，该排序算法采用了分治(divide and conquer, D&amp;C)的]]></description>
+    <description><![CDATA[<p>本文是学习排序系列的第四篇，主要介绍较为常用的排序算法：快速排序</p>
+<p>前文学习了归并排序，该排序算法采用了<strong>分治</strong>(<code>divide and conquer, D&amp;C</code>)的思想，我们可以使用递归对输入序列进行排序。但是归并排序与输入序列的有序程度无关，并且需要额外创建线性的空间，这对于数据规模较大的场景不是很友好。</p>
+<p>本文要学习的快速排序同样也是基于分治思想的排序算法，相比于归并，快排的空间复杂度为常数级别，在C中，sort方法的底层实现的原型就是<code>qsort</code>快速排序~</p>]]></description>
 </item><item>
     <title>算法学习之归并排序</title>
     <link>http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/</link>
     <pubDate>Sat, 08 May 2021 16:10:19 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/</guid>
-    <description><![CDATA[本文是学习排序系列的第三篇，主要介绍归并排序 注：本文的排序算法默认升序 0. 常见排序算法性能对比 再贴一张常见排序算法的性能对比，方便查看~ 1. 归并]]></description>
+    <description><![CDATA[<hr>
+<p>本文是学习排序系列的第三篇，主要介绍归并排序</p>]]></description>
 </item><item>
     <title>算法学习之希尔排序</title>
     <link>http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/</link>
     <pubDate>Wed, 28 Apr 2021 16:10:19 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/</guid>
-    <description><![CDATA[本文是学习排序系列的第二篇，主要介绍插入排序的进阶版-&gt;希尔排序 注：本文的排序算法默认升序 0. 常见排序算法性能对比 再贴一张常见排序算法的]]></description>
+    <description><![CDATA[<hr>
+<p>本文是学习排序系列的第二篇，主要介绍插入排序的进阶版-&gt;希尔排序</p>]]></description>
 </item><item>
     <title>算法学习之基础排序</title>
     <link>http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/</link>
     <pubDate>Mon, 26 Apr 2021 16:10:19 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/</guid>
-    <description><![CDATA[本文是学习排序系列的第一篇，主要介绍一些基本概念，对常见排序算法进行总结，以及介绍三种初级排序算法：冒泡、选择、插入 注：本文的排序算法默认升]]></description>
+    <description><![CDATA[<hr>
+<p>本文是学习排序系列的第一篇，主要介绍一些基本概念，对常见排序算法进行总结，以及介绍三种初级排序算法：冒泡、选择、插入</p>]]></description>
 </item></channel>
 </rss>

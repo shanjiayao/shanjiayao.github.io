@@ -1,17 +1,9 @@
 # 算法学习之排序算法对比
 
 
-本文是学习排序系列的第五篇，主要对比三种基本排序算法以及三种进阶排序算法，对应的排序算法学习笔记如下
+本文是学习排序系列的第五篇，主要对比三种基本排序算法以及三种进阶排序算法，对应的排序算法学习笔记可以翻阅本博客前面的内容。
 
-[基础排序(冒泡、插入、选择)](https://shmilywh.github.io/2021/04/26/Algorithms/sorting/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F/)
-
-[希尔排序](https://shmilywh.github.io/2021/04/28/Algorithms/sorting/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/)
-
-[归并排序](https://shmilywh.github.io/2021/05/08/Algorithms/sorting/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/)
-
-[快速排序](https://shmilywh.github.io/2021/05/25/Algorithms/sorting/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/)
-
-<!-- more -->
+<!--more-->
 
 ## 0. 常见排序算法性能对比
 

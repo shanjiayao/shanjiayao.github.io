@@ -3,6 +3,8 @@
 
 ------
 
+记录安装docker的过程。
+
 <!-- more -->
 
 nvidia-docker2已经弃用，现在都是装nvidia-container-toolkit

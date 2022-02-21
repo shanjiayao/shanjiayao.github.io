@@ -10,6 +10,6 @@
     <pubDate>Mon, 11 Jan 2021 15:55:23 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/gitbook%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</guid>
-    <description><![CDATA[Gitbook简介 gitbook是github与markdown的结合体，我们可以通过markdown笔记记录书籍内容，然后发布到gitbo]]></description>
+    <description><![CDATA[<p><code>gitbook</code>是<code>github</code>与<code>markdown</code>的结合体，我们可以通过<code>markdown</code>笔记记录书籍内容，然后发布到<code>gitbook</code>上，使用操作和流程与<code>github</code>类似，详细了解见<a href="https://www.gitbook.com/" target="_blank" rel="noopener noreffer">官网</a>以及<a href="https://github.com/GitbookIO/gitbook" target="_blank" rel="noopener noreffer">Git</a></p>]]></description>
 </item></channel>
 </rss>

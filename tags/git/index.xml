@@ -10,6 +10,6 @@
     <pubDate>Tue, 26 May 2020 16:10:19 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/git%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
-    <description><![CDATA[git常用命令 全局配置 1 2 3 4 5 6 7 8 # 配置用户名 git config --global user.name &#34;your_user_name&#34; # 配置用户邮箱 git config --global user.email &#34;your_email_address&#34; # 查看当前git状态 git status # 查看git日志 git log 版本控制 1 2]]></description>
+    <description><![CDATA[<p>本工作记录常用的Git学习指令。</p>]]></description>
 </item></channel>
 </rss>

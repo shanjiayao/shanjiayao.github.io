@@ -1,14 +1,7 @@
 # python中的time模块
 
 
-
-![tp.web.random_picture](https://images.unsplash.com/photo-1516202180772-d888b16cf6dd?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=1080&ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlLHdhdGVyfHx8fHx8MTY0MjEzOTQ5OQ&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1920)
-
-
-
-
-<!-- more -->
-
+<!--more-->
 
 ## 使用python中的time模块计算代码运行时间
 

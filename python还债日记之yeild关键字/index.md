@@ -1,7 +1,9 @@
 # Python还债日记之迭代器/生成器/yeild
 
 
-<!-- more -->
+有关python中的yeild关键字的学习。
+
+<!--more-->
 
 转载自：
 

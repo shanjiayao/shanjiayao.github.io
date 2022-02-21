@@ -10,6 +10,6 @@
     <pubDate>Sun, 22 Mar 2020 12:10:19 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F/</guid>
-    <description><![CDATA[本文要完成的工作是将KITTI数据集中的点云信息投影到图像中，以达到信息融合的目的. 使用KITTI中的经过时钟同步和校准后的数据文件 raw_data 来进行]]></description>
+    <description><![CDATA[<p>本文要完成的工作是将KITTI数据集中的点云信息投影到图像中，以达到信息融合的目的.　使用KITTI中的经过时钟同步和校准后的数据文件 raw_data 来进行投影变换。其主要操作就是坐标系之间的变换。</p>]]></description>
 </item></channel>
 </rss>

@@ -10,6 +10,6 @@
     <pubDate>Sat, 26 Sep 2020 16:10:19 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/%E5%AE%89%E8%A3%85docker/</guid>
-    <description><![CDATA[nvidia-docker2已经弃用，现在都是装nvidia-container-toolkit 清除旧版本 1 2 3 4 sudo apt-get remove docker docker-engine docker-ce docker.io sudo rm -rf /var/lib/docker dpkg -l]]></description>
+    <description><![CDATA[记录安装docker的过程。 nvidia-docker2已经弃用，现在都是装nvidia-container-toolkit 清除旧版本 1 2 3]]></description>
 </item></channel>
 </rss>

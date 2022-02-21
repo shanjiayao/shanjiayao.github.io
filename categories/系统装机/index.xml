@@ -4,7 +4,14 @@
         <link>http://shanjiayao.com/categories/%E7%B3%BB%E7%BB%9F%E8%A3%85%E6%9C%BA/</link>
         <description>系统装机 - 分类 - Jiayao&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
-            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Sun, 07 Mar 2021 16:10:19 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/categories/%E7%B3%BB%E7%BB%9F%E8%A3%85%E6%9C%BA/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Fri, 14 Jan 2022 13:20:06 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/categories/%E7%B3%BB%E7%BB%9F%E8%A3%85%E6%9C%BA/" rel="self" type="application/rss+xml" /><item>
+    <title>重装Conda</title>
+    <link>http://shanjiayao.com/%E9%87%8D%E8%A3%85conda/</link>
+    <pubDate>Fri, 14 Jan 2022 13:20:06 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/%E9%87%8D%E8%A3%85conda/</guid>
+    <description><![CDATA[<p>由于之前的conda版本比较低，且环境较为混乱，可能是误删了什么东西，丢失了base环境，综合考虑以上种种因素，决定重装conda~</p>]]></description>
+</item><item>
     <title>ubuntu18_04升级记录</title>
     <link>http://shanjiayao.com/ubuntu_install/</link>
     <pubDate>Sun, 07 Mar 2021 16:10:19 &#43;0000</pubDate>
@@ -17,6 +24,6 @@
     <pubDate>Sat, 26 Sep 2020 16:10:19 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/%E5%AE%89%E8%A3%85docker/</guid>
-    <description><![CDATA[nvidia-docker2已经弃用，现在都是装nvidia-container-toolkit 清除旧版本 1 2 3 4 sudo apt-get remove docker docker-engine docker-ce docker.io sudo rm -rf /var/lib/docker dpkg -l]]></description>
+    <description><![CDATA[记录安装docker的过程。 nvidia-docker2已经弃用，现在都是装nvidia-container-toolkit 清除旧版本 1 2 3]]></description>
 </item></channel>
 </rss>

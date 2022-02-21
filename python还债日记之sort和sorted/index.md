@@ -1,9 +1,7 @@
 # Python还债日记之sort和sorted
 
 
-------
-
-<!-- more -->
+<!--more-->
 
 ## python中的`sort`与`sorted`的区别
 

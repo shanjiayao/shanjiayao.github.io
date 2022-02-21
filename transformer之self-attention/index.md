@@ -1,11 +1,9 @@
 # Transformer之self-attention机制
 
 
-------
-
-<!-- more -->
-
 记录学习Transformer过程中的一些个人理解与思考
+
+<!--more-->
 
 ## self-attention
 

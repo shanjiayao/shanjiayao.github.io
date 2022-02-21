@@ -10,6 +10,6 @@
     <pubDate>Thu, 21 Jan 2021 16:10:19 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/pytorch-conv1d/</guid>
-    <description><![CDATA[互相关和卷积的区别 在CNN中，互相关和卷积都是使用filter/kernel对一张图像进行操作 互相关是从上到下，从左到右 卷积是从下到上，从右]]></description>
+    <description><![CDATA[<p>学习Pytorch中的卷积相关。</p>]]></description>
 </item></channel>
 </rss>

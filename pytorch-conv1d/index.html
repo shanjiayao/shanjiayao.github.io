@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>Pytorch中的Convolution layers - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="Pytorch中的Convolution layers" />
-<meta property="og:description" content="互相关和卷积的区别 在CNN中，互相关和卷积都是使用filter/kernel对一张图像进行操作 互相关是从上到下，从左到右 卷积是从下到上，从右" />
+<meta property="og:description" content="学习Pytorch中的卷积相关。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://shanjiayao.com/pytorch-conv1d/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-01-21T16:10:19+00:00" />
@@ -16,7 +16,7 @@
 <meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
 
 <meta name="twitter:title" content="Pytorch中的Convolution layers"/>
-<meta name="twitter:description" content="互相关和卷积的区别 在CNN中，互相关和卷积都是使用filter/kernel对一张图像进行操作 互相关是从上到下，从左到右 卷积是从下到上，从右"/>
+<meta name="twitter:description" content="学习Pytorch中的卷积相关。"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/shanjiayao.com\/pytorch-conv1d\/"
-        },"genre": "posts","keywords": "Pytorch, DeepLearning, Convolution","wordcount":  2044 ,
+        },"genre": "posts","keywords": "Pytorch, DeepLearning, Convolution","wordcount":  2060 ,
         "url": "http:\/\/shanjiayao.com\/pytorch-conv1d\/","datePublished": "2021-01-21T16:10:19+00:00","dateModified": "2021-01-21T16:10:19+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,7 +106,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Pytorch中的Convolution layers</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>深度学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-21">2021-01-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2044 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-21">2021-01-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2060 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -127,8 +127,7 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><hr>
-<!-- more -->
+            </div><div class="content" id="content"><p>学习Pytorch中的卷积相关。</p>
 <h2 id="互相关和卷积的区别">互相关和卷积的区别</h2>
 <blockquote>
 <p>在CNN中，互相关和卷积都是使用filter/kernel对一张图像进行操作</p>
@@ -182,8 +181,7 @@
         data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-09-41-25-deformable_kernel.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-09-41-25-deformable_kernel.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-09-41-25-deformable_kernel.png 2x"
         data-sizes="auto"
         alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-09-41-25-deformable_kernel.png"
-        title="空洞卷积核" />图片目标跟踪算法Ocean中，也使用了这种可变形卷积核，来让网络更好地关注前景目标，也得到了不错的结果，感兴趣的小伙伴可以了解下</p>
-</div><div class="post-footer" id="post-footer">
+        title="空洞卷积核" />图片目标跟踪算法Ocean中，也使用了这种可变形卷积核，来让网络更好地关注前景目标，也得到了不错的结果，感兴趣的小伙伴可以了解下</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">

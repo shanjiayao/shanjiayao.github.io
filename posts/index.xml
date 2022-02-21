@@ -4,20 +4,27 @@
         <link>http://shanjiayao.com/posts/</link>
         <description>所有文章 | Jiayao&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
-            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Thu, 13 Jan 2022 16:10:19 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>美文收录</title>
-    <link>http://shanjiayao.com/%E7%BE%8E%E6%96%87%E6%94%B6%E5%BD%95/</link>
-    <pubDate>Thu, 13 Jan 2022 16:10:19 &#43;0000</pubDate>
+            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Mon, 14 Feb 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>辛丑牛年的自己</title>
+    <link>http://shanjiayao.com/2021-%E8%BE%9B%E4%B8%91%E7%89%9B%E5%B9%B4/</link>
+    <pubDate>Mon, 14 Feb 2022 00:00:00 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/%E7%BE%8E%E6%96%87%E6%94%B6%E5%BD%95/</guid>
-    <description><![CDATA[若能避开猛烈的欢喜，自然也不会有悲痛的来袭。我尝试绕开那些悲痛，却也错过了所有欢喜，倘若真的无从避免，倒不如先享受那顽固的欢喜。《人间失格》]]></description>
+    <guid>http://shanjiayao.com/2021-%E8%BE%9B%E4%B8%91%E7%89%9B%E5%B9%B4/</guid>
+    <description><![CDATA[<p>辛丑岁末，壬寅之初，转眼间春节已过，元宵将至，而这篇本该年底做好的总结又被我的拖延症耽搁了很久，今天终于有时间坐下来好好地回忆下，属于我的，辛丑牛年。</p>]]></description>
+</item><item>
+    <title>重装Conda</title>
+    <link>http://shanjiayao.com/%E9%87%8D%E8%A3%85conda/</link>
+    <pubDate>Fri, 14 Jan 2022 13:20:06 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/%E9%87%8D%E8%A3%85conda/</guid>
+    <description><![CDATA[<p>由于之前的conda版本比较低，且环境较为混乱，可能是误删了什么东西，丢失了base环境，综合考虑以上种种因素，决定重装conda~</p>]]></description>
 </item><item>
     <title>NuScenes数据集笔记</title>
     <link>http://shanjiayao.com/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/</link>
     <pubDate>Wed, 12 Jan 2022 10:47:04 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/</guid>
-    <description><![CDATA[数据集简介 nuScenes数据集是由Motional（以前为nuTonomy）的团队开发的用于自动驾驶的公共大型数据集，其中，Motiona]]></description>
+    <description><![CDATA[<p>最近要使用nuScenes数据集进行实验，学习过程中的笔记如下。</p>]]></description>
 </item><item>
     <title>基于hugo的Loveit主题博客搭建记录</title>
     <link>http://shanjiayao.com/%E5%9F%BA%E4%BA%8Ehugo%E7%9A%84loveit%E4%B8%BB%E9%A2%98%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</link>
@@ -31,48 +38,46 @@
     <pubDate>Mon, 10 Jan 2022 16:09:00 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%80%BB%E7%BB%93/</guid>
-    <description><![CDATA[在平时的学习生活中，工具软件是我们必不可少的，我个人也热衷于探究各种新奇的软件APP，在这里总结一下平时学习生活涉及到的软件以及工作流。 工作]]></description>
+    <description><![CDATA[<p>在平时的学习生活中，工具软件是我们必不可少的，我个人也热衷于探究各种新奇的软件APP，在这里总结一下平时学习生活涉及到的软件以及工作流。</p>]]></description>
 </item><item>
     <title>Python中的奇奇怪怪</title>
     <link>http://shanjiayao.com/python%E4%B8%AD%E7%9A%84%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA/</link>
     <pubDate>Sat, 10 Jul 2021 16:10:19 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/python%E4%B8%AD%E7%9A%84%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA/</guid>
-    <description><![CDATA[本文主要记录python中的一些零散琐碎的知识点，便于之后整理成系统性的学习笔记～ 在个人的角度来看，Python作为一门被深度学习、数据处理]]></description>
+    <description><![CDATA[<hr>
+<p>本文主要记录python中的一些零散琐碎的知识点，便于之后整理成系统性的学习笔记～</p>
+<p>在个人的角度来看，Python作为一门被深度学习、数据处理等领域大力推广的编程语言，其很多语法糖都是很有意思的，特此记录～</p>]]></description>
 </item><item>
     <title>算法学习之排序算法对比</title>
     <link>http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%8E%92%E5%BA%8F%E4%BB%A3%E7%A0%81/</link>
     <pubDate>Thu, 27 May 2021 16:10:19 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%8E%92%E5%BA%8F%E4%BB%A3%E7%A0%81/</guid>
-    <description><![CDATA[本文是学习排序系列的第五篇，主要对比三种基本排序算法以及三种进阶排序算法，对应的排序算法学习笔记如下 基础排序(冒泡、插入、选择) 希尔排序 归并]]></description>
+    <description><![CDATA[<p>本文是学习排序系列的第五篇，主要对比三种基本排序算法以及三种进阶排序算法，对应的排序算法学习笔记可以翻阅本博客前面的内容。</p>]]></description>
 </item><item>
     <title>算法学习之快速排序</title>
     <link>http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</link>
     <pubDate>Tue, 25 May 2021 16:10:19 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</guid>
-    <description><![CDATA[本文是学习排序系列的第四篇，主要介绍较为常用的排序算法：快速排序 前文学习了归并排序，该排序算法采用了分治(divide and conquer, D&amp;C)的]]></description>
+    <description><![CDATA[<p>本文是学习排序系列的第四篇，主要介绍较为常用的排序算法：快速排序</p>
+<p>前文学习了归并排序，该排序算法采用了<strong>分治</strong>(<code>divide and conquer, D&amp;C</code>)的思想，我们可以使用递归对输入序列进行排序。但是归并排序与输入序列的有序程度无关，并且需要额外创建线性的空间，这对于数据规模较大的场景不是很友好。</p>
+<p>本文要学习的快速排序同样也是基于分治思想的排序算法，相比于归并，快排的空间复杂度为常数级别，在C中，sort方法的底层实现的原型就是<code>qsort</code>快速排序~</p>]]></description>
 </item><item>
     <title>Python还债日记之列表解析式</title>
     <link>http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%88%97%E8%A1%A8%E8%A7%A3%E6%9E%90%E5%BC%8F/</link>
     <pubDate>Thu, 13 May 2021 16:10:19 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8B%E5%88%97%E8%A1%A8%E8%A7%A3%E6%9E%90%E5%BC%8F/</guid>
-    <description><![CDATA[python中的列表解析式 1. 列表解析式 python中的列表解析式可以帮助我们用简短的语言来创建一个列表，形如： 1 [x*y for x in range(1,5) if x &gt; 2 for y in range(1,4) if]]></description>
+    <description><![CDATA[<p>python中的列表解析式</p>]]></description>
 </item><item>
     <title>算法学习之归并排序</title>
     <link>http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/</link>
     <pubDate>Sat, 08 May 2021 16:10:19 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/</guid>
-    <description><![CDATA[本文是学习排序系列的第三篇，主要介绍归并排序 注：本文的排序算法默认升序 0. 常见排序算法性能对比 再贴一张常见排序算法的性能对比，方便查看~ 1. 归并]]></description>
-</item><item>
-    <title>算法学习之希尔排序</title>
-    <link>http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/</link>
-    <pubDate>Wed, 28 Apr 2021 16:10:19 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/</guid>
-    <description><![CDATA[本文是学习排序系列的第二篇，主要介绍插入排序的进阶版-&gt;希尔排序 注：本文的排序算法默认升序 0. 常见排序算法性能对比 再贴一张常见排序算法的]]></description>
+    <description><![CDATA[<hr>
+<p>本文是学习排序系列的第三篇，主要介绍归并排序</p>]]></description>
 </item></channel>
 </rss>

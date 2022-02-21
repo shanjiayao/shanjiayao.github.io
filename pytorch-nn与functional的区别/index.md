@@ -1,9 +1,7 @@
 # Pytorch-nn与functional的区别
 
 
-------
-
-<!-- more -->
+<!--more-->
 
 ## `Pytorch`中的 `nn` 与` nn.functional`
 

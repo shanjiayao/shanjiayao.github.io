@@ -2,12 +2,11 @@
 
 
 
+最近要使用nuScenes数据集进行实验，学习过程中的笔记如下。
+
+<!--more-->
+
 ![https://github.com/nutonomy/nuscenes-devkit](https://camo.githubusercontent.com/25210c94eb51537bb7ad7f6bd87da0751416b0640c33a9942bb6e16054688792/68747470733a2f2f7777772e6e757363656e65732e6f72672f7075626c69632f696d616765732f726f61642e6a7067)
-
-
-
-
-<!-- more -->
 
 
 ## 数据集简介

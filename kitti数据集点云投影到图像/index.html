@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>KITTI数据集点云图像的投影 - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="KITTI数据集点云图像的投影" />
-<meta property="og:description" content="本文要完成的工作是将KITTI数据集中的点云信息投影到图像中，以达到信息融合的目的. 使用KITTI中的经过时钟同步和校准后的数据文件 raw_data 来进行" />
+<meta property="og:description" content="本文要完成的工作是将KITTI数据集中的点云信息投影到图像中，以达到信息融合的目的.　使用KITTI中的经过时钟同步和校准后的数据文件 raw_data 来进行投影变换。其主要操作就是坐标系之间的变换。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://shanjiayao.com/kitti%E6%95%B0%E6%8D%AE%E9%9B%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E5%9B%BE%E5%83%8F/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-03-22T12:10:19+00:00" />
@@ -16,7 +16,7 @@
 <meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
 
 <meta name="twitter:title" content="KITTI数据集点云图像的投影"/>
-<meta name="twitter:description" content="本文要完成的工作是将KITTI数据集中的点云信息投影到图像中，以达到信息融合的目的. 使用KITTI中的经过时钟同步和校准后的数据文件 raw_data 来进行"/>
+<meta name="twitter:description" content="本文要完成的工作是将KITTI数据集中的点云信息投影到图像中，以达到信息融合的目的.　使用KITTI中的经过时钟同步和校准后的数据文件 raw_data 来进行投影变换。其主要操作就是坐标系之间的变换。"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -133,9 +133,7 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><hr>
-<!-- more -->
-<p>本文要完成的工作是将KITTI数据集中的点云信息投影到图像中，以达到信息融合的目的.　使用KITTI中的经过时钟同步和校准后的数据文件 raw_data 来进行投影变换。其主要操作就是坐标系之间的变换。</p>
+            </div><div class="content" id="content"><p>本文要完成的工作是将KITTI数据集中的点云信息投影到图像中，以达到信息融合的目的.　使用KITTI中的经过时钟同步和校准后的数据文件 raw_data 来进行投影变换。其主要操作就是坐标系之间的变换。</p>
 <h3 id="1-kitti数据集介绍">1. KITTI数据集介绍</h3>
 <p>kitti的数据采集平台，配置有四个摄像机和一个激光雷达，四个摄像机中有两个灰度摄像机，两个彩色摄像机</p>
 <p>从图中可看出，关于相机坐标系(camera)的方向与雷达坐标系(velodyne)的方向规定</p>
@@ -228,8 +226,7 @@
 <li>移除那些距离雷达5米之内(雷达的x方向)的点 (猜测这些点落在相机和雷达之间，故不会出现在图像平面上)</li>
 <li>作投影计算，得到投影到二维图像上的点</li>
 <li>在图像上画出投影后的点，按照深度(雷达点的x方向值)确定颜色，彩色则是暖色越近，冷色越远；灰度则是深色越近，浅色越远。</li>
-</ul>
-</div><div class="post-footer" id="post-footer">
+</ul></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">

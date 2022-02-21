@@ -1,11 +1,9 @@
 # SC3D论文&代码阅读
 
 
-------
-
-<!-- more -->
-
 《Leveraging_Shape_Completion_for_3D_Siamese_Tracking》论文&代码阅读
+
+<!--more-->
 
 ---
 
@@ -18,7 +16,7 @@
 
 ## 论文摘要
 
-本文提出了一种基于形状补全网络以及孪生网络的单目标跟踪器，借鉴了《***Learning representations and generative models for 3d point clouds 》***这篇论文的思想，将形状补全网络中的自编码器融入到孪生网络的框架中，使用自编码器的编码结构作为孪生网络的特征提取网络，通过编码之后解码这一过程将形状补全损失加入进来，训练编码器网络，使其编码的特征带有形状信息，更好的用于孪生网络的匹配。
+本文提出了一种基于形状补全网络以及孪生网络的单目标跟踪器，借鉴了《Learning representations and generative models for 3d point clouds 》这篇论文的思想，将形状补全网络中的自编码器融入到孪生网络的框架中，使用自编码器的编码结构作为孪生网络的特征提取网络，通过编码之后解码这一过程将形状补全损失加入进来，训练编码器网络，使其编码的特征带有形状信息，更好的用于孪生网络的匹配。
 
 [代码](https://github.com/SilvioGiancola/ShapeCompletion3DTracking)
 
@@ -460,9 +458,4 @@ Candidate Shapes 的选择同样也有几种不同的方案，因为作者提出
 
 测试阶段输入的index与训练不同,这里只需要输入一个index, 这个index代表着 list_of_tracklet_anno 中的索引
 
-### 5. 其他
-
-1. 测试阶段
-   
-    传入的参数 **number_candidate** 只在测试阶段起作用, 但是经过打印输出, 无论输出的数值是多少, 产生的都是 147个搜索框! 所以测试阶段的网络输入的两个点云, 其shape 都是 (147, 3, 2048)
 

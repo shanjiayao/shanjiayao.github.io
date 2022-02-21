@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>Pytorch-nn与functional的区别 - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="Pytorch-nn与functional的区别" />
-<meta property="og:description" content="Pytorch中的 nn 与 nn.functional 这两者其实本质上功能是一致的，都是用于开发者调用pytorch中的接口以搭建自己的网络 有一点不同的是，nn继承于nn" />
+<meta property="og:description" content="" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://shanjiayao.com/pytorch-nn%E4%B8%8Efunctional%E7%9A%84%E5%8C%BA%E5%88%AB/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-01-13T16:10:19+00:00" />
@@ -16,7 +16,7 @@
 <meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
 
 <meta name="twitter:title" content="Pytorch-nn与functional的区别"/>
-<meta name="twitter:description" content="Pytorch中的 nn 与 nn.functional 这两者其实本质上功能是一致的，都是用于开发者调用pytorch中的接口以搭建自己的网络 有一点不同的是，nn继承于nn"/>
+<meta name="twitter:description" content=""/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -118,9 +118,7 @@
     <li><a href="#pytorch中的-nn-与-nnfunctional"><code>Pytorch</code>中的 <code>nn</code> 与<code> nn.functional</code></a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><hr>
-<!-- more -->
-<h2 id="pytorch中的-nn-与-nnfunctional"><code>Pytorch</code>中的 <code>nn</code> 与<code> nn.functional</code></h2>
+            </div><div class="content" id="content"><h2 id="pytorch中的-nn-与-nnfunctional"><code>Pytorch</code>中的 <code>nn</code> 与<code> nn.functional</code></h2>
 <blockquote>
 <p>这两者其实本质上功能是一致的，都是用于开发者调用<code>pytorch</code>中的接口以搭建自己的网络</p>
 <p>有一点不同的是，<code>nn</code>继承于<code>nn.Module</code>，是对<code>nn.functional</code>中定义的函数的类封装，所以<code>nn.functional</code>更加灵活，更加底层</p>
@@ -166,8 +164,7 @@
 </tr>
 </tbody>
 </table>
-<p>官方文档中有写到，需要学习参数的网路结构，最好使用 <code>nn.Xxx</code>的方式定义，便于管理权重参数，其他像<code>maxpool</code>,<code> loss func</code>, <code>activation func</code>等不需要学习参数的结构，可以直接使用 <code>nn.functional.xxx</code>调用底层函数，使用更加灵活方便</p>
-</div><div class="post-footer" id="post-footer">
+<p>官方文档中有写到，需要学习参数的网路结构，最好使用 <code>nn.Xxx</code>的方式定义，便于管理权重参数，其他像<code>maxpool</code>,<code> loss func</code>, <code>activation func</code>等不需要学习参数的结构，可以直接使用 <code>nn.functional.xxx</code>调用底层函数，使用更加灵活方便</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">

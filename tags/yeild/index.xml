@@ -10,6 +10,6 @@
     <pubDate>Sat, 06 Mar 2021 16:10:19 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8Byeild%E5%85%B3%E9%94%AE%E5%AD%97/</guid>
-    <description><![CDATA[转载自： https://liam.page/2017/06/30/understanding-yield-in-python/ 生成器 = 迭代器 + yeild 概述 逐个获取元素的过程，就是「迭代」 迭代器中没有元素时，调用 next() 方法会抛出 StopIteration 异常 如果提供了 __iter__() 或者 __getitem__() 方法，那么该类的]]></description>
+    <description><![CDATA[<p>有关python中的yeild关键字的学习。</p>]]></description>
 </item></channel>
 </rss>
