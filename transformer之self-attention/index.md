@@ -18,6 +18,8 @@
 > 在编码阶段，self-attention让每个当前向量“看”到其他位置向量的信息，进而编码成对应的特征
 
 ![](https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-45-2021-07-05-10-27-42-image.png)
+![](https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220222190518.png)
+
 
 比如这张图片，在编码`it`时，self-attention就计算了`it`和其他单词向量之间的关系，进而让网络更好的编码`it`的特征
 
@@ -34,6 +36,7 @@
 **这里其实self-attention可以抽象地表达输入信息，如下图**
 
 ![](https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-11-2021-07-05-10-27-05-image.png)
+![](https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220222190543.png)
 
 1. **输入向量化**（**Embedding**）
    
@@ -44,14 +47,16 @@
    在self-attention中，可以理解为将输入**拆解**成三个参数，分别是`Q` `K` `V`，这个拆解是指输入的特征经过一个`共享权值`的网络层学习三个参数矩阵的具体值，如下图
    
    ![](https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-27-03-2021-07-05-10-26-55-image.png)
-   
+   ![](https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220222190600.png)
+
    - 其中`Q`代表着query，`K`代表Key，这两个向量的作用是对每个输入的特征向量做加权，让当前这个输入向量可以`看`到其他位置的特征信息，具体的做法就是，每个当前位置的Q与其他所有位置的K依次进行点积运算，得到的结果我们认为一定程度上代表了两个位置之间的相关性
    - `V`的意义，我个人理解很大程度上是对输入的更鲁棒的表达，类似于卷积网络提取图片特征，这个V经过了矩阵Wv之后，其本身应该学习到了输入特征向量的一些高层次特征，这些特征较为鲁棒，所以可以更好的用来表达自身特征向量
 
 3. **计算self-attention的三步骤**
    
    ![](https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-26-42-2021-07-05-10-26-35-image.png)
-   
+   ![](https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220222190608.png)
+
    那下面来说具体如何计算self-attention的，以及上面所有的Q、K、V是如何使用的
    
    - 第一步，通过共享权值的参数矩阵W学习出三个矩阵Q、K、V

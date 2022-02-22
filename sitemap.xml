@@ -2,10 +2,13 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://shanjiayao.com/categories/</loc><lastmod>2022-02-14T13:41:21&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>http://shanjiayao.com/</loc><lastmod>2022-02-14T13:41:21&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>http://shanjiayao.com/posts/</loc><lastmod>2022-02-14T13:41:21&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>http://shanjiayao.com/tags/</loc><lastmod>2022-02-14T13:41:21&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>http://shanjiayao.com/categories/</loc><lastmod>2022-02-21T19:07:13&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://shanjiayao.com/</loc><lastmod>2022-02-21T19:07:13&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://shanjiayao.com/posts/</loc><lastmod>2022-02-21T19:07:13&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://shanjiayao.com/tags/</loc><lastmod>2022-02-21T19:07:13&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://shanjiayao.com/tags/transformer/</loc><lastmod>2022-02-21T19:07:13&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://shanjiayao.com/vision-transformer%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc><lastmod>2022-02-21T19:07:13&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://shanjiayao.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc><lastmod>2022-02-21T19:07:13&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>http://shanjiayao.com/tags/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/</loc><lastmod>2022-02-14T13:41:21&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
             <loc>http://shanjiayao.com/categories/%E6%80%9D%E8%80%83%E6%80%BB%E7%BB%93/</loc><lastmod>2022-02-14T13:41:21&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
             <loc>http://shanjiayao.com/2021-%E8%BE%9B%E4%B8%91%E7%89%9B%E5%B9%B4/</loc><lastmod>2022-02-14T13:41:21&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
@@ -14,7 +17,6 @@
             <loc>http://shanjiayao.com/%E9%87%8D%E8%A3%85conda/</loc><lastmod>2022-01-14T13:20:06&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://shanjiayao.com/tags/dataset/</loc><lastmod>2022-01-12T10:47:04&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://shanjiayao.com/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/</loc><lastmod>2022-01-12T10:47:04&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://shanjiayao.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc><lastmod>2022-01-12T10:47:04&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://shanjiayao.com/tags/misc/</loc><lastmod>2022-01-11T10:05:27&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://shanjiayao.com/%E5%9F%BA%E4%BA%8Ehugo%E7%9A%84loveit%E4%B8%BB%E9%A2%98%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</loc><lastmod>2022-01-11T10:05:27&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://shanjiayao.com/categories/%E8%B8%A9%E5%9D%91%E5%B0%9D%E8%AF%95/</loc><lastmod>2022-01-11T10:05:27&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -42,7 +44,6 @@
             <loc>http://shanjiayao.com/tags/yeild/</loc><lastmod>2021-03-06T16:10:19&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://shanjiayao.com/tags/deeplearning/</loc><lastmod>2021-01-27T16:10:19&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://shanjiayao.com/tags/tracking/</loc><lastmod>2021-01-27T16:10:19&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://shanjiayao.com/tags/transformer/</loc><lastmod>2021-01-27T16:10:19&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://shanjiayao.com/transformer%E4%B9%8Bself-attention/</loc><lastmod>2021-01-27T16:10:19&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://shanjiayao.com/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%AD%E7%9A%84%E8%BE%B9%E7%95%8C%E6%95%88%E5%BA%94%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%AA%97/</loc><lastmod>2021-01-27T16:10:19&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://shanjiayao.com/tags/convolution/</loc><lastmod>2021-01-21T16:10:19&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
