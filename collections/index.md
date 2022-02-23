@@ -25,6 +25,10 @@
 
 9. [Tables Convert](https://tableconvert.com/)  在线转换各种表格， 包括csv、json、latex、html、excel等
 
+10. [zamzar](https://www.zamzar.com/) 图片格式转换，可以将SVG转成PDF，转换效果较好，但是每天有次数限制
+
+11. [cloudconvert.com](https://cloudconvert.com)  同格式转换，无次数限制，但是有时候转换效果不是很好，可以备用
+
 ### chrome插件
 
 1. GitZip for github
