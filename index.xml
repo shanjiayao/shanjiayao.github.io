@@ -12,7 +12,7 @@
     <pubDate>Mon, 21 Feb 2022 19:07:13 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/vision-transformer%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
-    <description><![CDATA[<p></p>]]></description>
+    <description><![CDATA[<p>自《<a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener noreffer">Attention is all you need</a>》之后，transformer先是在NLP领域大放异彩，继而近几年又在CV领域引领科研潮流，ViT、Swin Transformer几乎成了CV学者们耳熟能详的名词。本文是对Vision Transformer系列的学习总结，以ViT的框架为基础，梳理相关工作。</p>]]></description>
 </item><item>
     <title>辛丑牛年的自己</title>
     <link>http://shanjiayao.com/2021-%E8%BE%9B%E4%B8%91%E7%89%9B%E5%B9%B4/</link>
