@@ -1,0 +1,22 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>自动驾驶多传感器设计 - 标签 - Jiayao&#39;s blog</title>
+        <link>http://shanjiayao.com/tags/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%AE%BE%E8%AE%A1/</link>
+        <description>自动驾驶多传感器设计 - 标签 - Jiayao&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
+            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Thu, 17 Mar 2022 20:44:21 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/tags/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%AE%BE%E8%AE%A1/" rel="self" type="application/rss+xml" /><item>
+    <title>多传感器融合感知之用于感知的多传感器分析</title>
+    <link>http://shanjiayao.com/2.-%E4%BC%A0%E6%84%9F%E5%99%A8%E7%9A%84%E7%89%A9%E7%90%86%E7%89%B9%E6%80%A7/</link>
+    <pubDate>Thu, 17 Mar 2022 20:44:21 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/2.-%E4%BC%A0%E6%84%9F%E5%99%A8%E7%9A%84%E7%89%A9%E7%90%86%E7%89%B9%E6%80%A7/</guid>
+    <description><![CDATA[<p>本文记录了深蓝课程学习过程，主要是关于camera、lidar、radar等传感器的原理分析以及相关知识。</p>]]></description>
+</item><item>
+    <title>多传感器融合感知之自动驾驶传感器需求</title>
+    <link>http://shanjiayao.com/1.-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E4%BC%A0%E6%84%9F%E5%99%A8%E9%9C%80%E6%B1%82/</link>
+    <pubDate>Thu, 17 Mar 2022 11:08:52 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/1.-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E4%BC%A0%E6%84%9F%E5%99%A8%E9%9C%80%E6%B1%82/</guid>
+    <description><![CDATA[]]></description>
+</item></channel>
+</rss>
