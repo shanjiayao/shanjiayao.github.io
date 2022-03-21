@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>多传感器融合感知之用于感知的多传感器分析 - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="多传感器融合感知之用于感知的多传感器分析" />
+<meta property="og:description" content="本文记录了深蓝课程学习过程，主要是关于camera、lidar、radar等传感器的原理分析以及相关知识。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-17T20:44:21+00:00" />
+<meta property="article:modified_time" content="2022-03-17T20:44:21+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="多传感器融合感知之用于感知的多传感器分析"/>
+<meta name="twitter:description" content="本文记录了深蓝课程学习过程，主要是关于camera、lidar、radar等传感器的原理分析以及相关知识。"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" /><link rel="prev" href="http://shanjiayao.com/1.-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E4%BC%A0%E6%84%9F%E5%99%A8%E9%9C%80%E6%B1%82/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "多传感器融合感知之用于感知的多传感器分析",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90\/"
+        },"genre": "posts","keywords": "自动驾驶多传感器设计","wordcount":  5041 ,
+        "url": "http:\/\/shanjiayao.com\/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90\/","datePublished": "2022-03-17T20:44:21+00:00","dateModified": "2022-03-17T20:44:21+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/collections/"> 收集 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/collections/" title="">收集</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">多传感器融合感知之用于感知的多传感器分析</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%B7%B1%E8%93%9D%E5%AD%A6%E9%99%A2%E8%AF%BE%E7%A8%8B/"><i class="far fa-folder fa-fw"></i>深蓝学院课程</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-17">2022-03-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5041 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一传感器概述">一、传感器概述</a></li>
+    <li><a href="#二传感器原理分析">二、传感器原理分析</a>
+      <ul>
+        <li><a href="#21-camera">2.1 camera</a>
+          <ul>
+            <li><a href="#211-成像原理">2.1.1 成像原理</a></li>
+            <li><a href="#212-成像过程">2.1.2 成像过程</a></li>
+            <li><a href="#213-相机选型">2.1.3 相机选型</a></li>
+            <li><a href="#214-成像方式">2.1.4 成像方式</a></li>
+            <li><a href="#215-小结">2.1.5 小结</a></li>
+          </ul>
+        </li>
+        <li><a href="#22-lidar">2.2 lidar</a>
+          <ul>
+            <li><a href="#221-成像原理">2.2.1 成像原理</a></li>
+            <li><a href="#222-常见的激光雷达类型以及核心参数">2.2.2 常见的激光雷达类型以及核心参数</a></li>
+            <li><a href="#223-小结">2.2.3 小结</a></li>
+          </ul>
+        </li>
+        <li><a href="#23-radar">2.3 radar</a>
+          <ul>
+            <li><a href="#231-成像原理">2.3.1 成像原理</a>
+              <ul>
+                <li><a href="#测速">测速</a></li>
+                <li><a href="#测距">测距</a></li>
+                <li><a href="#测方位">测方位</a></li>
+                <li><a href="#其他信息">其他信息</a></li>
+              </ul>
+            </li>
+            <li><a href="#232-radar的分类以及关键参数指标">2.3.2 radar的分类以及关键参数指标</a>
+              <ul>
+                <li><a href="#按感知距离划分">按感知距离划分</a></li>
+                <li><a href="#按电磁波辐射方式">按电磁波辐射方式</a></li>
+              </ul>
+            </li>
+            <li><a href="#233-radar常见的问题">2.3.3 radar常见的问题</a>
+              <ul>
+                <li><a href="#为什么好多人说radar误检比较多">为什么好多人说radar误检比较多？</a></li>
+                <li><a href="#radar为什么没有高度信息">radar为什么没有高度信息</a></li>
+              </ul>
+            </li>
+            <li><a href="#234-小结">2.3.4 小结</a></li>
+          </ul>
+        </li>
+        <li><a href="#24-ultrasonic">2.4 ultrasonic</a>
+          <ul>
+            <li><a href="#小结">小结</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#三自动驾驶车辆上的传感器">三、自动驾驶车辆上的传感器</a>
+      <ul>
+        <li><a href="#31-各传感器横向对比">3.1 各传感器横向对比</a></li>
+        <li><a href="#32-车载配置">3.2 车载配置</a></li>
+      </ul>
+    </li>
+    <li><a href="#四总结">四、总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本文记录了深蓝课程学习过程，主要是关于camera、lidar、radar等传感器的原理分析以及相关知识。</p>
+<h2 id="一传感器概述">一、传感器概述</h2>
+<p>常见的自动驾驶感知传感器，一般包括 lidar，camera，radar以及ultrasonic。</p>
+<p>思考，为什么使用以上传感器来做感知任务？从人的角度分析，无非就是一些感官信息，触摸、看见、听见。所以从机器人的角度来看，上述传感器便能让机器人感知周边环境。</p>
+<p>总的来看，激光使用激光束，camera使用可见光，radar使用毫米波，这三种都可以成为<strong>电磁波</strong>。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220317205109.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220317205109.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220317205109.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220317205109.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220317205109.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220317205109.png" /></p>
+<p>radar到camera到lidar，波长逐渐变小，我们都知道短波检测精度高，但是易受干扰，而长波传播距离远，抗干扰能力强。所以我们可以使用毫米波和激光波来互补。</p>
+<p>此外，还有声波，比如超声波，这是一种机械波，其有一定透视能力，但是衰减快。</p>
+<p>关于机械波与电磁波，机械波是由于周期性扰动产生的，并且传播需要介质。而电磁波则是电磁振荡的传播，不需要介质。以人类为例子，我们看到的都是电磁波，听到的都是机械波。其他形式的波还包括引力波、物质波等，但是均不太合适用作自动驾驶。</p>
+<h2 id="二传感器原理分析">二、传感器原理分析</h2>
+<h3 id="21-camera">2.1 camera</h3>
+<h4 id="211-成像原理">2.1.1 成像原理</h4>
+<ol>
+<li>针孔(pin-hole)相机为例，小孔成像原理</li>
+<li>相机是一种被动式传感器，依靠外界的光源（比如太阳）反射成像。因此对光照条件敏感。</li>
+<li>将三维映射为二维，丢失了尺度信息。</li>
+<li>清晰成像时需要满足像距、物距以及焦距之间的相对关系，假设焦距是f，像距是v，物距是u，那么应该满足，1/f = 1/u + 1/v，且像距应该大于一倍焦距小于二倍焦距，才可以呈现清晰的像。</li>
+<li>此外，相机传感器由于小孔成像的原理，存在一定的视场角，且视角由像距和传感器尺寸共同决定。此处可以通过相似三角形，求解水平和竖直的视角，如下图，视角之前的区域就是相机的盲区</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318115518.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318115518.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318115518.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318115518.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318115518.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318115518.png" /></p>
+<p>一般来讲，像距和焦距相差不大，在一些场景中可以认为像距等于焦距。并且焦距越大，视角越小，长焦看的远，短焦看得全，这也就是我们所说的长焦与短焦镜头的区别。</p>
+<h4 id="212-成像过程">2.1.2 成像过程</h4>
+<ol>
+<li>景物在光源的照射下，产生的光学图像投射到相机中</li>
+<li><strong>镜头</strong>（LENS）</li>
+<li><strong>图像传感器</strong>，将光学信号转化为电信号，以及进一步通过AD转换器将模拟量转化为数字量。这里的光电转换传感器包含两种，分别是CCD以及CMOS，二者的差异在于信号的读出过程不同
+<ol>
+<li>CCD仅能输出模拟电信号，集成度低，而 CMOS将图像信号放大器、信号读取电路、AD转换等集成到一块芯片上，集成度高</li>
+<li>CCD成本较高，工艺复杂，CMOS相对而言成本就低很多</li>
+<li>CMOS一般输出频率可以很高，500FPS以上频率输出的相机都是使用CMOS的</li>
+</ol>
+</li>
+<li><strong>DSP</strong>，数字信号经过DSP(Digital Signal Processing)进行加工处理，DSP包括ISP(Image Signal Processor)以及JPEG编码器等组成，DSP的功能就是对原始的图像数据进行过滤和筛选，最终将处理好的信号传递下去</li>
+<li><strong>IO</strong>，负责与其他设备进行通信，目前主流的IO接口包括USB以及以太网等。</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318131100.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318131100.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318131100.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318131100.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318131100.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318131100.png" /></p>
+<h4 id="213-相机选型">2.1.3 相机选型</h4>
+<p>对于感知任务来说，需要使用相机同时检测近距离和远距离的目标，且车辆覆盖的像素不少于30个，红绿灯覆盖的像素不少于10个，而在焦距固定时，相机是无法满足同时这个要求的，因此需要不同的焦距。使用长焦感知远距离，短焦感知近距离。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318134753.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318134753.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318134753.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318134753.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318134753.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318134753.png" /></p>
+<p>常见的相机传感器供应商有 Sony、Onsemi（安森美）以及OmniVision（豪威）等。</p>
+<p>相机传感器的一些核心指标包括像素尺寸、感光范围、输出帧率等。</p>
+<h4 id="214-成像方式">2.1.4 成像方式</h4>
+<p>分为两种，卷帘快门(rolloing shutter)和全局快门(global shutter)。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/Rolling-Shutter.gif"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/Rolling-Shutter.gif, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/Rolling-Shutter.gif 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/Rolling-Shutter.gif 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/Rolling-Shutter.gif"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/Rolling-Shutter.gif" /></p>
+<p>自动驾驶场景中，一般使用rolling shutter，因为其制作工艺简单，成本低。</p>
+<p>但是卷帘快门导致行与行之间成像时间有误差，进而存在两点问题</p>
+<ul>
+<li>行之间时间戳不一致，一般取中间行的时间戳作为整张图片的时间戳。</li>
+<li>行与行之间的成像有形变，这也叫做果冻效应，如下图</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/rolling-shutter.gif"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/rolling-shutter.gif, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/rolling-shutter.gif 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/rolling-shutter.gif 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/rolling-shutter.gif"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/rolling-shutter.gif" /></p>
+<h4 id="215-小结">2.1.5 小结</h4>
+<p>相机是一种被动式的传感器，依靠可见光感知目标，感知结果稠密且连续，但丢失尺度，视野范围依靠镜头焦距调节，卷帘快门出发，时间戳有误差，成本百元级别，量产方案成熟。</p>
+<h3 id="22-lidar">2.2 lidar</h3>
+<h4 id="221-成像原理">2.2.1 成像原理</h4>
+<p>首先，关于lidar的基本原理，参考以下视频 <a href="https://www.youtube.com/watch?v=NZKvf1cX" target="_blank" rel="noopener noreffer">https://www.youtube.com/watch?v=NZKvf1cX</a></p>
+<p>简要来说，激光雷达通过TOF原理，自己发射光波来测量环境中障碍物的距离，多线的激光雷达可以通过旋转式的扫描方式来获取周边环境的点云信息。常见的激光雷达不仅可以返回目标表面点相对于自身的距离，还可以测量表面材质、颜色等信息，作为额外的每个点的属性（intensity、timestamp、elongation等）。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/video003.gif"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/video003.gif, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/video003.gif 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/video003.gif 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/video003.gif"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/video003.gif" /></p>
+<p>如上述简图所示，多个激光头并排旋转发射激光束，以构成周围环境的点云，其中，最上面激光头与最下面激光头的夹角叫做FOV，表示激光雷达竖直方向探测的角度范围。一般来讲， 可以通过修改激光雷达驱动文件，来配置线束之间的夹角，以达到下图的效果。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318211614.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318211614.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318211614.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318211614.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318211614.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220318211614.png" /></p>
+<p>此外，激光雷达有一个很显然的特性，就是距离远近的同一目标，其覆盖的点云数量不同，越远越少，因为角度决定密度，进而决定感知距离。</p>
+<p>对于检测任务，理论上车辆表面不少于30个点，行人表面不少于10个点。</p>
+<h4 id="222-常见的激光雷达类型以及核心参数">2.2.2 常见的激光雷达类型以及核心参数</h4>
+<p>目前可以分为三类，分别是机械式、混合固态以及纯固态。</p>
+<ul>
+<li><strong>机械式</strong>，通过并列排列若干个激光头来产生多个线束，并且使用旋转平台来完成360度的水平fov，通常来讲机械式雷达较为精密，应该避免磕碰，一旦机械结构发生形变，就会影响测量结果，所以其寿命通常不可控。常见品牌有velodyne、何塞、镭神、速腾等。</li>
+<li><strong>混合固态</strong>，取消旋转平台，只用一个激光头，通过微振镜来产生不同的角度，但是并没有360度，水平和竖直都是确定的FOV，这种雷达使其有了过车规的可能，所以有一些无人驾驶公司会使用他们作为量产的解决方案。常见品牌有Innovution、DJI的livox等。</li>
+<li><strong>固态</strong>，进一步去掉微振镜的结构，完全通过固态电路板来产生点云，成本会更低，但是现在技术还不是特别成熟，需要进一步发展。</li>
+</ul>
+<p>通常来讲，我们会关注lidar的线束、波长、测量精度、探测距离、视角以及分辨率、旋转频率等参数。</p>
+<h4 id="223-小结">2.2.3 小结</h4>
+<p>Lidar是一种主动式传感器，通过自己发射激光束来对周边环境进行测距，生成的数据天然稀疏、但是测量距离精度高，且可以用来描述周边三维环境，其触发方式是逐点的，成像时间无误差，但是目前成本仍然是量产的一道阻碍。</p>
+<h3 id="23-radar">2.3 radar</h3>
+<p>毫米波雷达是工作在毫米波波段的，电磁波频率大概是30 GHz ~ 300 GHz，波长介于1~10mm的雷达。毫米波雷达相对于激光雷达和camera，属于长波长，其对天气的鲁棒性更强。与lidar类似，毫米波雷达通过天线发射特定频率的电磁波，并计算发射和接收的差异性，进而获取目标的径向运动速度、飞行时间、径向距离等信息。</p>
+<h4 id="231-成像原理">2.3.1 成像原理</h4>
+<p>毫米波雷达依靠<em><strong>多普勒效应</strong></em>，多普勒效应本质上说明了速度变化会引起波的发送和接收两者之间的频率差异。波源靠近接收者，那么频率升高，反之频率降低。</p>
+<p>radar可以探测的物理量有三个，速度、距离、方位。</p>
+<h5 id="测速">测速</h5>
+<p>其中测速是根据多普勒原理，测量得到的是<strong>相对且径向的速度</strong>，以FMCW调频连续波的radar为例，测速原理是，发射调频正弦波，通过计算发射和接收的频率变化，就可以计算相对速度。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320143506.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320143506.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320143506.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320143506.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320143506.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320143506.png" /></p>
+<p>推理过程如下 （毫米波是电磁波，空气中传播速度是c）
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320142454.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320142454.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320142454.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320142454.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320142454.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320142454.png" /></p>
+<h5 id="测距">测距</h5>
+<p>除了测速，通过相位差计算频率的变化以及飞行时间t，还可以计算出<strong>径向的距离信息D</strong>，类似TOF原理 D=c·t/2。</p>
+<h5 id="测方位">测方位</h5>
+<p>radar内部通常设置1个发射天线，两个接收天线，通过计算反射波的相位差，可以计算出径向距离的差值，根据两个接收天线之间的距离l，以及径向距离之差Δd，可以大概估算出目标的方位角，推理过程如下图，这种估计会随着实际的θ角增加而误差变大。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320171955.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320171955.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320171955.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320171955.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320171955.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320171955.png" /></p>
+<h5 id="其他信息">其他信息</h5>
+<p>除了以上测量值，radar还可以拿到较为<strong>准确的timestamp</strong>以及<strong>粗略估计切向速度</strong>。由于自身测量的原理基于TOF，所以相对来讲时间戳信息是较为准确的。但是切向速度的估计通常误差较大。</p>
+<h4 id="232-radar的分类以及关键参数指标">2.3.2 radar的分类以及关键参数指标</h4>
+<h5 id="按感知距离划分">按感知距离划分</h5>
+<ul>
+<li>短距离radar：探测范围大，但是距离较短 （15-30m），频段为24.0GHz 到 24.25GHz，窄带带宽 250 MHz，波长大于 1cm，严格来讲属于厘米波雷达。</li>
+<li>中长距离radar：探测范围窄，但是距离较长（100-200m），最长可以长达250m，频段为76-77GHz，该频段有等效同性各向辐射功率的优势，同时满足高传输功率和宽工作带宽，可以同时做到长距离探测和高距离分辨率。波长更短所以收发天线面积大幅减小，雷达体积更小。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321105327.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321105327.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321105327.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321105327.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321105327.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321105327.png" /></p>
+<h5 id="按电磁波辐射方式">按电磁波辐射方式</h5>
+<p>可以分为脉冲和连续波两种方式，详见下图，其中FMCW是最常用的方式。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321110236.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321110236.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321110236.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321110236.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321110236.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321110236.png" /></p>
+<h4 id="233-radar常见的问题">2.3.3 radar常见的问题</h4>
+<p>由于radar在处理原始数据时，为了计算发送与接收波之间的频率差，通常是将原始数据转换为频域处理，因为相对速度与频率差成正比，所以只要对频率差做阈值化，就可以得到想要的速度区间，实现测速的目的。但是这样其实对于理解传感器而言，并不是十分直观，如下图，颜色鲜艳的地方表示频率差比较大，也就代表着相对速度较大。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320172831.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320172831.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320172831.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320172831.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320172831.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220320172831.png" /></p>
+<h5 id="为什么好多人说radar误检比较多">为什么好多人说radar误检比较多？</h5>
+<p>在频域的阈值化过程中，需要人工设定参数来对频率差做筛选，这就会导致低阈值时噪声多，但是为了保证recall，提高信噪比，阈值不能设定太低。比如德尔福的rader阈值比较低，希望给用户更多的信息，但是conti的radar则是更倾向于保证结果的置信度，所以阈值较高。</p>
+<p>所以归根结底，radar的结果与阈值设置有关系。</p>
+<h5 id="radar为什么没有高度信息">radar为什么没有高度信息</h5>
+<p>对于常见的radar来说，因为早期只感知BEV平面是够用的，所以不带有高度信息。但是近些年4D的radar有很多厂商在做，这是加入了高度信息的。</p>
+<h4 id="234-小结">2.3.4 小结</h4>
+<p>Radar类似于Lidar，是一种主动式传感器，但是成像稀疏，并且在频域处理，成像通常在2.5D(无高度)-4D(有高度)，探测距离远近皆可，触发方式较为精准，时间戳无误差，价格在千元级别，成熟量产。</p>
+<h3 id="24-ultrasonic">2.4 ultrasonic</h3>
+<p>超声波，是指传播速率大于20000Hz的机械波，正常声波的速度大概是340m/s，人耳可以听到的频率是20Hz-20000Hz之间，而超声波是大于这个区间的。</p>
+<p>超声波的测距原理还是TOF，探测角一般是80-120°，近距离10cm之内会有盲区。一般超声波会被用于近距离，小于10m的障碍物感知。此外，超声波无法确定目标的方位，也就是说，在其感知范围内的障碍，超声波只能给出距离，而不能给出方位角的信息。</p>
+<p>最终的超声波输出包含两个，分别是精准的时间戳以及0-1的障碍信息（粗略的距离值）。超声波有一个很好的特性就是抗干扰能力强，防水防尘能力好。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321144004.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321144004.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321144004.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321144004.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321144004.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321144004.png" /></p>
+<p>超声波的一些缺点如下：</p>
+<ul>
+<li>对温度敏感</li>
+<li>频率高，速度低，受自身速度影响较大（多普勒效应，自车速度大于相对速度时）</li>
+<li>无法测量方位角</li>
+</ul>
+<h4 id="小结">小结</h4>
+<p>超声波雷达是一种主动式传感器，感知结果可以近似为一种阶跃的物理量，由于无法感知方位角，所以大多会用来测量其感知范围内是否存在障碍。成本较低，小于1K，量产成熟。</p>
+<h2 id="三自动驾驶车辆上的传感器">三、自动驾驶车辆上的传感器</h2>
+<h3 id="31-各传感器横向对比">3.1 各传感器横向对比</h3>
+<p>总体而言，三种传感器各有优劣，所以目前主张多传感器融合的方案会想要集大家之长，但是激光雷达的量产化还有一段时间的路要走。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321111411.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321111411.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321111411.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321111411.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321111411.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321111411.png" /></p>
+<h3 id="32-车载配置">3.2 车载配置</h3>
+<p>现有的自动驾驶方案中，可以分为L2和L4两种。</p>
+<p>一般L2或L2.5级别的自动驾驶，由于考虑了量产的需求，需要压缩成本，所以大多使用camera和radar，lidar一般均考虑半固态式，比如DJI的livox。而L4级别的自动驾驶则是会在早期的方案设计中加入机械式旋转的激光雷达。</p>
+<p>所以，个人认为，自动驾驶传感器配置，现在就有了两种主流的方案，一种是极端主义者，代表就是Tesla，申明不使用激光雷达，并且也的确在近两年的FSD更新中逐步优化，甚至还提出了要使用camera代替radar的作用。另外一种就是多传感器融合，并且坚信lidar的量产成熟化会逐步加快，最终可以成熟地应用在自动驾驶中。</p>
+<p>常见的<strong>用于感知的传感器配置</strong>可以参考下图</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321105022.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321105022.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321105022.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321105022.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321105022.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220321105022.png" /></p>
+<h2 id="四总结">四、总结</h2>
+<p>对于自动驾驶任务来说，需要cover的场景因天气、光照、目标等因素而变得特别繁多，所以直观的想法就是将各种传感器的优势融合起来，比如多种电磁波与机械波的结合，被动传感器与主动传感器的结合，2D和3D的感知结合等等，这些都可以帮助我们解决困难的场景带来的挑战。</p>
+<p>但是与此同时，一点不得不提的就是，成本控制，量产必然会经历成本的打磨，以及满足车规的要求。Lidar虽然相对量产化落后一些，但是发展很快，相信不久的以后就会成为量产的选择。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-17</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" data-title="多传感器融合感知之用于感知的多传感器分析" data-hashtags="自动驾驶多传感器设计"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" data-hashtag="自动驾驶多传感器设计"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" data-title="多传感器融合感知之用于感知的多传感器分析" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" data-title="多传感器融合感知之用于感知的多传感器分析"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" data-title="多传感器融合感知之用于感知的多传感器分析"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" data-title="多传感器融合感知之用于感知的多传感器分析" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" data-title="多传感器融合感知之用于感知的多传感器分析" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" data-title="多传感器融合感知之用于感知的多传感器分析"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%AE%BE%E8%AE%A1/">自动驾驶多传感器设计</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/1.-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E4%BC%A0%E6%84%9F%E5%99%A8%E9%9C%80%E6%B1%82/" class="prev" rel="prev" title="多传感器融合感知之自动驾驶传感器需求"><i class="fas fa-angle-left fa-fw"></i>多传感器融合感知之自动驾驶传感器需求</a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-THB0NH45ZM', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-THB0NH45ZM" async></script></body>
+</html>
