@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>SC3D论文&amp;代码阅读 - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="SC3D论文&amp;代码阅读" />
+        <title>论文阅读00 SC3D - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="论文阅读00 SC3D" />
 <meta property="og:description" content="《Leveraging_Shape_Completion_for_3D_Siamese_Tracking》论文&amp;代码阅读" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://shanjiayao.com/sc3d/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
 
-<meta name="twitter:title" content="SC3D论文&amp;代码阅读"/>
+<meta name="twitter:title" content="论文阅读00 SC3D"/>
 <meta name="twitter:description" content="《Leveraging_Shape_Completion_for_3D_Siamese_Tracking》论文&amp;代码阅读"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -24,12 +24,12 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "SC3D论文\u0026代码阅读",
+        "headline": "论文阅读00 SC3D",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/shanjiayao.com\/sc3d\/"
-        },"genre": "posts","keywords": "Tracking, DeepLearning","wordcount":  6891 ,
+        },"genre": "posts","keywords": "论文阅读","wordcount":  6894 ,
         "url": "http:\/\/shanjiayao.com\/sc3d\/","datePublished": "2020-06-26T16:10:19+00:00","dateModified": "2020-06-26T16:10:19+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,9 +104,9 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">SC3D论文&amp;代码阅读</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>深度学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-06-26">2020-06-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6891 字&nbsp;
+        </div><article class="page single"><h1 class="single-title animated flipInX">论文阅读00 SC3D</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"><i class="far fa-folder fa-fw"></i>论文阅读</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-06-26">2020-06-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6894 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 14 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -115,6 +115,7 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
+    <li><a href="#简介">简介</a></li>
     <li><a href="#论文摘要">论文摘要</a></li>
     <li><a href="#论文解读">论文解读</a>
       <ul>
@@ -134,20 +135,17 @@
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>《Leveraging_Shape_Completion_for_3D_Siamese_Tracking》论文&amp;代码阅读</p>
-<hr>
+<h2 id="简介">简介</h2>
 <ul>
 <li>作者：<em>Silvio Giancola</em>, Jesus Zarzar*, and Bernard Ghanem*</li>
 <li>机构：<em>King Abdullah University of Science and Technology (KAUST)</em></li>
 <li>论文水平：<strong>CVPR19</strong></li>
 <li>关键词：<strong>Shape Completion &amp;&amp; Siamese Tracker &amp;&amp; Model Update</strong></li>
 </ul>
-<hr>
+<p><a href="https://github.com/SilvioGiancola/ShapeCompletion3DTracking" target="_blank" rel="noopener noreffer">代码</a>  |  <a href="https://www.youtube.com/watch?v=2-NAaWSSrGA" target="_blank" rel="noopener noreffer">视频</a></p>
 <h2 id="论文摘要">论文摘要</h2>
 <p>本文提出了一种基于形状补全网络以及孪生网络的单目标跟踪器，借鉴了《Learning representations and generative models for 3d point clouds 》这篇论文的思想，将形状补全网络中的自编码器融入到孪生网络的框架中，使用自编码器的编码结构作为孪生网络的特征提取网络，通过编码之后解码这一过程将形状补全损失加入进来，训练编码器网络，使其编码的特征带有形状信息，更好的用于孪生网络的匹配。</p>
-<p><a href="https://github.com/SilvioGiancola/ShapeCompletion3DTracking" target="_blank" rel="noopener noreffer">代码</a></p>
-<p><a href="https://www.youtube.com/watch?v=2-NAaWSSrGA" target="_blank" rel="noopener noreffer">视频</a></p>
 <h2 id="论文解读">论文解读</h2>
-<hr>
 <h3 id="1-网络框架">1. 网络框架</h3>
 <p><img
         class="lazyload"
@@ -874,13 +872,13 @@
                             <a class="link-to-markdown" href="/sc3d/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/sc3d/" data-title="SC3D论文&amp;代码阅读" data-hashtags="Tracking,DeepLearning"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/sc3d/" data-hashtag="Tracking"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/sc3d/" data-title="SC3D论文&amp;代码阅读" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/sc3d/" data-title="SC3D论文&amp;代码阅读"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/sc3d/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/sc3d/" data-title="SC3D论文&amp;代码阅读"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/sc3d/" data-title="SC3D论文&amp;代码阅读" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/sc3d/" data-title="SC3D论文&amp;代码阅读" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/sc3d/" data-title="SC3D论文&amp;代码阅读"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/sc3d/" data-title="论文阅读00 SC3D" data-hashtags="论文阅读"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/sc3d/" data-hashtag="论文阅读"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/sc3d/" data-title="论文阅读00 SC3D" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/sc3d/" data-title="论文阅读00 SC3D"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/sc3d/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/sc3d/" data-title="论文阅读00 SC3D"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/sc3d/" data-title="论文阅读00 SC3D" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/sc3d/" data-title="论文阅读00 SC3D" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/sc3d/" data-title="论文阅读00 SC3D"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/tracking/">Tracking</a>,&nbsp;<a href="/tags/deeplearning/">DeepLearning</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>

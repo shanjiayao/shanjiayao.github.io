@@ -39,5 +39,12 @@
     <author>作者</author>
     <guid>http://shanjiayao.com/part-a2/</guid>
     <description><![CDATA[<p>本文是shaoshuai的3D点云检测工作，发表在TPAMI，融合了点在box中的位置分布规律, 通过这个位置约束确定更精准的box。</p>]]></description>
+</item><item>
+    <title>论文阅读00 SC3D</title>
+    <link>http://shanjiayao.com/sc3d/</link>
+    <pubDate>Fri, 26 Jun 2020 16:10:19 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/sc3d/</guid>
+    <description><![CDATA[<p>《Leveraging_Shape_Completion_for_3D_Siamese_Tracking》论文&amp;代码阅读</p>]]></description>
 </item></channel>
 </rss>

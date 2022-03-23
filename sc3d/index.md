@@ -1,30 +1,25 @@
-# SC3D论文&代码阅读
+# 论文阅读00 SC3D
 
 
 《Leveraging_Shape_Completion_for_3D_Siamese_Tracking》论文&代码阅读
 
 <!--more-->
 
----
-
+## 简介
 - 作者：*Silvio Giancola*, Jesus Zarzar*, and Bernard Ghanem*
 - 机构：*King Abdullah University of Science and Technology (KAUST)*
 - 论文水平：**CVPR19**
 - 关键词：**Shape Completion && Siamese Tracker && Model Update**
 
----
+[代码](https://github.com/SilvioGiancola/ShapeCompletion3DTracking)  |  [视频](https://www.youtube.com/watch?v=2-NAaWSSrGA)
 
 ## 论文摘要
 
 本文提出了一种基于形状补全网络以及孪生网络的单目标跟踪器，借鉴了《Learning representations and generative models for 3d point clouds 》这篇论文的思想，将形状补全网络中的自编码器融入到孪生网络的框架中，使用自编码器的编码结构作为孪生网络的特征提取网络，通过编码之后解码这一过程将形状补全损失加入进来，训练编码器网络，使其编码的特征带有形状信息，更好的用于孪生网络的匹配。
 
-[代码](https://github.com/SilvioGiancola/ShapeCompletion3DTracking)
 
-[视频](https://www.youtube.com/watch?v=2-NAaWSSrGA)
 
 ## 论文解读
-
----
 
 ### 1. 网络框架
 
