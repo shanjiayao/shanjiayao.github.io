@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>多传感器融合感知之用于建图定位的多传感器分析 - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="多传感器融合感知之用于建图定位的多传感器分析" />
+<meta property="og:description" content="本文是深蓝学院多传感器融合感知课程的笔记，主要对用于建图定位的传感器进行原理梳理以及功能分析。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-22T11:06:11+00:00" />
+<meta property="article:modified_time" content="2022-03-22T11:06:11+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="多传感器融合感知之用于建图定位的多传感器分析"/>
+<meta name="twitter:description" content="本文是深蓝学院多传感器融合感知课程的笔记，主要对用于建图定位的传感器进行原理梳理以及功能分析。"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" /><link rel="prev" href="http://shanjiayao.com/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "多传感器融合感知之用于建图定位的多传感器分析",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90\/"
+        },"genre": "posts","keywords": "自动驾驶多传感器设计","wordcount":  2030 ,
+        "url": "http:\/\/shanjiayao.com\/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90\/","datePublished": "2022-03-22T11:06:11+00:00","dateModified": "2022-03-22T11:06:11+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/collections/"> 收集 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/collections/" title="">收集</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">多传感器融合感知之用于建图定位的多传感器分析</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%B7%B1%E8%93%9D%E5%AD%A6%E9%99%A2%E8%AF%BE%E7%A8%8B/"><i class="far fa-folder fa-fw"></i>深蓝学院课程</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-22">2022-03-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2030 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#gnss简介">GNSS简介</a>
+      <ul>
+        <li><a href="#gnss的概念">GNSS的概念</a></li>
+        <li><a href="#gnss的主要构成">GNSS的主要构成</a></li>
+        <li><a href="#gnss的主要功能">GNSS的主要功能</a></li>
+        <li><a href="#gnss的误差分析">GNSS的误差分析</a></li>
+      </ul>
+    </li>
+    <li><a href="#gnss相关的多传感器融合">GNSS相关的多传感器融合</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本文是深蓝学院多传感器融合感知课程的笔记，主要对用于建图定位的传感器进行原理梳理以及功能分析。</p>
+<h2 id="gnss简介">GNSS简介</h2>
+<h3 id="gnss的概念">GNSS的概念</h3>
+<p>GNSS，Global Navigation Satellite System，是所有导航定位卫星的总称，凡是可以通过捕获跟踪其卫星信号实现定位的系统，均可以算在GNSS系统的范围中。GNSS广泛应用于手机导航、车载导航、测绘、农业、航空以及最近兴起的无人驾驶领域。</p>
+<h3 id="gnss的主要构成">GNSS的主要构成</h3>
+<p>GNSS的构成可以分为三部分，分别是<strong>全球卫星导航系统</strong>，<strong>区域导航系统</strong>，以及<strong>增强系统</strong>。</p>
+<p>全球卫星导航系统，比如美国的GPS，欧洲的GALILEO(伽利略)，俄罗斯的GLONASS(格洛纳斯)以及我国的BDS(北斗)。这些系统均位于同一层级，都属于GNSS，并且可以覆盖地球的所有地区。</p>
+<p>全球卫星导航系统一般是中美俄以及欧盟等用作全球战略储备而追求的，还有一些只在局部范围内提供的区域导航系统，比如我国的北斗一代和二代，其覆盖的面积就达不到全球的级别，只能算在区域性的导航系统。还有日本的准天顶系统(QZSS)，印度的IRNSS系统等。</p>
+<p>除了以上两种，还有增强系统，顾名思义就是对前面的辅助以及增强，这里就涉及到具体需求具体强化了，相关的包括美国的WAAS。日本的MSAS，欧盟的EGNOS, 印度的GAGAN等。</p>
+<p>综上，GNSS可以根据其覆盖范围以及功能侧重分为以上三种。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">全球导航卫星系统</th>
+<th style="text-align:center">区域导航系统</th>
+<th style="text-align:center">增强系统</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">GPS</td>
+<td style="text-align:center">QZSS</td>
+<td style="text-align:center">WAAS</td>
+</tr>
+<tr>
+<td style="text-align:center">GALILEO</td>
+<td style="text-align:center">IRNSS</td>
+<td style="text-align:center">MSAS</td>
+</tr>
+<tr>
+<td style="text-align:center">GLONASS</td>
+<td style="text-align:center">&ndash;</td>
+<td style="text-align:center">EGNOS</td>
+</tr>
+<tr>
+<td style="text-align:center">BDS</td>
+<td style="text-align:center">&ndash;</td>
+<td style="text-align:center">GAGAN</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gnss的主要功能">GNSS的主要功能</h3>
+<p>GNSS的主要功能有三：定位、测速以及授时。</p>
+<p><strong>定位</strong>功能就是通过接收机，接收卫星的信息，我们可以对接收到的信号计算相位差，进而得到传播时间，乘以光速即为二倍的测量距离。如果我们同时接受<strong>三颗</strong>卫星的信号，那么以卫星为中心，距离微半径，就可以确定当前接收机所在的经纬度以及高度信息。但是由于我们做不到让接收设备的时间与卫星的时间完全一致没有误差，所以需要多用一颗卫星，来计算接收设备时间与卫星时间的误差，如果同时接收到四颗卫星的信号，那么就可以对原本模糊的时间观测进行精确求解，从而得到时间精准的位置信息。一般来讲，GNSS的定位误差在米级别，如果遇到高反射场景，比如<a href="https://zh.wikipedia.org/wiki/%E9%83%BD%E5%B8%82%E5%B3%BD%E8%B0%B7" target="_blank" rel="noopener noreffer"><em>城市峡谷</em></a>，那么误差会由于信号的随机反射而加大，甚至会达到百米级别。</p>
+<p><strong>测速</strong>则是测量位置差以及朝向角。<strong>授时</strong>则用来做时间同步，GNSS可以实现高精度授时，达到纳秒量级。</p>
+<h3 id="gnss的误差分析">GNSS的误差分析</h3>
+<p>以自动驾驶为例，如果无人车上面搭载了GNSS的接收机，通过实时接收GNSS信息来获取自身的绝对位置。那么此时GNSS定位的误差可能来自于以下方面：</p>
+<ul>
+<li><strong>信号的传输损失</strong>
+<ul>
+<li>由于信号在传输过程中，发生了折射，导致信息损失。主要发生在电离层以及对流层</li>
+</ul>
+</li>
+<li><strong>时钟的不对齐</strong>
+<ul>
+<li>如果发射或者接收的时钟不一致，那么对于飞行时间的计算就会有偏差，导致测量误差变大，比如卫星时钟、接收机时钟</li>
+</ul>
+</li>
+<li><strong>多路径与非视距</strong>
+<ul>
+<li>通常来说，我们将<a href="https://www.zhihu.com/search?q=%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22article%22%2C%22sourceId%22%3A%22398888467%22%7D" target="_blank" rel="noopener noreffer">无线通信系统</a>的传播条件分成视距(LOS)和非视距(NLOS)两种环境，在视距条件下，无线信号无遮挡地在发送端与接收端之间进行直线传播，这要求在第一菲涅尔区内不存在对无线电波造成遮挡的物体，如果不满足这一条件，信号强度就会产生明显下降，而这种利用以视距传播的无线电波进行信息传输的通信就是视距通信。</li>
+<li>由于周围建筑物对卫星信号的反射与遮挡，导致了多路径效应和非视距信号，其中现有的多路径信号大部分可以通过好一点的接收机检测出来，或者其误差可以得到一定程度的抑制。然而非视距信号（也叫NLOS）就非常的危险，其非视距信号的观测量误差可以达到100米的级别，而且非视距信号基于传统的接收机技术很难完全检测出来。</li>
+</ul>
+</li>
+</ul>
+<p>为了解决以上误差，通用的做法是使用<strong>RTK</strong>(<em>real - time kinematic</em>)技术，高精度的gps测量必须采用载波相位观测值，rtk定位技术就是基于载波相位观测值的实时动态定位技术，它能够实时地提供测站点在指定坐标系中的三维定位结果，并达到<strong>厘米级精度</strong>。在rtk作业模式下，基准站通过数据链将其观测值和测站坐标信息一起传送给流动站。流动站不仅通过数据链接收来自基准站的数据，还要采集gps观测数据，并在系统内组成差分观测值进行实时处理，同时给出厘米级定位结果，历时不到一秒钟。</p>
+<p>更详细的解决方案可以参考： <a href="https://zhuanlan.zhihu.com/p/416072448" target="_blank" rel="noopener noreffer">https://zhuanlan.zhihu.com/p/416072448</a></p>
+<h2 id="gnss相关的多传感器融合">GNSS相关的多传感器融合</h2>
+<p>虽然上述RTK的技术可以使定位达到厘米级别，但是对于自动驾驶而言，不是所有场景都有可用的RTK信号的，所以针对建图定位问题，我们还是需要使用多传感器融合的方法来使自动驾驶技术更加的鲁棒。</p>
+<p>对于建图定位任务来说，涉及到的传感器有四种，GNSS+IMU、Lidar、Camera以及轮速计。通常我们会用GNSS(RTK)来获取全局位置，再加上vslam以及lidar slam辅助定位，克服在GNSS信号不好时定位信息丢失的问题。</p>
+<p>如果以上方案再考虑上5G以及V2X车路协同，那么整体的方法框架如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220322163358.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220322163358.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220322163358.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220322163358.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220322163358.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220322163358.png" /></p>
+<h2 id="总结">总结</h2>
+<p>定位系统的目标就是通过以上传感器的融合，打造全工况、全时段、高精度、高可靠性的定位能力，所以多传感器之间的融合是必不可少的。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-22</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" data-title="多传感器融合感知之用于建图定位的多传感器分析" data-hashtags="自动驾驶多传感器设计"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" data-hashtag="自动驾驶多传感器设计"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" data-title="多传感器融合感知之用于建图定位的多传感器分析" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" data-title="多传感器融合感知之用于建图定位的多传感器分析"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" data-title="多传感器融合感知之用于建图定位的多传感器分析"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" data-title="多传感器融合感知之用于建图定位的多传感器分析" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" data-title="多传感器融合感知之用于建图定位的多传感器分析" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" data-title="多传感器融合感知之用于建图定位的多传感器分析"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%AE%BE%E8%AE%A1/">自动驾驶多传感器设计</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" class="prev" rel="prev" title="多传感器融合感知之用于感知的多传感器分析"><i class="fas fa-angle-left fa-fw"></i>多传感器融合感知之用于感知的多传感器分析</a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-THB0NH45ZM', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-THB0NH45ZM" async></script></body>
+</html>

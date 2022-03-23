@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>AFDetV2 - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="AFDetV2" />
+<meta property="og:description" content="AFDetV2是地平线在2021waymo挑战赛上夺冠方案。本文主要创新点有三：self-calibrated block, keypoint auxiliary loss,  the IoU prediction branch" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/afdetv2/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-23T11:55:16+00:00" />
+<meta property="article:modified_time" content="2021-12-23T11:55:16+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="AFDetV2"/>
+<meta name="twitter:description" content="AFDetV2是地平线在2021waymo挑战赛上夺冠方案。本文主要创新点有三：self-calibrated block, keypoint auxiliary loss,  the IoU prediction branch"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/afdetv2/" /><link rel="prev" href="http://shanjiayao.com/horizonlidar3d/" /><link rel="next" href="http://shanjiayao.com/%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%80%BB%E7%BB%93/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "AFDetV2",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/afdetv2\/"
+        },"genre": "posts","keywords": "论文阅读","wordcount":  1405 ,
+        "url": "http:\/\/shanjiayao.com\/afdetv2\/","datePublished": "2021-12-23T11:55:16+00:00","dateModified": "2021-12-23T11:55:16+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/collections/"> 收集 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/collections/" title="">收集</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">AFDetV2</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>学习笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-23">2021-12-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1405 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#摘要">摘要</a></li>
+    <li><a href="#引言讨论">引言讨论</a></li>
+    <li><a href="#网络结构">网络结构</a>
+      <ul>
+        <li><a href="#voxelization">Voxelization</a></li>
+        <li><a href="#bev-backbone">BEV Backbone</a></li>
+        <li><a href="#heads">Heads</a></li>
+      </ul>
+    </li>
+    <li><a href="#实验结果">实验结果</a>
+      <ul>
+        <li><a href="#单帧不加ensemble-waymo-val-set">单帧,不加ensemble waymo val set</a></li>
+        <li><a href="#waymo-test-set">waymo test set</a></li>
+        <li><a href="#三个模块的消融实验">三个模块的消融实验</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>AFDetV2是地平线在2021waymo挑战赛上夺冠方案。本文主要创新点有三：<code>self-calibrated block</code>, <code>keypoint auxiliary loss</code>,  <code>the IoU prediction branch</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142728.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142728.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142728.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142728.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142728.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142728.png" /></p>
+<h2 id="简介">简介</h2>
+<ul>
+<li>论文：《Rethinking the Necessity of the Second Stage for Object Detection from Point Clouds》</li>
+<li>作者：<em>Yihan Hu*, Zhuangzhuang Ding*, Runzhou Ge* Wenxin Shao, Li Huang† , Kun Li, Qiang Liu†</em></li>
+<li>机构：<em>Horizon Robotics</em></li>
+<li>论文水平：<em>CVPR Waymo Challenge 2021</em></li>
+<li>关键词：<strong>self-calibrated block &amp;&amp; keypoint &amp;&amp; IoU prediction</strong></li>
+<li>论文链接：<a href="https://arxiv.org/pdf/2112.09205v1.pdf" target="_blank" rel="noopener noreffer">paper</a></li>
+</ul>
+<h2 id="摘要">摘要</h2>
+<p>本工作概括地对现有的点云目标检测方法做了总结.首先讨论单阶段和两阶段这两种主流方向.进而提出通过对比实验发现,单阶段也能达到和两阶段类似的性能,并且两阶段的第二个阶段的主要作用是对分数的再优化.根本作用是解决了分类和回归的misalignment.</p>
+<p>综上,本工作基于之前的AFDet,提出了AFDetv2版本,主要引入了 IoU prediction branch来实现二阶段的作用,并且使用self-calibrated block以达到通道注意力以及扩大感受野的目的.此外,还在训练阶段使用了关键点的loss辅助约束模型.<strong>总体实现了通过一阶段达到了两阶段的精度,并且保持了一阶段的实时性,被称为“Most Efficient Model”(55.86 ms)</strong></p>
+<h2 id="引言讨论">引言讨论</h2>
+<p>为什么需要两阶段来完成检测的任务?</p>
+<p>主流观点有两个</p>
+<ol>
+<li>基于点的检测器均表示使用原始点云的信息可以弥补体素化等操作带来的精度损失或者感受野缺失.所以两阶段的检测器依靠两阶段实现了较高的精度</li>
+<li>另外一点从分类和回归的misalignment出发.由于分类和回归一般都是两个单独的分支,所以分类最高的预测并不一定与回归最准确的预测相匹配.</li>
+</ol>
+<p>针对观点1,目前很多方法,都是基于体素化的方式,转换成BEV来做的,他们都实现了与原始点云方案的同等精度.比如centerpoint</p>
+<p>针对观点2,本工作做了对比试验,在一阶段检测器后面单独加上分类或者单独加上回归,以探究第二阶段究竟是哪里在起作用.结果表明分类的部分对一阶段的分类结果做了二次优化,并引起了显著的精度提升.而回归网络则是无显著作用.</p>
+<h2 id="网络结构">网络结构</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142812.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142812.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142812.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142812.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142812.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142812.png" /></p>
+<p>网络结构主要分为三部分,分别是voxel以及点云特征提取,BEV backbone以及heads</p>
+<h3 id="voxelization">Voxelization</h3>
+<p>同HorizonLidar3D.先进行体素化,取每个体素所有点的均值作为体素信息.然后使用稀疏卷积对体素化的点云提取特征.</p>
+<h3 id="bev-backbone">BEV Backbone</h3>
+<p>对于上述转换好的bev feature map,使用二维的backbone进一步学习特征.这里作者提出了self cali backbone.主要工作就是引入了**<a href="https://github.com/MCG-NKU/SCNet" target="_blank" rel="noopener noreffer">SCNet</a>**以增强一阶段检测器对特征的学习能力.网络结构如下.SCNet可以一定程度上增加网络的感受野以及实现通道级别的注意力机制.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142905.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142905.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142905.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142905.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142905.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323142905.png" /></p>
+<h3 id="heads">Heads</h3>
+<p>相比于AFDet中的五个head,本工作为了实现一阶段检测器对类别的优化,额外引入了一个head进行IOU的预测,实现IoU-aware confidence score prediction.然后将IOU的score与heatmap的score进行相乘,以抑制那些与回归不匹配的分数.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143015.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143015.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143015.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143015.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143015.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143015.png" /></p>
+<p>此外,还在训练阶段引入了一个辅助的head,用来计算keypoint,包括中心点以及周围四个点.这部分在测试阶段会被禁止掉.只是起到训练时辅助约束模型的作用.</p>
+<p>综上,共七个head,最终对所有head的输出做解码.得到三维的box</p>
+<h2 id="实验结果">实验结果</h2>
+<h3 id="单帧不加ensemble-waymo-val-set">单帧,不加ensemble waymo val set</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143102.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143102.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143102.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143102.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143102.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143102.png" /></p>
+<h3 id="waymo-test-set">waymo test set</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143047.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143047.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143047.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143047.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143047.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143047.png" /></p>
+<p>经过ensemble以及多帧之后,可以达到84,,差不多是3DAL的精度.tql</p>
+<h3 id="三个模块的消融实验">三个模块的消融实验</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143137.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143137.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143137.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143137.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143137.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323143137.png" /></p>
+<p>其他实验略,详见paper</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-23</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/afdetv2/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/afdetv2/" data-title="AFDetV2" data-hashtags="论文阅读"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/afdetv2/" data-hashtag="论文阅读"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/afdetv2/" data-title="AFDetV2" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/afdetv2/" data-title="AFDetV2"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/afdetv2/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/afdetv2/" data-title="AFDetV2"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/afdetv2/" data-title="AFDetV2" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/afdetv2/" data-title="AFDetV2" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/afdetv2/" data-title="AFDetV2"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/horizonlidar3d/" class="prev" rel="prev" title="HorizonLiDAR3D"><i class="fas fa-angle-left fa-fw"></i>HorizonLiDAR3D</a>
+            <a href="/%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%80%BB%E7%BB%93/" class="next" rel="next" title="工作流总结">工作流总结<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-THB0NH45ZM', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-THB0NH45ZM" async></script></body>
+</html>
