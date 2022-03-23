@@ -54,21 +54,21 @@
     <guid>http://shanjiayao.com/%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%80%BB%E7%BB%93/</guid>
     <description><![CDATA[<p>在平时的学习生活中，工具软件是我们必不可少的，我个人也热衷于探究各种新奇的软件APP，在这里总结一下平时学习生活涉及到的软件以及工作流。</p>]]></description>
 </item><item>
-    <title>AFDetV2</title>
+    <title>论文阅读04 AFDetV2</title>
     <link>http://shanjiayao.com/afdetv2/</link>
     <pubDate>Thu, 23 Dec 2021 11:55:16 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/afdetv2/</guid>
     <description><![CDATA[<p>AFDetV2是地平线在2021waymo挑战赛上夺冠方案。本文主要创新点有三：<code>self-calibrated block</code>, <code>keypoint auxiliary loss</code>,  <code>the IoU prediction branch</code></p>]]></description>
 </item><item>
-    <title>HorizonLiDAR3D</title>
+    <title>论文阅读之HorizonLiDAR3D</title>
     <link>http://shanjiayao.com/horizonlidar3d/</link>
     <pubDate>Thu, 16 Dec 2021 11:55:16 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/horizonlidar3d/</guid>
     <description><![CDATA[<p>本文是CVPR2020Waymo挑战赛的冠军方案，相比于AFDet，在数据增广、网络深度以及模型Ensemble等方面都做了改进。</p>]]></description>
 </item><item>
-    <title>AFDet</title>
+    <title>论文阅读03 AFDet</title>
     <link>http://shanjiayao.com/afdet/</link>
     <pubDate>Mon, 13 Dec 2021 11:55:16 &#43;0000</pubDate>
     <author>作者</author>

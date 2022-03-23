@@ -1,4 +1,4 @@
-# Part-A2
+# 论文阅读01 Part-A2
 
 
 本文是shaoshuai的3D点云检测工作，发表在TPAMI，融合了点在box中的位置分布规律, 通过这个位置约束确定更精准的box。

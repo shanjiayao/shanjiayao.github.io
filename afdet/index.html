@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>AFDet - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="AFDet" />
+        <title>论文阅读03 AFDet - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="论文阅读03 AFDet" />
 <meta property="og:description" content="本文是CVPR2020Waymo挑战赛的冠军方案的baseline，由地平线提出，整体结构与CenterPoint类似，是一种轻量化的baseline，其针对嵌入式平台做了优化，抛弃了传统的基于anchor的方法，将二维centernet以及cornernet的思想应用到三维，第一个提出三维anchor free以及nms free的方法。 后续地平线基于这个网络改进,提出了HorizonLiDAR3D 拿到了2020 3D Detection and Domain Adaptation的第一名" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://shanjiayao.com/afdet/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
 
-<meta name="twitter:title" content="AFDet"/>
+<meta name="twitter:title" content="论文阅读03 AFDet"/>
 <meta name="twitter:description" content="本文是CVPR2020Waymo挑战赛的冠军方案的baseline，由地平线提出，整体结构与CenterPoint类似，是一种轻量化的baseline，其针对嵌入式平台做了优化，抛弃了传统的基于anchor的方法，将二维centernet以及cornernet的思想应用到三维，第一个提出三维anchor free以及nms free的方法。 后续地平线基于这个网络改进,提出了HorizonLiDAR3D 拿到了2020 3D Detection and Domain Adaptation的第一名"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -24,7 +24,7 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "AFDet",
+        "headline": "论文阅读03 AFDet",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
@@ -104,7 +104,7 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">AFDet</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">论文阅读03 AFDet</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"><i class="far fa-folder fa-fw"></i>论文阅读</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-13">2021-12-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2208 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
@@ -290,7 +290,7 @@
                             <a class="link-to-markdown" href="/afdet/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/afdet/" data-title="AFDet" data-hashtags="论文阅读"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/afdet/" data-hashtag="论文阅读"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/afdet/" data-title="AFDet" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/afdet/" data-title="AFDet"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/afdet/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/afdet/" data-title="AFDet"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/afdet/" data-title="AFDet" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/afdet/" data-title="AFDet" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/afdet/" data-title="AFDet"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/afdet/" data-title="论文阅读03 AFDet" data-hashtags="论文阅读"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/afdet/" data-hashtag="论文阅读"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/afdet/" data-title="论文阅读03 AFDet" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/afdet/" data-title="论文阅读03 AFDet"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/afdet/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/afdet/" data-title="论文阅读03 AFDet"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/afdet/" data-title="论文阅读03 AFDet" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/afdet/" data-title="论文阅读03 AFDet" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/afdet/" data-title="论文阅读03 AFDet"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -303,7 +303,7 @@
     </div>
 
     <div class="post-nav"><a href="/python%E4%B8%AD%E7%9A%84%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA/" class="prev" rel="prev" title="Python中的奇奇怪怪"><i class="fas fa-angle-left fa-fw"></i>Python中的奇奇怪怪</a>
-            <a href="/horizonlidar3d/" class="next" rel="next" title="HorizonLiDAR3D">HorizonLiDAR3D<i class="fas fa-angle-right fa-fw"></i></a></div>
+            <a href="/horizonlidar3d/" class="next" rel="next" title="论文阅读之HorizonLiDAR3D">论文阅读之HorizonLiDAR3D<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
