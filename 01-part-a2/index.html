@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>论文阅读01 Part-A2 - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="论文阅读01 Part-A2" />
+<meta property="og:description" content="本文是shaoshuai的3D点云检测工作，发表在TPAMI，融合了点在box中的位置分布规律, 通过这个位置约束确定更精准的box。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/01-part-a2/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-16T11:55:16+00:00" />
+<meta property="article:modified_time" content="2021-03-16T11:55:16+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="论文阅读01 Part-A2"/>
+<meta name="twitter:description" content="本文是shaoshuai的3D点云检测工作，发表在TPAMI，融合了点在box中的位置分布规律, 通过这个位置约束确定更精准的box。"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/01-part-a2/" /><link rel="prev" href="http://shanjiayao.com/ubuntu_install/" /><link rel="next" href="http://shanjiayao.com/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "论文阅读01 Part-A2",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/01-part-a2\/"
+        },"genre": "posts","keywords": "论文阅读","wordcount":  1296 ,
+        "url": "http:\/\/shanjiayao.com\/01-part-a2\/","datePublished": "2021-03-16T11:55:16+00:00","dateModified": "2021-03-16T11:55:16+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/collections/"> 收集 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/collections/" title="">收集</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">论文阅读01 Part-A2</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"><i class="far fa-folder fa-fw"></i>论文阅读</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-03-16">2021-03-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1296 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#摘要">摘要</a></li>
+    <li><a href="#什么是intra-object-part-location">什么是intra-object part location</a></li>
+    <li><a href="#如何表述-intra-object-part-location">如何表述 intra-object part location?</a></li>
+    <li><a href="#如何用-intra-object-part-location">如何用 intra-object part location?</a>
+      <ul>
+        <li><a href="#1-part-aware-stage">1. Part-aware stage</a></li>
+        <li><a href="#2-part-aggregation-stage">2. Part-aggregation stage</a></li>
+      </ul>
+    </li>
+    <li><a href="#结果">结果</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本文是shaoshuai的3D点云检测工作，发表在TPAMI，融合了点在box中的位置分布规律, 通过这个位置约束确定更精准的box。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145250.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145250.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145250.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145250.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145250.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145250.png" /></p>
+<h2 id="简介">简介</h2>
+<ul>
+<li>论文：《From Points to Parts: 3D Object Detection from Point Cloud with Part-aware and Part-aggregation Network》</li>
+<li>作者：<em>Shaoshuai Shi, Zhe Wang, Jianping Shi, Xiaogang Wang, Hongsheng Li</em></li>
+<li>机构：<em>The Chinese University of Hong Kong, Hong Kong, China.</em></li>
+<li>论文水平：<em>TPAMI 2021</em></li>
+<li>关键词：<strong>intra-object part location</strong></li>
+<li>论文链接：<a href="https://arxiv.org/pdf/1907.03670.pdf" target="_blank" rel="noopener noreffer">paper</a> | <a href="https://github.com/open-mmlab/OpenPCDet" target="_blank" rel="noopener noreffer">code</a></li>
+<li>视频链接：<a href="https://www.bilibili.com/video/BV1E741177wr" target="_blank" rel="noopener noreffer">presentation</a></li>
+</ul>
+<h2 id="摘要">摘要</h2>
+<p>LiDAR 点云的 3D 对象检测是 3D 场景理解中的一个具有挑战性的问题，具有许多实际应用。在本文中，我们将我们的初步工作 PointRCNN 扩展到一个新颖且强大的基于点云的 3D 对象检测框架，即部分感知和聚合神经网络（Part-A2 网络）。整个框架由部分感知阶段和部分聚合阶段组成。首先，部分感知阶段首次充分利用从 3D 真实框派生的免费部分监督，同时预测高质量的 3D 提议和准确的对象内部位置得分。同一提案中预测的对象内部分位置由我们新设计的 RoI 感知点云池模块分组，从而有效地表示对每个 3D 提案的几何特定特征进行编码。然后，部分聚合阶段通过探索池化的对象内部分位置的空间关系来学习对框进行重新评分并细化框位置。进行了广泛的实验以证明我们提出的框架的每个组件的性能改进。我们的 Part-A2 网络优于所有现有的 3D 检测方法，并通过仅利用 LiDAR 点云数据在 KITTI 3D 对象检测数据集上实现了新的最新技术。</p>
+<h2 id="什么是intra-object-part-location">什么是intra-object part location</h2>
+<p>通过判断每个 object 内各个点的坐标与 box的位置关系, 得到每个点在物体中的相对位置关系, 提供了一个位置上的约束</p>
+<p>作者说,前景点也就是在框中的点,分布都是有规律的, 而背景点一般都是杂乱的, 所以可以通过这种点和box之间的关系来增强判别能力</p>
+<h2 id="如何表述-intra-object-part-location">如何表述 intra-object part location?</h2>
+<p>将当前的物体中的点云进行坐标变换, 如图, 一个顶点是 (0, 0, 0), 对角顶点是 (1, 1, 1)</p>
+<p>三个轴的坐标都映射到 [0, 1] 之间, 这样物体中每个点的分布一定都是 在[0, 1] 之间的, 就可以用来计算每个点分布的 label</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145801.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145801.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145801.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145801.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145801.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145801.png" /></p>
+<h2 id="如何用-intra-object-part-location">如何用 intra-object part location?</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145825.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145825.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145825.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145825.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145825.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145825.png" /></p>
+<h3 id="1-part-aware-stage">1. Part-aware stage</h3>
+<p>第一部分主要是将前景点分割出来, 并且预测前景点的 <strong>intra-object part location</strong> 还会初步预测 proposal</p>
+<ul>
+<li>
+<p>Sparse Convolution</p>
+<p>针对输入点云, 先体素化, 进行稀疏卷积</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145919.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145919.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145919.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145919.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145919.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145919.png" /></p>
+<p>可以看到, 体素化之后的网格与原始点云, 包含的信息几乎一致</p>
+<p>稀疏卷积相比于PointNet++, 会更快, 优化的更好</p>
+</li>
+<li>
+<p>Semantic segmentation + Intra-object part location</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145942.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145942.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145942.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145942.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145942.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323145942.png" /></p>
+<p>分割得到前景点</p>
+<p>预测前景点的 intra-object part location 信息</p>
+</li>
+<li>
+<p>Genarate 3D proposals to <strong>group</strong> the intra-object part locations for each 3D ROI</p>
+<p>两种生成proposal的策略:</p>
+<ol>
+<li>
+<p>Anchor-free</p>
+<p>利用分割分数作为 proposal 的大概分数</p>
+<p>较为简单, 对于小物体较为友好, 不需要下采样</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150008.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150008.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150008.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150008.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150008.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150008.png" /></p>
+</li>
+<li>
+<p>Anchor-Based</p>
+<p>将稀疏卷积编码之后的特征转换为 BEV 视角, 进而在俯视图上生成Anchor</p>
+<p>更高的 recall 更高的 performance</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150208.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150208.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150208.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150208.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150208.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150208.png" /></p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="2-part-aggregation-stage">2. Part-aggregation stage</h3>
+<p>第二部分就是使用 intra-object part location 以及分割信息等, 对生成的 proposal 进行精调</p>
+<p>第一阶段输出的信息有:</p>
+<p>point-wise features</p>
+<p>point-wise intra-object part locations</p>
+<p>3D proposals</p>
+<ul>
+<li>
+<p>ROI-aware point cloud region pooling</p>
+<p>进行框的预测, 打分以及 refine</p>
+<p>PointRCNN的方法可能存在歧义性, 相同的点可能产生不同的框</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150407.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150407.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150407.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150407.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150407.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150407.png" /></p>
+<p>这里会保留空的体素, 这样就相当与间接保留了物体的形状信息</p>
+</li>
+</ul>
+<h2 id="结果">结果</h2>
+<p>三个方向预测的 part location 平均误差为 6.28cm</p>
+<p>高度( Z )方向的误差一般较小, 容易预测一些</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150328.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150328.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150328.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150328.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150328.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150328.png" /></p>
+<p><strong>Failure Case</strong></p>
+<p>背景点与前景点的区分, 背景点与前景点相似情况下, 容易误检测</p>
+<p>3D IOU的评价对于定位结果较为敏感</p>
+<p>检测准确率还是较高的, 只有4.5% 的概率误检测</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150432.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150432.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150432.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150432.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150432.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150432.png" /></p>
+<p>可视化结果</p>
+<p>前景物体点的颜色越靠近 corner, 颜色越接近corner的颜色</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150603.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150603.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150603.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150603.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150603.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220323150603.png" /></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-03-16</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/01-part-a2/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/01-part-a2/" data-title="论文阅读01 Part-A2" data-hashtags="论文阅读"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/01-part-a2/" data-hashtag="论文阅读"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/01-part-a2/" data-title="论文阅读01 Part-A2" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/01-part-a2/" data-title="论文阅读01 Part-A2"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/01-part-a2/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/01-part-a2/" data-title="论文阅读01 Part-A2"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/01-part-a2/" data-title="论文阅读01 Part-A2" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/01-part-a2/" data-title="论文阅读01 Part-A2" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/01-part-a2/" data-title="论文阅读01 Part-A2"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/ubuntu_install/" class="prev" rel="prev" title="ubuntu18_04升级记录"><i class="fas fa-angle-left fa-fw"></i>ubuntu18_04升级记录</a>
+            <a href="/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/" class="next" rel="next" title="总结数组与链表的区别[转载]">总结数组与链表的区别[转载]<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-THB0NH45ZM', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-THB0NH45ZM" async></script></body>
+</html>
