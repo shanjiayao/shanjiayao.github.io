@@ -5,9 +5,6 @@ Transformer在CV任务中的应用已经得到了很多工作的验证，但是�
 
 <!--more-->
 
-![tp.web.random_picture](https://images.unsplash.com/photo-1439853949127-fa647821eba0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=1080&ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlLHdhdGVyfHx8fHx8MTY0ODAzNTk3Ng&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1920)
-
-
 ## 简介
 
 -   论文：《PVT: Point-Voxel Transformer for Point Cloud Learning》
