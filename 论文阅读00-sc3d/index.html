@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>论文阅读00 SC3D - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="论文阅读00 SC3D" />
+<meta property="og:description" content="《Leveraging_Shape_Completion_for_3D_Siamese_Tracking》论文&amp;代码阅读" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB00-sc3d/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-06-26T16:10:19+00:00" />
+<meta property="article:modified_time" content="2020-06-26T16:10:19+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="论文阅读00 SC3D"/>
+<meta name="twitter:description" content="《Leveraging_Shape_Completion_for_3D_Siamese_Tracking》论文&amp;代码阅读"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB00-sc3d/" /><link rel="prev" href="http://shanjiayao.com/git%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" /><link rel="next" href="http://shanjiayao.com/%E5%AE%89%E8%A3%85docker/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "论文阅读00 SC3D",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB00-sc3d\/"
+        },"genre": "posts","keywords": "论文阅读","wordcount":  6894 ,
+        "url": "http:\/\/shanjiayao.com\/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB00-sc3d\/","datePublished": "2020-06-26T16:10:19+00:00","dateModified": "2020-06-26T16:10:19+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/collections/"> 收集 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/collections/" title="">收集</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">论文阅读00 SC3D</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"><i class="far fa-folder fa-fw"></i>论文阅读</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-06-26">2020-06-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6894 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 14 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#论文摘要">论文摘要</a></li>
+    <li><a href="#论文解读">论文解读</a>
+      <ul>
+        <li><a href="#1-网络框架">1. 网络框架</a></li>
+        <li><a href="#2-模型的训练">2. 模型的训练</a></li>
+        <li><a href="#4-模型的测试">4. 模型的测试</a></li>
+      </ul>
+    </li>
+    <li><a href="#代码阅读">代码阅读</a>
+      <ul>
+        <li><a href="#1-class-kittidataset">1. <em>class kittiDataset()</em></a></li>
+        <li><a href="#2-class-siamesedatasetdataset">2. <em>class SiameseDataset(Dataset)</em></a></li>
+        <li><a href="#3-class-siamesetrainsiamesedataset">3. <em><strong>class SiameseTrain(SiameseDataset)</strong></em></a></li>
+        <li><a href="#4-class-siamesetestsiamesedataset">4. <em>class SiameseTest(SiameseDataset)</em></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>《Leveraging_Shape_Completion_for_3D_Siamese_Tracking》论文&amp;代码阅读</p>
+<h2 id="简介">简介</h2>
+<ul>
+<li>作者：<em>Silvio Giancola</em>, Jesus Zarzar*, and Bernard Ghanem*</li>
+<li>机构：<em>King Abdullah University of Science and Technology (KAUST)</em></li>
+<li>论文水平：<strong>CVPR19</strong></li>
+<li>关键词：<strong>Shape Completion &amp;&amp; Siamese Tracker &amp;&amp; Model Update</strong></li>
+</ul>
+<p><a href="https://github.com/SilvioGiancola/ShapeCompletion3DTracking" target="_blank" rel="noopener noreffer">代码</a>  |  <a href="https://www.youtube.com/watch?v=2-NAaWSSrGA" target="_blank" rel="noopener noreffer">视频</a></p>
+<h2 id="论文摘要">论文摘要</h2>
+<p>本文提出了一种基于形状补全网络以及孪生网络的单目标跟踪器，借鉴了《Learning representations and generative models for 3d point clouds 》这篇论文的思想，将形状补全网络中的自编码器融入到孪生网络的框架中，使用自编码器的编码结构作为孪生网络的特征提取网络，通过编码之后解码这一过程将形状补全损失加入进来，训练编码器网络，使其编码的特征带有形状信息，更好的用于孪生网络的匹配。</p>
+<h2 id="论文解读">论文解读</h2>
+<h3 id="1-网络框架">1. 网络框架</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-25-32-2021-07-05-10-25-23-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-25-32-2021-07-05-10-25-23-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-25-32-2021-07-05-10-25-23-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-25-32-2021-07-05-10-25-23-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-25-32-2021-07-05-10-25-23-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-25-32-2021-07-05-10-25-23-image.png" /></p>
+<p>如图所示，整体的网络架构分为两部分， 分别是自编码器网络和孪生网络，自编码器就是将输入编码再解码得到形状更加丰富的点云, 孪生网络就是使用编码器的输出向量计算相似度. 网络的具体描述如下:</p>
+<p><strong>自编码器网络</strong>是借鉴形状补全网络的思想，对输入的一组模板点云(<em>Model Shape</em>)以及一组搜索点云(<em>Candidate Shapes</em>)进行编码(<strong>Φ</strong>)和解码(<strong>Ψ</strong>)，二者组成了自编码器。实际上，代码中作者只用了三层一维卷积作为编码器，将输入的(<strong>B, 3, 2048</strong>)维度的点云编码为(<strong>1, 128</strong>)维度的向量形式的潜在表述，进而通过两层的全连接层，将(<strong>1, 128</strong>)的向量输出为(<strong>1, 6144</strong>), 进而<strong>reshape</strong>为(<strong>3, 2048</strong>)作为解码器的输出。使用自编码器的作用在于，通过训练，构建形状补全损失(<em>Shape Completion Loss</em>)，进而让网络学习如何通过自编码来得到相对于输入点云的更好的形状表述，同时让编码器编码得到的向量拥有点云的几何形状信息， 也让解码器解码得到的点云对应的 <em>bbox</em> 更加精准。 编码器产生的带有形状信息的向量也对后面的孪生网络计算相似度有帮助。</p>
+<p><strong>孪生网络</strong>在本文中由两个编码器网络组成，输入的两组点云通过相同的编码器网络，输出两个代表着潜在几何信息的向量，对这两个向量进行相似度度量，就可以得到相似度最大的 <em>Candidate pc</em>，本文使用的是余弦相似度，孪生网络对应的跟踪损失是均方差损失(<em>MSE Loss</em>)。</p>
+<p>这里还有一点要说明的是，因为本论文的主要目的是做跟踪，所以作者强调网络的主要结构是孪生网络，自编码网络只是帮助孪生网络的相似度计算更加精准。</p>
+<h3 id="2-模型的训练">2. 模型的训练</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-25-38-2021-07-05-10-25-32-image.png"
+        data-srcset="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-25-38-2021-07-05-10-25-32-image.png, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-25-38-2021-07-05-10-25-32-image.png 1.5x, https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-25-38-2021-07-05-10-25-32-image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-25-38-2021-07-05-10-25-32-image.png"
+        title="https://raw.githubusercontent.com/shmilywh/PicturesForBlog/master/2021/07/05-10-25-38-2021-07-05-10-25-32-image.png" /></p>
+<p>Example of model completion</p>
+<p><strong>输入输出分别是什么?</strong></p>
+<p>在训练阶段，网络的两个输入维度都是(1, 3, 2048)，经过 <em>model</em> 得到的输出是</p>
+<ol>
+<li>当前搜索点云与模板点云的相似度: 其实也就是孪生网络的输出, 用来计算相似度损失</li>
+<li>自编码之后的点云: 自编码器的输出, 输出维度也是(3, 2048), 可以用来计算形状补全损</li>
+</ol>
+<p><strong>输入的模板点云与搜索点云如何确定?</strong></p>
+<p><em>Model Shape</em> 是一个特定的 <em>track_id</em> 对应的所有帧的点云级联而成，级联之后还需要下采样到2048个点，以和模型的输入尺寸对齐，进而作为这一次训练的模板点云。</p>
+<p><em>Candidate Shapes</em> 则是在某一帧的真值框附近根据 <em>Kalman filter</em> 采样生成的一定数量的候选框内的点云，比如当前帧是1，采样数量是125，那么输入给 <em>data_loader</em> 的参数就会是 0-124 之间， 如果输入57，代表的就是在第一帧点云真值框附近，采样得到的第58个框，框中对应的点云作为这一次训练的搜索点云。</p>
+<p>👉🏿 <strong>Loss是如何定义的?</strong></p>
+<p>在SC3D中, 总体的loss包括两部分, 第一个就是计算编码向量之间的相似度, 进而求得的相似度损失，这里其实就是典型的孪生网络结构，用两个编码器作为特征提取的网络，计算得到的向量之间的相似度，值得一提的是，本文在训练阶段使用的模板点云是一个序列所有帧级联之后下采样得到的点云，这样得到的点云形状信息更加完整，相比于以往的使用孪生网络跟踪的方法，这种方式可以尝试下，个人感觉应该能一定程度上解决三维点云感知中点云稀疏性带来的问题。(因为相当于训练时模板信息较为丰富，特征较为完整，进而提高搜索点云与模板点云之间的相似度)</p>
+<p>第二个损失是算模型的形状完成损失，作者想让自编码器网络具有能够补全输入点云的形状的能力, 那么就需要在训练阶段通过监督信号不断纠正网络的学习结果, 让网络能够学习到足够匹配的参数, 进而达到形状补全的目的, 所以这里作者加了一个形状补全损失, 用来让模型拥有补全形状的能力。        在做 <em>loss</em> 回传时，取两种损失的加权和，如下：</p>
+<pre><code> loss = loss1 + lambda_completion * loss2
+</code></pre>
+<h3 id="4-模型的测试">4. 模型的测试</h3>
+<p><strong>输入输出分别是什么?</strong></p>
+<p>与训练不同，测试阶段模型的输入是一组数据，前文也提到了测试数据集的构建以及搜索框的生成策略，测试阶段是将生成的一组 <em>Candidate PCs</em> 级联到一起，<em>Model PC</em>则是根据不同的策略更新之后，与 <em>Candidate PCs</em> 的维度对齐(其实就是将 <em>Model PC</em> 重复了若干次)，所以将这两组数据一起输入给网络。</p>
+<p>输出得到的相似度得分同样是一组，在这一组得分中选择分数最高的，根据对应的id找到在 <em>Candidate Boxes</em> 中的<em>Bbox</em>， 作为当前帧的搜索结果，这样就完成了一次测试的过程。</p>
+<p><strong>输入的模板点云与搜索点云如何确定?</strong></p>
+<p>在测试阶段，第一帧的 <em>Model Shape</em> 是由真值得到的，并且只有一帧的数据，在后续帧中不断融合新的信息，这里的数据融合分为两种思路，要么融合点云，要么融合编码之后的向量，作者提出融合 <em>latent vector</em> 会降低内存的消耗，但是论文给出的测试数据显然融合点云更为精准。对于融合之后如何更新模板点云，可以选定第一帧、选定前一帧或者选定前面所有帧进行级联，如果选择融合向量，同样有不同的融合方案，详见代码</p>
+<p>Candidate Shapes 的选择同样也有几种不同的方案，因为作者提出的更新搜索空间的方式，是基于某一帧的bbox，在其周围根据不同的方式(<em>KalmanFilteringr / GaussianMixtureModel / ParticleFiltering / ExhaustiveSearch</em>) 生成若干个 *Candidate boxes，*而这个bbox的选取也有三种方式，分别是取前一帧的跟踪结果，前一帧的真值以及当前帧的真值来计算 *Candidate boxes，*详见代码</p>
+<p><strong>测试结果如何得到？</strong></p>
+<p>得到相似度向量，取得分最高的 <em><strong>id</strong></em>，就可以找到在搜索点云中对应的 <em><strong>id</strong></em>，这样就可以把这个 <em><strong>id</strong></em> 对应的 <em><strong>bbox</strong></em> 作为最终的跟踪结果。</p>
+<h2 id="代码阅读">代码阅读</h2>
+<h3 id="1-class-kittidataset">1. <em>class kittiDataset()</em></h3>
+<ol>
+<li>
+<p><em><strong>getSceneID(self, split):</strong></em></p>
+<p>针对 Kitti 数据集的 <em>tracking</em>下的序列，将 <em>train</em>下的 00-16 作为了训练集， 17-18作为验证集，19-20作为测试集</p>
+</li>
+<li>
+<p><em><strong>getListOfAnno(self, sceneID, category_name=&ldquo;Car&rdquo;):</strong></em></p>
+<ul>
+<li>
+<p>获取 scene 列表，然后遍历每一个 scene，得到对应的label</p>
+<ul>
+<li>
+<p>先通过 pandas 读取label，存为 Dataframe格式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">label_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">KITTI_label</span><span class="p">,</span> <span class="n">scene</span> <span class="o">+</span> <span class="s2">&#34;.txt&#34;</span><span class="p">)</span>
+            <span class="c1">#读取标签txt文件</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+                <span class="n">label_file</span><span class="p">,</span>
+                <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span>
+                <span class="n">names</span><span class="o">=</span><span class="p">[</span>
+                    <span class="s2">&#34;frame&#34;</span><span class="p">,</span> <span class="s2">&#34;track_id&#34;</span><span class="p">,</span> <span class="s2">&#34;type&#34;</span><span class="p">,</span> <span class="s2">&#34;truncated&#34;</span><span class="p">,</span> <span class="s2">&#34;occluded&#34;</span><span class="p">,</span>
+                    <span class="s2">&#34;alpha&#34;</span><span class="p">,</span> <span class="s2">&#34;bbox_left&#34;</span><span class="p">,</span> <span class="s2">&#34;bbox_top&#34;</span><span class="p">,</span> <span class="s2">&#34;bbox_right&#34;</span><span class="p">,</span>
+                    <span class="s2">&#34;bbox_bottom&#34;</span><span class="p">,</span> <span class="s2">&#34;height&#34;</span><span class="p">,</span> <span class="s2">&#34;width&#34;</span><span class="p">,</span> <span class="s2">&#34;length&#34;</span><span class="p">,</span> <span class="s2">&#34;x&#34;</span><span class="p">,</span> <span class="s2">&#34;y&#34;</span><span class="p">,</span> <span class="s2">&#34;z&#34;</span><span class="p">,</span>
+                    <span class="s2">&#34;rotation_y&#34;</span>
+                <span class="p">])</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>筛选出当前跟踪的类别</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;type&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="n">category_name</span><span class="p">]</span>  <span class="c1"># 筛选出类别是car的标签</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>在label中插入 scene</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s2">&#34;scene&#34;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">scene</span><span class="p">)</span>  <span class="c1"># 在标签中插入一列表示这是哪个场景</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>遍历 Dataframe 中的每一个 id，将所有帧的label 根据不同的 track_id 进行存储</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">for</span> <span class="n">track_id</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">track_id</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+        <span class="c1"># 找到所有属于当前id的数据,保留下来</span>
+        <span class="n">df_tracklet</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;track_id&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="n">track_id</span><span class="p">]</span>
+        <span class="c1"># 因为行标签(行号)在前面的筛选中错乱了,这里重置一下,避免不必要的错误</span>
+        <span class="c1"># drop=True: 把原来的索引index列去掉，丢掉。</span>
+        <span class="c1"># drop=False: 保留原来的索引（以前的可能是乱的）</span>
+        <span class="n">df_tracklet</span> <span class="o">=</span> <span class="n">df_tracklet</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># 使用df_tracklet.iterrows() 来进行迭代的生成, 返回值是对应的行号以及标签,这里舍弃行号,只保留了标签信息</span>
+        <span class="n">tracklet_anno</span> <span class="o">=</span> <span class="p">[</span><span class="n">anno</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">anno</span> <span class="ow">in</span> <span class="n">df_tracklet</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()]</span>
+        <span class="c1"># 再存进列表中</span>
+        <span class="n">list_of_tracklet_anno</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tracklet_anno</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>注意：这里遍历结束之后,因为循环时是取 df.track_id.unique() 中的元素, 其没有固定的排列顺序,所以得到的 list_of_tracklet_anno 的索引,与track_id没什么关系</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><em><strong>getBBandPC(self, anno):</strong></em></p>
+<ul>
+<li>根据传入的label标签，得到calib文件，以及对应的 transf_mat</li>
+<li>根据 anno 和 transf_mat 读取对应的点云以及 box</li>
+</ul>
+</li>
+<li>
+<p><em><strong>getPCandBBfromPandas(self, anno, calib):</strong></em></p>
+<ul>
+<li>
+<p>根据 label 以及 transf_mat 矩阵（传入的calib实际上就是 transf_mat 矩阵）得到整帧点云和box</p>
+</li>
+<li>
+<p>这里将点云和box抽象成了两个类，将读取到的数据以这两个类的形式存储，便于后面处理</p>
+<ul>
+<li>
+<p>PointCloud 类</p>
+<p>通过点云数据创建，点云的shape是（4，n）注意这里直接将点云进行了transform，<strong>坐标系变换为相机坐标系</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">velodyne_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">KITTI_velo</span><span class="p">,</span> <span class="n">anno</span><span class="p">[</span><span class="s2">&#34;scene&#34;</span><span class="p">],</span>
+                             <span class="s1">&#39;</span><span class="si">%06d</span><span class="s1">.bin&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">anno</span><span class="p">[</span><span class="s2">&#34;frame&#34;</span><span class="p">]))</span> <span class="c1">#f&#39;{box[&#34;frame&#34;]:06}.bin&#39;)</span>
+<span class="c1">#从点云的.bin文件中读取点云数据并且转换为4*x的矩阵，且去掉最后的一行的点云的密度表示数据</span>
+<span class="n">PC</span> <span class="o">=</span> <span class="n">PointCloud</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="n">velodyne_path</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="c1">#将点云转换到相机坐标系下　因为label中的坐标和h,w,l在相机坐标系下的</span>
+<span class="n">PC</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">calib</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Box 类</p>
+<p>通过（center，size，orientation）创建，这里将读取到 yaw角转换成了四元数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">center</span> <span class="o">=</span> <span class="p">[</span><span class="n">anno</span><span class="p">[</span><span class="s2">&#34;x&#34;</span><span class="p">],</span> <span class="n">anno</span><span class="p">[</span><span class="s2">&#34;y&#34;</span><span class="p">]</span> <span class="o">-</span> <span class="n">anno</span><span class="p">[</span><span class="s2">&#34;height&#34;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">anno</span><span class="p">[</span><span class="s2">&#34;z&#34;</span><span class="p">]]</span>
+<span class="n">size</span> <span class="o">=</span> <span class="p">[</span><span class="n">anno</span><span class="p">[</span><span class="s2">&#34;width&#34;</span><span class="p">],</span> <span class="n">anno</span><span class="p">[</span><span class="s2">&#34;length&#34;</span><span class="p">],</span> <span class="n">anno</span><span class="p">[</span><span class="s2">&#34;height&#34;</span><span class="p">]]</span>
+<span class="c1">#下面这个函数是将roy角转换成四元数吧</span>
+<span class="n">orientation</span> <span class="o">=</span> <span class="n">Quaternion</span><span class="p">(</span>
+    <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">radians</span><span class="o">=</span><span class="n">anno</span><span class="p">[</span><span class="s2">&#34;rotation_y&#34;</span><span class="p">])</span> <span class="o">*</span> <span class="n">Quaternion</span><span class="p">(</span>
+        <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">radians</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1"># 用中心点坐标和w,h,l以及旋转角来初始化BOX这个类</span>
+<span class="n">BB</span> <span class="o">=</span> <span class="n">Box</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">orientation</span><span class="p">)</span> 
+</code></pre></td></tr></table>
+</div>
+</div><p>注意：kitti数据集的坐标系定义为</p>
+<ul>
+<li>
+<p>y轴向下为正，并且center是底面的中心（向下为正，所以也就是上面的中心）</p>
+</li>
+<li>
+<p>这里计算center的时候，计算的是box的中心，所以y方向坐标减去了半个高度，也是方便后续corners的计算</p>
+</li>
+<li>
+<p>Box类中存放了四元数作为角度，也可以调用类中的属性 rotation_matrix 返回对应的角度</p>
+</li>
+<li>
+<p>Box类中也有返回 corners 坐标的方法，返回（3，8）的坐标值</p>
+<p>这里的corners方法，分为以下三步</p>
+<ul>
+<li>根据长宽高，建立一个坐标在原点的 box</li>
+<li>根据 rotation_matrix 将box旋转对应的角度</li>
+<li>根据 center 的坐标将box平移至对应位置，这样就得到了最终的带有角度的corners</li>
+</ul>
+</li>
+<li>
+<p>Box类中还有一些操作，旋转、坐标系变换、平移等</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="2-class-siamesedatasetdataset">2. <em>class SiameseDataset(Dataset)</em></h3>
+<ul>
+<li>
+<p>list_of_tracklet_anno</p>
+<p>装有所有 scene 下的每个track_id 的 label</p>
+</li>
+<li>
+<p>list_of_anno</p>
+<p>获取所有标签，不考虑track_id：根据得到的 <em>self</em>**.<strong><em>list_of_tracklet_anno</em>， 不论 <em>id</em>， 把每一帧的数据顺序放入一个列表中，得到 <em>self</em></strong>.<em><em><em>list_of_anno</em>， 这里的 <em>self</em></em>.<em><em>list_of_anno</em> 就是把 <em>list_of_tracklet_anno</em> 的 <em>shape</em> 从(<em>track_id</em>, <em>frames</em>) 变成 (<em>track_id</em></em></em>frames*, )</p>
+</li>
+</ul>
+<hr>
+<h3 id="3-class-siamesetrainsiamesedataset">3. <em><strong>class SiameseTrain(SiameseDataset)</strong></em></h3>
+<ul>
+<li>
+<p>SiameseTrain</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">SiameseTrain</span><span class="p">(</span><span class="n">SiameseDataset</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">    用来训练SC3D的数据集, 几个重要函数说明如下:
+</span><span class="s2">    __init__ : 初始化各种参数,并且获得list_of_BBs以及list_of_PCs,注意这里的list_of_PCs指的是bbox中的点云,不是整帧点云
+</span><span class="s2">    __getitem__ : 调用getitem, 这里就是根据传入的index获得对应的训练数据并返回
+</span><span class="s2">    __len__ : 获取数据集的长度, 这里将实际的长度乘了一个数字, 这个数字是在每一帧的搜索区域周围生成候选区域的数量
+</span><span class="s2">
+</span><span class="s2">    几个重要数据说明如下:
+</span><span class="s2">    num_candidates_perframe: [Int]在当前搜索点云框周围生成的候选框的数量
+</span><span class="s2">    list_of_anno: [List] 存放label的列表, 里面有 track_id*frames 个数据, 按顺序从第一个序列的第一个track_id开始,存放每一帧的label
+</span><span class="s2">    model_PC: [List] 存放模板点云的列表, 里面有 track_id 个PointCloud类的点云数据,将每一个id的所有帧级联在一起作为模板
+</span><span class="s2">    list_of_PCs: [List] 存放搜索点云的列表, 里面有 track_id*frames 个点云数据, 这里的不是整帧点云,是bbox内的点云
+</span><span class="s2">    list_of_BBs: [List] 存放label的列表, 里面有 track_id*frames 个label数据,对应label文件中的一行label数据
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">model</span><span class="p">,</span>
+                 <span class="n">path</span><span class="p">,</span>
+                 <span class="n">output</span><span class="p">,</span>
+                 <span class="n">split</span><span class="o">=</span><span class="s2">&#34;&#34;</span><span class="p">,</span>
+                 <span class="n">category_name</span><span class="o">=</span><span class="s2">&#34;Car&#34;</span><span class="p">,</span>
+                 <span class="n">regress</span><span class="o">=</span><span class="s2">&#34;GAUSSIAN&#34;</span><span class="p">,</span>
+                 <span class="n">sigma_Gaussian</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                 <span class="n">offset_BB</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">scale_BB</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+            <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span>
+            <span class="n">category_name</span><span class="o">=</span><span class="n">category_name</span><span class="p">,</span>
+            <span class="n">regress</span><span class="o">=</span><span class="n">regress</span><span class="p">,</span>
+            <span class="n">offset_BB</span><span class="o">=</span><span class="n">offset_BB</span><span class="p">,</span>
+            <span class="n">scale_BB</span><span class="o">=</span><span class="n">scale_BB</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma_Gaussian</span> <span class="o">=</span> <span class="n">sigma_Gaussian</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offset_BB</span> <span class="o">=</span> <span class="n">offset_BB</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale_BB</span> <span class="o">=</span> <span class="n">scale_BB</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates_perframe</span> <span class="o">=</span> <span class="mi">147</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;preloading PC...&#34;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list_of_PCs</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_of_anno</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list_of_BBs</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_of_anno</span><span class="p">)</span>
+        <span class="c1"># 遍历,找到每一帧对应的label</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_of_anno</span><span class="p">))):</span>
+            <span class="n">anno</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_of_anno</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+            <span class="c1"># NOTE 获取对应的点云和bbox信息,注意这里的点云是整帧点云!</span>
+            <span class="n">PC</span><span class="p">,</span> <span class="n">box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getBBandPC</span><span class="p">(</span><span class="n">anno</span><span class="p">)</span>
+            <span class="c1"># 将得到的点云处理,通过bbox,裁剪出在bbox里面的点,这里扩充了点云的边界</span>
+            <span class="n">new_PC</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">cropPC</span><span class="p">(</span><span class="n">PC</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+            <span class="c1"># NOTE 将所有帧中的bbox以及bbox中的点云存成列表,这里的所有帧指的是不考虑track_id的情况,全部的点云帧</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">list_of_PCs</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_PC</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">list_of_BBs</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">box</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;PC preloaded!&#34;</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;preloading Model..&#34;</span><span class="p">)</span>
+        <span class="c1"># 将一个track_id轨迹中的所有帧的点云汇集到一个bbox下，作为模板点云， 也就是这里的 self.model_PC</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_PC</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_of_tracklet_anno</span><span class="p">)</span>
+
+        <span class="c1"># 遍历每一个track_id 这里的 len(self.list_of_tracklet_anno) 就是track_id的种类数量</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_of_tracklet_anno</span><span class="p">))):</span>
+            <span class="n">list_of_anno</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_of_tracklet_anno</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">PCs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">BBs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="c1"># 遍历同一个track_id下的每一帧</span>
+            <span class="k">for</span> <span class="n">anno</span> <span class="ow">in</span> <span class="n">list_of_anno</span><span class="p">:</span>
+                <span class="c1">#　获取整帧点云以及bbox信息</span>
+                <span class="n">this_PC</span><span class="p">,</span> <span class="n">this_BB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getBBandPC</span><span class="p">(</span><span class="n">anno</span><span class="p">)</span>
+                <span class="n">PCs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_PC</span><span class="p">)</span>
+                <span class="n">BBs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_BB</span><span class="p">)</span>
+                <span class="c1"># NOTE model_idx相当于是track_id, 但是不同, 其代表着排序之后的索引,每一个索引对应一个track_id, 但是具体对应哪个id, 随机</span>
+                <span class="n">anno</span><span class="p">[</span><span class="s2">&#34;model_idx&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="c1"># reletive_idx相当于是对每一帧进行编号,一个轨迹序列的开始到结束</span>
+                <span class="n">anno</span><span class="p">[</span><span class="s2">&#34;relative_idx&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cnt</span>
+                <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="c1"># 通过这个函数获取模板点云, 模板点云是将同一个track_id的所有点云帧的bbox中的点云级联在一起的</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_PC</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">getModelAndSave</span><span class="p">(</span><span class="n">PCs</span><span class="p">,</span> <span class="n">BBs</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">offset_BB</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scale_BB</span><span class="p">,</span>
+                                        <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">category_name</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="n">category_name</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Model preloaded!&#34;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getitem</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getAnnotationIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="c1"># 每一个anno对应num_candidates_perframe个index, 所以需要除以num_candidates_perframe</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">index</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates_perframe</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getSearchSpaceIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="c1"># 计算搜索空间的id,其实这个id没什么实际意义,如果非零, 那么代表当前这一批的搜索空间的序号</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">index</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates_perframe</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getPCandBBfromIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">anno_idx</span><span class="p">):</span>
+        <span class="n">this_PC</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_of_PCs</span><span class="p">[</span><span class="n">anno_idx</span><span class="p">]</span>
+        <span class="n">this_BB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_of_BBs</span><span class="p">[</span><span class="n">anno_idx</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">this_PC</span><span class="p">,</span> <span class="n">this_BB</span>
+
+    <span class="c1"># NOTE 这里传入的index, 实际上取决于构建的数据集的长度,在这个数据集类中,__len__对应的长度是将所有点云帧的长度乘以了 num_candidates_perframe</span>
+    <span class="c1"># NOTE num_candidates_perframe的含义就是 &#34;要生成的候选区域的数量&#34;, 而传入的index就是按照点云帧长度乘以num_candidates_perframe来计算的</span>
+    <span class="c1"># NOTE 所以在通过index计算对应的label以及搜索空间的索引时,需要将index的数值除以 num_candidates_perframe</span>
+    <span class="k">def</span> <span class="nf">getitem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="s2">&#34;&#34;&#34;根据index的传入,计算并得到 当前的点云(this_pc)\候选区域的点云(sample_pc)\上一帧的点云(gt_pc)\一整个序列的点云(model_pc)
+</span><span class="s2">        几个重要的变量说明如下:
+</span><span class="s2">            anno_idx: 搜索点云的id, 通过传入的index计算得到, 用来得到搜索点云的label以及bbox等信息
+</span><span class="s2">            sample_idx: 搜索空间的id, 用来计算sample_offsets,如果不是0,就需要通过滤波方法计算sample_offsets
+</span><span class="s2">            sample_offsets: 在搜索点云的周围采样一定数量的bbox, 这个offset相当于是一个偏置, 可以根据offset的值来计算当前搜索点云框周围的候选框
+</span><span class="s2">        &#34;&#34;&#34;</span>
+        <span class="c1"># 得到id</span>
+        <span class="n">anno_idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAnnotationIndex</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">sample_idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSearchSpaceIndex</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+        <span class="c1"># 计算得到sample_offsets</span>
+        <span class="k">if</span> <span class="n">sample_idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">sample_offsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># PROBLEM 这里如何得到采样偏置的?具体没太看懂</span>
+            <span class="n">gaussian</span> <span class="o">=</span> <span class="n">KalmanFiltering</span><span class="p">(</span><span class="n">bnd</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+            <span class="n">sample_offsets</span> <span class="o">=</span> <span class="n">gaussian</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># 搜索点云的label</span>
+        <span class="n">this_anno</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_of_anno</span><span class="p">[</span><span class="n">anno_idx</span><span class="p">]</span>
+
+        <span class="c1"># NOTE 由于前面处理的方法, this_pc的边界比bbox的大小要大,所以后续得到的各种点云(sample_pc, gt_PC等都需要根据bbox重新裁剪)</span>
+        <span class="c1"># 得到当前帧搜索点云中的bbox以及bbox中的点云</span>
+        <span class="n">this_PC</span><span class="p">,</span> <span class="n">this_BB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPCandBBfromIndex</span><span class="p">(</span><span class="n">anno_idx</span><span class="p">)</span>
+
+        <span class="c1"># 根据当前的bbox以及offset, 创建搜索候选框</span>
+        <span class="n">sample_BB</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">getOffsetBB</span><span class="p">(</span><span class="n">this_BB</span><span class="p">,</span> <span class="n">sample_offsets</span><span class="p">)</span>
+
+        <span class="c1"># 根据得到的搜索候选框, 从当前搜索点云中根据搜索候选框裁剪出候选区域的点云</span>
+        <span class="n">sample_PC</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">cropAndCenterPC</span><span class="p">(</span>
+            <span class="n">this_PC</span><span class="p">,</span> <span class="n">sample_BB</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">offset_BB</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scale_BB</span><span class="p">)</span>
+
+        <span class="c1"># 这里做了一个处理,如果采样得到的点云数量小于20, 那么随机选一个在(0,  self.__len__())之间的整数再输入,重新采样</span>
+        <span class="k">if</span> <span class="n">sample_PC</span><span class="o">.</span><span class="n">nbr_points</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">20</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getitem</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()))</span>
+        <span class="c1"># 对采样的点云进行标准化, 得到torch型的张量, 这里因为输出的是 (1, 3, N), 所以取0</span>
+        <span class="n">sample_PC</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">regularizePC</span><span class="p">(</span><span class="n">sample_PC</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># 判断当前的id属于轨迹中的那一帧,如果是0, 意味着是第一帧, 那么前一帧设置为0, 否则就是当前帧减1</span>
+        <span class="k">if</span> <span class="n">this_anno</span><span class="p">[</span><span class="s2">&#34;relative_idx&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">prev_idx</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">prev_idx</span> <span class="o">=</span> <span class="n">anno_idx</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="c1"># 根据前一帧的id,计算对应的点云以及bbox, 并作中心化,作为真值groud-truth, 后来再进行点云数量的判断,以及尺寸标准化</span>
+        <span class="n">gt_PC</span><span class="p">,</span> <span class="n">gt_BB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPCandBBfromIndex</span><span class="p">(</span><span class="n">prev_idx</span><span class="p">)</span>
+        <span class="n">gt_PC</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">cropAndCenterPC</span><span class="p">(</span>
+            <span class="n">gt_PC</span><span class="p">,</span> <span class="n">gt_BB</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">offset_BB</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scale_BB</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">gt_PC</span><span class="o">.</span><span class="n">nbr_points</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">20</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getitem</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()))</span>
+        <span class="n">gt_PC</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">regularizePC</span><span class="p">(</span><span class="n">gt_PC</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># 根据之前计算的model_idx获得当前track_id的model_pc, 因为点云数量比较多,所以没有进行数量判断</span>
+        <span class="n">model_idx</span> <span class="o">=</span> <span class="n">this_anno</span><span class="p">[</span><span class="s2">&#34;model_idx&#34;</span><span class="p">]</span>
+        <span class="n">model_PC</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_PC</span><span class="p">[</span><span class="n">model_idx</span><span class="p">]</span>
+        <span class="n">model_PC</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">regularizePC</span><span class="p">(</span>
+            <span class="n">model_PC</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="s2">&#34;IOU&#34;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">regress</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span>
+            <span class="c1"># 直接计算bbox转换为二维的poly之后的交并比, 作为IOU</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">getScoreIoU</span><span class="p">(</span><span class="n">this_BB</span><span class="p">,</span> <span class="n">sample_BB</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s2">&#34;GAUSSIAN&#34;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">regress</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">getScoreGaussian</span><span class="p">(</span><span class="n">sample_offsets</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma_Gaussian</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s2">&#34;HINGE&#34;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">regress</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span>
+            <span class="c1"># 相比于第一个方法,这个IOU小于0.5都被当作0</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">getScoreHingeIoU</span><span class="p">(</span><span class="n">this_BB</span><span class="p">,</span> <span class="n">sample_BB</span><span class="p">)</span>
+
+        <span class="c1"># NOTE sample_PC, gt_PC, model_PC 都是 torch.Size([3, 2048])</span>
+        <span class="k">return</span> <span class="n">sample_PC</span><span class="p">,</span> <span class="n">gt_PC</span><span class="p">,</span> <span class="n">model_PC</span><span class="p">,</span> <span class="n">score</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">nb_anno</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_of_anno</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">nb_anno</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates_perframe</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<p>训练数据集的构建基于上面得到的 <em>SiameseDataset</em> 类，创建 <em>SiameseTrain</em></p>
+<p>代码中几个函数的说明：</p>
+<p><code>__init__ </code>: 初始化各种参数,并且获得 <em>list_of_BBs</em> 以及 <em>list_of_PCs</em> ,注意这里的 <em>list_of_PCs</em> 指的是 <em>bbox</em> 中的点云,不是整帧点云</p>
+<p><code>__getitem__</code> : 调用 <em>getitem</em>, 这里就是根据传入的 <em>index</em> 获得对应的训练数据并返回，这里输入的 <em>index</em> 其实指的是 candidate_box 的序号，如果每个 ref_box 周围需要生成 125个 <em>candidates</em>，那么第一个ref_box 对应的 <em>candidate</em> 的 <em>index</em>其实就是 0-124</p>
+<p><em><code>__len__</code></em> : 获取数据集的长度, 这里将实际的长度乘了 <em>num_candidates_perframe</em>, 是指在每一帧的搜索区域周围生成候选区域的数量</p>
+<p>注意：</p>
+<p><em>SiameseTrain</em> 类返回的用于训练的数据分别是 <em>sample_PC, gt_PC, model_PC, score</em> ，分别代表着当前候选框中的点云，读上一帧的label获得的点云，以及对应track_id的轨迹上所有点云级联之后得到的点云， 这三种不同的点云都进行了同样的处理，中心化、旋转角度对齐、以及下采样到与模型一致的尺寸(一般为2048)。虽然 <em>model_PC</em> 级联了一个轨迹上所有的点云，但是为了计算相似度，也需要下采样到2048个点，只不过拥有了更加完整的形状信息。</p>
+<hr>
+<h3 id="4-class-siamesetestsiamesedataset">4. <em>class SiameseTest(SiameseDataset)</em></h3>
+<ul>
+<li>
+<p>SiameseTest</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">SiameseTest</span><span class="p">(</span><span class="n">SiameseDataset</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">model</span><span class="p">,</span>
+                 <span class="n">path</span><span class="p">,</span>
+                 <span class="n">split</span><span class="o">=</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="c1">#&#34;Test&#34;</span>
+                 <span class="n">category_name</span><span class="o">=</span><span class="s2">&#34;Car&#34;</span><span class="p">,</span>
+                 <span class="n">regress</span><span class="o">=</span><span class="s2">&#34;GAUSSIAN&#34;</span><span class="p">,</span>
+                 <span class="n">offset_BB</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">scale_BB</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span> <span class="c1"># offset_BB = 0 scale_BB = 1.25</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+            <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span>
+            <span class="n">category_name</span><span class="o">=</span><span class="n">category_name</span><span class="p">,</span>
+            <span class="n">regress</span><span class="o">=</span><span class="n">regress</span><span class="p">,</span>
+            <span class="n">offset_BB</span><span class="o">=</span><span class="n">offset_BB</span><span class="p">,</span>
+            <span class="n">scale_BB</span><span class="o">=</span><span class="n">scale_BB</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">split</span> <span class="o">=</span> <span class="n">split</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offset_BB</span> <span class="o">=</span> <span class="n">offset_BB</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale_BB</span> <span class="o">=</span> <span class="n">scale_BB</span>
+
+        <span class="k">def</span> <span class="nf">getitem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+            <span class="n">list_of_anno</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_of_tracklet_anno</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+            <span class="n">PCs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">BBs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">anno</span> <span class="ow">in</span> <span class="n">list_of_anno</span><span class="p">:</span>
+                <span class="c1"># this_PC里面是当前帧的所有点云转换到相机坐标系下的点云数据</span>
+                <span class="c1"># this_BB是一个字典　里面的键对对应着中心点，whl,以及四元数角</span>
+                <span class="n">this_PC</span><span class="p">,</span> <span class="n">this_BB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getBBandPC</span><span class="p">(</span><span class="n">anno</span><span class="p">)</span>
+                <span class="n">PCs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_PC</span><span class="p">)</span>
+                <span class="n">BBs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_BB</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">PCs</span><span class="p">,</span> <span class="n">BBs</span><span class="p">,</span> <span class="n">list_of_anno</span>
+
+        <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="c1"># 返回label中要跟踪的车辆的个数</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_of_tracklet_anno</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<p>测试数据集的构建同样基于上面得到的 <em>SiameseDataset</em> 类，创建 <em>SiameseTest</em></p>
+<p>测试阶段输入的index与训练不同,这里只需要输入一个index, 这个index代表着 list_of_tracklet_anno 中的索引</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-06-26</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB00-sc3d/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB00-sc3d/" data-title="论文阅读00 SC3D" data-hashtags="论文阅读"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB00-sc3d/" data-hashtag="论文阅读"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB00-sc3d/" data-title="论文阅读00 SC3D" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB00-sc3d/" data-title="论文阅读00 SC3D"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB00-sc3d/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB00-sc3d/" data-title="论文阅读00 SC3D"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB00-sc3d/" data-title="论文阅读00 SC3D" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB00-sc3d/" data-title="论文阅读00 SC3D" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB00-sc3d/" data-title="论文阅读00 SC3D"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/git%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="prev" rel="prev" title="git学习记录"><i class="fas fa-angle-left fa-fw"></i>git学习记录</a>
+            <a href="/%E5%AE%89%E8%A3%85docker/" class="next" rel="next" title="docker安装记录">docker安装记录<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-THB0NH45ZM', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-THB0NH45ZM" async></script></body>
+</html>

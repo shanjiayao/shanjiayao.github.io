@@ -8,10 +8,10 @@
             <atom:link href="http://shanjiayao.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>论文阅读10 IA-SSD</title>
-    <link>http://shanjiayao.com/10-ia-ssd/</link>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB10-ia-ssd/</link>
     <pubDate>Fri, 25 Mar 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/10-ia-ssd/</guid>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB10-ia-ssd/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>BEV感知公开课笔记</title>
@@ -43,31 +43,31 @@
     <description><![CDATA[]]></description>
 </item><item>
     <title>论文阅读09 Cylinder3D</title>
-    <link>http://shanjiayao.com/09-cylinder3d/</link>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB09-cylinder3d/</link>
     <pubDate>Sat, 19 Feb 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/09-cylinder3d/</guid>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB09-cylinder3d/</guid>
     <description><![CDATA[<p>本文提出了一种圆柱化的3D卷积方案，有效针对lidar的数据特性设计网络。</p>]]></description>
 </item><item>
     <title>论文阅读08 Rigid3DSceneFlow</title>
-    <link>http://shanjiayao.com/08-rigid3dsceneflow/</link>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB08-rigid3dsceneflow/</link>
     <pubDate>Wed, 16 Feb 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/08-rigid3dsceneflow/</guid>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB08-rigid3dsceneflow/</guid>
     <description><![CDATA[<p>现有的3D sceneflow方法大多是自监督，因为flow的gt太难获得，而本文是一篇关于sceneflow弱监督的工作，发表在CVPR2021。</p>]]></description>
 </item><item>
     <title>论文阅读07 Registration Benchmarks</title>
-    <link>http://shanjiayao.com/07-registration-benchmarks/</link>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB07-registration-benchmarks/</link>
     <pubDate>Sun, 06 Feb 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/07-registration-benchmarks/</guid>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB07-registration-benchmarks/</guid>
     <description><![CDATA[<p>本文是对Simon Lucey组一篇IROS2021工作的解读，其目标是评价lidar2map的配准方法在压缩地图上的性能。</p>]]></description>
 </item><item>
     <title>论文阅读06 PVT</title>
-    <link>http://shanjiayao.com/06-pvt/</link>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB06-pvt/</link>
     <pubDate>Wed, 26 Jan 2022 19:46:08 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/06-pvt/</guid>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB06-pvt/</guid>
     <description><![CDATA[<p>Transformer在CV任务中的应用已经得到了很多工作的验证，但是对于点云处理任务，Transformer的尝试还不是特别多，这篇文章就是以PVCNN为基础，将Transformer融入进来。</p>]]></description>
 </item><item>
     <title>重装Conda</title>

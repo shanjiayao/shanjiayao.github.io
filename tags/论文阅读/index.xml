@@ -6,73 +6,73 @@
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
             <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Fri, 25 Mar 2022 20:01:39 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" rel="self" type="application/rss+xml" /><item>
     <title>论文阅读10 IA-SSD</title>
-    <link>http://shanjiayao.com/10-ia-ssd/</link>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB10-ia-ssd/</link>
     <pubDate>Fri, 25 Mar 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/10-ia-ssd/</guid>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB10-ia-ssd/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>论文阅读09 Cylinder3D</title>
-    <link>http://shanjiayao.com/09-cylinder3d/</link>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB09-cylinder3d/</link>
     <pubDate>Sat, 19 Feb 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/09-cylinder3d/</guid>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB09-cylinder3d/</guid>
     <description><![CDATA[<p>本文提出了一种圆柱化的3D卷积方案，有效针对lidar的数据特性设计网络。</p>]]></description>
 </item><item>
     <title>论文阅读08 Rigid3DSceneFlow</title>
-    <link>http://shanjiayao.com/08-rigid3dsceneflow/</link>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB08-rigid3dsceneflow/</link>
     <pubDate>Wed, 16 Feb 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/08-rigid3dsceneflow/</guid>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB08-rigid3dsceneflow/</guid>
     <description><![CDATA[<p>现有的3D sceneflow方法大多是自监督，因为flow的gt太难获得，而本文是一篇关于sceneflow弱监督的工作，发表在CVPR2021。</p>]]></description>
 </item><item>
     <title>论文阅读07 Registration Benchmarks</title>
-    <link>http://shanjiayao.com/07-registration-benchmarks/</link>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB07-registration-benchmarks/</link>
     <pubDate>Sun, 06 Feb 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/07-registration-benchmarks/</guid>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB07-registration-benchmarks/</guid>
     <description><![CDATA[<p>本文是对Simon Lucey组一篇IROS2021工作的解读，其目标是评价lidar2map的配准方法在压缩地图上的性能。</p>]]></description>
 </item><item>
     <title>论文阅读06 PVT</title>
-    <link>http://shanjiayao.com/06-pvt/</link>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB06-pvt/</link>
     <pubDate>Wed, 26 Jan 2022 19:46:08 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/06-pvt/</guid>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB06-pvt/</guid>
     <description><![CDATA[<p>Transformer在CV任务中的应用已经得到了很多工作的验证，但是对于点云处理任务，Transformer的尝试还不是特别多，这篇文章就是以PVCNN为基础，将Transformer融入进来。</p>]]></description>
 </item><item>
     <title>论文阅读05 AFDetV2</title>
-    <link>http://shanjiayao.com/05-afdetv2/</link>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB05-afdetv2/</link>
     <pubDate>Thu, 23 Dec 2021 11:55:16 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/05-afdetv2/</guid>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB05-afdetv2/</guid>
     <description><![CDATA[<p>AFDetV2是地平线在2021waymo挑战赛上夺冠方案。本文主要创新点有三：<code>self-calibrated block</code>, <code>keypoint auxiliary loss</code>,  <code>the IoU prediction branch</code></p>]]></description>
 </item><item>
     <title>论文阅读04 HorizonLiDAR3D</title>
-    <link>http://shanjiayao.com/04-horizonlidar3d/</link>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB04-horizonlidar3d/</link>
     <pubDate>Thu, 16 Dec 2021 11:55:16 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/04-horizonlidar3d/</guid>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB04-horizonlidar3d/</guid>
     <description><![CDATA[<p>本文是CVPR2020Waymo挑战赛的冠军方案，相比于AFDet，在数据增广、网络深度以及模型Ensemble等方面都做了改进。</p>]]></description>
 </item><item>
     <title>论文阅读03 AFDet</title>
-    <link>http://shanjiayao.com/03-afdet/</link>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB03-afdet/</link>
     <pubDate>Mon, 13 Dec 2021 11:55:16 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/03-afdet/</guid>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB03-afdet/</guid>
     <description><![CDATA[<p>本文是CVPR2020Waymo挑战赛的冠军方案的baseline，由地平线提出，整体结构与CenterPoint类似，是一种轻量化的baseline，其针对嵌入式平台做了优化，抛弃了传统的基于anchor的方法，将二维<code>centernet</code>以及<code>cornernet</code>的思想应用到三维，第一个提出三维<code>anchor free</code>以及<code>nms free</code>的方法。 后续地平线基于这个网络改进,提出了<code>HorizonLiDAR3D</code> 拿到了<code>2020 3D Detection and Domain Adaptation</code>的第一名</p>]]></description>
 </item><item>
     <title>论文阅读02 PVCNN</title>
-    <link>http://shanjiayao.com/02-pvcnn/</link>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB02-pvcnn/</link>
     <pubDate>Fri, 16 Apr 2021 11:55:16 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/02-pvcnn/</guid>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB02-pvcnn/</guid>
     <description><![CDATA[<p>本文是MIT HAN Lab的工作，通过结合点云的两种表述方式，来设计一种Point + Voxel的融合框架。</p>]]></description>
 </item><item>
     <title>论文阅读01 Part-A2</title>
-    <link>http://shanjiayao.com/01-part-a2/</link>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB01-part-a2/</link>
     <pubDate>Tue, 16 Mar 2021 11:55:16 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/01-part-a2/</guid>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB01-part-a2/</guid>
     <description><![CDATA[<p>本文是shaoshuai的3D点云检测工作，发表在TPAMI，融合了点在box中的位置分布规律, 通过这个位置约束确定更精准的box。</p>]]></description>
 </item></channel>
 </rss>
