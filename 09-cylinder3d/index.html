@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>09 Cylinder3D - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="09 Cylinder3D" />
+<meta property="og:description" content="本文提出了一种圆柱化的3D卷积方案，有效针对lidar的数据特性设计网络。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/09-cylinder3d/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-19T20:01:39+00:00" />
+<meta property="article:modified_time" content="2022-03-19T20:01:39+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="09 Cylinder3D"/>
+<meta name="twitter:description" content="本文提出了一种圆柱化的3D卷积方案，有效针对lidar的数据特性设计网络。"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/09-cylinder3d/" /><link rel="prev" href="http://shanjiayao.com/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" /><link rel="next" href="http://shanjiayao.com/10-ia-ssd/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "09 Cylinder3D",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/09-cylinder3d\/"
+        },"genre": "posts","keywords": "论文阅读","wordcount":  2405 ,
+        "url": "http:\/\/shanjiayao.com\/09-cylinder3d\/","datePublished": "2022-03-19T20:01:39+00:00","dateModified": "2022-03-19T20:01:39+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/collections/"> 收集 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/collections/" title="">收集</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">09 Cylinder3D</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"><i class="far fa-folder fa-fw"></i>论文阅读</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-19">2022-03-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2405 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#摘要">摘要</a></li>
+    <li><a href="#主要贡献">主要贡献</a></li>
+    <li><a href="#方法流程">方法流程</a>
+      <ul>
+        <li><a href="#概览">概览</a></li>
+        <li><a href="#圆柱区域划分cylindrical-partition">圆柱区域划分(Cylindrical Partition)</a></li>
+        <li><a href="#非对称3d卷积asymmetrical-3d-convolution-network">非对称3D卷积(Asymmetrical 3D Convolution Network)</a></li>
+        <li><a href="#点级别的特征细化模块point-wise-refinement-module">点级别的特征细化模块(Point-wise Refinement Module)</a></li>
+      </ul>
+    </li>
+    <li><a href="#实验结果">实验结果</a>
+      <ul>
+        <li><a href="#定量实验">定量实验</a></li>
+        <li><a href="#消融实验">消融实验</a></li>
+        <li><a href="#泛化性实验">泛化性实验</a></li>
+      </ul>
+    </li>
+    <li><a href="#reference">Reference</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本文提出了一种圆柱化的3D卷积方案，有效针对lidar的数据特性设计网络。</p>
+<h2 id="简介">简介</h2>
+<ul>
+<li>论文：《Cylindrical and Asymmetrical 3D Convolution Networks for LiDAR Segmentation》</li>
+<li>作者：<em>Xinge Zhu,Hui Zhou,Tai Wang,Fangzhou Hong, Yuexin Ma, Wei Li, Hongsheng Li, Dahua Lin</em></li>
+<li>机构：<em>Chinese University of Hong Kong, § ShanghaiTech University</em></li>
+<li>论文水平：<em>CVPR2021</em></li>
+<li>关键词：<strong>lidar segmentation</strong></li>
+<li>论文链接：<a href="https://arxiv.org/pdf/2011.10033.pdf" target="_blank" rel="noopener noreffer">paper</a></li>
+</ul>
+<h2 id="摘要">摘要</h2>
+<p>大场景下的点云分割领域SOTA方法经常将点云投影到2D空间然后使用2D的卷积网络处理他们，这样虽然取得了具有竞争力的精度，但是不可避免地改变或者放弃了三维拓扑和几何关系。一种解决方案就是3D体素化和3D卷积网络，但是我们发现，这种方法在室外场景下的性能提升非常有限，很重要的原因就是室外场景下的点云具有稀疏性和密度可变性。</p>
+<p>受到这项调查的启发，我们提出了一个全新的室外Lidar分割的框架，其使用圆柱型的区域划分方式以及设计了非对称的3D卷积网络，在保留点云固有属性的同时，探索3D几何信息。此外，我们还引入了逐点细化模块，以减轻受损的基于体素的标签编码的影响</p>
+<p>我们在两个大场景数据集上评测了我们的模型，分别是SemanticKITTI和nuScenes。结果表明，我们的模型在SemanticKITTI数据集上达到了第一的性能，并且在nuScenes数据集上超越了现有算法较为明显的精度，约4%。此外提出的框架同样适用于点云全景分割以及点云3D检测</p>
+<h2 id="主要贡献">主要贡献</h2>
+<ol>
+<li>
+<p>重新将Lidar分割问题的关注点从2D投影的方案转移到了3D表达上，并且探究了一些室外场景的挑战性问题，比如点云稀疏和随距离变化的密度.</p>
+</li>
+<li>
+<p>提出了一个全新的框架，通过圆柱化分区以及非对称3D卷积网络，一定程度上解决了上述挑战</p>
+</li>
+<li>
+<p>提出的方法在SemanticKITTI以及nuScenes两个数据集上，实现了SOTA，并且在点云目标检测以及点云全景分割两个任务上同样表现出优异的性能，说明方法具有极强的泛化性。</p>
+</li>
+</ol>
+<h2 id="方法流程">方法流程</h2>
+<h3 id="概览">概览</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162101.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162101.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162101.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162101.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162101.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162101.png" /></p>
+<p>为了解决室外场景中的点云稀疏以及密度变化这两个困难，本文的框架针对性的使用了圆柱化以及非对称卷积，圆柱化的划分方式可以较好的适应变化的密度，对于输入的点云数据，首先将其按照圆柱的方式进行划分（类似体素化），进而使用非对称卷积学习每个Voxel级别的特征，最终，为了解决体素化带来的训练过程中的loss损失，本文还提出了一个point-wise的编码模块，用来调整loss，加入逐点的损失信息，所以最终的网络输出有两部分，分别voxel-wise的损失以及point-wise的损失。</p>
+<h3 id="圆柱区域划分cylindrical-partition">圆柱区域划分(Cylindrical Partition)</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162046.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162046.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162046.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162046.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162046.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162046.png" /></p>
+<p>第一行是range image的方案，其使用2D卷积，但是丢失了部分点云信息。</p>
+<p>第二行是体素网格，第三行是圆柱网格，相比于体素，圆柱式的分区方式使点云分布更加均匀，89%对比61%。</p>
+<p>此外，文中还给出了使用2D投影的以及基于体素网格的方法与本文方法的精度对比。可以看到polarnet等蓝色方法精度偏低。</p>
+<p>圆柱化分区的优势在于，其可以很好的适应点云的密度变化，进而在较远的场景中，每个voxel中的点也是相对较于均匀分布的，对于提取特征的网络来说，点云在每个voxel中的均匀分布可以使网络更好的捕捉点云特征。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162157.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162157.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162157.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162157.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162157.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162157.png" /></p>
+<p>原始点云输入，进行坐标系的变换，将笛卡尔坐标系变换到polar坐标系，得到的三个坐标分别代表当前点到x-y平面坐标原点的距离，从x轴到y轴的角度以及高度。</p>
+<p>另一边，使用MLP学习原始点云特征，进而将其整定到圆柱分区中，得到圆柱点云特征。</p>
+<p>最终得到的特征张量的维度应该是 C x H x W x L，C表示特征维度，H表示圆柱的半径，W表示倾角，L表示高度。后续的非对称卷积会在这个张量上进行操作，以学习特征。</p>
+<p>值得注意的是，随着距离边远，圆柱网格划分时会自动扩大网格体积，以维持较为均衡的点云，在远距离时与体素网格的效果对比明显，本文给出了详细的对比数据。见下表：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162230.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162230.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162230.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162230.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162230.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162230.png" /></p>
+<h3 id="非对称3d卷积asymmetrical-3d-convolution-network">非对称3D卷积(Asymmetrical 3D Convolution Network)</h3>
+<p>这里的非对称3D卷积网络，借鉴了前人的一些工作[1]，本文将原有2D的非对称卷积扩展到了3D。非对称卷积的作用就是，其可以增强水平和竖直方向上的响应，通过屏蔽原有3x3x3卷积核的某些维度，可以达到3x3x1或者3x1x3或者1x3x3的效果，因为这些卷积核不是对称的，所以叫做非对称卷积，这样在一定程度上增加了模型对翻转和旋转的鲁棒性。</p>
+<p>对于非对称卷积，本文还使用了残差的结构，并且做了对应的消融实验来验证方案的有效性。在非对称残差卷积的基础上，本文提出的网络框架中，还利用非对称残差卷积实现了下采样以及上采样的模块。也就是网络框架中的AD以及AU模块。</p>
+<h3 id="点级别的特征细化模块point-wise-refinement-module">点级别的特征细化模块(Point-wise Refinement Module)</h3>
+<p>虽然分区可以很有效地处理大规模地点云，但是却很难保留细粒化的点云信息。对于本文这类将点云分区的方法，无论是将点云划分成体素，还是扇形的分区，在网络预测时通常会每个分区预测一个标签，因此在计算每个分区的label时，都会存在精度上的损失。比如每个分区中的点可能属于不同的类别，所以我们可能需要采用众数投票的思想来获取当前分区的label，编码的损失就发生在这个阶段，换句话说就是一些点的类别信息被忽略了。为了解决这个问题，本文提出了点级别的优化模块，具体的操作方法就是通过圆柱化过程中的点到分区的映射关系，将高维度的分区特征再映射回每个点，然后再将每个点的原始特征与对应的分区特征聚合在一起，通过MLP学习对应的映射关系，最终输出的就是点级别的损失信息了。</p>
+<h2 id="实验结果">实验结果</h2>
+<h3 id="定量实验">定量实验</h3>
+<p>分别在SemanticKITTI以及nuSence上进行的定量实验，对比点云语义分割的精度，评价指标是mIOU。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162403.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162403.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162403.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162403.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162403.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162403.png" /></p>
+<h3 id="消融实验">消融实验</h3>
+<p>分别探究了网络的不同模块的作用，以及非对称残差卷积的结构的有效性。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162429.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162429.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162429.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162429.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162429.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162429.png" /></p>
+<h3 id="泛化性实验">泛化性实验</h3>
+<p>本文的网络，在点云全景分割以及目标检测上，也表现了很好的性能。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162504.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162504.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162504.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162504.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162504.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162504.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162516.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162516.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162516.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162516.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162516.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220326162516.png" /></p>
+<h2 id="reference">Reference</h2>
+<p>[1] X. DIng, Y. Guo, G. DIng, and J. Han, “<strong>ACNet: Strengthening the kernel skeletons for powerful CNN via asymmetric convolution blocks</strong>,” Proc. IEEE Int. Conf. Comput. Vis., vol. 2019-October, pp. 1911–1920, 2019.</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-19</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/09-cylinder3d/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/09-cylinder3d/" data-title="09 Cylinder3D" data-hashtags="论文阅读"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/09-cylinder3d/" data-hashtag="论文阅读"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/09-cylinder3d/" data-title="09 Cylinder3D" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/09-cylinder3d/" data-title="09 Cylinder3D"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/09-cylinder3d/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/09-cylinder3d/" data-title="09 Cylinder3D"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/09-cylinder3d/" data-title="09 Cylinder3D" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/09-cylinder3d/" data-title="09 Cylinder3D" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/09-cylinder3d/" data-title="09 Cylinder3D"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/" class="prev" rel="prev" title="多传感器融合感知之用于感知的多传感器分析"><i class="fas fa-angle-left fa-fw"></i>多传感器融合感知之用于感知的多传感器分析</a>
+            <a href="/10-ia-ssd/" class="next" rel="next" title="10 IA-SSD">10 IA-SSD<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-THB0NH45ZM', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-THB0NH45ZM" async></script></body>
+</html>

@@ -19,12 +19,33 @@
     <guid>http://shanjiayao.com/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/</guid>
     <description><![CDATA[<p>本文是深蓝学院多传感器融合感知课程的笔记，主要对用于建图定位的传感器进行原理梳理以及功能分析。</p>]]></description>
 </item><item>
+    <title>10 IA-SSD</title>
+    <link>http://shanjiayao.com/10-ia-ssd/</link>
+    <pubDate>Mon, 21 Mar 2022 20:01:39 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/10-ia-ssd/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>09 Cylinder3D</title>
+    <link>http://shanjiayao.com/09-cylinder3d/</link>
+    <pubDate>Sat, 19 Mar 2022 20:01:39 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/09-cylinder3d/</guid>
+    <description><![CDATA[<p>本文提出了一种圆柱化的3D卷积方案，有效针对lidar的数据特性设计网络。</p>]]></description>
+</item><item>
     <title>多传感器融合感知之用于感知的多传感器分析</title>
     <link>http://shanjiayao.com/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/</link>
     <pubDate>Thu, 17 Mar 2022 20:44:21 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/</guid>
     <description><![CDATA[<p>本文记录了深蓝课程学习过程，主要是关于camera、lidar、radar等传感器的原理分析以及相关知识。</p>]]></description>
+</item><item>
+    <title>08 Rigid3DSceneFlow</title>
+    <link>http://shanjiayao.com/08-rigid3dsceneflow/</link>
+    <pubDate>Wed, 16 Mar 2022 20:01:39 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/08-rigid3dsceneflow/</guid>
+    <description><![CDATA[<p>现有的3D sceneflow方法大多是自监督，因为flow的gt太难获得，而本文是一篇关于sceneflow弱监督的工作，发表在CVPR2021。</p>]]></description>
 </item><item>
     <title>多传感器融合感知之自动驾驶传感器需求</title>
     <link>http://shanjiayao.com/1.-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E4%BC%A0%E6%84%9F%E5%99%A8%E9%9C%80%E6%B1%82/</link>
@@ -33,9 +54,16 @@
     <guid>http://shanjiayao.com/1.-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E4%BC%A0%E6%84%9F%E5%99%A8%E9%9C%80%E6%B1%82/</guid>
     <description><![CDATA[]]></description>
 </item><item>
+    <title>07 Registration Benchmarks</title>
+    <link>http://shanjiayao.com/07-registration-benchmarks/</link>
+    <pubDate>Sun, 06 Mar 2022 20:01:39 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/07-registration-benchmarks/</guid>
+    <description><![CDATA[<p>本文是对Simon Lucey组一篇IROS2021工作的解读，其目标是评价lidar2map的配准方法在压缩地图上的性能。</p>]]></description>
+</item><item>
     <title>论文阅读06 PVT</title>
     <link>http://shanjiayao.com/06-pvt/</link>
-    <pubDate>Sun, 23 Jan 2022 19:46:08 &#43;0000</pubDate>
+    <pubDate>Wed, 26 Jan 2022 19:46:08 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/06-pvt/</guid>
     <description><![CDATA[<p>Transformer在CV任务中的应用已经得到了很多工作的验证，但是对于点云处理任务，Transformer的尝试还不是特别多，这篇文章就是以PVCNN为基础，将Transformer融入进来。</p>]]></description>
@@ -46,33 +74,5 @@
     <author>作者</author>
     <guid>http://shanjiayao.com/%E9%87%8D%E8%A3%85conda/</guid>
     <description><![CDATA[<p>由于之前的conda版本比较低，且环境较为混乱，可能是误删了什么东西，丢失了base环境，综合考虑以上种种因素，决定重装conda~</p>]]></description>
-</item><item>
-    <title>NuScenes数据集笔记</title>
-    <link>http://shanjiayao.com/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/</link>
-    <pubDate>Wed, 12 Jan 2022 10:47:04 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/nuscenes%E6%95%B0%E6%8D%AE%E9%9B%86%E7%AE%80%E4%BB%8B/</guid>
-    <description><![CDATA[<p>最近要使用nuScenes数据集进行实验，学习过程中的笔记如下。</p>]]></description>
-</item><item>
-    <title>基于hugo的Loveit主题博客搭建记录</title>
-    <link>http://shanjiayao.com/%E5%9F%BA%E4%BA%8Ehugo%E7%9A%84loveit%E4%B8%BB%E9%A2%98%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</link>
-    <pubDate>Tue, 11 Jan 2022 10:05:27 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/%E5%9F%BA%E4%BA%8Ehugo%E7%9A%84loveit%E4%B8%BB%E9%A2%98%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</guid>
-    <description><![CDATA[出于对新鲜实物的好奇，我曾经探索过很多版本的主题样式，比如fluid以及butterfly，他们都是基于hexo框架的主题，其功能大多异常丰]]></description>
-</item><item>
-    <title>工作流总结</title>
-    <link>http://shanjiayao.com/%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%80%BB%E7%BB%93/</link>
-    <pubDate>Mon, 10 Jan 2022 16:09:00 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%80%BB%E7%BB%93/</guid>
-    <description><![CDATA[<p>在平时的学习生活中，工具软件是我们必不可少的，我个人也热衷于探究各种新奇的软件APP，在这里总结一下平时学习生活涉及到的软件以及工作流。</p>]]></description>
-</item><item>
-    <title>论文阅读05 AFDetV2</title>
-    <link>http://shanjiayao.com/05-afdetv2/</link>
-    <pubDate>Thu, 23 Dec 2021 11:55:16 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/05-afdetv2/</guid>
-    <description><![CDATA[<p>AFDetV2是地平线在2021waymo挑战赛上夺冠方案。本文主要创新点有三：<code>self-calibrated block</code>, <code>keypoint auxiliary loss</code>,  <code>the IoU prediction branch</code></p>]]></description>
 </item></channel>
 </rss>

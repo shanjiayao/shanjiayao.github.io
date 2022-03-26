@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>07 Registration Benchmarks - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="07 Registration Benchmarks" />
+<meta property="og:description" content="本文是对Simon Lucey组一篇IROS2021工作的解读，其目标是评价lidar2map的配准方法在压缩地图上的性能。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/07-registration-benchmarks/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-06T20:01:39+00:00" />
+<meta property="article:modified_time" content="2022-03-06T20:01:39+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="07 Registration Benchmarks"/>
+<meta name="twitter:description" content="本文是对Simon Lucey组一篇IROS2021工作的解读，其目标是评价lidar2map的配准方法在压缩地图上的性能。"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/07-registration-benchmarks/" /><link rel="prev" href="http://shanjiayao.com/06-pvt/" /><link rel="next" href="http://shanjiayao.com/1.-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E4%BC%A0%E6%84%9F%E5%99%A8%E9%9C%80%E6%B1%82/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "07 Registration Benchmarks",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/07-registration-benchmarks\/"
+        },"genre": "posts","keywords": "论文阅读","wordcount":  3541 ,
+        "url": "http:\/\/shanjiayao.com\/07-registration-benchmarks\/","datePublished": "2022-03-06T20:01:39+00:00","dateModified": "2022-03-06T20:01:39+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/collections/"> 收集 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/collections/" title="">收集</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">07 Registration Benchmarks</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"><i class="far fa-folder fa-fw"></i>论文阅读</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-06">2022-03-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3541 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#摘要">摘要</a></li>
+    <li><a href="#motivation">Motivation</a></li>
+    <li><a href="#主要贡献">主要贡献</a></li>
+    <li><a href="#相关工作">相关工作</a></li>
+    <li><a href="#方法流程">方法流程</a>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#benchmark构建">Benchmark构建</a></li>
+        <li><a href="#evaluation-metrics">Evaluation Metrics</a>
+          <ul>
+            <li><a href="#1-precision">1. Precision</a></li>
+            <li><a href="#2-success-rate-sr">2. Success Rate (SR)</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#结果讨论">结果讨论</a>
+      <ul>
+        <li><a href="#定量实验">定量实验</a></li>
+      </ul>
+    </li>
+    <li><a href="#reference">Reference</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本文是对Simon Lucey组一篇IROS2021工作的解读，其目标是评价lidar2map的配准方法在压缩地图上的性能。</p>
+<h2 id="简介">简介</h2>
+<ul>
+<li>论文：《Map Compressibility Assessment for LiDAR Registration》</li>
+<li>作者：<em>Ming-Fang Chang, Wei Dong, Joshua Mangelson, Michael Kaess, and Simon Lucey</em></li>
+<li>机构：<em>CMU</em></li>
+<li>论文水平：<em>IROS2021</em></li>
+<li>关键词：<strong>lidar2map &amp;&amp; Registration</strong></li>
+<li>论文链接：<a href="https://www.cs.cmu.edu/~kaess/pub/Chang21iros.pdf" target="_blank" rel="noopener noreffer">paper</a></li>
+</ul>
+<h2 id="摘要">摘要</h2>
+<p>本工作的目标是评估lidar-to-map的配准在压缩地图上的性能。现代自动驾驶汽车利用预先构建的 HD（高精度）地图来执行传感器到地图的配准，从而在位姿估计失败的场景进行重定位并减少大规模环境中的漂移。 然而，传感器到地图的配准通常是通过将传感器配准到一个密集的3D模型来实现的，对于高清地图而言,这会占用大量的存储空间，需要大量的数据处理开销。因此使用压缩地图进行配准是一个可行的方案，但具体使用哪种地图压缩方式才能保证点云拥有最佳配准性能，目前仍未有人探索这一问题。</p>
+<p>综上所述，本工作提出了一种新颖且具有挑战性的基准，从三个角度评估现有的 LiDAR 到地图配准方法：地图可压缩性、鲁棒性和精度。我们比较了各种地图格式，包括原始点云、分层 GMM 和特征点，并在真实场景下的 LiDAR 数据集：KITTI odometry数据集和 Argoverse 跟踪数据集上展示了它们在可压缩性和鲁棒性之间的性能权衡。基准测试表明，当允许的地图尺寸上限很高时，最先进的基于深度特征点的方法明显优于传统方法。然而，当地图大小预算较低时，由于空间覆盖率差，在Argoverse 跟踪数据集中, 深度方法的性能低于使用更简单模型的传统方法。</p>
+<h2 id="motivation">Motivation</h2>
+<p>地图对于现代自动驾驶系统至关重要。 具有丰富先验知识的地图提供了在线传感器无法观察到的有价值的离线精炼信息，从而提高了系统性能。 现代地图，例如自动驾驶汽车使用的高精地图，大多包含高质量的密集 3D 模型和语义标签。然而，这些密集的 3D 模型需要巨大的存储空间并导致额外的在线数据处理开销。</p>
+<p><strong>密集的 3D 模型主要用于实现传感器到地图的精确配准</strong>，这是自动驾驶车辆在姿态估计失败时重新定位地图的关键任务，同时也减少了大规模场景下的姿态漂移误差。<strong>在实践中，除了重新定位之外，对于自动驾驶中的基本任务来说，密集的 3D 模型是不必要的</strong>。例如，运动规划、运动预测、目标跟踪和避障只需要传感器输入和带有粗略 3D 信息的语义地图标签，例如车道方向和交通灯的边界框。由于高清地图中的其他信息尺寸要小得多，因此在点云配准的过程中如果可以消除对稠密的3D模型的依赖会显著减少高精地图的尺寸大小。</p>
+<p>虽然消除对密集 3D 模型的需求是可取的，但大多数现有的点云配准研究仅关注配准具有相似数据分布的两次扫描的准确性和速度，而传感器扫描和地图的数据分布则大不相同。相关基准通过重建精度而不是传感器到地图的配准精度来评估点云压缩性能 [1]。事实上，如果可以使用较轻量化的地图实现准确的传感器到地图配准，则无需加载完美重建的稠密3D模型。尽管一些工作已经针对所提出的特定数据格式针对地图压缩率评估了传感器到地图的配准，但没有通用标准可用于在不同压缩地图格式之间进行公平的定量比较[2], [3].</p>
+<p>在本文中，我们关注一个通用的设置——将 3D LiDAR 点云帧注册到 3D 地图，这是现代自动驾驶汽车执行传感器到地图注册的最常见配置。这种情况下的原始地图是离线构建的高质量、密集、大规模的点云。我们建议传感器到地图配准算法应该直接在某种压缩地图格式上运行，而不是原始点云，以消除存储和处理原始大比例点云的需要。我们在下面将此过程称为<strong>压缩注册</strong>。如图 1所示，所提出的压缩配准管道与使用原始点云图的方法相比有几个优点：</p>
+<p>1）地图特征可以离线预先计算，因为它不需要任何在线输入。</p>
+<p>2)  如果需要，在线地图数据解压缩花费的时间更少，因为它不需要恢复密集的 3D 地图。</p>
+<p>3)  占用更少的存储空间和数据传输时间。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/1.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/1.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/1.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/1.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/1.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/1.png" /></p>
+<h2 id="主要贡献">主要贡献</h2>
+<ol>
+<li>
+<p>提出了第一个压缩式的 LiDAR-to-map的点云注册基准. 从三个角度评估现有的 LiDAR 到地图配准方法：地图可压缩性、鲁棒性和精度</p>
+</li>
+<li>
+<p>评估了最近的基于深度学习的和经典的点云配准方法，包括基于原始点、基于 GMM 和基于特征点的方法。 定量结果揭示了不同方法的优劣，并为未来的研究提供了有价值的参考。</p>
+</li>
+<li>
+<p>将向社区发布基准，以便将来方便地评估更多方法。</p>
+</li>
+</ol>
+<h2 id="相关工作">相关工作</h2>
+<p>参与对比的方法如下</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/2.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/2.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/2.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/2.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/2.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/2.png" /></p>
+<p>其中，Map type表示了注册算法处理的数据格式。Data dimension表示使用的数据所拥有的特征维度。Deep表示是否使用深度学习。Global表示此方法是否需要一个较好的初始位姿。Scalable表示注册算法能否适应大场景的map。</p>
+<h2 id="方法流程">方法流程</h2>
+<h3 id="overview">Overview</h3>
+<p>我们为各种压缩地图格式提出了一个用于压缩传感器到地图注册的通用基准。 提出的压缩配准管道如图 1 所示。在管道中，我们首先执行离线地图特征计算和压缩，使用嘈杂的初始姿势裁剪局部地图，然后将输入 LiDAR 扫描注册到裁剪后的压缩地图。 LiDAR 扫描被转换为评估配准方法中使用的相应格式，例如特征点或 GMM。 设 P 为输入 LiDAR 扫描，Q 为局部地图，T ∈ SE(3) 为包含旋转矩阵和平移的变换矩阵。 点云配准问题可以定义为：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/7.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/7.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/7.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/7.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/7.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/7.png" /></p>
+<p>其中f表示点云变换函数, L表示损失函数. 损失函数 L 因不同方法而异。 例如，点对点 ICP 使用选定点对之间的欧几里德距离，而点对平面 ICP 使用从点到成对局部平面块的平方距离。 对于在其他格式而不是原始点云上操作的方法，将 φ(.) 表示为一般特征提取函数，等式(1) 变成</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/8.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/8.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/8.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/8.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/8.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/8.png" /></p>
+<p>其中φp(.) 和 φq(.) 不一定相同。例如，可以将原始点云注册到 GMM 模型。</p>
+<h3 id="benchmark构建">Benchmark构建</h3>
+<p>本工作提出的benchmark与已有工作的不同之处在于，**要匹配的两部分数据是不对称的。**lidar scan更加稀疏, 携带噪声以及包含了运动目标。然而map更加稠密，并且离线构建好的,经历了去噪了移除运动物体等操作。</p>
+<p>为了模拟实际场景中的初始位姿误差，本工作应用了随机均匀噪声。在xyz三个方向上的误差区间为[-10, 10]m，在roll pitch yaw三个角度上的误差区间为[-10, 10]度。这样的随机误差可以再现现实场景中的绝大多数可能的初始误差。</p>
+<p>为了评估图一中的pipeline，本工作使用了KITTI Odometry以及Argoverse Tracking数据集。大概的流程是先将数据集预处理成若干数据对，每一对数据中包含局部地图以及lidar的点云帧。其中局部地图被裁剪为初始位姿周围40m的范围大小，接着被压缩成对应的形式， 点云压缩的实例如下图所示:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/6.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/6.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/6.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/6.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/6.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/6.png" /></p>
+<p>对于数据的预处理，我们对多帧lidar的点云进行聚合，以形成稠密的地图。由于KITTI中的真值噪声较多，我们使用SLAM替代了真值。而Argoverse中则是使用真值，对于移动物体的剔除，两个数据集同样存在差异。KITTI使用PVRCNN，Argoverse则是直接裁剪到可通行区域来移除车辆点。</p>
+<h3 id="evaluation-metrics">Evaluation Metrics</h3>
+<h4 id="1-precision">1. Precision</h4>
+<p>该项主要评估平移和旋转的误差，令 R ∈ SO(3) 是一个旋转矩阵，t ∈ R3 是一个来自 T 的平移向量。我们通过以下方式测量精度：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/10.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/10.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/10.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/10.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/10.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/10.png" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/11.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/11.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/11.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/11.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/11.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/11.png" /></p>
+<h4 id="2-success-rate-sr">2. Success Rate (SR)</h4>
+<p>平移和旋转误差都低于指定的阈值的数据对所占总数据对的比例。 我们选择平移误差阈值为 2m, 旋转误差阈值为 5°</p>
+<h2 id="结果讨论">结果讨论</h2>
+<p>在我们的实验中，我们使用裁剪的地图作为目标，使用 LiDAR 扫描作为源。 对于非对称方法，切换源和目标可能会影响结果。 在我们评估的非对称方法中，我们使用从 GICP 和点到平面 ICP 的地图计算出的法线，因为地图更密集且噪声更少。 对于 HGMR，我们在地图上构建 GMM 树，因为 GMM 树的压缩比比对原始点进行下采样更重要。 我们还为 FilterReg 交换了源和目标，发现它的性能比当前配置差</p>
+<p>对于基于点的方法，如果配准方法未提供分数，我们会随机对点进行下采样。 还可以将其他下采样技术与评估方法一起应用以提高性能。</p>
+<p>我们基于特征点的方法的结果表明，特征提取和对应过滤方法对于最终性能都至关重要。 TEASER++ 通常优于经典的 RANSAC，但只有在我们的地图大小预算下与深度描述符一起使用时才能发挥最佳效果。</p>
+<p>我们还注意到，当地图尺寸较小时，基于深度学习的方法失败主要是因为目标地图是基于特征点的，并且在密集下采样后过于稀疏。 基于深度形状模型的方法可能会增加下采样地图的空间覆盖范围并提高性能。 在不牺牲全局特征匹配精度的情况下进一步降低特征维度也值得更多研究。</p>
+<h3 id="定量实验">定量实验</h3>
+<p>下面两个表格是分别在KITTI以及Argoverse数据集上的定量结果。SR表示成功率，TE表示平移误差，RE表示旋转误差。SR10 是指在给地图大小预算 10 字节/平方米的情况下测得的成功率。其他同理。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/4.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/4.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/4.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/4.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/4.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/4.png" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/5.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/5.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/5.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/5.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/5.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/5.png" /></p>
+<p>下表是成功率曲线。 我们观察到，在 KITTI 和 Argoverse 中，在地图大小 = 1 字节/平方米的情况下，FCGF (TEASER++) 和 HGMR (L2) 的表现优于所有其他方法。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/3.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/3.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/3.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/3.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/3.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/3.png" /></p>
+<h2 id="reference">Reference</h2>
+<p>[1] Cao, C., Preda, M., &amp; Zaharia, T. (2019). 3D point cloud compression: A survey. Proceedings - Web3D 2019: 24th International ACM Conference on 3D Web Technology. <a href="https://doi.org/10.1145/3329714.3338130" target="_blank" rel="noopener noreffer">https://doi.org/10.1145/3329714.3338130</a></p>
+<p>[2] Bai, X., Luo, Z., Zhou, L., Fu, H., Quan, L., &amp; Tai, C. L. (2020). D3Feat: Joint learning of dense detection and description of 3D local features. Proceedings of the IEEE Computer Society Conference on Computer Vision and Pattern Recognition. <a href="https://doi.org/10.1109/CVPR42600.2020.00639" target="_blank" rel="noopener noreffer">https://doi.org/10.1109/CVPR42600.2020.00639</a></p>
+<p>[3] Yin, H., Wang, Y., Tang, L., Ding, X., Huang, S., &amp; Xiong, R. (2021). 3D LiDAR Map Compression for Efficient Localization on Resource Constrained Vehicles. IEEE Transactions on Intelligent Transportation Systems. <a href="https://doi.org/10.1109/TITS.2019.2961120" target="_blank" rel="noopener noreffer">https://doi.org/10.1109/TITS.2019.2961120</a></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-06</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/07-registration-benchmarks/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/07-registration-benchmarks/" data-title="07 Registration Benchmarks" data-hashtags="论文阅读"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/07-registration-benchmarks/" data-hashtag="论文阅读"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/07-registration-benchmarks/" data-title="07 Registration Benchmarks" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/07-registration-benchmarks/" data-title="07 Registration Benchmarks"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/07-registration-benchmarks/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/07-registration-benchmarks/" data-title="07 Registration Benchmarks"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/07-registration-benchmarks/" data-title="07 Registration Benchmarks" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/07-registration-benchmarks/" data-title="07 Registration Benchmarks" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/07-registration-benchmarks/" data-title="07 Registration Benchmarks"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/06-pvt/" class="prev" rel="prev" title="论文阅读06 PVT"><i class="fas fa-angle-left fa-fw"></i>论文阅读06 PVT</a>
+            <a href="/1.-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E4%BC%A0%E6%84%9F%E5%99%A8%E9%9C%80%E6%B1%82/" class="next" rel="next" title="多传感器融合感知之自动驾驶传感器需求">多传感器融合感知之自动驾驶传感器需求<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-THB0NH45ZM', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-THB0NH45ZM" async></script></body>
+</html>
