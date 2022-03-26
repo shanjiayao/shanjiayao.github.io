@@ -4,7 +4,14 @@
         <link>http://shanjiayao.com/posts/</link>
         <description>所有文章 | Jiayao&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
-            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Wed, 23 Mar 2022 23:11:56 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Fri, 25 Mar 2022 20:01:39 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>10 IA-SSD</title>
+    <link>http://shanjiayao.com/10-ia-ssd/</link>
+    <pubDate>Fri, 25 Mar 2022 20:01:39 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/10-ia-ssd/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>BEV感知公开课笔记</title>
     <link>http://shanjiayao.com/bev%E6%84%9F%E7%9F%A5%E5%85%AC%E5%BC%80%E8%AF%BE%E7%AC%94%E8%AE%B0/</link>
     <pubDate>Wed, 23 Mar 2022 23:11:56 &#43;0000</pubDate>
@@ -19,33 +26,12 @@
     <guid>http://shanjiayao.com/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/</guid>
     <description><![CDATA[<p>本文是深蓝学院多传感器融合感知课程的笔记，主要对用于建图定位的传感器进行原理梳理以及功能分析。</p>]]></description>
 </item><item>
-    <title>10 IA-SSD</title>
-    <link>http://shanjiayao.com/10-ia-ssd/</link>
-    <pubDate>Mon, 21 Mar 2022 20:01:39 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/10-ia-ssd/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>09 Cylinder3D</title>
-    <link>http://shanjiayao.com/09-cylinder3d/</link>
-    <pubDate>Sat, 19 Mar 2022 20:01:39 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/09-cylinder3d/</guid>
-    <description><![CDATA[<p>本文提出了一种圆柱化的3D卷积方案，有效针对lidar的数据特性设计网络。</p>]]></description>
-</item><item>
     <title>多传感器融合感知之用于感知的多传感器分析</title>
     <link>http://shanjiayao.com/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/</link>
     <pubDate>Thu, 17 Mar 2022 20:44:21 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/2.-%E7%94%A8%E4%BA%8E%E6%84%9F%E7%9F%A5%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/</guid>
     <description><![CDATA[<p>本文记录了深蓝课程学习过程，主要是关于camera、lidar、radar等传感器的原理分析以及相关知识。</p>]]></description>
-</item><item>
-    <title>08 Rigid3DSceneFlow</title>
-    <link>http://shanjiayao.com/08-rigid3dsceneflow/</link>
-    <pubDate>Wed, 16 Mar 2022 20:01:39 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/08-rigid3dsceneflow/</guid>
-    <description><![CDATA[<p>现有的3D sceneflow方法大多是自监督，因为flow的gt太难获得，而本文是一篇关于sceneflow弱监督的工作，发表在CVPR2021。</p>]]></description>
 </item><item>
     <title>多传感器融合感知之自动驾驶传感器需求</title>
     <link>http://shanjiayao.com/1.-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E4%BC%A0%E6%84%9F%E5%99%A8%E9%9C%80%E6%B1%82/</link>
@@ -54,14 +40,28 @@
     <guid>http://shanjiayao.com/1.-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E4%BC%A0%E6%84%9F%E5%99%A8%E9%9C%80%E6%B1%82/</guid>
     <description><![CDATA[]]></description>
 </item><item>
+    <title>09 Cylinder3D</title>
+    <link>http://shanjiayao.com/09-cylinder3d/</link>
+    <pubDate>Sat, 19 Feb 2022 20:01:39 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/09-cylinder3d/</guid>
+    <description><![CDATA[<p>本文提出了一种圆柱化的3D卷积方案，有效针对lidar的数据特性设计网络。</p>]]></description>
+</item><item>
+    <title>08 Rigid3DSceneFlow</title>
+    <link>http://shanjiayao.com/08-rigid3dsceneflow/</link>
+    <pubDate>Wed, 16 Feb 2022 20:01:39 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/08-rigid3dsceneflow/</guid>
+    <description><![CDATA[<p>现有的3D sceneflow方法大多是自监督，因为flow的gt太难获得，而本文是一篇关于sceneflow弱监督的工作，发表在CVPR2021。</p>]]></description>
+</item><item>
     <title>07 Registration Benchmarks</title>
     <link>http://shanjiayao.com/07-registration-benchmarks/</link>
-    <pubDate>Sun, 06 Mar 2022 20:01:39 &#43;0000</pubDate>
+    <pubDate>Sun, 06 Feb 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/07-registration-benchmarks/</guid>
     <description><![CDATA[<p>本文是对Simon Lucey组一篇IROS2021工作的解读，其目标是评价lidar2map的配准方法在压缩地图上的性能。</p>]]></description>
 </item><item>
-    <title>论文阅读06 PVT</title>
+    <title>06 PVT</title>
     <link>http://shanjiayao.com/06-pvt/</link>
     <pubDate>Wed, 26 Jan 2022 19:46:08 &#43;0000</pubDate>
     <author>作者</author>

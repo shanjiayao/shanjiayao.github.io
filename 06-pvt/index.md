@@ -1,4 +1,4 @@
-# 论文阅读06 PVT
+# 06 PVT
 
 
 Transformer在CV任务中的应用已经得到了很多工作的验证，但是对于点云处理任务，Transformer的尝试还不是特别多，这篇文章就是以PVCNN为基础，将Transformer融入进来。

@@ -4,36 +4,36 @@
         <link>http://shanjiayao.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</link>
         <description>论文阅读 - 分类 - Jiayao&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
-            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Mon, 21 Mar 2022 20:01:39 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Fri, 25 Mar 2022 20:01:39 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" rel="self" type="application/rss+xml" /><item>
     <title>10 IA-SSD</title>
     <link>http://shanjiayao.com/10-ia-ssd/</link>
-    <pubDate>Mon, 21 Mar 2022 20:01:39 &#43;0000</pubDate>
+    <pubDate>Fri, 25 Mar 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/10-ia-ssd/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>09 Cylinder3D</title>
     <link>http://shanjiayao.com/09-cylinder3d/</link>
-    <pubDate>Sat, 19 Mar 2022 20:01:39 &#43;0000</pubDate>
+    <pubDate>Sat, 19 Feb 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/09-cylinder3d/</guid>
     <description><![CDATA[<p>本文提出了一种圆柱化的3D卷积方案，有效针对lidar的数据特性设计网络。</p>]]></description>
 </item><item>
     <title>08 Rigid3DSceneFlow</title>
     <link>http://shanjiayao.com/08-rigid3dsceneflow/</link>
-    <pubDate>Wed, 16 Mar 2022 20:01:39 &#43;0000</pubDate>
+    <pubDate>Wed, 16 Feb 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/08-rigid3dsceneflow/</guid>
     <description><![CDATA[<p>现有的3D sceneflow方法大多是自监督，因为flow的gt太难获得，而本文是一篇关于sceneflow弱监督的工作，发表在CVPR2021。</p>]]></description>
 </item><item>
     <title>07 Registration Benchmarks</title>
     <link>http://shanjiayao.com/07-registration-benchmarks/</link>
-    <pubDate>Sun, 06 Mar 2022 20:01:39 &#43;0000</pubDate>
+    <pubDate>Sun, 06 Feb 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/07-registration-benchmarks/</guid>
     <description><![CDATA[<p>本文是对Simon Lucey组一篇IROS2021工作的解读，其目标是评价lidar2map的配准方法在压缩地图上的性能。</p>]]></description>
 </item><item>
-    <title>论文阅读06 PVT</title>
+    <title>06 PVT</title>
     <link>http://shanjiayao.com/06-pvt/</link>
     <pubDate>Wed, 26 Jan 2022 19:46:08 &#43;0000</pubDate>
     <author>作者</author>
