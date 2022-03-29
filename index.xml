@@ -4,9 +4,16 @@
         <link>http://shanjiayao.com/</link>
         <description>jiayao&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
-            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Sat, 26 Mar 2022 20:01:39 &#43;0000</lastBuildDate>
+            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Sun, 27 Mar 2022 20:01:39 &#43;0000</lastBuildDate>
             <atom:link href="http://shanjiayao.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>论文阅读12 Transfusion</title>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB12-transfusion/</link>
+    <pubDate>Sun, 27 Mar 2022 20:01:39 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB12-transfusion/</guid>
+    <description><![CDATA[<p>继FusionPainting之后，本工作进一步探究Sensor Fusion做检测的方案，提出了一种soft-association，来映射点云和图像的特征信息，并且利用Transformer两阶段的decoder逐步检测目标。</p>]]></description>
+</item><item>
     <title>论文阅读11 FusionPainting</title>
     <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB11-fusionpainting/</link>
     <pubDate>Sat, 26 Mar 2022 20:01:39 &#43;0000</pubDate>
@@ -19,7 +26,7 @@
     <pubDate>Fri, 25 Mar 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB10-ia-ssd/</guid>
-    <description><![CDATA[]]></description>
+    <description><![CDATA[<p>本文可以视为3D-SSD的后续变种，3D-SSD探究了采样方式对3D检测的影响，提出了特征空间的最远点采样，本文则是依靠网络学习语义以及中心度信息，进而完成采样过程，速度可达80+FPS。</p>]]></description>
 </item><item>
     <title>BEV感知公开课笔记</title>
     <link>http://shanjiayao.com/bev%E6%84%9F%E7%9F%A5%E5%85%AC%E5%BC%80%E8%AF%BE%E7%AC%94%E8%AE%B0/</link>
@@ -69,12 +76,5 @@
     <author>作者</author>
     <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB07-registration-benchmarks/</guid>
     <description><![CDATA[<p>本文是对Simon Lucey组一篇IROS2021工作的解读，其目标是评价lidar2map的配准方法在压缩地图上的性能。</p>]]></description>
-</item><item>
-    <title>论文阅读06 PVT</title>
-    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB06-pvt/</link>
-    <pubDate>Wed, 26 Jan 2022 19:46:08 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB06-pvt/</guid>
-    <description><![CDATA[<p>Transformer在CV任务中的应用已经得到了很多工作的验证，但是对于点云处理任务，Transformer的尝试还不是特别多，这篇文章就是以PVCNN为基础，将Transformer融入进来。</p>]]></description>
 </item></channel>
 </rss>
