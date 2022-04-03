@@ -39,6 +39,7 @@ radar到camera到lidar，波长逐渐变小，我们都知道短波检测精度�
 
 #### 2.1.2 成像过程
 
+详细细节可以参考这个[视频](https://www.youtube.com/watch?v=Wvor0fd-ERc)
 1. 景物在光源的照射下，产生的光学图像投射到相机中
 2. **镜头**（LENS）
 3. **图像传感器**，将光学信号转化为电信号，以及进一步通过AD转换器将模拟量转化为数字量。这里的光电转换传感器包含两种，分别是CCD以及CMOS，二者的差异在于信号的读出过程不同
@@ -81,8 +82,8 @@ radar到camera到lidar，波长逐渐变小，我们都知道短波检测精度�
 ### 2.2 lidar
 
 #### 2.2.1 成像原理
-
-首先，关于lidar的基本原理，参考以下视频 https://www.youtube.com/watch?v=NZKvf1cX
+ 
+首先，关于lidar的基本原理，参考以下视频 https://www.youtube.com/watch?v=NZKvf1cXe8s
 
 简要来说，激光雷达通过TOF原理，自己发射光波来测量环境中障碍物的距离，多线的激光雷达可以通过旋转式的扫描方式来获取周边环境的点云信息。常见的激光雷达不仅可以返回目标表面点相对于自身的距离，还可以测量表面材质、颜色等信息，作为额外的每个点的属性（intensity、timestamp、elongation等）。
 
