@@ -8,7 +8,7 @@
 
 ## 简介
 
--   论文：《# TransFusion: Robust LiDAR-Camera Fusion for 3D Object Detection with Transformers》
+-   论文：《TransFusion: Robust LiDAR-Camera Fusion for 3D Object Detection with Transformers》
 -   作者：_[Xuyang Bai](https://arxiv.org/search/cs?searchtype=author&query=Bai%2C+X), [Zeyu Hu](https://arxiv.org/search/cs?searchtype=author&query=Hu%2C+Z), [Xinge Zhu](https://arxiv.org/search/cs?searchtype=author&query=Zhu%2C+X), [Qingqiu Huang](https://arxiv.org/search/cs?searchtype=author&query=Huang%2C+Q), [Yilun Chen](https://arxiv.org/search/cs?searchtype=author&query=Chen%2C+Y), [Hongbo Fu](https://arxiv.org/search/cs?searchtype=author&query=Fu%2C+H), [Chiew-Lan Tai](https://arxiv.org/search/cs?searchtype=author&query=Tai%2C+C)_
 -   机构：_HKUST, Huawei, CUHK_
 -   论文水平：_CVPR2022_
