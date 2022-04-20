@@ -4,13 +4,20 @@
         <link>http://shanjiayao.com/posts/</link>
         <description>所有文章 | Jiayao&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
-            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Fri, 15 Apr 2022 20:01:39 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>论文阅读14 BEV感知系列-LiftSplat</title>
-    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-liftsplat/</link>
+            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Tue, 19 Apr 2022 20:01:39 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>论文阅读15 BEV感知系列-LiftSplat</title>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB15-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-liftsplat/</link>
+    <pubDate>Tue, 19 Apr 2022 20:01:39 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB15-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-liftsplat/</guid>
+    <description><![CDATA[<p>本文是了解BEV感知系列的第三篇论文阅读，来自Nvidia，Lift是指将相机表达提升到三维视锥，Splat指将各个相机的三维视锥通过外参以及PointPillar，拍平到BEV视角。通过独特的lift过程实现二维到三维的映射。</p>]]></description>
+</item><item>
+    <title>论文阅读15 BEV感知系列-FishingNet</title>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/</link>
     <pubDate>Fri, 15 Apr 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-liftsplat/</guid>
-    <description><![CDATA[<p>本文是了解BEV感知系列的第二篇论文阅读，来自Nvidia，Lift是指将相机表达提升到三维视锥，Splat指将各个相机的三维视锥通过外参以及PointPillar，拍平到BEV视角。通过独特的lift过程实现二维到三维的映射。</p>]]></description>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/</guid>
+    <description><![CDATA[<p>本文是了解BEV感知系列的第二篇论文阅读，来自zoox，其相机到BEV的变换follow了VPN的做法，主要是引入了lidar与radar的数据做融合处理。</p>]]></description>
 </item><item>
     <title>论文阅读13 BEV感知系列-VPN</title>
     <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB13-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-vpn/</link>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>http://shanjiayao.com/1.-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E4%BC%A0%E6%84%9F%E5%99%A8%E9%9C%80%E6%B1%82/</guid>
     <description><![CDATA[]]></description>
-</item><item>
-    <title>论文阅读09 Cylinder3D</title>
-    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB09-cylinder3d/</link>
-    <pubDate>Sat, 19 Feb 2022 20:01:39 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB09-cylinder3d/</guid>
-    <description><![CDATA[<p>本文提出了一种圆柱化的3D卷积方案，有效针对lidar的数据特性设计网络。</p>]]></description>
 </item></channel>
 </rss>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>论文阅读15 BEV感知系列-FishingNet - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="论文阅读15 BEV感知系列-FishingNet" />
+<meta property="og:description" content="本文是了解BEV感知系列的第二篇论文阅读，来自zoox，其相机到BEV的变换follow了VPN的做法，主要是引入了lidar与radar的数据做融合处理。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-15T20:01:39+00:00" />
+<meta property="article:modified_time" content="2022-04-15T20:01:39+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="论文阅读15 BEV感知系列-FishingNet"/>
+<meta name="twitter:description" content="本文是了解BEV感知系列的第二篇论文阅读，来自zoox，其相机到BEV的变换follow了VPN的做法，主要是引入了lidar与radar的数据做融合处理。"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/" /><link rel="prev" href="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB13-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-vpn/" /><link rel="next" href="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB15-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-liftsplat/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "论文阅读15 BEV感知系列-FishingNet",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet\/"
+        },"genre": "posts","keywords": "论文阅读","wordcount":  2467 ,
+        "url": "http:\/\/shanjiayao.com\/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet\/","datePublished": "2022-04-15T20:01:39+00:00","dateModified": "2022-04-15T20:01:39+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/collections/"> 收集 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/collections/" title="">收集</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">论文阅读15 BEV感知系列-FishingNet</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"><i class="far fa-folder fa-fw"></i>论文阅读</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-15">2022-04-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2467 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#tldr">TL;DR</a></li>
+    <li><a href="#摘要">摘要</a></li>
+    <li><a href="#主要贡献">主要贡献</a></li>
+    <li><a href="#方法框架">方法框架</a>
+      <ul>
+        <li><a href="#问题定义">问题定义</a></li>
+        <li><a href="#多模态数据预处理">多模态数据预处理</a>
+          <ul>
+            <li><a href="#lidar输入编码">Lidar输入编码</a></li>
+            <li><a href="#radar输入编码">Radar输入编码</a></li>
+            <li><a href="#camera输入编码">Camera输入编码</a></li>
+          </ul>
+        </li>
+        <li><a href="#网络结构">网络结构</a></li>
+      </ul>
+    </li>
+    <li><a href="#实验">实验</a></li>
+    <li><a href="#总结与思考">总结与思考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本文是了解BEV感知系列的第二篇论文阅读，来自zoox，其相机到BEV的变换follow了VPN的做法，主要是引入了lidar与radar的数据做融合处理。</p>
+<h2 id="简介">简介</h2>
+<ul>
+<li>论文：《FISHING Net: Future Inference of Semantic Heatmaps In Grids》</li>
+<li>作者：<em>Noureldin Hendy , Cooper Sloan, Feng Tian&hellip;</em></li>
+<li>机构：<em>Zoox</em></li>
+<li>论文水平：<em>CVPR 2020</em></li>
+<li>关键词：<strong>Perception &amp;&amp; BEV segmentation &amp;&amp; Sensor Fusion</strong></li>
+<li>论文链接：<a href="https://arxiv.org/abs/2008.05711" target="_blank" rel="noopener noreffer">paper</a>  <a href="https://nv-tlabs.github.io/lift-splat-shoot/" target="_blank" rel="noopener noreffer">project</a></li>
+</ul>
+<h2 id="tldr">TL;DR</h2>
+<p><a href="#%e6%80%bb%e7%bb%93%e4%b8%8e%e6%80%9d%e8%80%83" rel="">总结与思考</a></p>
+<h2 id="摘要">摘要</h2>
+<p>对于要在复杂环境中导航的自主机器人，从几何和语义上理解周围场景至关重要。现代自主机器人采用多组传感器，包括激光雷达、雷达和摄像头。管理传感器的不同参考框架和特性，并将它们的观察结果合并到一个单一的表示中会使感知复杂化。为所有传感器选择一个统一的表示可以简化感知和融合的任务。</p>
+<p>在这项工作中，我们提出了一个端到端的pipeline，它使用自上而下的表示来执行语义分割和短期预测。我们的方法由一组神经网络组成，这些神经网络从不同的传感器模态中获取传感器数据，并将它们转换为一个通用的自上而下的语义网格表示。我们发现这种表示是有利的，因为它与特定于传感器的参考帧无关，并且可以捕获周围场景的语义和几何信息。因为多模态共享一个单一的BEV输出表示，它们可以很容易地聚合以产生一个融合的输出。并且可以扩展到其他任务。这种方法为多模态感知和预测提供了一种简单、可扩展、端到端的方法。</p>
+<p>对于实验，在公开的NuScenes以及Lyft数据集上做了两种模态（相机与激光）的测试，在自己收集的数据集上做了三模态的融合。</p>
+<h2 id="主要贡献">主要贡献</h2>
+<ul>
+<li>提出了一个全新的多传感器融合感知的框架，最终的输出是在BEV视角</li>
+<li>提出了一个使用Rader信息做短期预测的框架</li>
+<li>提出的框架易于扩展到其他传感器</li>
+</ul>
+<h2 id="方法框架">方法框架</h2>
+<p>主题框架可以分为两部分，分别是各传感器特征提取以及多传感器特征聚合。首先通过K个网络单独学习K个传感器模态的特征，其输入是一组过去的数据，输出是一组包含未来的BEV语义网格。然后再通过对多个模态的语义网格进行跨模态融合，输出最终的BEV语义map。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420100836.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420100836.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420100836.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420100836.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420100836.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420100836.png" /></p>
+<h3 id="问题定义">问题定义</h3>
+<ul>
+<li>输入：K个传感器以及过去P帧的数据，当前时刻记为t0</li>
+<li>输出：当前时刻t0以及未来f帧的BEV语义grid map</li>
+<li>map的语义类别：
+<ul>
+<li>vulnerable road users (VRU) including pedestrians, bicyclists and motorists</li>
+<li>vehicles</li>
+<li>background</li>
+</ul>
+</li>
+</ul>
+<p>输出语义地图的示例如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111059.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111059.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111059.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111059.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111059.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111059.png" /></p>
+<h3 id="多模态数据预处理">多模态数据预处理</h3>
+<h4 id="lidar输入编码">Lidar输入编码</h4>
+<p>直接对Lidar点云进行BEV投影，然后编码了8个维度的特征，分别是：</p>
+<ol>
+<li>占据信息，有点的网格为1，否则为0</li>
+<li>Density，对每个网格中的点数密度做归一化</li>
+<li>Z轴极大值，直接做类Pillar处理，仅保留z方向上的最大值</li>
+<li>Z轴分层，将高度分为5层，0-2.5米的区间</li>
+</ol>
+<p>将上述8个单独的特征图cat到一起，再经过ego的pose transformation，把过去p帧时间戳的信息变换到当前t0帧的坐标系下，然后使用了p+1个通道维护各自的时间戳信息。</p>
+<p>所以最终的lidar分支输入是WxHx8x(p+1)，作者还十分贴心的做了可视化。abcd分别对应上述1234.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111032.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111032.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111032.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111032.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111032.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111032.png" /></p>
+<h4 id="radar输入编码">Radar输入编码</h4>
+<p>类似lidar，同样编码成BEV视角下的特征，6个维度：</p>
+<ol>
+<li>网格占据状态，1表示有点，反之0</li>
+<li>经过ego 运动补偿之后的多普勒速度的XY值</li>
+<li>Radar截面，Radar cross section (RCS)，属于传感器自身的特性，雷达截面积越小，雷达对目标的信号特征就越小，探测距离也越短</li>
+<li>信噪比，Signal to noise ratio (SNR).</li>
+<li>歧义的多普勒区间，Ambiguous Doppler interval.</li>
+</ol>
+<p>对于时间戳的处理，同lidar，多帧pose向t0时刻对齐，并cat上时间的维度编码值。单帧的Radar点云如下图</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111013.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111013.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111013.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111013.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111013.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111013.png" /></p>
+<h4 id="camera输入编码">Camera输入编码</h4>
+<p>使用了多个相机均匀分布在ego周围，以覆盖360度的FOV，分辨率大小是192x320，同样cat并做时间编码。示例如下图：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420110946.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420110946.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420110946.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420110946.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420110946.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420110946.png" /></p>
+<h3 id="网络结构">网络结构</h3>
+<p>整体采用编码解码的方式，不过相机的编码解码器与radar和lidar的不同，radar与lidar则共用一个编码解码网络。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111342.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111342.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111342.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111342.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111342.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420111342.png" /></p>
+<p>具体而言，radar与lidar的网络设计由于不需要考虑视角变换，直接应用类似U-Net的网络结构提取特征进而做编解码即可。而Vision部分则需要考虑如何将透视视角转换到BEV视角下面，所以需要独立出来考虑。具体的做法就是在encoder和decoder之间做了一层正交特征变换（orthographic feature transformation），细节部分参考了VPN的工作，正交层由一系列具有 ReLU 激活的无偏全连接层组成。 这提供了变换的非线性特性。 由于每个摄像机的参考帧不同，将每个摄像机视图传递给一个共享的编码器，将投影特征加在一起，然后将结果传递给一个解码器。 这种方法允许网络学习像素空间中的特征，然后可以将其解码为BEV视图输出。</p>
+<p>关于多模态特征聚合部分，所有模态共享相同的融合框架，这里作者提出了两种融合方案，均应用在每个模态输出的softmax上进行计算，分别是平均池化以及优先级池化，平均池化类似于ensemble，这样可以减少输出的方差；而优先级池化则是对多模态的输出进行分级别处理，设定行人 &gt; 车辆 &gt; 背景。如果同一个像素对应的三模态传感器输出的不一致，那么优先选择最高优先级的类别作为当前像素的类别。</p>
+<h2 id="实验">实验</h2>
+<p>由于使用了lidar，因此训练的label来自于lidar的标注数据后处理。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420112628.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420112628.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420112628.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420112628.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420112628.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420112628.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420112724.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420112724.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420112724.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420112724.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420112724.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220420112724.png" /></p>
+<h2 id="总结与思考">总结与思考</h2>
+<p>本文是为数不多的带有Radar的多传感器融合工作，个人了解的还有一篇工作是赵行老师组的FUTR3D，个人理解本文的创新点是引入了lidar和rader的元素，并且构建了一个可扩展的网络框架，首先进行多模态各自的特征编码，然后对三者均使用encoder-decoder结构，得到BEV视角下的语义map，只不过相机分支follow了VPN的视角变换操作，使用MLP学习两视角之间的映射，这样需要保证输入输出分辨率一致。最后设计了两种多模态map的融合方式，分别是均值融合和优先级融合。</p>
+<p>从结果来看，车辆的短期预测尚可，而且貌似不需要使用camera和radar，lidar自身便可以预测得到不错的结果。不过本文的设定是，只关注动态目标，而将所有静态目标作为背景处理，这一点对于构建语义map而言并不是特别友好。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-04-15</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/" data-title="论文阅读15 BEV感知系列-FishingNet" data-hashtags="论文阅读"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/" data-hashtag="论文阅读"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/" data-title="论文阅读15 BEV感知系列-FishingNet" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/" data-title="论文阅读15 BEV感知系列-FishingNet"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/" data-title="论文阅读15 BEV感知系列-FishingNet"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/" data-title="论文阅读15 BEV感知系列-FishingNet" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/" data-title="论文阅读15 BEV感知系列-FishingNet" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/" data-title="论文阅读15 BEV感知系列-FishingNet"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB13-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-vpn/" class="prev" rel="prev" title="论文阅读13 BEV感知系列-VPN"><i class="fas fa-angle-left fa-fw"></i>论文阅读13 BEV感知系列-VPN</a>
+            <a href="/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB15-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-liftsplat/" class="next" rel="next" title="论文阅读15 BEV感知系列-LiftSplat">论文阅读15 BEV感知系列-LiftSplat<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-THB0NH45ZM', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-THB0NH45ZM" async></script></body>
+</html>

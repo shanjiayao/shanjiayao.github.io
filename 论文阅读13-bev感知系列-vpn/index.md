@@ -6,8 +6,6 @@
 
 <!--more-->
 
-![](https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220414185948.png)
-
 
 ## 简介
 
@@ -18,6 +16,8 @@
 -   关键词：**Perception && BEV segmentation**
 -   论文链接：[paper](https://arxiv.org/abs/1906.03560)  [project](https://view-parsing-network.github.io/)
 
+
+![](https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220414185948.png)
 
 ## TL;DR
 
