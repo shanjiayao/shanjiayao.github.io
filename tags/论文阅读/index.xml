@@ -5,26 +5,33 @@
         <description>论文阅读 - 标签 - Jiayao&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
             <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Tue, 19 Apr 2022 20:01:39 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" rel="self" type="application/rss+xml" /><item>
-    <title>论文阅读15 BEV感知系列-LiftSplat</title>
-    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB15-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-liftsplat/</link>
+    <title>论文阅读16 BEV感知系列-LiftSplat</title>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB16-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-liftsplat/</link>
     <pubDate>Tue, 19 Apr 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB15-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-liftsplat/</guid>
-    <description><![CDATA[<p>本文是了解BEV感知系列的第三篇论文阅读，来自Nvidia，Lift是指将相机表达提升到三维视锥，Splat指将各个相机的三维视锥通过外参以及PointPillar，拍平到BEV视角。通过独特的lift过程实现二维到三维的映射。</p>]]></description>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB16-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-liftsplat/</guid>
+    <description><![CDATA[<p>本文是了解BEV感知系列的第四篇论文阅读，来自Nvidia，Lift是指将相机表达提升到三维视锥，Splat指将各个相机的三维视锥通过外参以及PointPillar，拍平到BEV视角。通过独特的lift过程实现二维到三维的映射。</p>]]></description>
 </item><item>
     <title>论文阅读15 BEV感知系列-FishingNet</title>
-    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/</link>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB15-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/</link>
     <pubDate>Fri, 15 Apr 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/</guid>
-    <description><![CDATA[<p>本文是了解BEV感知系列的第二篇论文阅读，来自zoox，其相机到BEV的变换follow了VPN的做法，主要是引入了lidar与radar的数据做融合处理。</p>]]></description>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB15-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-fishingnet/</guid>
+    <description><![CDATA[<p>本文是了解BEV感知系列的第三篇论文阅读，来自zoox，其相机到BEV的变换follow了VPN的做法，主要是引入了lidar与radar的数据做融合处理。</p>]]></description>
 </item><item>
-    <title>论文阅读13 BEV感知系列-VPN</title>
-    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB13-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-vpn/</link>
+    <title>论文阅读14 BEV感知系列-VPN</title>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-vpn/</link>
     <pubDate>Sun, 10 Apr 2022 20:01:39 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB13-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-vpn/</guid>
-    <description><![CDATA[<p>本文是了解BEV感知系列的第一篇论文阅读，BEV感知是指将其他传感器或视角下的感知结果融合到鸟瞰视图，本文提出的网络结构通过MLP学习视角变换，进而融合多视角特征，以构建BEV的语义Map。</p>]]></description>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-vpn/</guid>
+    <description><![CDATA[<p>本文是了解BEV感知系列的第二篇论文阅读，BEV感知是指将其他传感器或视角下的感知结果融合到鸟瞰视图，本文提出的网络结构通过MLP学习视角变换，进而融合多视角特征，以构建BEV的语义Map。</p>]]></description>
+</item><item>
+    <title>论文阅读13 BEV感知系列-VPN</title>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB13-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-lookaroundobjects/</link>
+    <pubDate>Sat, 09 Apr 2022 20:01:39 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB13-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-lookaroundobjects/</guid>
+    <description><![CDATA[<p>本文是了解BEV感知系列的第一篇论文阅读，提出了前景运动遮挡对构建语义Map的影响，并提出了一种hallucination背景深度和语义的方法，从而避免了大量的手工标注。</p>]]></description>
 </item><item>
     <title>论文阅读12 Transfusion</title>
     <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB12-transfusion/</link>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB07-registration-benchmarks/</guid>
     <description><![CDATA[<p>本文是对Simon Lucey组一篇IROS2021工作的解读，其目标是评价lidar2map的配准方法在压缩地图上的性能。</p>]]></description>
-</item><item>
-    <title>论文阅读06 PVT</title>
-    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB06-pvt/</link>
-    <pubDate>Wed, 26 Jan 2022 19:46:08 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB06-pvt/</guid>
-    <description><![CDATA[<p>Transformer在CV任务中的应用已经得到了很多工作的验证，但是对于点云处理任务，Transformer的尝试还不是特别多，这篇文章就是以PVCNN为基础，将Transformer融入进来。</p>]]></description>
 </item></channel>
 </rss>
