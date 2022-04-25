@@ -2,7 +2,7 @@
 
 
 
-本文是了解BEV感知系列的第五篇论文阅读，来自亚琛工大，
+本文是了解BEV感知系列的第五篇论文阅读，来自亚琛工大，其针对IPM投影算法中的前景前景遮挡问题进行探究，标注遮挡类别，让网络预测遮挡类别，代码已开源。
 
 <!--more-->
 
@@ -16,10 +16,8 @@
 -   关键词：**Perception && BEV segmentation**
 -   论文链接：[paper](https://github.com/ika-rwth-aachen/Cam2BEV)  [code](https://github.com/ika-rwth-aachen/Cam2BEV)
 
-![](https://github.com/ika-rwth-aachen/Cam2BEV/blob/master/assets/teaser.gif)
 
-![](https://github.com/ika-rwth-aachen/Cam2BEV/blob/master/assets/teaser.gif)
-![](https://github.com/ika-rwth-aachen/Cam2BEV/blob/master/assets/teaser.gif)
+![](https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/teaser.gif)
 
 ## TL;DR
 
