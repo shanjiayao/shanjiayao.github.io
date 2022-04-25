@@ -4,7 +4,14 @@
         <link>http://shanjiayao.com/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</link>
         <description>论文阅读 - 标签 - Jiayao&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
-            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Tue, 19 Apr 2022 20:01:39 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Sat, 23 Apr 2022 20:01:39 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" rel="self" type="application/rss+xml" /><item>
+    <title>论文阅读17 BEV感知系列-Cam2BEV</title>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB17-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-cam2bev/</link>
+    <pubDate>Sat, 23 Apr 2022 20:01:39 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB17-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-cam2bev/</guid>
+    <description><![CDATA[<p>本文是了解BEV感知系列的第五篇论文阅读，来自亚琛工大，</p>]]></description>
+</item><item>
     <title>论文阅读16 BEV感知系列-LiftSplat</title>
     <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB16-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-liftsplat/</link>
     <pubDate>Tue, 19 Apr 2022 20:01:39 &#43;0000</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB08-rigid3dsceneflow/</guid>
     <description><![CDATA[<p>现有的3D sceneflow方法大多是自监督，因为flow的gt太难获得，而本文是一篇关于sceneflow弱监督的工作，发表在CVPR2021。</p>]]></description>
-</item><item>
-    <title>论文阅读07 Registration Benchmarks</title>
-    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB07-registration-benchmarks/</link>
-    <pubDate>Sun, 06 Feb 2022 20:01:39 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB07-registration-benchmarks/</guid>
-    <description><![CDATA[<p>本文是对Simon Lucey组一篇IROS2021工作的解读，其目标是评价lidar2map的配准方法在压缩地图上的性能。</p>]]></description>
 </item></channel>
 </rss>
