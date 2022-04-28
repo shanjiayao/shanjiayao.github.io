@@ -11,7 +11,8 @@ kitti的数据采集平台，配置有四个摄像机和一个激光雷达，四
 
 从图中可看出，关于相机坐标系(camera)的方向与雷达坐标系(velodyne)的方向规定
 
-![kitti_coordinate](https://gitee.com/yanglysysu/pic_assets/raw/master/kitti_coord.png)
+![](https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/kitti_coord.png)
+
 
 camera: x = right, y = down, z = forward
 
