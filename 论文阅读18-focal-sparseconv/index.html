@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>论文阅读18 Focal SparseConv - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="论文阅读18 Focal SparseConv" />
+<meta property="og:description" content="本文是CVPR2022的oral，也是旷视以及港中文贾佳亚老师团队的合作工作。主要是对稀疏卷积的改进，通过预测卷积核中每个位置的特征对输出的贡献程度，定义了一种重要性分数，然后利于阈值截取满足条件位置的特征。等同于标准稀疏卷积以及子流形稀疏卷积的中间版本。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-01T08:01:39+00:00" />
+<meta property="article:modified_time" content="2022-05-01T08:01:39+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="论文阅读18 Focal SparseConv"/>
+<meta name="twitter:description" content="本文是CVPR2022的oral，也是旷视以及港中文贾佳亚老师团队的合作工作。主要是对稀疏卷积的改进，通过预测卷积核中每个位置的特征对输出的贡献程度，定义了一种重要性分数，然后利于阈值截取满足条件位置的特征。等同于标准稀疏卷积以及子流形稀疏卷积的中间版本。"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv/" /><link rel="prev" href="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB17-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-cam2bev/" /><link rel="next" href="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "论文阅读18 Focal SparseConv",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv\/"
+        },"genre": "posts","keywords": "论文阅读","wordcount":  3771 ,
+        "url": "http:\/\/shanjiayao.com\/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv\/","datePublished": "2022-05-01T08:01:39+00:00","dateModified": "2022-05-01T08:01:39+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/collections/"> 收集 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/collections/" title="">收集</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">论文阅读18 Focal SparseConv</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"><i class="far fa-folder fa-fw"></i>论文阅读</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-01">2022-05-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3771 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#tldr">TL;DR</a></li>
+    <li><a href="#摘要">摘要</a></li>
+    <li><a href="#讨论">讨论</a></li>
+    <li><a href="#主要贡献">主要贡献</a></li>
+    <li><a href="#方法框架">方法框架</a>
+      <ul>
+        <li><a href="#通用的稀疏卷积结构">通用的稀疏卷积结构</a></li>
+        <li><a href="#现有两种稀疏卷积结构分析">现有两种稀疏卷积结构分析</a></li>
+        <li><a href="#本文提出的方案">本文提出的方案</a>
+          <ul>
+            <li><a href="#focal-sparse-convolution">Focal Sparse Convolution</a></li>
+            <li><a href="#fusion-focal-sparse-convolution">Fusion Focal Sparse Convolution</a></li>
+          </ul>
+        </li>
+        <li><a href="#监督信息的构建">监督信息的构建</a></li>
+      </ul>
+    </li>
+    <li><a href="#实验">实验</a>
+      <ul>
+        <li><a href="#定量实验">定量实验</a></li>
+        <li><a href="#消融实验">消融实验</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结与思考">总结与思考</a></li>
+    <li><a href="#参考文献">参考文献</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本文是CVPR2022的oral，也是旷视以及港中文贾佳亚老师团队的合作工作。主要是对稀疏卷积的改进，通过预测卷积核中每个位置的特征对输出的贡献程度，定义了一种重要性分数，然后利于阈值截取满足条件位置的特征。等同于标准稀疏卷积以及子流形稀疏卷积的中间版本。</p>
+<h2 id="简介">简介</h2>
+<ul>
+<li>论文：《Focal Sparse Convolutional Networks for 3D Object Detection》</li>
+<li>作者：Yukang Chen, Yanwei Li, Xiangyu Zhang, Jian Sun, Jiaya Jia</li>
+<li>机构：<em>CUHK, MEGVII, SmartMore</em></li>
+<li>论文水平：<em>CVPR 2022 oral</em></li>
+<li>关键词：<strong>Sparse Convolution &amp;&amp; 3D Object Detection</strong></li>
+<li>论文链接：<a href="https://arxiv.org/abs/2204.12463" target="_blank" rel="noopener noreffer">paper</a>  <a href="https://github.com/dvlab-research/FocalsConv" target="_blank" rel="noopener noreffer">code</a></li>
+</ul>
+<h2 id="tldr">TL;DR</h2>
+<p><a href="#%e6%80%bb%e7%bb%93%e4%b8%8e%e6%80%9d%e8%80%83" rel="">总结与思考</a></p>
+<h2 id="摘要">摘要</h2>
+<p>非均匀 3D 稀疏数据，例如不同空间位置的点云或体素，对3D目标检测任务的贡献程度不同，无论是标准还是子流形稀疏卷积均如此。</p>
+<p>本文引入了两个新的模块以增强稀疏卷积，他们都基于可学习的位置重要性预测。这两个模块分别是Focals Conv以及其融合了多模态的变体Focals Conv-F。这两个新模块可以简单地替换现有稀疏卷积中的模块，并且支持端到端地训练。</p>
+<p>本工作验证了：稀疏卷积网络中，可学习的空间稀疏性对于3D目标检测至关重要，并且我们在KITTI、nuScenes以及Waymo数据集上通过大量实验验证了方法的有效性。我们模型的标注版本在nuScenes测试集上优于所有的现有工作。</p>
+<h2 id="讨论">讨论</h2>
+<p>对于三维数据，如激光雷达点云，其体素化后通过稀疏卷积提取特征的操作已经被研究学者们广泛应用，但是他们仍然具有一些显著的缺陷。</p>
+<p>我们可以将常见的稀疏卷积分为两类，一类是标准的稀疏卷积，其计算卷积输出时将所有卷积核覆盖的非空元素作保留，这等同于将原有的稀疏特征做了膨胀操作，并且显著增加了计算量，导致一般只能应用在下采样后的特征图上。此外，对于检测任务而言，检测器需要显著地区分前景目标和背景，而这种标准的稀疏卷积则是实现了对原始稀疏数据的平滑滤波，这会破坏前景目标的显著性。</p>
+<p>另一类稀疏卷积是子流形稀疏卷积，其只保留卷积核中心对应特征非空的元素，因此不会破坏原始稀疏特征的分布信息，并且不会引入过多的计算负担。但是由于仅当卷积核中心覆盖非空元素时卷积才起作用，这可能丢失必要的上下文信息，尤其是一些空间分布上不连续的特征之间的信息流。</p>
+<p>因此，上述两种常见的稀疏卷积均存在一些限制，而这些限制本质上源于卷积的特性，所有输入的特征被卷积核等同对待，并没有区分各自位置上的信息差异性，这适用于2D稠密的图像卷积，但是针对于三维空间离散的特征分布，卷积的这一特性是无法解决点云数据的非均匀性以及稀疏性的。另一方面，现有的很多工作均关注于ROI的特征提取以及输出头的网络结构设计，但是底层特征在主干网络中的提取同样值得关注。这就是本文的动机所在。</p>
+<h2 id="主要贡献">主要贡献</h2>
+<ul>
+<li>分析了现有稀疏卷积的局限性，并提出了一种基于位置重要性的改进方案Focals Conv</li>
+<li>提出了一种多模态的Focals Conv-F，通过简单轻量的的网络结构提取图像特征，并且与点云特征融合，简单高效。</li>
+<li>大量的定量以及消融实验验证了方法的有效性。</li>
+</ul>
+<h2 id="方法框架">方法框架</h2>
+<h3 id="通用的稀疏卷积结构">通用的稀疏卷积结构</h3>
+<p>给定输入的特征为$X_p$ ，通道数为$C_{in}$ ，那么使用一个卷积核对位置 $p$ 处的特征进行特征计算，卷积核的尺寸为  $\mathrm{w} \in \mathbb{R}^{K^{d} \times c_{\mathrm{in}} \times c_{\mathrm{out}}}$ ，那么普通卷积的处理公式为：</p>
+<p>$$ \mathrm{y}<em>{p}=\sum</em>{k \in K^{d}} \mathrm{w}<em>{k} \cdot \mathrm{x}</em>{\bar{p}_{k}} $$</p>
+<p>其中$k$ 枚举了$K^d$ 范围内的所有位置，$K^d$ 其实就是卷积核的大小范围，$\bar{p}_{k}=p+k$ ，比如$p=(1,1)$，$K^d$ 表示一个二维的 $3x3$ 的卷积核，那么 $k$ 的取值范围就是$(-1,-1),(-1,0),,,(1,1)$ ，所以上述公式等同于特征图上的特征与卷积核参数按位相乘再相加的过程。</p>
+<p>而对于一些卷积的变种，同样可以根据修改上述公式实现，比如：</p>
+<ul>
+<li>图像数据等稠密输入的卷积结构则是对应 $p \in \mathbb{Z}$</li>
+<li>当$\bar{p}<em>{k}$附带一个可以学习的偏置 $\Delta\bar{p}</em>{k}$ ，那么就变成了可变的感受野，即deformable conv</li>
+<li>如果卷积核 $\mathrm{w}$ 被一组系数加权，形如$\sum{\alpha}_{i}\mathrm{w}^{i}$ ，那么就变成了dynamic conv，可以进一步调整卷积核每个位置参数的权重。</li>
+<li>如果使用注意力mask对输入特征图$x$做加权，那么就是input attention mask</li>
+</ul>
+<h3 id="现有两种稀疏卷积结构分析">现有两种稀疏卷积结构分析</h3>
+<p>而对于稀疏卷积，位置$p$不再属于密集的离散空间$\mathbb{Z}$ ，输入和输出的特征空间也分别放宽到$P_{in}$和$P_{out}$，二者均为稀疏离散的位置集合，因此稀疏卷积的公式转变为：</p>
+<p>$$ \mathrm{y}<em>{p\in{P}</em>{out}}=\sum_{k \in K^{d}(p,{P}<em>{in})} \mathrm{w}</em>{k} \cdot \mathrm{x}<em>{\bar{p}</em>{k}} $$</p>
+<p>$K^{d}(p,{P}_{in})$ 是 $K^{d}$ 的子集，只包含那些非空的位置，这也符合稀疏卷积的定义。</p>
+<p>此外，前文同样说过，现有的稀疏卷积包含两种形式，分别是标注稀疏卷积以及子流形稀疏卷积，二者的唯一区别在于界定输出的规则不同。</p>
+<ol>
+<li>对于标准稀疏卷积，输出 $P_{out}$ 包含了所有的以 $P_{in}$ 为中心，$K^d$ 为边界的位置坐标，这种结构的稀疏卷积，任意卷积核覆盖到的非空位置均存在输出，如下图所示
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502154236.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502154236.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502154236.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502154236.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502154236.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502154236.png" />
+可以看到，输出的特征图将输入的稀疏特征做了膨胀，更加稠密的特征会带来额外的计算成本，此外，本文凭借实验结果发现，这种方案同样会降低原始数据的前景锐化程度，等同于滤波平滑操作，而这对于极度依赖前景特征的检测任务来说是很不友好的。</li>
+<li>对于子流形稀疏卷积，输出应满足 $P_{out}=P_{in}$ ，因为此种卷积只有当卷积核中心覆盖非空特征时才计算输出，这使得输出的特征图非空元素与输入特征图等同，如下图所示
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502155043.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502155043.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502155043.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502155043.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502155043.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502155043.png" />
+这种方式避免了引入额外的计算成本，但是却可能丢失一些包含上下文连续信息的特征流，输出特征图的感受野受到了离散特征的限制，可能会导致模型表述能力的下降。</li>
+</ol>
+<h3 id="本文提出的方案">本文提出的方案</h3>
+<p>上述两种稀疏卷积的方案，对于输出 $P_{out}$ 的定义都是静态的，而这种的一般无法cover不同稀疏程度的 $P_{in}$。因此，本文实现了对输入 $P_{in}$ 稀疏程度自适应的动态感受野设定，以决定不同的输出 $P_{out}$ 。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171141.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171141.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171141.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171141.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171141.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171141.png" /></p>
+<h4 id="focal-sparse-convolution">Focal Sparse Convolution</h4>
+<p>所谓的Focal，是指让网络凭借不同位置特征的重要程度有所取舍，重点关注那些较为重要的特征，从而动态地决定输出 $P_{out}$ ，对应的公式为：</p>
+<p>$$P_{\mathrm{out}}=\left(\bigcup_{p \in P_{\mathrm{im}}} P\left(p, K_{\mathrm{im}}^{d}(p)\right)\right) \cup P_{\mathrm{in} / \mathrm{im}}$$</p>
+<p>具体而言，衡量重要性以及动态决定输出的过程可以分为三个步骤，如下：</p>
+<ol>
+<li><strong>cubic importance prediction</strong>
+由于是针对三维点云数据的体素化结构，所以预测的重要性是立方级别，对输入特征 $P_{in}$ 的每个位置 $p$ 均预测一个立方体大小的重要性图 $I^p$ ，其形状尺寸与稀疏卷积的卷积核大小 $K^{d}$ 一致。
+重要性 $I^p$ 的学习则是通过一层子流形卷积加上sigmoid函数得到，后续的两个步骤均基于 $I^p$</li>
+<li><strong>important input selection</strong>
+根据 $I^p$ 以及输入的 $P_{in}$ ，确定一个 $P_{in}$ 的子集 $P_{im}$ 表示相对重要的位置信息，计算方式为
+$$P_{\mathrm{im}}=\left{p \mid I_{0}^{p} \geq \tau, p \in P_{\mathrm{in}}\right}$$
+其中， $I^p_{0}$ 是  $I^p$ 的中心，$\tau$ 是人工设定的超参数，表示截取重要性的阈值。通过调整这个阈值为0或1，可以转化为标准或子流形稀疏卷积。 而除了设定阈值，也可以取TopK个较为重要的位置作为输出。</li>
+<li><strong>dynamic output shape generation</strong>
+根据 $P_{im}$ 确定动态输出的卷积核 $K^d_{im}(p)$ ，计算方式为：
+$$K_{\mathrm{im}}^{d}(p)=\left{k \mid p+k \in P_{\mathrm{in}}, I_{k}^{p} \geq \tau, k \in K^{d}\right}$$
+其实就是对原始的 $K^d$ 中的每一个卷积核参数，判断对应位置的 $I^p$ 重要性是否大于阈值，保留满足条件的位置作为动态的特征图输出。</li>
+</ol>
+<h4 id="fusion-focal-sparse-convolution">Fusion Focal Sparse Convolution</h4>
+<p>本文还提出了一种多模态的Focals Conv，其通过简单的网络结构提取图像特征并与点云特征对齐后直接按位相加，且实验证明此方案简单有效。</p>
+<ol>
+<li>图像特征提取</li>
+</ol>
+<p>不同于MVP[1]、PointPainting[2]等需要额外的后处理操作以融合点云图像信息，本文使用了轻量化的网络结构提取图像特征，主要可以概括为 一层conv-bn-relu以及maxpooling降低特征图尺寸为1/4，然后三层 conv-bn-relu的残差结构，最后通过一层MLP调整通道数量与稀疏点云特征对齐。得到的图像特征直接与点云特征相加。</p>
+<ol>
+<li>特征对齐</li>
+</ol>
+<p>考虑到点云特征通常会使用一些变换和增广操作使数据样本更加丰富，所以需要将图像特征与增广后的点云特征进行对齐。本文则是选择记录下所有的变换，然后将点云的稀疏特征进行反变换操作，以还原原始的点云基准。</p>
+<h3 id="监督信息的构建">监督信息的构建</h3>
+<p>本文对3D真值框中所有的体素特征构建了真值信息，并且使用Focal loss进行训练。</p>
+<p>此外，另外一层监督信息间接地来自于检测任务的输出损失，通过将预测的重要性图 $I$ 作为加权分数与主干网络输出的特征做哈达玛积，可以使整个重要性预测模块变得可导，实现表明这种方案对于pedstrian与cyclist类别提升较为明显。</p>
+<h2 id="实验">实验</h2>
+<h3 id="定量实验">定量实验</h3>
+<p>在KITTI、nuScenes以及Waymo数据集上均提供了定量的实验分析，其中Waymo的实验结果在补充材料中。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171259.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171259.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171259.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171259.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171259.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171259.png" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171326.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171326.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171326.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171326.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171326.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171326.png" /></p>
+<h3 id="消融实验">消融实验</h3>
+<p>本文的消融实验较为充分，如下：</p>
+<ol>
+<li>KITTI数据集上以PVRCNN为baseline，验证了Focals Conv的性能提升</li>
+<li>对动态输出做消融，使用固定输出的形状替代</li>
+<li>对重要性采样做消融，使用随机采样替代</li>
+<li>对监督信息做消融</li>
+<li>对应用Focals Conv的位置做消融</li>
+<li>对重要性阈值做消融</li>
+<li>对多模态做消融</li>
+<li>对多模态的Fcals Conv应用位置做消融</li>
+</ol>
+<p>对应的实验结果按顺序排列如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171456.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171456.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171456.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171456.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171456.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171456.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171234.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171234.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171234.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171234.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171234.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502171234.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502172127.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502172127.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502172127.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502172127.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502172127.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220502172127.png" /></p>
+<h2 id="总结与思考">总结与思考</h2>
+<p>本文提出了一个Focal Sparse Conv和一个多模态扩展，它们简单有效并通过大量的实验验证了方法的有效性，作为对模块的改进工作，提出的两种模块均可以即插即用，直接替换稀疏卷积网络中对应的结构，简单高效。</p>
+<h2 id="参考文献">参考文献</h2>
+<p>[1] T. Yin, X. Zhou, and P. Krähenbühl, “Multimodal Virtual Point 3D Detection,” NeurIPS 2021.
+[2] S. Vora, A. H. Lang, B. Helou, and O. Beijbom, “Pointpainting: Sequential fusion for 3D object detection,” Proc. IEEE Comput. Soc. Conf. Comput. Vis. Pattern Recognit., pp. 4603–4611, 2020.</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-05-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv/" data-title="论文阅读18 Focal SparseConv" data-hashtags="论文阅读"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv/" data-hashtag="论文阅读"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv/" data-title="论文阅读18 Focal SparseConv" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv/" data-title="论文阅读18 Focal SparseConv"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv/" data-title="论文阅读18 Focal SparseConv"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv/" data-title="论文阅读18 Focal SparseConv" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv/" data-title="论文阅读18 Focal SparseConv" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv/" data-title="论文阅读18 Focal SparseConv"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB17-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-cam2bev/" class="prev" rel="prev" title="论文阅读17 BEV感知系列-Cam2BEV"><i class="fas fa-angle-left fa-fw"></i>论文阅读17 BEV感知系列-Cam2BEV</a>
+            <a href="/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/" class="next" rel="next" title="论文阅读19 BEV感知系列-Cam2BEV">论文阅读19 BEV感知系列-Cam2BEV<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-THB0NH45ZM', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-THB0NH45ZM" async></script></body>
+</html>

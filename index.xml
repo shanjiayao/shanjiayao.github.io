@@ -4,9 +4,30 @@
         <link>http://shanjiayao.com/</link>
         <description>jiayao&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
-            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Sat, 23 Apr 2022 20:01:39 &#43;0000</lastBuildDate>
+            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Tue, 03 May 2022 20:01:39 &#43;0000</lastBuildDate>
             <atom:link href="http://shanjiayao.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>论文阅读20 BEV感知系列-M^2 BEV</title>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev/</link>
+    <pubDate>Tue, 03 May 2022 20:01:39 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev/</guid>
+    <description><![CDATA[<p>本文是了解BEV感知系列的第七篇论文阅读，来自港大、Nvidia等多方联合的工作，其提出了一种BEV视角下的检测与分割的统一框架，使用共享的主干网络，利用Lift的思想将多视角图像lift到3D空间，并对速度做了优化，最终实现高实时性以及高精度的性能。</p>]]></description>
+</item><item>
+    <title>论文阅读19 BEV感知系列-Cam2BEV</title>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/</link>
+    <pubDate>Sun, 01 May 2022 20:01:39 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/</guid>
+    <description><![CDATA[<p>本文是了解BEV感知系列的第六篇论文阅读，是MIT, CMU, THU多家单位联合的工作，其基于DETR的二维检测工作，在多视角3D检测任务上开创了一种全新的方案，利用object queries隐式地编码了2D-3D的投影信息，从而避免了深度预测以及IPM类方法的投影误差。</p>]]></description>
+</item><item>
+    <title>论文阅读18 Focal SparseConv</title>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv/</link>
+    <pubDate>Sun, 01 May 2022 08:01:39 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv/</guid>
+    <description><![CDATA[<p>本文是CVPR2022的oral，也是旷视以及港中文贾佳亚老师团队的合作工作。主要是对稀疏卷积的改进，通过预测卷积核中每个位置的特征对输出的贡献程度，定义了一种重要性分数，然后利于阈值截取满足条件位置的特征。等同于标准稀疏卷积以及子流形稀疏卷积的中间版本。</p>]]></description>
+</item><item>
     <title>论文阅读17 BEV感知系列-Cam2BEV</title>
     <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB17-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-cam2bev/</link>
     <pubDate>Sat, 23 Apr 2022 20:01:39 &#43;0000</pubDate>
@@ -55,26 +76,5 @@
     <author>作者</author>
     <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB11-fusionpainting/</guid>
     <description><![CDATA[<p>本文介绍了一种<em>lidar-camera</em>融合感知的方案，类似<em>pointpainting</em>，本工作叫做<em>fusionpainting</em>，通过<em>Adaptive Attention</em>融合两部分传感器特征。</p>]]></description>
-</item><item>
-    <title>论文阅读10 IA-SSD</title>
-    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB10-ia-ssd/</link>
-    <pubDate>Fri, 25 Mar 2022 20:01:39 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB10-ia-ssd/</guid>
-    <description><![CDATA[<p>本文可以视为3D-SSD的后续变种，3D-SSD探究了采样方式对3D检测的影响，提出了特征空间的最远点采样，本文则是依靠网络学习语义以及中心度信息，进而完成采样过程，速度可达80+FPS。</p>]]></description>
-</item><item>
-    <title>BEV感知公开课笔记</title>
-    <link>http://shanjiayao.com/bev%E6%84%9F%E7%9F%A5%E5%85%AC%E5%BC%80%E8%AF%BE%E7%AC%94%E8%AE%B0/</link>
-    <pubDate>Wed, 23 Mar 2022 23:11:56 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/bev%E6%84%9F%E7%9F%A5%E5%85%AC%E5%BC%80%E8%AF%BE%E7%AC%94%E8%AE%B0/</guid>
-    <description><![CDATA[<p>本文是对2022年3月23日将门创投的公开课分享的笔记记录，主讲人是赵行老师。</p>]]></description>
-</item><item>
-    <title>多传感器融合感知之用于建图定位的多传感器分析</title>
-    <link>http://shanjiayao.com/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/</link>
-    <pubDate>Tue, 22 Mar 2022 11:06:11 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/3.-%E7%94%A8%E4%BA%8E%E5%BB%BA%E5%9B%BE%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E5%88%86%E6%9E%90/</guid>
-    <description><![CDATA[<p>本文是深蓝学院多传感器融合感知课程的笔记，主要对用于建图定位的传感器进行原理梳理以及功能分析。</p>]]></description>
 </item></channel>
 </rss>

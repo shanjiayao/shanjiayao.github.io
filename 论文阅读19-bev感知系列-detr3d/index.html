@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>论文阅读19 BEV感知系列-Cam2BEV - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="论文阅读19 BEV感知系列-Cam2BEV" />
+<meta property="og:description" content="本文是了解BEV感知系列的第六篇论文阅读，是MIT, CMU, THU多家单位联合的工作，其基于DETR的二维检测工作，在多视角3D检测任务上开创了一种全新的方案，利用object queries隐式地编码了2D-3D的投影信息，从而避免了深度预测以及IPM类方法的投影误差。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-01T20:01:39+00:00" />
+<meta property="article:modified_time" content="2022-05-01T20:01:39+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="论文阅读19 BEV感知系列-Cam2BEV"/>
+<meta name="twitter:description" content="本文是了解BEV感知系列的第六篇论文阅读，是MIT, CMU, THU多家单位联合的工作，其基于DETR的二维检测工作，在多视角3D检测任务上开创了一种全新的方案，利用object queries隐式地编码了2D-3D的投影信息，从而避免了深度预测以及IPM类方法的投影误差。"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/" /><link rel="prev" href="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv/" /><link rel="next" href="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "论文阅读19 BEV感知系列-Cam2BEV",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d\/"
+        },"genre": "posts","keywords": "论文阅读","wordcount":  1652 ,
+        "url": "http:\/\/shanjiayao.com\/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d\/","datePublished": "2022-05-01T20:01:39+00:00","dateModified": "2022-05-01T20:01:39+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/collections/"> 收集 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/collections/" title="">收集</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">论文阅读19 BEV感知系列-Cam2BEV</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"><i class="far fa-folder fa-fw"></i>论文阅读</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-01">2022-05-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1652 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#摘要">摘要</a></li>
+    <li><a href="#讨论">讨论</a></li>
+    <li><a href="#主要贡献">主要贡献</a></li>
+    <li><a href="#方法框架">方法框架</a>
+      <ul>
+        <li><a href="#问题定义">问题定义</a></li>
+        <li><a href="#pipeline">pipeline</a></li>
+      </ul>
+    </li>
+    <li><a href="#实验">实验</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本文是了解BEV感知系列的第六篇论文阅读，是MIT, CMU, THU多家单位联合的工作，其基于DETR的二维检测工作，在多视角3D检测任务上开创了一种全新的方案，利用object queries隐式地编码了2D-3D的投影信息，从而避免了深度预测以及IPM类方法的投影误差。</p>
+<h2 id="简介">简介</h2>
+<ul>
+<li>论文：《DETR3D: 3D Object Detection from Multi-view Images via 3D-to-2D Queries》</li>
+<li>作者：<a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wang%2C&#43;Y" target="_blank" rel="noopener noreffer">Yue Wang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Guizilini%2C&#43;V" target="_blank" rel="noopener noreffer">Vitor Guizilini</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Zhang%2C&#43;T" target="_blank" rel="noopener noreffer">Tianyuan Zhang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wang%2C&#43;Y" target="_blank" rel="noopener noreffer">Yilun Wang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Zhao%2C&#43;H" target="_blank" rel="noopener noreffer">Hang Zhao</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Solomon%2C&#43;J" target="_blank" rel="noopener noreffer">Justin Solomon</a></li>
+<li>机构：<em>MIT, CMU, THU, Li Auto, Toyota Research</em></li>
+<li>论文水平：<em>CORL 2021</em></li>
+<li>关键词：<strong>Perception &amp;&amp; Multi Camera Detection</strong></li>
+<li>论文链接：<a href="https://arxiv.org/abs/2110.06922" target="_blank" rel="noopener noreffer">paper</a>  <a href="https://github.com/WangYueFt/detr3d" target="_blank" rel="noopener noreffer">code</a></li>
+</ul>
+<h2 id="摘要">摘要</h2>
+<p>本文介绍了一种较为新颖的多相机3D检测框架，与现有的工作不同（MLP投影、IPM、深度预测），本文直接从二维的图像特征中回归三维框的信息，是一种Top-Down的思路，通过一组稀疏的3D object queries在多个视角图像特征中进行索引，进而实现queries的自我学习与更新。</p>
+<p>使用object queries的好处在于，其直接针对检测任务的输出建模，并不需要从图像2D像素点或者实现2D-3D的操作来构建大量的预测框，并通过set-to-set二分图匹配损失约束构建的queries输出。此外，这种方案还避免了使用冗余的NMS，实现了NMS-free，这可以有效提升模型推理速度。</p>
+<p>最终的结果，3D Object queries隐式地编码了从2D-3D的变换信息，并且避免了2D-3D的误差，使得DETR3D实现了不错的精度。</p>
+<h2 id="讨论">讨论</h2>
+<p>现有的2D多相机感知算法，前面已经介绍了一些，比如使用MLP投影的VPN，改进IPM的Cam2BEV，以及深度预测的LiftSplat等，这些方法均遵循显式地2D-3D的空间变换，但不可避免的会引入变换投影的误差。</p>
+<p>另一方面，DETR的工作在图像检测领域其实引领了另外一种潮流，就是Top-Down的检测方式，其打破了现有工作bottom-up的范式，直接通过object queries学习图像场景中目标框的信息，queries通过与图像特征的交互不断更新和学习信息，再通过set-to-set的二分图匹配loss约束其参数更新的方向，而本文要做的就是，给object queries再加入一个新的任务，既隐式编码2D-3D的空间变换，使其直接从2D图像学习3D框，这是本文的出发点所在。</p>
+<h2 id="主要贡献">主要贡献</h2>
+<ul>
+<li>一种连接2D特征与3D框预测的方法，通过将预测得到的3D框反投影到每一个2D的相机图像中，这不需要受2D-3D投影误差的影响。</li>
+<li>网络框架直接预测框，不需要NMS后处理</li>
+</ul>
+<h2 id="方法框架">方法框架</h2>
+<h3 id="问题定义">问题定义</h3>
+<p>输入一系列图像，表示相同时刻不同相机的数据流，假定外参以及内参已知，目标3D真值框已知，需要根据图像信息预测每一个目标在3D空间中的位置以及类别，并且不需要使用点云数据。</p>
+<h3 id="pipeline">pipeline</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220507235101.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220507235101.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220507235101.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220507235101.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220507235101.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220507235101.png" /></p>
+<ol>
+<li>输入
+<ol>
+<li>多相机的前景透视图像，通过ResNet和FPN网络提取每个相机的图像特征，</li>
+</ol>
+</li>
+<li>迭代预测网络，包含L层
+<ol>
+<li>通过object queries预测目标的三维框中心点</li>
+<li>通过内外参投影到每个相机图像坐标系
+<ol>
+<li>投影的点不一定会在所有相机上均可见，因此定义了一个bool值，对应的每个相机只考虑可见的点</li>
+</ol>
+</li>
+<li>通过三线性插值对特征进行采样
+<ol>
+<li>采样后将对应特征与object queries对应相加</li>
+<li>这里的三线性插值，是对同一像素对应不对分辨率的FPN特征进行的，其实就是融合对应像素的多尺度特征。</li>
+</ol>
+</li>
+<li>使用Multi-head Attention对特征进行加权</li>
+</ol>
+</li>
+<li>输出，计算loss
+<ol>
+<li>set-to-set loss对预测的框与真值框进行二分图匹配</li>
+<li>focal loss对框的类别计算损失</li>
+</ol>
+</li>
+</ol>
+<h2 id="实验">实验</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000220.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000220.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000220.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000220.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000220.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000220.png" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000225.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000225.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000225.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000225.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000225.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000225.png" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000235.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000235.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000235.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000235.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000235.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000235.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000257.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000257.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000257.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000257.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000257.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508000257.png" /></p>
+<h2 id="总结">总结</h2>
+<p>总体而言，个人认为本文最大的创新在于将DETR的object queries进一步扩展到了3D中，进而隐式编码位置变换的过程，DETR中的Top-Down的学习目标框的方式引领了新的潮流，而DETR3D则是进一步提出了一种避免预测深度的方法，直接从2D特征中预测3D框，简单粗暴。</p>
+<p>而话说回来，直接通过object queries学习框的三维中心点，难免有些过于粗暴了，最近一篇PETR就针对这一点问题做了工作，其等同于LiftSplat以及DETR3D的联合版本，后续应该会出阅读笔记~</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-05-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/" data-title="论文阅读19 BEV感知系列-Cam2BEV" data-hashtags="论文阅读"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/" data-hashtag="论文阅读"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/" data-title="论文阅读19 BEV感知系列-Cam2BEV" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/" data-title="论文阅读19 BEV感知系列-Cam2BEV"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/" data-title="论文阅读19 BEV感知系列-Cam2BEV"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/" data-title="论文阅读19 BEV感知系列-Cam2BEV" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/" data-title="论文阅读19 BEV感知系列-Cam2BEV" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/" data-title="论文阅读19 BEV感知系列-Cam2BEV"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB18-focal-sparseconv/" class="prev" rel="prev" title="论文阅读18 Focal SparseConv"><i class="fas fa-angle-left fa-fw"></i>论文阅读18 Focal SparseConv</a>
+            <a href="/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev/" class="next" rel="next" title="论文阅读20 BEV感知系列-M^2 BEV">论文阅读20 BEV感知系列-M^2 BEV<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-THB0NH45ZM', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-THB0NH45ZM" async></script></body>
+</html>

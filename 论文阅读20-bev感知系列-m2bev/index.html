@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>论文阅读20 BEV感知系列-M^2 BEV - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="论文阅读20 BEV感知系列-M^2 BEV" />
+<meta property="og:description" content="本文是了解BEV感知系列的第七篇论文阅读，来自港大、Nvidia等多方联合的工作，其提出了一种BEV视角下的检测与分割的统一框架，使用共享的主干网络，利用Lift的思想将多视角图像lift到3D空间，并对速度做了优化，最终实现高实时性以及高精度的性能。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-03T20:01:39+00:00" />
+<meta property="article:modified_time" content="2022-05-03T20:01:39+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="论文阅读20 BEV感知系列-M^2 BEV"/>
+<meta name="twitter:description" content="本文是了解BEV感知系列的第七篇论文阅读，来自港大、Nvidia等多方联合的工作，其提出了一种BEV视角下的检测与分割的统一框架，使用共享的主干网络，利用Lift的思想将多视角图像lift到3D空间，并对速度做了优化，最终实现高实时性以及高精度的性能。"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev/" /><link rel="prev" href="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "论文阅读20 BEV感知系列-M^2 BEV",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev\/"
+        },"genre": "posts","keywords": "论文阅读","wordcount":  2126 ,
+        "url": "http:\/\/shanjiayao.com\/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev\/","datePublished": "2022-05-03T20:01:39+00:00","dateModified": "2022-05-03T20:01:39+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/collections/"> 收集 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/collections/" title="">收集</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">论文阅读20 BEV感知系列-M^2 BEV</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"><i class="far fa-folder fa-fw"></i>论文阅读</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-03">2022-05-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2126 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#摘要">摘要</a></li>
+    <li><a href="#讨论">讨论</a></li>
+    <li><a href="#主要贡献">主要贡献</a></li>
+    <li><a href="#方法框架">方法框架</a>
+      <ul>
+        <li><a href="#pipeline">pipeline</a></li>
+      </ul>
+    </li>
+    <li><a href="#实验">实验</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本文是了解BEV感知系列的第七篇论文阅读，来自港大、Nvidia等多方联合的工作，其提出了一种BEV视角下的检测与分割的统一框架，使用共享的主干网络，利用Lift的思想将多视角图像lift到3D空间，并对速度做了优化，最终实现高实时性以及高精度的性能。</p>
+<h2 id="简介">简介</h2>
+<ul>
+<li>论文：《M2BEV: Multi-Camera Joint 3D Detection and Segmentation with Unified Bird’s-Eye View Representation》</li>
+<li>作者：<a href="https://xieenze.github.io/" target="_blank" rel="noopener noreffer">Enze Xie</a>, <a href="https://chrisding.github.io/" target="_blank" rel="noopener noreffer">Zhiding Yu</a>, <a href="https://scholar.google.com/citations?user=DdCAbWwAAAAJ&amp;hl=en" target="_blank" rel="noopener noreffer">Daquan Zhou</a>, <a href="https://www.cs.toronto.edu/~jphilion/" target="_blank" rel="noopener noreffer">Jonah Philion</a>, <a href="http://tensorlab.cms.caltech.edu/users/anima/" target="_blank" rel="noopener noreffer">Anima Anandkumar</a>, <a href="https://www.cs.utoronto.ca/~fidler/" target="_blank" rel="noopener noreffer">Sanja Fidler</a>, <a href="http://luoping.me/" target="_blank" rel="noopener noreffer">Ping Luo</a>, <a href="https://alvarezlopezjosem.github.io/" target="_blank" rel="noopener noreffer">Jose M. Alvarez</a></li>
+<li>机构：<em>The University of Hong Kong, NVIDIA, National University of Singapore, University of Toronto, Vector Institute, Caltech</em></li>
+<li>论文水平：<em>Arxiv 2022</em></li>
+<li>关键词：<strong>Perception &amp;&amp; Multi Task</strong></li>
+<li>论文链接：<a href="https://arxiv.org/abs/2204.05088" target="_blank" rel="noopener noreffer">paper</a> |  <a href="https://xieenze.github.io/projects/m2bev/" target="_blank" rel="noopener noreffer">project</a></li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233448.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233448.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233448.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233448.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233448.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233448.png" /></p>
+<h2 id="摘要">摘要</h2>
+<p>本文提出了 M2BEV，这是一个统一的框架，可以在鸟瞰 (BEV) 空间中与多摄像头图像输入联合执行 3D 检测和地图分割。与之前大多数单独处理检测和分割的工作不同，M2BEV 使用统一的主干网络，以提升运行速度。 M2BEV 有效地将多视图 2D 图像特征转换为 ego-car 坐标中的 3D BEV 特征。这种 BEV 表示很重要，因为它使不同的任务能够共享单个编码器。本文框架进一步包含了四种重要的设计，它们既有益于准确性又有益于效率：</p>
+<ol>
+<li>一种有效的 BEV 编码器设计，可减少体素特征图的空间维度</li>
+<li>一种动态框分配策略，使用匹配学习来分配带有锚点的真实 3D 框</li>
+<li>BEV 中心重加权，通过更大的权重来加强更远的预测</li>
+<li>大规模 2D 检测预训练和辅助监督。</li>
+</ol>
+<p>结果表明，这些设计显著有利于缺少深度信息的基于任意相机的 3D 感知任务。 M2BEV 具有更好的内存效率，允许以更高的分辨率图像作为输入，并具有更快的推理速度。 nuScenes 上的实验表明，M2BEV 在 3D 检测和 BEV 分割方面均取得了最先进的结果，最佳单一模型在这两个任务中分别达到了 42.5 mAP 和 57.0 mIoU。</p>
+<h2 id="讨论">讨论</h2>
+<p>前面介绍很多BEV做segmentation的paper，也包含一篇BEV做detection的DETR3D，其实归根结底这两种任务都可以在BEV视角下做有机的融合，以进行多任务联合训练，而通用的多任务框架通常使用独立的主干网络，本文则是统一到了BEV视角下，如下图所示。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233506.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233506.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233506.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233506.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233506.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233506.png" /></p>
+<h2 id="主要贡献">主要贡献</h2>
+<ul>
+<li>一个联合统一的框架，可以利用环视多相机输入，将2D图像信息转换到3DBEV平面，同时进行3D检测以及分割任务，学习车道线、可通行区域以及前景运动目标等信息</li>
+<li>高效的BEV encoder，dunamic box assignment以及BEV中心度加权机制，这些设计均针对GPU友好，且有效提升模型性能。</li>
+<li>实验证明大尺度的与训练模型以及2D辅助监督训练有效地提升了模型精度，并且不影响测试推理实践。</li>
+</ul>
+<h2 id="方法框架">方法框架</h2>
+<h3 id="pipeline">pipeline</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233643.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233643.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233643.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233643.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233643.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508233643.png" /></p>
+<ol>
+<li>2D 主干网络
+<ol>
+<li>多相机的前景透视图像，通过ResNet和FPN网络提取每个相机的图像特征，这里通过segformer中用到的多尺度融合的方法，将多个尺度分别上采样然后cat到一起</li>
+<li>此外，为了提升模型精度，作者还利用了training阶段添加Detection head进一步约束网络参数优化，这里仅在2D Encoder网络的训练阶段使用。</li>
+<li>此外x2，作者还尝试了在nuImage大型数据集上预训练了Cascade Mask RCNN，其对应的主干网络包括ResNet-50以及ResNeXt-101，而后直接在M2BEV的网络中应用对应主干网络的参数即可，这可以显著提升模型性能。</li>
+</ol>
+</li>
+<li>2D-3D模块
+<ol>
+<li>
+<p>简单来说，就是Lift中对每个像素预测D维特征的阉割版，不单独预测D维深度分布，而是将同一像素的D维深度默认均匀分布，设定成一样的值</p>
+</li>
+<li>
+<p>论文中给了一个图，对应的是图像一个像素对应3D空间Voxel中的一条射线，
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000007.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000007.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000007.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000007.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000007.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000007.png" /></p>
+</li>
+<li>
+<p>至于多个像素对应一个voxel的情况，论文里貌似没说如何处理，不过估计大概率MaxPooling或者SumPooling</p>
+</li>
+</ol>
+</li>
+<li>3D BEV Encoder
+<ol>
+<li>计算得到的3D Voxel下的坐标以及图像特征按位scatter之后，得到的shape应该是XxYxZxC的4D Tensor，这里作者提到，为了提高效率，将4D转换为3D，对应为XxYxZC，作者称为“Spatial to Channel” (S2C) operator，（个人理解这里应该会一定程度上吃到2D Conv的红利？以及的确是通过2D Conv降低了计算量）</li>
+</ol>
+</li>
+<li>Head
+<ol>
+<li>这里就直接利用BEV特征接对应任务的Head即可，值得注意的是，作者对不同任务提出了不同的优化操作
+<ol>
+<li>检测任务而言，对应dynamic box assignment
+<ol>
+<li>参考了“<strong>FreeAnchor: Learning to match</strong> <strong>anchors for visual object detection“</strong>. <em>NeurIPS</em>, 2019，用动态框分配策略</li>
+</ol>
+</li>
+<li>分割任务而言，对应BEV centerness
+<ol>
+<li>作者提出了一种观点，既2D-3D得到的BEV，其特征稀疏程度与距离ego car的远近正相关，因为对于相机而言，距离越远像素越少，那么投影到BEV后特征越少，因此为了平衡这种特征层面的不均衡，作者提出了中心度的概念，通过对边缘特征赋予更高的权重，让网络进一步关注远距离物体。中心度的示意图如下，范围从1到2
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508235920.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508235920.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508235920.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508235920.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508235920.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220508235920.png" /></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="实验">实验</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000225.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000225.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000225.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000225.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000225.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000225.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000251.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000251.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000251.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000251.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000251.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000251.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000259.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000259.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000259.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000259.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000259.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000259.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000307.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000307.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000307.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000307.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000307.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000307.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000326.png"
+        data-srcset="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000326.png, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000326.png 1.5x, https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000326.png 2x"
+        data-sizes="auto"
+        alt="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000326.png"
+        title="https://pictures-1309138036.cos.ap-nanjing.myqcloud.com/img/20220509000326.png" /></p>
+<h2 id="总结">总结</h2>
+<p>本文提出了一种联合多任务框架，个人任务这会是BEV感知任务实际应用的潮流趋势所在，考虑到实时性以及内存等因素，检测分割等各自分别提取特征不太现实，所以联合、共享会是最优的解决方案，而本文通过各种方法优化，很好地将检测任务以及分割任务结合到一起，并提出了很多工程上较为使用的技术，值得参考。</p>
+<p>有关缺点，文中提出了在一些大目标检测以及车道线分割场景中存在一定缺陷，感觉从Tesla AI Day的经验来看，貌似融合时序信息会是一种解决方案。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-05-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev/" data-title="论文阅读20 BEV感知系列-M^2 BEV" data-hashtags="论文阅读"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev/" data-hashtag="论文阅读"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev/" data-title="论文阅读20 BEV感知系列-M^2 BEV" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev/" data-title="论文阅读20 BEV感知系列-M^2 BEV"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev/" data-title="论文阅读20 BEV感知系列-M^2 BEV"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev/" data-title="论文阅读20 BEV感知系列-M^2 BEV" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev/" data-title="论文阅读20 BEV感知系列-M^2 BEV" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev/" data-title="论文阅读20 BEV感知系列-M^2 BEV"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB19-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-detr3d/" class="prev" rel="prev" title="论文阅读19 BEV感知系列-Cam2BEV"><i class="fas fa-angle-left fa-fw"></i>论文阅读19 BEV感知系列-Cam2BEV</a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-THB0NH45ZM', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-THB0NH45ZM" async></script></body>
+</html>
