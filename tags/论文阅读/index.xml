@@ -4,7 +4,14 @@
         <link>http://shanjiayao.com/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</link>
         <description>论文阅读 - 标签 - Jiayao&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
-            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Tue, 03 May 2022 20:01:39 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Thu, 05 May 2022 20:01:39 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" rel="self" type="application/rss+xml" /><item>
+    <title>论文阅读21 BEV感知系列-PETR</title>
+    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB21-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-petr/</link>
+    <pubDate>Thu, 05 May 2022 20:01:39 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB21-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-petr/</guid>
+    <description><![CDATA[<p>本文是了解BEV感知系列的第八篇论文阅读，来自旷视，其主要针对DETR3D进行改进，优化其object query部分，通过Lift的方式编码3D的position encoding，进而联合object query共同学习目标信息。</p>]]></description>
+</item><item>
     <title>论文阅读20 BEV感知系列-M^2 BEV</title>
     <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB20-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-m2bev/</link>
     <pubDate>Tue, 03 May 2022 20:01:39 &#43;0000</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB12-transfusion/</guid>
     <description><![CDATA[<p>继FusionPainting之后，本工作进一步探究Sensor Fusion做检测的方案，提出了一种soft-association，来映射点云和图像的特征信息，并且利用Transformer两阶段的decoder逐步检测目标。</p>]]></description>
-</item><item>
-    <title>论文阅读11 FusionPainting</title>
-    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB11-fusionpainting/</link>
-    <pubDate>Sat, 26 Mar 2022 20:01:39 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB11-fusionpainting/</guid>
-    <description><![CDATA[<p>本文介绍了一种<em>lidar-camera</em>融合感知的方案，类似<em>pointpainting</em>，本工作叫做<em>fusionpainting</em>，通过<em>Adaptive Attention</em>融合两部分传感器特征。</p>]]></description>
 </item></channel>
 </rss>
