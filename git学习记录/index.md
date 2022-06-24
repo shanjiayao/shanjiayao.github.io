@@ -1,7 +1,7 @@
 # git学习记录
 
 
-本工作记录常用的Git学习指令。
+重温git，并整理各个命令的用法。
 
 <!--more-->
 
@@ -422,7 +422,9 @@ git push origin :<destination>   # 删除远程分支destination
 -   穿梭前，用`git log`可以查看提交历史，以便确定要回退到哪个版本。
 -   要重返未来，用`git reflog`查看命令历史，以便确定要回到未来的哪个版本
 
-## 参考
+## 学习资料
 
 [Commit message 和 Change log 编写指南](http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html)
 [Learn Git Branching](https://learngitbranching.js.org/?NODEMO=&locale=zh_CN)
+[git flow备忘清单](http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html)
+[gitignore templates](https://github.com/github/gitignore)

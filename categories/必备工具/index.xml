@@ -4,19 +4,19 @@
         <link>http://shanjiayao.com/categories/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/</link>
         <description>必备工具 - 分类 - Jiayao&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
-            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Mon, 11 Jan 2021 15:55:23 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/categories/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Thu, 16 Jun 2022 16:10:19 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/categories/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/" rel="self" type="application/rss+xml" /><item>
+    <title>git学习记录</title>
+    <link>http://shanjiayao.com/git%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+    <pubDate>Thu, 16 Jun 2022 16:10:19 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/git%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+    <description><![CDATA[<p>重温git，并整理各个命令的用法。</p>]]></description>
+</item><item>
     <title>Gitbook使用笔记</title>
     <link>http://shanjiayao.com/gitbook%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</link>
     <pubDate>Mon, 11 Jan 2021 15:55:23 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://shanjiayao.com/gitbook%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</guid>
     <description><![CDATA[<p><code>gitbook</code>是<code>github</code>与<code>markdown</code>的结合体，我们可以通过<code>markdown</code>笔记记录书籍内容，然后发布到<code>gitbook</code>上，使用操作和流程与<code>github</code>类似，详细了解见<a href="https://www.gitbook.com/" target="_blank" rel="noopener noreffer">官网</a>以及<a href="https://github.com/GitbookIO/gitbook" target="_blank" rel="noopener noreffer">Git</a></p>]]></description>
-</item><item>
-    <title>git学习记录</title>
-    <link>http://shanjiayao.com/git%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
-    <pubDate>Tue, 26 May 2020 16:10:19 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/git%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
-    <description><![CDATA[<p>本工作记录常用的Git学习指令。</p>]]></description>
 </item></channel>
 </rss>
