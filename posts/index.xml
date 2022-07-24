@@ -4,7 +4,14 @@
         <link>http://shanjiayao.com/posts/</link>
         <description>所有文章 | Jiayao&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
-            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Thu, 16 Jun 2022 16:10:19 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Sat, 23 Jul 2022 18:19:06 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>SSH学习笔记</title>
+    <link>http://shanjiayao.com/ssh%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+    <pubDate>Sat, 23 Jul 2022 18:19:06 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/ssh%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+    <description><![CDATA[<p>对于ssh，之前的认知大概只是停留在简单使用的层面，然而近期涉及到了一些较为深入的使用场景就很懵逼。因此，本文尝试理解有关ssh一些原理层面的东东~</p>]]></description>
+</item><item>
     <title>git学习记录</title>
     <link>http://shanjiayao.com/git%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
     <pubDate>Thu, 16 Jun 2022 16:10:19 &#43;0000</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB14-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-vpn/</guid>
     <description><![CDATA[<p>本文是了解BEV感知系列的第二篇论文阅读，BEV感知是指将其他传感器或视角下的感知结果融合到鸟瞰视图，本文提出的网络结构通过MLP学习视角变换，进而融合多视角特征，以构建BEV的语义Map。</p>]]></description>
-</item><item>
-    <title>论文阅读13 BEV感知系列-LookAroundObjects</title>
-    <link>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB13-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-lookaroundobjects/</link>
-    <pubDate>Sat, 09 Apr 2022 20:01:39 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://shanjiayao.com/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB13-bev%E6%84%9F%E7%9F%A5%E7%B3%BB%E5%88%97-lookaroundobjects/</guid>
-    <description><![CDATA[<p>本文是了解BEV感知系列的第一篇论文阅读，提出了前景运动遮挡对构建语义Map的影响，并提出了一种hallucination背景深度和语义的方法，从而避免了大量的手工标注。</p>]]></description>
 </item></channel>
 </rss>
