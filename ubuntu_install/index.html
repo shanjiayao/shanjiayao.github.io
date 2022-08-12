@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/shanjiayao.com\/ubuntu_install\/"
-        },"genre": "posts","keywords": "ubuntu","wordcount":  5069 ,
+        },"genre": "posts","keywords": "ubuntu","wordcount":  5082 ,
         "url": "http:\/\/shanjiayao.com\/ubuntu_install\/","datePublished": "2021-03-07T16:10:19+00:00","dateModified": "2021-03-07T16:10:19+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,7 +106,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">ubuntu18_04升级记录</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%B3%BB%E7%BB%9F%E8%A3%85%E6%9C%BA/"><i class="far fa-folder fa-fw"></i>系统装机</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-03-07">2021-03-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5069 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-03-07">2021-03-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5082 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -120,40 +120,38 @@
     <li><a href="#3-nvidia驱动安装">3. Nvidia驱动安装</a></li>
     <li><a href="#4-安装常用软件">4. 安装常用软件</a></li>
     <li><a href="#5-安装小飞机">5. 安装小飞机</a></li>
-    <li><a href="#6-挂载其它ntfs磁盘实现开机自动挂载">6. 挂载其它ntfs磁盘，实现开机自动挂载</a></li>
-  </ul>
-
-  <ul>
+    <li><a href="#6-挂载其它ntfs磁盘实现开机自动挂载">6. 挂载其它ntfs磁盘，实现开机自动挂载</a>
+      <ul>
+        <li><a href="#查看磁盘">查看磁盘</a></li>
+        <li><a href="#安装包">安装包</a></li>
+        <li><a href="#查看uuid">查看uuid</a></li>
+        <li><a href="#创建要挂载的文件夹">创建要挂载的文件夹</a></li>
+        <li><a href="#修改fstab">修改fstab</a></li>
+        <li><a href="#添加以下内容">添加以下内容</a></li>
+        <li><a href="#测试挂载不报错即为没问题">测试挂载，不报错即为没问题</a></li>
+      </ul>
+    </li>
     <li><a href="#7-安装ipgw">7. 安装ipgw</a></li>
     <li><a href="#8-安装chrome">8. 安装chrome</a></li>
     <li><a href="#9-安装搜狗输入法">9. 安装搜狗输入法</a></li>
-    <li><a href="#10-安装terminator">10. 安装terminator</a></li>
-  </ul>
-
-  <ul>
+    <li><a href="#10-安装terminator">10. 安装terminator</a>
+      <ul>
+        <li><a href="#刷新配置">刷新配置</a></li>
+      </ul>
+    </li>
     <li><a href="#11-安装typora">11. 安装typora</a></li>
-  </ul>
-
-  <ul>
     <li><a href="#12-安装cudacudnn">12. 安装CUDA\CUDNN</a>
       <ul>
         <li><a href="#cuda102">cuda10.2</a></li>
-      </ul>
-    </li>
-  </ul>
-
-  <ul>
-    <li>
-      <ul>
         <li><a href="#cudnn">cudnn</a></li>
       </ul>
     </li>
     <li><a href="#13-安装pycharm">13. 安装pycharm</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#14-安装openvpn">14. 安装openvpn</a></li>
-    <li><a href="#补充在ubuntu1804安装的记录">补充在ubuntu18.04安装的记录</a></li>
+    <li><a href="#14-安装openvpn">14. 安装openvpn</a>
+      <ul>
+        <li><a href="#补充在ubuntu1804安装的记录">补充在ubuntu18.04安装的记录</a></li>
+      </ul>
+    </li>
     <li><a href="#15-安装anaconda">15. 安装anaconda</a></li>
     <li><a href="#16-安装git">16. 安装git</a></li>
     <li><a href="#17-安装zsh">17. 安装zsh</a></li>
@@ -165,6 +163,7 @@
         <li><a href="#2-安装git略">2. 安装Git[略]</a></li>
         <li><a href="#3-安装hexo">3. 安装Hexo</a></li>
         <li><a href="#4-安装gitbook">4. 安装Gitbook</a></li>
+        <li><a href="#5-将node升级到了14但是发现hexo不好用无法hexo-d所以降级到12但是gitbook还不好使于是修改gitbook">5. 将node升级到了14，但是发现hexo不好用，无法hexo d，所以降级到12，但是gitbook还不好使，于是修改gitbook</a></li>
         <li><a href="#6-重装hexo以及部署新的博客主题还有gitbook2021-6-10">6. 重装hexo以及部署新的博客主题，还有gitbook[2021-6-10]</a></li>
       </ul>
     </li>
@@ -213,15 +212,15 @@
     <li><a href="#-dpkg--l--grep-tensorrt">$ dpkg -l | grep TensorRT</a></li>
     <li><a href="#36-安装苹果主题">36. 安装苹果主题</a></li>
     <li><a href="#37-安装惠普打印机驱动">37. 安装惠普打印机驱动</a></li>
-    <li><a href="#其他小工具">其他小工具</a></li>
-  </ul>
-
-  <ul>
+    <li><a href="#其他小工具">其他小工具</a>
+      <ul>
+        <li><a href="#小火车">小火车</a></li>
+        <li><a href="#代码雨">代码雨</a></li>
+        <li><a href="#cpu内存等显示插件">CPU内存等显示插件</a></li>
+      </ul>
+    </li>
     <li><a href="#更改锁屏输入密码时的壁纸">更改锁屏输入密码时的壁纸</a></li>
     <li><a href="#安装ceres">安装Ceres</a></li>
-  </ul>
-
-  <ul>
     <li><a href="#安装网络可视化工具zetane">安装网络可视化工具zetane</a></li>
   </ul>
 </nav></div>
@@ -229,45 +228,34 @@
 <!-- more -->
 <h2 id="1-系统安装">1. 系统安装</h2>
 <ol>
-<li>
-<p>关闭secure boot</p>
-</li>
-<li>
-<p>插上系统盘，开机后狂按ESC，暂停启动，然后弹出BIOS设置，选择启动设备，使用U盘启动</p>
-</li>
-<li>
-<p>在选择‘Install UBUNTU’之前，按E进入设置，在quiet splash &mdash;那处,把&mdash;替换为nomodeset,再按F10进入系统进行安装，否则会报错acpi bios error以及花屏！！！</p>
-</li>
-<li>
-<p>然后正常选择，我选的最小系统安装，免去安装多余的游戏软件等</p>
-</li>
-<li>
-<p>分区设置，先选择something else，自己设置分区，如下</p>
+<li>关闭secure boot</li>
+<li>插上系统盘，开机后狂按ESC，暂停启动，然后弹出BIOS设置，选择启动设备，使用U盘启动</li>
+<li>在选择‘Install UBUNTU’之前，按E进入设置，在quiet splash &mdash;那处,把&mdash;替换为nomodeset,再按F10进入系统进行安装，否则会报错acpi bios error以及花屏！！！</li>
+<li>然后正常选择，我选的最小系统安装，免去安装多余的游戏软件等</li>
+<li>分区设置，先选择something else，自己设置分区，如下
 <ul>
-<li>
-<p>设置swap空间:主分区/空间起始/交换空间/大小一般是实际内存1-2倍</p>
-</li>
-<li>
-<p>设置引导EFI:逻辑分区/空间起始/<strong>EFI分区</strong>/大小一般1GB</p>
-</li>
-<li>
-<p>设置挂载的/:这个是ubuntu计算机的安装位置,逻辑分区/空间起始/EXT4/挂载点为/</p>
-</li>
-<li>
-<p>最后设置引导,最下面的那个选项,选择之前设置的EFI引导在的那个分区</p>
-</li>
+<li>设置swap空间:主分区/空间起始/交换空间/大小一般是实际内存1-2倍</li>
+<li>设置引导EFI:逻辑分区/空间起始/<strong>EFI分区</strong>/大小一般1GB</li>
+<li>设置挂载的/:这个是ubuntu计算机的安装位置,逻辑分区/空间起始/EXT4/挂载点为/</li>
+<li>最后设置引导,最下面的那个选项,选择之前设置的EFI引导在的那个分区
+注意，这里建议不单独分出来/home的空间，直接全都放在/下面就好，免得空间不够难以重新分区</li>
 </ul>
-<p>注意，这里建议不单独分出来/home的空间，直接全都放在/下面就好，免得空间不够难以重新分区</p>
 </li>
-<li>
-<p>进入安装,完成后会重启,重启后同样按e进入,在quiet splash后加nomodeset再按F10进入</p>
-</li>
+<li>进入安装,完成后会重启,重启后同样按e进入,在quiet splash后加nomodeset再按F10进入</li>
 </ol>
 <h2 id="2-换源更新升级">2. 换源，更新，升级</h2>
 <p>进入系统后第一步操作应该就是将源改成国内的清华或者阿里，然后运行以下命令</p>
-<p>sudo apt update<br>
-sudo apt upgrade</p>
-<h2 id="3-nvidia驱动安装">3. Nvidia驱动安装</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt update  
+sudo apt upgrade
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="3-nvidia驱动安装">3. Nvidia驱动安装</h2>
 <p>上述操作装完系统后，没有显卡驱动是无法进入的，所以必须加上nomodeset</p>
 <p>除此之外，进系统后的分辨率应该也不对，会更大一些，这一切的原因都是显卡没有驱动程序，以及没有集显导致的</p>
 <p>装一个独显驱动即可，方法：</p>
@@ -287,14 +275,30 @@ sudo apt upgrade</p>
 </li>
 </ul>
 <h2 id="4-安装常用软件">4. 安装常用软件</h2>
-<p>sudo apt install python python3 gconf-service-backend gconf-service gconf2</p>
-<h2 id="5-安装小飞机">5. 安装小飞机</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt install python python3 gconf-service-backend gconf-service gconf2
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="5-安装小飞机">5. 安装小飞机</h2>
 <p>先确保安装python以及python3</p>
 <p>建议使用appimage，方便开机自启动</p>
-<p>#! /bin/bash<br>
-cd ~/Softwares<br>
-./electron-ssr-0.2.6.AppImage</p>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#! /bin/bash  
+</span><span class="cp"></span><span class="nb">cd</span> ~/Softwares  
+./electron-ssr-0.2.6.AppImage
+</code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>
 <p>自启动</p>
 <p>将以上写成脚本，在<code>start application</code>里面添加启动程序，直接查找脚本位置即可，不需要 . 或者 sh</p>
@@ -302,62 +306,150 @@ cd ~/Softwares<br>
 </ul>
 <p>注意权限</p>
 <h2 id="6-挂载其它ntfs磁盘实现开机自动挂载">6. 挂载其它ntfs磁盘，实现开机自动挂载</h2>
-<h1 id="查看磁盘">查看磁盘</h1>
-<p>sudo fdisk -l</p>
-<h1 id="安装包">安装包</h1>
-<p>sudo apt install ntfs-3g<br>
-sudo apt install ntfs-config</p>
-<h1 id="查看uuid">查看uuid</h1>
-<p>sudo blkid<br>
-​</p>
-<h1 id="创建要挂载的文件夹">创建要挂载的文件夹</h1>
-<p>mkdir /home/disks<br>
-sudo mkdir /media/echo/Docs<br>
-sudo mkdir /media/echo/Storage<br>
-​</p>
-<h1 id="修改fstab">修改fstab</h1>
-<p>sudo gedit /etc/fstab</p>
-<h1 id="添加以下内容">添加以下内容</h1>
-<p>#Entry for /dev/sda5 :<br>
-UUID=10AA0A8510AA0A85    /media/echo/Docs    ntfs    defaults,nodev,nosuid,uid=1000,gid=1000,uhelper=udisks2    0    0<br>
-#Entry for /dev/sda1 :<br>
-UUID=10A8073A10A8073A    /media/echo/Storage    ntfs    defaults,nodev,nosuid,uid=1000,gid=1000,uhelper=udisks2    0    0<br>
-#Entry for /dev/nvme0n1p4 :<br>
-UUID=0BE104A20BE104A2    /home/echo/disks    ntfs    defaults    0    0<br>
-​<br>
-​</p>
-<h1 id="测试挂载不报错即为没问题">测试挂载，不报错即为没问题</h1>
-<p>sudo umount -a<br>
-sudo mount -a</p>
-<h2 id="7-安装ipgw">7. 安装ipgw</h2>
+<h3 id="查看磁盘">查看磁盘</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo fdisk -l  
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="安装包">安装包</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt install ntfs-3g  
+sudo apt install ntfs-config  
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查看uuid">查看uuid</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo blkid  
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="创建要挂载的文件夹">创建要挂载的文件夹</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir /home/disks  
+sudo mkdir /media/echo/Docs  
+sudo mkdir /media/echo/Storage  
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="修改fstab">修改fstab</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo gedit /etc/fstab  
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="添加以下内容">添加以下内容</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"> <span class="c1">#Entry for /dev/sda5 :  </span>
+ <span class="nv">UUID</span><span class="o">=</span>10AA0A8510AA0A85    /media/echo/Docs    ntfs    defaults,nodev,nosuid,uid<span class="o">=</span>1000,gid<span class="o">=</span>1000,uhelper<span class="o">=</span>udisks2    <span class="m">0</span>    <span class="m">0</span>  
+ <span class="c1">#Entry for /dev/sda1 :  </span>
+ <span class="nv">UUID</span><span class="o">=</span>10A8073A10A8073A    /media/echo/Storage    ntfs    defaults,nodev,nosuid,uid<span class="o">=</span>1000,gid<span class="o">=</span>1000,uhelper<span class="o">=</span>udisks2    <span class="m">0</span>    <span class="m">0</span>  
+ <span class="c1">#Entry for /dev/nvme0n1p4 :  </span>
+ <span class="nv">UUID</span><span class="o">=</span>0BE104A20BE104A2    /home/echo/disks    ntfs    defaults    <span class="m">0</span>    <span class="m">0</span>  
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="测试挂载不报错即为没问题">测试挂载，不报错即为没问题</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo umount -a  
+sudo mount -a
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="7-安装ipgw">7. 安装ipgw</h2>
 <p>找到对应ipgw安装包</p>
-<p>sudo chmod +x ipgw<br>
-sudo mv ipgw /usr/local/bin<br>
-ipgw version<br>
-ipgw login -u 1901938 -p xxx -s</p>
-<h2 id="8-安装chrome">8. 安装chrome</h2>
-<p>sudo dpkg -i google-chrome-stable_current_amd64.deb<br>
-sudo apt upgrade</p>
-<h2 id="9-安装搜狗输入法">9. 安装搜狗输入法</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo chmod +x ipgw  
+sudo mv ipgw /usr/local/bin  
+ipgw version  
+ipgw login -u <span class="m">1901938</span> -p xxx -s
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="8-安装chrome">8. 安装chrome</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo dpkg -i google-chrome-stable_current_amd64.deb  
+sudo apt upgrade
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="9-安装搜狗输入法">9. 安装搜狗输入法</h2>
 <p>先装fcitx</p>
-<p>sudo apt install fcitx    # 如果报错，使用 sudo apt-get install -f 再执行<br>
-sudo dpkg -i sogoupinyin_2.3.1.0112_amd64.deb<br>
-reboot</p>
-<p>打开设置，找到 <code>language</code>-&gt; <code>Manage Installed Languages</code>, 將“Keyboard input method system”設定為“fcitx”</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt install fcitx    <span class="c1"># 如果报错，使用 sudo apt-get install -f 再执行  </span>
+sudo dpkg -i sogoupinyin_2.3.1.0112_amd64.deb  
+reboot
+</code></pre></td></tr></table>
+</div>
+</div><p>打开设置，找到 <code>language</code>-&gt; <code>Manage Installed Languages</code>, 將“Keyboard input method system”設定為“fcitx”</p>
 <p>在系統中搜索fcitx configuration，點選左下角新增輸入法，在彈出的對話方塊中將Only Show Current Language取消，即可看到sogou Pinyin，選擇新增即可</p>
 <h2 id="10-安装terminator">10. 安装terminator</h2>
-<p>sudo apt install terminator</p>
-<h1 id="刷新配置">刷新配置</h1>
-<p>cp terminator_config ~/.config/terminator/config</p>
-<h2 id="11-安装typora">11. 安装typora</h2>
-<h1 id="or-run">or run:</h1>
-<h1 id="sudo-apt-key-adv---keyserver-keyserverubuntucom---recv-keys-ba300b7755afcfae">sudo apt-key adv &ndash;keyserver keyserver.ubuntu.com &ndash;recv-keys BA300B7755AFCFAE</h1>
-<p>wget -qO - <a href="https://typora.io/linux/public-key.asc" target="_blank" rel="noopener noreffer">https://typora.io/linux/public-key.asc</a> | sudo apt-key add -</p>
-<h1 id="add-typoras-repository">add Typora&rsquo;s repository</h1>
-<p>sudo add-apt-repository &lsquo;deb <a href="https://typora.io/linux" target="_blank" rel="noopener noreffer">https://typora.io/linux</a> ./&rsquo;
-sudo apt-get update</p>
-<h1 id="install-typora">install typora</h1>
-<p>sudo apt-get install typora</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt install terminator
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="刷新配置">刷新配置</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cp terminator_config ~/.config/terminator/config
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="11-安装typora">11. 安装typora</h2>
+<p>参考官网</p>
 <h2 id="12-安装cudacudnn">12. 安装CUDA\CUDNN</h2>
 <h3 id="cuda102">cuda10.2</h3>
 <ol>
@@ -367,51 +459,96 @@ sudo apt-get update</p>
 </li>
 <li>
 <p>选择18.04 cuda10.2 使用deb安装</p>
-<p>wget <a href="https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin" target="_blank" rel="noopener noreffer">https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin</a>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
 sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
-wget <a href="https://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb" target="_blank" rel="noopener noreffer">https://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb</a>
+wget https://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb
 sudo dpkg -i cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb
 sudo apt-key add /var/cuda-repo-10-2-local-10.2.89-440.33.01/7fa2af80.pub
 sudo apt-get update
-sudo apt-get -y install cuda</p>
-</li>
+sudo apt-get -y install cuda
+</code></pre></td></tr></table>
+</div>
+</div></li>
 <li>
 <p>在bashrc或者zshrc中加入</p>
-<h1 id="cuda-add">cuda add</h1>
-<p>export CPATH=/usr/local/cuda/targets/x86_64-linux/include:$CPATH
-export LD_LIBRARY_PATH=/usr/local/cuda/targets/x86_64-linux/lib:$LD_LIBRARY_PATH
-export PATH=/usr/local/cuda/bin:$PATH
-export CUDA_HOME=/usr/local/cuda</p>
-<p>使用<code>nvcc -V</code>测试</p>
-<p>nvcc: NVIDIA (R) Cuda compiler driver
-Copyright (c) 2005-2019 NVIDIA Corporation
-Built on Wed_Oct_23_19:24:38_PDT_2019
-Cuda compilation tools, release 10.2, V10.2.89</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># cuda add</span>
+<span class="nb">export</span> <span class="nv">CPATH</span><span class="o">=</span>/usr/local/cuda/targets/x86_64-linux/include:<span class="nv">$CPATH</span>
+<span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/usr/local/cuda/targets/x86_64-linux/lib:<span class="nv">$LD_LIBRARY_PATH</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/usr/local/cuda/bin:<span class="nv">$PATH</span>
+<span class="nb">export</span> <span class="nv">CUDA_HOME</span><span class="o">=</span>/usr/local/cuda
+</code></pre></td></tr></table>
+</div>
+</div><p>使用<code>nvcc -V</code>测试</p>
 </li>
 <li>
 <p>安装patch</p>
 <p><a href="https://developer.nvidia.com/cuda-10.2-download-archive?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu&amp;target_version=1804&amp;target_type=deblocal" target="_blank" rel="noopener noreffer">https://developer.nvidia.com/cuda-10.2-download-archive?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu&amp;target_version=1804&amp;target_type=deblocal</a></p>
-<h1 id="patch1">patch1</h1>
-<p>sudo dpkg -i cuda-repo-ubuntu1804-10-2-local_10.2.1-1_amd64.deb
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># patch1</span>
+sudo dpkg -i cuda-repo-ubuntu1804-10-2-local_10.2.1-1_amd64.deb 
 sudo apt update
-sudo apt -y upgrade</p>
-<h1 id="patch2">patch2</h1>
-<p>sudo dpkg -i cuda-repo-ubuntu1804-10-2-local_10.2.2-1_amd64.deb
+sudo apt -y upgrade
+<span class="c1"># patch2</span>
+sudo dpkg -i cuda-repo-ubuntu1804-10-2-local_10.2.2-1_amd64.deb 
 sudo apt update
-sudo apt -y upgrade</p>
-</li>
+sudo apt -y upgrade
+</code></pre></td></tr></table>
+</div>
+</div></li>
 </ol>
 <h3 id="cudnn">cudnn</h3>
 <p>需要登录，使用google账号登录， 下载 <strong>cudnn-10.2-linux-x64-v8.1.1.33</strong></p>
 <ul>
 <li>
 <p>source安装，先解压，出现一个cuda的文件夹</p>
-<p>tar -zxf cudnn-10.2-linux-x64-v8.1.1.33.tgz
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">tar -zxf cudnn-10.2-linux-x64-v8.1.1.33.tgz
 sudo cp cuda/include/cudnn.h /usr/local/cuda/include
 sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
-sudo chmod a+r /usr/local/cuda/include/cudnn.h
-sudo chmod a+r /usr/local/cuda/lib64/libcudnn*</p>
-</li>
+sudo chmod a+r /usr/local/cuda/include/cudnn.h 
+sudo chmod a+r /usr/local/cuda/lib64/libcudnn*
+</code></pre></td></tr></table>
+</div>
+</div></li>
 <li>
 <p>deb安装-未尝试</p>
 <p>要下载的文件也是两个，分别是<code>cuDNN Runtime Library for Ubuntu18.04 (Deb</code>和 <code>[cuDNN Developer Library for Ubuntu18.04 (Deb)]</code></p>
@@ -438,13 +575,29 @@ sudo dpkg -i libcudnn8-samples_8.1.0.77-1+cuda10.2_amd64.deb</p>
 <p><a href="https://link.zhihu.com/?target=https%3A//github.com/Syllo/nvtop" target="_blank" rel="noopener noreffer">https://github.com/Syllo/nvtopgithub.com</a></p>
 <h2 id="13-安装pycharm">13. 安装pycharm</h2>
 <p>由于ubuntu自带了snap，使用snap安装</p>
-<h1 id="sudo-snap-install-pycharm-professionalpycharm-community---classic">sudo snap install [pycharm-professional|pycharm-community] &ndash;classic</h1>
-<p>sudo snap install pycharm-professional &ndash;classic</p>
-<h2 id="14-安装openvpn">14. 安装openvpn</h2>
-<h2 id="补充在ubuntu1804安装的记录">补充在ubuntu18.04安装的记录</h2>
-<p>sudo apt update
-sudo apt install openvpn</p>
-<p>接下来和ubuntu16.04一致，运行脚本以及ovpn文件即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo snap install <span class="o">[</span>pycharm-professional<span class="p">|</span>pycharm-community<span class="o">]</span> --classic
+sudo snap install pycharm-professional --classic
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="14-安装openvpn">14. 安装openvpn</h2>
+<h3 id="补充在ubuntu1804安装的记录">补充在ubuntu18.04安装的记录</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt update
+sudo apt install openvpn
+</code></pre></td></tr></table>
+</div>
+</div><p>接下来和ubuntu16.04一致，运行脚本以及ovpn文件即可</p>
 <h2 id="15-安装anaconda">15. 安装anaconda</h2>
 <p>wget <a href="https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh" target="_blank" rel="noopener noreffer">https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh</a></p>
 <p>给权限, 运行</p>
@@ -462,31 +615,92 @@ helper = store</p>
 <p>确保安装了git</p>
 <p><a href="https://ohmyz.sh/#install" target="_blank" rel="noopener noreffer">https://ohmyz.sh/#install</a></p>
 <p><a href="https://github.com/romkatv/powerlevel10k" target="_blank" rel="noopener noreffer">https://github.com/romkatv/powerlevel10k</a></p>
-<p>sudo apt-get install zsh
-sh -c &ldquo;$(wget <a href="https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh" target="_blank" rel="noopener noreffer">https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh</a> -O -)&rdquo;
-git clone &ndash;depth=1 <a href="https://gitee.com/romkatv/powerlevel10k.git" target="_blank" rel="noopener noreffer">https://gitee.com/romkatv/powerlevel10k.git</a> ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-git clone <a href="https://github.com/zsh-users/zsh-autosuggestions" target="_blank" rel="noopener noreffer">https://github.com/zsh-users/zsh-autosuggestions</a> ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions</p>
-<h2 id="18-安装opencv">18. 安装opencv</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt-get install zsh
+sh -c <span class="s2">&#34;</span><span class="k">$(</span>wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -<span class="k">)</span><span class="s2">&#34;</span>
+git clone --depth<span class="o">=</span><span class="m">1</span> https://gitee.com/romkatv/powerlevel10k.git <span class="si">${</span><span class="nv">ZSH_CUSTOM</span><span class="k">:-</span><span class="nv">$HOME</span><span class="p">/.oh-my-zsh/custom</span><span class="si">}</span>/themes/powerlevel10k
+git clone https://github.com/zsh-users/zsh-autosuggestions <span class="si">${</span><span class="nv">ZSH_CUSTOM</span><span class="k">:-</span><span class="p">~/.oh-my-zsh/custom</span><span class="si">}</span>/plugins/zsh-autosuggestions
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="18-安装opencv">18. 安装opencv</h2>
 <h2 id="19-安装ros">19. 安装ros</h2>
-<blockquote>
-<p>sudo sh -c &lsquo;echo &ldquo;deb <a href="http://packages.ros.org/ros/ubuntu" target="_blank" rel="noopener noreffer">http://packages.ros.org/ros/ubuntu</a> $(lsb_release -sc) main&rdquo; &gt; /etc/apt/sources.list.d/ros-latest.list&rsquo;</p>
-</blockquote>
-<blockquote>
-<p>sudo apt-key adv &ndash;keyserver &lsquo;hkp://keyserver.ubuntu.com:80&rsquo; &ndash;recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654</p>
-</blockquote>
-<p>Executing: /tmp/apt-key-gpghome.GnF5MH9S4s/gpg.1.sh &ndash;keyserver hkp://keyserver.ubuntu.com:80 &ndash;recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-gpg: key F42ED6FBAB17C654: public key &ldquo;Open Robotics <a href="mailto:info@osrfoundation.org" rel="">info@osrfoundation.org</a>&rdquo; imported
-gpg: Total number processed: 1
-gpg:               imported: 1</p>
-<p>报错</p>
-<p>/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_cnn_infer.so.8 is not a symbolic link</p>
-<p>/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_adv_train.so.8 is not a symbolic link</p>
-<p>/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_adv_infer.so.8 is not a symbolic link</p>
-<p>/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_ops_train.so.8 is not a symbolic link</p>
-<p>/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_cnn_train.so.8 is not a symbolic link</p>
-<p>/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn.so.8 is not a symbolic link</p>
-<p>/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_ops_infer.so.8 is not a symbolic link</p>
-<p>sudo ln -sf libcudnn_adv_infer.so.8.1.1 libcudnn_adv_infer.so.8
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo sh -c <span class="s1">&#39;echo &#34;deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main&#34; &gt; /etc/apt/sources.list.d/ros-latest.list&#39;</span>
+
+sudo apt-key adv --keyserver <span class="s1">&#39;hkp://keyserver.ubuntu.com:80&#39;</span> --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+
+Executing: /tmp/apt-key-gpghome.GnF5MH9S4s/gpg.1.sh --keyserver hkp://keyserver.ubuntu.com:80 --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+gpg: key F42ED6FBAB17C654: public key <span class="s2">&#34;Open Robotics &lt;info@osrfoundation.org&gt;&#34;</span> imported
+gpg: Total number processed: <span class="m">1</span>
+gpg:               imported: <span class="m">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_cnn_infer.so.8 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_adv_train.so.8 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_adv_infer.so.8 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_ops_train.so.8 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_cnn_train.so.8 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn.so.8 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_ops_infer.so.8 is not a symbolic link
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo ln -sf libcudnn_adv_infer.so.8.1.1 libcudnn_adv_infer.so.8
 sudo ln -sf libcudnn_adv_infer.so.8 libcudnn_adv_infer.so
 sudo ln -sf libcudnn_adv_train.so.8.1.1 libcudnn_adv_train.so.8
 sudo ln -sf libcudnn_adv_train.so.8 libcudnn_adv_train.so
@@ -496,19 +710,10 @@ sudo ln -sf libcudnn_ops_infer.so.8.1.1 libcudnn_ops_infer.so.8
 sudo ln -sf libcudnn_ops_train.so.8.1.1 libcudnn_ops_train.so.8
 sudo ln -sf libcudnn_ops_train.so.8 libcudnn_ops_train.so
 sudo ln -sf libcudnn.so.8.1.1 libcudnn.so.8
-sudo ln -sf libcudnn.so.8 libcudnn.so</p>
-<p>执行</p>
-<p>sudo rosdep init</p>
-<p>报错</p>
-<p>sudo: rosdep: command not found</p>
-<p>执行</p>
-<p>sudo apt install rospack-tools</p>
-<p>开代理</p>
-<p>sudo rosdep init
-rosdep update</p>
-<p>写入bashrc以及zshrc</p>
-<p>alias ros=&lsquo;source /opt/ros/melodic/setup.zsh&rsquo;</p>
-<h2 id="20-安装hexogitbookslidev">20. 安装hexo&amp;Gitbook&amp;slidev</h2>
+sudo ln -sf libcudnn.so.8 libcudnn.so
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="20-安装hexogitbookslidev">20. 安装hexo&amp;Gitbook&amp;slidev</h2>
 <h3 id="1-安装nodejs-v10x">1. 安装nodejs v10.x</h3>
 <p><a href="https://github.com/nodesource/distributions" target="_blank" rel="noopener noreffer">https://github.com/nodesource/distributions</a></p>
 <p>curl -fsSL <a href="https://deb.nodesource.com/setup_10.x" target="_blank" rel="noopener noreffer">https://deb.nodesource.com/setup_10.x</a> | sudo -E bash -
@@ -520,23 +725,32 @@ PATH=&quot;$PATH:/home/echo/disks/HexoBlogs/node_modules/.bin&quot;</p>
 <h3 id="4-安装gitbook">4. 安装Gitbook</h3>
 <p>sudo npm install -g gitbook-cli
 gitbook init</p>
-<p>将node升级到了14，但是发现hexo不好用，无法hexo d，所以降级到12，但是gitbook还不好使，于是修改gitbook</p>
+<h3 id="5-将node升级到了14但是发现hexo不好用无法hexo-d所以降级到12但是gitbook还不好使于是修改gitbook">5. 将node升级到了14，但是发现hexo不好用，无法hexo d，所以降级到12，但是gitbook还不好使，于是修改gitbook</h3>
 <p>查看和更改node版本</p>
 <p>node -v
 sudo n</p>
 <p>查看hexo版本</p>
 <p>hexo -v</p>
-<hr>
 <h3 id="6-重装hexo以及部署新的博客主题还有gitbook2021-6-10">6. 重装hexo以及部署新的博客主题，还有gitbook[2021-6-10]</h3>
 <ol>
 <li>
 <p>解决npm全局安装的问题</p>
 <p>在 /home 下</p>
-<p>mkdir ~/.npm-global
-npm config set prefix &lsquo;~/.npm-global&rsquo;   # 设置npm全局包的安装路径:
-export PATH=~/.npm-global/bin:$PATH   # 在用户的根目录下查看有没有.profile文件, 如果没有就创建
-source ~/.profile</p>
-</li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir ~/.npm-global
+npm config <span class="nb">set</span> prefix <span class="s1">&#39;~/.npm-global&#39;</span>   <span class="c1"># 设置npm全局包的安装路径:</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>~/.npm-global/bin:<span class="nv">$PATH</span>   <span class="c1"># 在用户的根目录下查看有没有.profile文件, 如果没有就创建</span>
+<span class="nb">source</span> ~/.profile
+</code></pre></td></tr></table>
+</div>
+</div></li>
 <li>
 <p>安装hexo</p>
 <p>npm install -g hexo-cli</p>
@@ -779,13 +993,21 @@ sudo unzip -o Cupertino-iCons.zip -d /usr/share/icons</p>
 <p>sudo apt-get install hplip hplip-gui</p>
 <p>然后找到hplip toolsbox，按照提示安装即可</p>
 <h2 id="其他小工具">其他小工具</h2>
-<h1 id="小火车">小火车</h1>
+<h3 id="小火车">小火车</h3>
 <p>sudo apt install sl # 使用sl调用</p>
-<h1 id="代码雨">代码雨</h1>
+<h3 id="代码雨">代码雨</h3>
 <p>sudo apt install cmatrix</p>
-<h1 id="cpu内存等显示插件-httpswwwsohucoma301992941_495675">CPU内存等显示插件 <a href="https://www.sohu.com/a/301992941_495675" target="_blank" rel="noopener noreffer">https://www.sohu.com/a/301992941_495675</a></h1>
-<p>sudo apt-get install gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0
-打开Ubuntu软件，然后搜索“system monitor extension” 选择system monitor 可以显示network的那一个</p>
+<h3 id="cpu内存等显示插件">CPU内存等显示插件</h3>
+<p><a href="https://www.sohu.com/a/301992941_495675" target="_blank" rel="noopener noreffer">https://www.sohu.com/a/301992941_495675</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt-get install gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0
+</code></pre></td></tr></table>
+</div>
+</div><p>打开Ubuntu软件，然后搜索“system monitor extension” 选择system monitor 可以显示network的那一个</p>
 <h2 id="更改锁屏输入密码时的壁纸">更改锁屏输入密码时的壁纸</h2>
 <p>sudo cp /usr/share/gnome-shell/theme/ubuntu.css /usr/share/gnome-shell/theme/ubuntu.css.bak
 sudo gedit /usr/share/gnome-shell/theme/ubuntu.css</p>
@@ -808,33 +1030,60 @@ background-repeat: repeat;
 <p><a href="http://ceres-solver.org/installation.html" target="_blank" rel="noopener noreffer">http://ceres-solver.org/installation.html</a> 官网安装教程</p>
 <p><a href="http://ceres-solver.org/ceres-solver-2.0.0.tar.gz" target="_blank" rel="noopener noreffer">http://ceres-solver.org/ceres-solver-2.0.0.tar.gz</a></p>
 <p>下载最新的 2.0.0 的压缩包</p>
-<h1 id="cmake">CMake</h1>
-<p>sudo apt-get install cmake</p>
-<h1 id="google-glog--gflags">google-glog + gflags</h1>
-<p>sudo apt-get install libgoogle-glog-dev libgflags-dev</p>
-<h1 id="blas--lapack">BLAS &amp; LAPACK</h1>
-<p>sudo apt-get install libatlas-base-dev</p>
-<h1 id="eigen3">Eigen3</h1>
-<p>sudo apt-get install libeigen3-dev</p>
-<h1 id="suitesparse-and-cxsparse-optional">SuiteSparse and CXSparse (optional)</h1>
-<p>sudo apt-get install libsuitesparse-dev</p>
-<p>tar zxf ceres-solver-2.0.0.tar.gz
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt-get install cmake
+sudo apt-get install libgoogle-glog-dev libgflags-dev
+sudo apt-get install libatlas-base-dev
+sudo apt-get install libeigen3-dev
+sudo apt-get install libsuitesparse-dev
+
+tar zxf ceres-solver-2.0.0.tar.gz
 mkdir ceres-bin
-cd ceres-bin
+<span class="nb">cd</span> ceres-bin
 cmake ../ceres-solver-2.0.0
 make -j3
-make test
-sudo make install    # 这个和官网安装教程不一致，需要sudo</p>
-<p>2.0.0版本不满足，安装1.14</p>
+make <span class="nb">test</span>
+sudo make install    <span class="c1"># 这个和官网安装教程不一致，需要sudo</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>2.0.0版本不满足，安装1.14</p>
 <p>进入 ceres-bin 执行<code>sudo make uninstall</code></p>
 <p>然后解压</p>
-<p>mkdir ceres-bin
-cd ceres-bin
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir ceres-bin
+<span class="nb">cd</span> ceres-bin
 cmake ../ceres-solver-1.14.0
 make -j3
-make test
-sudo make install    # 这个和官网安装教程不一致，需要sudo</p>
-<h2 id="安装网络可视化工具zetane">安装网络可视化工具zetane</h2>
+make <span class="nb">test</span>
+sudo make install    <span class="c1"># 这个和官网安装教程不一致，需要sudo</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="安装网络可视化工具zetane">安装网络可视化工具zetane</h2>
 <p><a href="https://github.com/shanjiayao/viewer" target="_blank" rel="noopener noreffer">https://github.com/shanjiayao/viewer</a></p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">

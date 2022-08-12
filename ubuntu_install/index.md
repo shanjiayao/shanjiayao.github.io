@@ -8,36 +8,26 @@
 
 ## 1. 系统安装
 
-1.  关闭secure boot
-    
+1.  关闭secure boot   
 2.  插上系统盘，开机后狂按ESC，暂停启动，然后弹出BIOS设置，选择启动设备，使用U盘启动
-    
 3.  在选择‘Install UBUNTU’之前，按E进入设置，在quiet splash ---那处,把---替换为nomodeset,再按F10进入系统进行安装，否则会报错acpi bios error以及花屏！！！
-    
 4.  然后正常选择，我选的最小系统安装，免去安装多余的游戏软件等
-    
 5.  分区设置，先选择something else，自己设置分区，如下
-    
     -   设置swap空间:主分区/空间起始/交换空间/大小一般是实际内存1-2倍
-        
     -   设置引导EFI:逻辑分区/空间起始/**EFI分区**/大小一般1GB
-        
     -   设置挂载的/:这个是ubuntu计算机的安装位置,逻辑分区/空间起始/EXT4/挂载点为/
-        
     -   最后设置引导,最下面的那个选项,选择之前设置的EFI引导在的那个分区
-        
-    
     注意，这里建议不单独分出来/home的空间，直接全都放在/下面就好，免得空间不够难以重新分区
-    
 6.  进入安装,完成后会重启,重启后同样按e进入,在quiet splash后加nomodeset再按F10进入
-    
 
 ## 2. 换源，更新，升级
 
 进入系统后第一步操作应该就是将源改成国内的清华或者阿里，然后运行以下命令
 
+```bash
 sudo apt update  
 sudo apt upgrade
+```
 
 ## 3. Nvidia驱动安装
 
@@ -60,7 +50,9 @@ sudo apt upgrade
 
 ## 4. 安装常用软件
 
+```bash
 sudo apt install python python3 gconf-service-backend gconf-service gconf2
+```
 
 ## 5. 安装小飞机
 
@@ -68,9 +60,11 @@ sudo apt install python python3 gconf-service-backend gconf-service gconf2
 
 建议使用appimage，方便开机自启动
 
+```bash
 #! /bin/bash  
 cd ~/Softwares  
 ./electron-ssr-0.2.6.AppImage
+```
 
 -   自启动
     
@@ -81,55 +75,84 @@ cd ~/Softwares
 
 ## 6. 挂载其它ntfs磁盘，实现开机自动挂载
 
-# 查看磁盘  
+### 查看磁盘  
+
+```bash
 sudo fdisk -l  
-# 安装包  
+```
+
+### 安装包  
+
+```bash
 sudo apt install ntfs-3g  
 sudo apt install ntfs-config  
-# 查看uuid  
+```
+
+### 查看uuid  
+
+```bash
 sudo blkid  
-​  
-# 创建要挂载的文件夹  
+```
+
+### 创建要挂载的文件夹  
+
+```bash
 mkdir /home/disks  
 sudo mkdir /media/echo/Docs  
 sudo mkdir /media/echo/Storage  
-​  
-# 修改fstab  
+```
+
+### 修改fstab  
+
+```bash
 sudo gedit /etc/fstab  
- # 添加以下内容  
+```
+ 
+ ### 添加以下内容  
+
+```bash
  #Entry for /dev/sda5 :  
  UUID=10AA0A8510AA0A85    /media/echo/Docs    ntfs    defaults,nodev,nosuid,uid=1000,gid=1000,uhelper=udisks2    0    0  
  #Entry for /dev/sda1 :  
  UUID=10A8073A10A8073A    /media/echo/Storage    ntfs    defaults,nodev,nosuid,uid=1000,gid=1000,uhelper=udisks2    0    0  
  #Entry for /dev/nvme0n1p4 :  
  UUID=0BE104A20BE104A2    /home/echo/disks    ntfs    defaults    0    0  
-​  
-​  
-# 测试挂载，不报错即为没问题  
+```
+
+### 测试挂载，不报错即为没问题  
+
+```bash
 sudo umount -a  
 sudo mount -a
+```
 
 ## 7. 安装ipgw
 
 找到对应ipgw安装包
 
+```bash
 sudo chmod +x ipgw  
 sudo mv ipgw /usr/local/bin  
 ipgw version  
 ipgw login -u 1901938 -p xxx -s
+```
 
 ## 8. 安装chrome
 
+```bash
 sudo dpkg -i google-chrome-stable_current_amd64.deb  
 sudo apt upgrade
+```
 
 ## 9. 安装搜狗输入法
 
 先装fcitx
 
+```bash
 sudo apt install fcitx    # 如果报错，使用 sudo apt-get install -f 再执行  
 sudo dpkg -i sogoupinyin_2.3.1.0112_amd64.deb  
 reboot
+```
 
 打开设置，找到 `language`-> `Manage Installed Languages`, 將“Keyboard input method system”設定為“fcitx”
 
@@ -137,20 +160,19 @@ reboot
 
 ## 10. 安装terminator
 
+```bash
 sudo apt install terminator
-# 刷新配置
+```
+
+### 刷新配置
+
+```bash
 cp terminator_config ~/.config/terminator/config
+```
 
 ## 11. 安装typora
 
-# or run:
-# sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA300B7755AFCFAE
-wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
-# add Typora's repository
-sudo add-apt-repository 'deb https://typora.io/linux ./'
-sudo apt-get update
-# install typora
-sudo apt-get install typora
+参考官网
 
 ## 12. 安装CUDA\CUDNN
 
@@ -161,7 +183,7 @@ sudo apt-get install typora
     [https://developer.nvidia.com/cuda-toolkit-archive](https://developer.nvidia.com/cuda-toolkit-archive)
     
 2.  选择18.04 cuda10.2 使用deb安装
-    
+    ```bash
     wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
     sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
     wget https://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb
@@ -169,27 +191,26 @@ sudo apt-get install typora
     sudo apt-key add /var/cuda-repo-10-2-local-10.2.89-440.33.01/7fa2af80.pub
     sudo apt-get update
     sudo apt-get -y install cuda
+	```
     
 3.  在bashrc或者zshrc中加入
     
-    # cuda add
+	```bash
+	# cuda add
     export CPATH=/usr/local/cuda/targets/x86_64-linux/include:$CPATH
     export LD_LIBRARY_PATH=/usr/local/cuda/targets/x86_64-linux/lib:$LD_LIBRARY_PATH
     export PATH=/usr/local/cuda/bin:$PATH
     export CUDA_HOME=/usr/local/cuda
+	```
     
     使用`nvcc -V`测试
-    
-    nvcc: NVIDIA (R) Cuda compiler driver
-    Copyright (c) 2005-2019 NVIDIA Corporation
-    Built on Wed_Oct_23_19:24:38_PDT_2019
-    Cuda compilation tools, release 10.2, V10.2.89
     
 4.  安装patch
     
     [https://developer.nvidia.com/cuda-10.2-download-archive?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=deblocal](https://developer.nvidia.com/cuda-10.2-download-archive?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=deblocal)
     
-    # patch1
+	```bash
+	# patch1
     sudo dpkg -i cuda-repo-ubuntu1804-10-2-local_10.2.1-1_amd64.deb 
     sudo apt update
     sudo apt -y upgrade
@@ -197,6 +218,7 @@ sudo apt-get install typora
     sudo dpkg -i cuda-repo-ubuntu1804-10-2-local_10.2.2-1_amd64.deb 
     sudo apt update
     sudo apt -y upgrade
+	```
     
 
 ### cudnn
@@ -205,11 +227,13 @@ sudo apt-get install typora
 
 -   source安装，先解压，出现一个cuda的文件夹
     
-    tar -zxf cudnn-10.2-linux-x64-v8.1.1.33.tgz
-    sudo cp cuda/include/cudnn.h /usr/local/cuda/include
-    sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
-    sudo chmod a+r /usr/local/cuda/include/cudnn.h 
-    sudo chmod a+r /usr/local/cuda/lib64/libcudnn*
+	```bash
+	tar -zxf cudnn-10.2-linux-x64-v8.1.1.33.tgz
+	sudo cp cuda/include/cudnn.h /usr/local/cuda/include
+	sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
+	sudo chmod a+r /usr/local/cuda/include/cudnn.h 
+	sudo chmod a+r /usr/local/cuda/lib64/libcudnn*
+	```
     
 -   deb安装-未尝试
     
@@ -242,15 +266,19 @@ sudo apt-get install typora
 
 由于ubuntu自带了snap，使用snap安装
 
-# sudo snap install [pycharm-professional|pycharm-community] --classic
+```bash
+sudo snap install [pycharm-professional|pycharm-community] --classic
 sudo snap install pycharm-professional --classic
+```
 
 ## 14. 安装openvpn
 
-## 补充在ubuntu18.04安装的记录
+### 补充在ubuntu18.04安装的记录
 
+```bash
 sudo apt update
 sudo apt install openvpn
+```
 
 接下来和ubuntu16.04一致，运行脚本以及ovpn文件即可
 
@@ -285,26 +313,30 @@ git config --global -e
 
 [https://github.com/romkatv/powerlevel10k](https://github.com/romkatv/powerlevel10k)
 
+```bash
 sudo apt-get install zsh
 sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+```
 
 ## 18. 安装opencv
 
 ## 19. 安装ros
 
-> sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+```bash
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 
-> sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
 Executing: /tmp/apt-key-gpghome.GnF5MH9S4s/gpg.1.sh --keyserver hkp://keyserver.ubuntu.com:80 --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 gpg: key F42ED6FBAB17C654: public key "Open Robotics <info@osrfoundation.org>" imported
 gpg: Total number processed: 1
 gpg:               imported: 1
+```
 
-报错
 
+```bash
 /sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_cnn_infer.so.8 is not a symbolic link
 
 /sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_adv_train.so.8 is not a symbolic link
@@ -318,7 +350,9 @@ gpg:               imported: 1
 /sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn.so.8 is not a symbolic link
 
 /sbin/ldconfig.real: /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudnn_ops_infer.so.8 is not a symbolic link
+```
 
+```bash
 sudo ln -sf libcudnn_adv_infer.so.8.1.1 libcudnn_adv_infer.so.8
 sudo ln -sf libcudnn_adv_infer.so.8 libcudnn_adv_infer.so
 sudo ln -sf libcudnn_adv_train.so.8.1.1 libcudnn_adv_train.so.8
@@ -330,27 +364,9 @@ sudo ln -sf libcudnn_ops_train.so.8.1.1 libcudnn_ops_train.so.8
 sudo ln -sf libcudnn_ops_train.so.8 libcudnn_ops_train.so
 sudo ln -sf libcudnn.so.8.1.1 libcudnn.so.8
 sudo ln -sf libcudnn.so.8 libcudnn.so
+```
 
-执行
 
-sudo rosdep init
-
-报错
-
-sudo: rosdep: command not found
-
-执行
-
-sudo apt install rospack-tools
-
-开代理
-
-sudo rosdep init
-rosdep update
-
-写入bashrc以及zshrc
-
-alias ros='source /opt/ros/melodic/setup.zsh'
 
 ## 20. 安装hexo&Gitbook&slidev
 
@@ -373,7 +389,7 @@ PATH="$PATH:/home/echo/disks/HexoBlogs/node_modules/.bin"
 sudo npm install -g gitbook-cli
 gitbook init 
 
-将node升级到了14，但是发现hexo不好用，无法hexo d，所以降级到12，但是gitbook还不好使，于是修改gitbook
+### 5. 将node升级到了14，但是发现hexo不好用，无法hexo d，所以降级到12，但是gitbook还不好使，于是修改gitbook
 
 查看和更改node版本
 
@@ -384,18 +400,18 @@ sudo n
 
 hexo -v
 
----
-
 ### 6. 重装hexo以及部署新的博客主题，还有gitbook[2021-6-10]
 
 1.  解决npm全局安装的问题
     
     在 /home 下
     
-    mkdir ~/.npm-global
-    npm config set prefix '~/.npm-global'   # 设置npm全局包的安装路径:
-    export PATH=~/.npm-global/bin:$PATH   # 在用户的根目录下查看有没有.profile文件, 如果没有就创建
-    source ~/.profile
+	```bash
+	mkdir ~/.npm-global
+	npm config set prefix '~/.npm-global'   # 设置npm全局包的安装路径:
+	export PATH=~/.npm-global/bin:$PATH   # 在用户的根目录下查看有没有.profile文件, 如果没有就创建
+	source ~/.profile
+	```
     
 2.  安装hexo
     
@@ -736,12 +752,19 @@ sudo apt-get install hplip hplip-gui
 
 ## 其他小工具
 
-# 小火车
+### 小火车
 sudo apt install sl # 使用sl调用
-# 代码雨
+
+### 代码雨
 sudo apt install cmatrix
-# CPU内存等显示插件 https://www.sohu.com/a/301992941_495675
+
+### CPU内存等显示插件 
+
+https://www.sohu.com/a/301992941_495675
+
+```bash
 sudo apt-get install gir1.2-gtop-2.0 gir1.2-networkmanager-1.0 gir1.2-clutter-1.0
+```
 打开Ubuntu软件，然后搜索“system monitor extension” 选择system monitor 可以显示network的那一个
 
 ## 更改锁屏输入密码时的壁纸
@@ -776,15 +799,11 @@ sudo gedit /usr/share/gnome-shell/theme/ubuntu.css
 
 下载最新的 2.0.0 的压缩包
 
-# CMake
+```bash
 sudo apt-get install cmake
-# google-glog + gflags
 sudo apt-get install libgoogle-glog-dev libgflags-dev
-# BLAS & LAPACK
 sudo apt-get install libatlas-base-dev
-# Eigen3
 sudo apt-get install libeigen3-dev
-# SuiteSparse and CXSparse (optional)
 sudo apt-get install libsuitesparse-dev
 
 tar zxf ceres-solver-2.0.0.tar.gz
@@ -794,6 +813,7 @@ cmake ../ceres-solver-2.0.0
 make -j3
 make test
 sudo make install    # 这个和官网安装教程不一致，需要sudo
+```
 
 2.0.0版本不满足，安装1.14
 
@@ -801,12 +821,14 @@ sudo make install    # 这个和官网安装教程不一致，需要sudo
 
 然后解压
 
+```bash
 mkdir ceres-bin
 cd ceres-bin
 cmake ../ceres-solver-1.14.0
 make -j3
 make test
 sudo make install    # 这个和官网安装教程不一致，需要sudo
+```
 
 ## 安装网络可视化工具zetane
 
