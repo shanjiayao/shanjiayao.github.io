@@ -2,14 +2,14 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://shanjiayao.com/categories/</loc><lastmod>2022-07-23T18:19:06&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
-            <loc>http://shanjiayao.com/git-lfs-%E5%A4%A7%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E5%B7%A5%E5%85%B7/</loc><lastmod>2022-07-23T18:19:06&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
-            <loc>http://shanjiayao.com/</loc><lastmod>2022-07-23T18:19:06&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
-            <loc>http://shanjiayao.com/posts/</loc><lastmod>2022-07-23T18:19:06&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
-            <loc>http://shanjiayao.com/ssh%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc><lastmod>2022-07-23T18:19:06&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
-            <loc>http://shanjiayao.com/tags/</loc><lastmod>2022-07-23T18:19:06&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
-            <loc>http://shanjiayao.com/tags/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/</loc><lastmod>2022-07-23T18:19:06&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
-            <loc>http://shanjiayao.com/categories/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/</loc><lastmod>2022-07-23T18:19:06&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
+            <loc>http://shanjiayao.com/categories/</loc><lastmod>2022-07-23T18:19:06&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://shanjiayao.com/git-lfs-%E5%A4%A7%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E5%B7%A5%E5%85%B7/</loc><lastmod>2022-07-23T18:19:06&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://shanjiayao.com/</loc><lastmod>2022-07-23T18:19:06&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://shanjiayao.com/posts/</loc><lastmod>2022-07-23T18:19:06&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://shanjiayao.com/ssh%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc><lastmod>2022-07-23T18:19:06&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://shanjiayao.com/tags/</loc><lastmod>2022-07-23T18:19:06&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://shanjiayao.com/tags/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/</loc><lastmod>2022-07-23T18:19:06&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://shanjiayao.com/categories/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/</loc><lastmod>2022-07-23T18:19:06&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://shanjiayao.com/tags/git/</loc><lastmod>2022-06-16T16:10:19&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://shanjiayao.com/git%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</loc><lastmod>2022-06-16T16:10:19&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://shanjiayao.com/tags/tools/</loc><lastmod>2022-06-16T16:10:19&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
