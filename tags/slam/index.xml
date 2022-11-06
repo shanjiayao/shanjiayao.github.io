@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>SLAM - 标签 - Jiayao&#39;s blog</title>
+        <link>http://shanjiayao.com/tags/slam/</link>
+        <description>SLAM - 标签 - Jiayao&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>shanjiayao97@gmail.com (jiayao)</managingEditor>
+            <webMaster>shanjiayao97@gmail.com (jiayao)</webMaster><lastBuildDate>Tue, 01 Nov 2022 14:43:50 &#43;0000</lastBuildDate><atom:link href="http://shanjiayao.com/tags/slam/" rel="self" type="application/rss+xml" /><item>
+    <title>SLAM十四讲之第一讲 预备知识</title>
+    <link>http://shanjiayao.com/slam%E5%8D%81%E5%9B%9B%E8%AE%B2%E4%B9%8B%E7%AC%AC%E4%B8%80%E8%AE%B2-%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/</link>
+    <pubDate>Tue, 01 Nov 2022 14:43:50 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://shanjiayao.com/slam%E5%8D%81%E5%9B%9B%E8%AE%B2%E4%B9%8B%E7%AC%AC%E4%B8%80%E8%AE%B2-%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/</guid>
+    <description><![CDATA[<p>第一讲主要介绍了SLAM的定义以及十四讲的组织关系，并且做了公式以及代码等风格约定。本文参考的版本是视觉SLAM十四讲的第二版。</p>]]></description>
+</item></channel>
+</rss>
