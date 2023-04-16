@@ -188,3 +188,5 @@ To install CUDA on Ubuntu 22.04, follow these steps:
 `nvcc --version`
 
 This should display the version number of the CUDA toolkit that you installed.
+
+
