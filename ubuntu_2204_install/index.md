@@ -152,22 +152,16 @@ To install CUDA on Ubuntu 22.04, follow these steps:
 2.  Open a terminal window and navigate to the directory where the CUDA installer was downloaded.
     
 3.  Make the installer executable by running the following command:
-    
-    arduinoCopy code
-    
+ 
     `chmod +x cuda_<version>_linux.run`
     
     Replace `<version>` with the version number of the CUDA toolkit that you downloaded.
     
 4.  Disable the Nouveau driver by creating a file in the `/etc/modprobe.d/` directory with the following content:
-    
-    Copy code
-    
+
     `blacklist nouveau options nouveau modeset=0`
     
 5.  Update the initramfs by running the following command:
-    
-    sqlCopy code
     
     `sudo update-initramfs -u`
     
@@ -177,13 +171,9 @@ To install CUDA on Ubuntu 22.04, follow these steps:
     
 8.  Stop the X server by running the following command:
     
-    arduinoCopy code
-    
     `sudo service lightdm stop`
     
 9.  Run the CUDA installer by running the following command:
-    
-    arduinoCopy code
     
     `sudo ./cuda_<version>_linux.run`
     
@@ -195,9 +185,6 @@ To install CUDA on Ubuntu 22.04, follow these steps:
     
 12.  Verify that CUDA is installed correctly by running the following command:
     
-
-cssCopy code
-
 `nvcc --version`
 
 This should display the version number of the CUDA toolkit that you installed.

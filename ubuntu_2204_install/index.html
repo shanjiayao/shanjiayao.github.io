@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/shanjiayao.com\/ubuntu_2204_install\/"
-        },"genre": "posts","keywords": "Ubuntu","wordcount":  1022 ,
+        },"genre": "posts","keywords": "Ubuntu","wordcount":  1010 ,
         "url": "http:\/\/shanjiayao.com\/ubuntu_2204_install\/","datePublished": "2023-04-09T14:03:16+00:00","dateModified": "2023-04-09T14:03:16+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -105,7 +105,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">ubuntu22_04升级记录</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%B3%BB%E7%BB%9F%E8%A3%85%E6%9C%BA/"><i class="far fa-folder fa-fw"></i>系统装机</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-04-09">2023-04-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1022 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-04-09">2023-04-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1010 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -337,18 +337,15 @@
 </li>
 <li>
 <p>Make the installer executable by running the following command:</p>
-<p>arduinoCopy code</p>
 <p><code>chmod +x cuda_&lt;version&gt;_linux.run</code></p>
 <p>Replace <code>&lt;version&gt;</code> with the version number of the CUDA toolkit that you downloaded.</p>
 </li>
 <li>
 <p>Disable the Nouveau driver by creating a file in the <code>/etc/modprobe.d/</code> directory with the following content:</p>
-<p>Copy code</p>
 <p><code>blacklist nouveau options nouveau modeset=0</code></p>
 </li>
 <li>
 <p>Update the initramfs by running the following command:</p>
-<p>sqlCopy code</p>
 <p><code>sudo update-initramfs -u</code></p>
 </li>
 <li>
@@ -359,12 +356,10 @@
 </li>
 <li>
 <p>Stop the X server by running the following command:</p>
-<p>arduinoCopy code</p>
 <p><code>sudo service lightdm stop</code></p>
 </li>
 <li>
 <p>Run the CUDA installer by running the following command:</p>
-<p>arduinoCopy code</p>
 <p><code>sudo ./cuda_&lt;version&gt;_linux.run</code></p>
 <p>Replace <code>&lt;version&gt;</code> with the version number of the CUDA toolkit that you downloaded.</p>
 </li>
@@ -378,7 +373,6 @@
 <p>Verify that CUDA is installed correctly by running the following command:</p>
 </li>
 </ol>
-<p>cssCopy code</p>
 <p><code>nvcc --version</code></p>
 <p>This should display the version number of the CUDA toolkit that you installed.</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
