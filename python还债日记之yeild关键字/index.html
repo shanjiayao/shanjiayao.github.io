@@ -11,7 +11,6 @@
 <meta property="og:url" content="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8Byeild%E5%85%B3%E9%94%AE%E5%AD%97/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-03-06T16:10:19+00:00" />
 <meta property="article:modified_time" content="2021-03-06T16:10:19+00:00" />
-
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
 
@@ -20,7 +19,7 @@
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8Byeild%E5%85%B3%E9%94%AE%E5%AD%97/" /><link rel="prev" href="http://shanjiayao.com/transformer%E4%B9%8Bself-attention/" /><link rel="next" href="http://shanjiayao.com/ubuntu_install/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/python%E8%BF%98%E5%80%BA%E6%97%A5%E8%AE%B0%E4%B9%8Byeild%E5%85%B3%E9%94%AE%E5%AD%97/" /><link rel="prev" href="http://shanjiayao.com/transformer%E4%B9%8Bself-attention/" /><link rel="next" href="http://shanjiayao.com/ubuntu_1804_install/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -186,11 +185,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># iteration</span>
-<span class="n">a_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">a_list</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># iteration</span>
+</span></span><span class="line"><span class="cl"><span class="n">a_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">a_list</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果我们可以从一个对象中，逐个地获取元素，那么我们就说这个对象是「可迭代的」。</p>
 <p>Python 中的顺序类型，都是可迭代的（<code>list</code>, <code>tuple</code>, <code>string</code>）。其余包括 <code>dict</code>, <code>set</code>, <code>file</code> 也是可迭代的。对于用户自己实现的类型，如果提供了 <code>__iter__()</code> 或者 <code>__getitem__()</code> 方法，那么该类的对象也是可迭代的。</p>
@@ -212,10 +211,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># iterator protocol and for loop</span>
-<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">something</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># iterator protocol and for loop</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">something</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="err">    </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Python 处理 <code>for</code> 循环时，首先会调用内建函数 <code>iter(something)</code>，它实际上会调用 <code>something.__iter__()</code>，返回 <code>something</code> 对应的迭代器。而后，<code>for</code> 循环会调用内建函数 <code>next()</code>，作用在迭代器上，获取迭代器的下一个元素，并赋值给 <code>x</code>。此后，Python 才开始执行循环体。</p>
 <h2 id="生成器yield-表达式">生成器、<code>yield</code> 表达式</h2>
@@ -239,18 +238,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
-    <span class="k">return</span> <span class="mi">1</span>
-
-<span class="k">def</span> <span class="nf">gen</span><span class="p">():</span>
-    <span class="k">yield</span> <span class="mi">1</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">func</span><span class="p">))</span>   <span class="c1"># &lt;class &#39;function&#39;&gt;</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">gen</span><span class="p">))</span>    <span class="c1"># &lt;class &#39;function&#39;&gt;</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">func</span><span class="p">()))</span> <span class="c1"># &lt;class &#39;int&#39;&gt;</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">gen</span><span class="p">()))</span>  <span class="c1"># &lt;class &#39;generator&#39;&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gen</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">func</span><span class="p">))</span>   <span class="c1"># &lt;class &#39;function&#39;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">gen</span><span class="p">))</span>    <span class="c1"># &lt;class &#39;function&#39;&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">func</span><span class="p">()))</span> <span class="c1"># &lt;class &#39;int&#39;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">gen</span><span class="p">()))</span>  <span class="c1"># &lt;class &#39;generator&#39;&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如上，生成器 <code>gen</code> 看起来和普通的函数没有太大区别。仅只是将 <code>return</code> 换成了 <code>yield</code>。用 <code>type()</code> 函数打印二者的类型也能发现，<code>func</code> 和 <code>gen</code> 都是函数。然而，二者的返回值的类型就不同了。<code>func()</code> 是一个 <code>int</code> 类型的对象；而 <code>gen()</code> 则是一个迭代器对象。</p>
 <h3 id="yield-表达式"><code>yield</code> 表达式</h3>
@@ -266,13 +265,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">square</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
-        <span class="k">yield</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
-<span class="n">square_gen</span> <span class="o">=</span> <span class="n">square</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">square_gen</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">square</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">yield</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">square_gen</span> <span class="o">=</span> <span class="n">square</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">square_gen</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>前面说到，<code>for</code> 循环会调用 <code>iter()</code> 函数，获取一个生成器；而后调用 <code>next()</code> 函数，将生成器中的下一个值赋值给 <code>x</code>；再执行循环体。因此，上述 <code>for</code> 循环基本等价于：</p>
 <div class="highlight"><div class="chroma">
@@ -283,11 +282,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">genitor</span> <span class="o">=</span> <span class="n">square_gen</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">()</span>
-<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">geniter</span><span class="o">.</span><span class="n">next</span><span class="p">()</span> <span class="c1"># Python 3 是 __next__()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">genitor</span> <span class="o">=</span> <span class="n">square_gen</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">=</span> <span class="n">geniter</span><span class="o">.</span><span class="n">next</span><span class="p">()</span> <span class="c1"># Python 3 是 __next__()</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>注意到，<code>square</code> 是一个生成器函数；作为它的返回值，<code>square_gen</code> 已经是一个迭代器；迭代器的 <code>__iter__()</code> 返回它自己。因此 <code>geniter</code> 对应的生成器函数，即是 <code>square</code>。</p>
 <p>每次执行到 <code>x = geniter.next()</code> 时，<code>square</code> 函数会从上一次暂停的位置开始，一直执行到下一个 <code>yield</code> 表达式，将 <code>yield</code> 关键字后的表达式列表返回给调用者，并再次暂停。注意，<strong>每次从暂停恢复时，生成器函数的内部变量、指令指针、内部求值栈等内容和暂停时完全一致</strong>。</p>
@@ -329,23 +328,23 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">f123</span><span class="p">():</span>
-    <span class="k">yield</span> <span class="mi">1</span>
-    <span class="k">yield</span> <span class="mi">2</span>
-    <span class="k">yield</span> <span class="mi">3</span>
-
-<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">f123</span><span class="p">():</span> <span class="c1"># 1, 2, and 3, will be printed</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">f13</span><span class="p">():</span>
-    <span class="k">yield</span> <span class="mi">1</span>
-    <span class="k">while</span> <span class="kc">False</span><span class="p">:</span>
-        <span class="k">yield</span> <span class="mi">2</span>
-    <span class="k">yield</span> <span class="mi">3</span>
-
-<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">f13</span><span class="p">():</span> <span class="c1"># 1 and 3, will be printed</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">f123</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">f123</span><span class="p">():</span> <span class="c1"># 1, 2, and 3, will be printed</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">f13</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="kc">False</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">yield</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">f13</span><span class="p">():</span> <span class="c1"># 1 and 3, will be printed</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="使用-send-方法与生成器函数通信">使用 <code>send()</code> 方法与生成器函数通信</h3>
 <div class="highlight"><div class="chroma">
@@ -362,17 +361,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="k">yield</span> <span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">+=</span> <span class="n">y</span>
-
-<span class="n">geniter</span> <span class="o">=</span> <span class="n">func</span><span class="p">()</span>
-<span class="n">geniter</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>  <span class="c1"># 1</span>
-<span class="n">geniter</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># 4</span>
-<span class="n">geniter</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="c1"># 14</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="k">yield</span> <span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x</span> <span class="o">+=</span> <span class="n">y</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">geniter</span> <span class="o">=</span> <span class="n">func</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">geniter</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>  <span class="c1"># 1</span>
+</span></span><span class="line"><span class="cl"><span class="n">geniter</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># 4</span>
+</span></span><span class="line"><span class="cl"><span class="n">geniter</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="c1"># 14</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>此处，生成器函数 <code>func</code> 用 <code>yield</code> 表达式，将处理好的 <code>x</code> 发送给生成器的调用者；与此同时，生成器的调用者通过 <code>send</code> 函数，将外部信息作为生成器函数内部的 <code>yield</code> 表达式的值，保存在 <code>y</code> 当中，并参与后续的处理。</p>
 <p>这一特性是使用 <code>yield</code> 在 Python 中使用协程的基础。</p>
@@ -413,11 +412,11 @@
     </div>
 
     <div class="post-nav"><a href="/transformer%E4%B9%8Bself-attention/" class="prev" rel="prev" title="Transformer之self-attention机制"><i class="fas fa-angle-left fa-fw"></i>Transformer之self-attention机制</a>
-            <a href="/ubuntu_install/" class="next" rel="next" title="ubuntu18_04升级记录">ubuntu18_04升级记录<i class="fas fa-angle-right fa-fw"></i></a></div>
+            <a href="/ubuntu_1804_install/" class="next" rel="next" title="ubuntu18_04升级记录">ubuntu18_04升级记录<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

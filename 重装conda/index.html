@@ -11,7 +11,6 @@
 <meta property="og:url" content="http://shanjiayao.com/%E9%87%8D%E8%A3%85conda/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-01-14T13:20:06+00:00" />
 <meta property="article:modified_time" content="2022-01-14T13:20:06+00:00" />
-
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
 
@@ -142,9 +141,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo chmod <span class="m">777</span> Anaconda3-2020.07-Linux-x86_64.sh  
-bash Anaconda3-2020.07-Linux-x86_64.sh
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo chmod <span class="m">777</span> Anaconda3-2020.07-Linux-x86_64.sh  
+</span></span><span class="line"><span class="cl">bash Anaconda3-2020.07-Linux-x86_64.sh
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装过程中, 在安装目录处修改目录, 第二个问题选yes</p>
 <h2 id="3-环境配置">3. 环境配置</h2>
@@ -166,18 +165,18 @@ bash Anaconda3-2020.07-Linux-x86_64.sh
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">__conda_setup</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span><span class="s1">&#39;/usr/local/conda/anaconda3/bin/conda&#39;</span> <span class="s1">&#39;shell.bash&#39;</span> <span class="s1">&#39;hook&#39;</span> 2&gt; /dev/null<span class="k">)</span><span class="s2">&#34;</span>  
-<span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>  
- <span class="nb">eval</span> <span class="s2">&#34;</span><span class="nv">$__conda_setup</span><span class="s2">&#34;</span>  
-<span class="k">else</span>  
- <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&#34;/usr/local/conda/anaconda3/etc/profile.d/conda.sh&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>  
- . <span class="s2">&#34;/usr/local/conda/anaconda3/etc/profile.d/conda.sh&#34;</span>  
- <span class="k">else</span>  
- <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;/usr/local/conda/anaconda3/bin:</span><span class="nv">$PATH</span><span class="s2">&#34;</span>  
- <span class="k">fi</span>  
-<span class="k">fi</span>  
-<span class="nb">unset</span> __conda_setup
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">__conda_setup</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span><span class="s1">&#39;/usr/local/conda/anaconda3/bin/conda&#39;</span> <span class="s1">&#39;shell.bash&#39;</span> <span class="s1">&#39;hook&#39;</span> 2&gt; /dev/null<span class="k">)</span><span class="s2">&#34;</span>  
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>  
+</span></span><span class="line"><span class="cl"> <span class="nb">eval</span> <span class="s2">&#34;</span><span class="nv">$__conda_setup</span><span class="s2">&#34;</span>  
+</span></span><span class="line"><span class="cl"><span class="k">else</span>  
+</span></span><span class="line"><span class="cl"> <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&#34;/usr/local/conda/anaconda3/etc/profile.d/conda.sh&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>  
+</span></span><span class="line"><span class="cl"> . <span class="s2">&#34;/usr/local/conda/anaconda3/etc/profile.d/conda.sh&#34;</span>  
+</span></span><span class="line"><span class="cl"> <span class="k">else</span>  
+</span></span><span class="line"><span class="cl"> <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;/usr/local/conda/anaconda3/bin:</span><span class="nv">$PATH</span><span class="s2">&#34;</span>  
+</span></span><span class="line"><span class="cl"> <span class="k">fi</span>  
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>  
+</span></span><span class="line"><span class="cl"><span class="nb">unset</span> __conda_setup
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这时conda就已经可以使用了</p>
 <h3 id="公共使用">公共使用</h3>
@@ -189,10 +188,10 @@ bash Anaconda3-2020.07-Linux-x86_64.sh
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo gedit /etc/profile  
-<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/usr/local/conda/anaconda3/bin:<span class="nv">$PATH</span> <span class="c1"># 注意路径  </span>
-<span class="nb">source</span> /etc/profile
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo gedit /etc/profile  
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/usr/local/conda/anaconda3/bin:<span class="nv">$PATH</span> <span class="c1"># 注意路径  </span>
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> /etc/profile
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>不过我自己的电脑只需要自己用,而且平时我需要使用ros,所以需要系统的python, 如果不是需要, 我不会启动conda的环境, 那么这时我们可以取消第一种和第二种的配置, 直接更改自己的bashrc文件</p>
 <p>如下:</p>
@@ -202,9 +201,9 @@ bash Anaconda3-2020.07-Linux-x86_64.sh
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">alias</span> <span class="nv">de</span><span class="o">=</span><span class="s1">&#39;conda deactivate&#39;</span>  
-<span class="nb">alias</span> <span class="nv">base</span><span class="o">=</span><span class="s1">&#39;. /usr/local/conda/anaconda3/etc/profile.d/conda.sh &amp;&amp; conda activate base&#39;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">de</span><span class="o">=</span><span class="s1">&#39;conda deactivate&#39;</span>  
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">base</span><span class="o">=</span><span class="s1">&#39;. /usr/local/conda/anaconda3/etc/profile.d/conda.sh &amp;&amp; conda activate base&#39;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>更改之后重启或者重新打开终端即可</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -236,7 +235,7 @@ bash Anaconda3-2020.07-Linux-x86_64.sh
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

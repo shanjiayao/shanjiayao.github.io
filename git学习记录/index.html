@@ -11,7 +11,6 @@
 <meta property="og:url" content="http://shanjiayao.com/git%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-06-16T16:10:19+00:00" />
 <meta property="article:modified_time" content="2022-06-16T16:10:19+00:00" />
-
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
 
@@ -224,17 +223,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nx">git</span> <span class="nx">branch</span> <span class="p">&lt;</span><span class="nt">branch_name</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">commit_id</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">在对应位置创建分支</span>
-<span class="nx">git</span> <span class="nx">checkout</span> <span class="o">-</span><span class="nx">b</span> <span class="p">&lt;</span><span class="nt">branch_name</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">commit_id</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">在对应位置创建分支并切换到新分支</span>
-<span class="nx">git</span> <span class="nx">branch</span> <span class="o">-</span><span class="nx">f</span> <span class="p">&lt;</span><span class="nt">branch_name</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">commit_id</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">强制将某分支移动到某次commit_id的位置</span>
-<span class="nx">git</span> <span class="nx">branch</span> <span class="o">-</span><span class="nx">f</span> <span class="nx">main</span> <span class="nx">HEAD</span><span class="o">~</span><span class="mi">3</span>   <span class="err">#</span> <span class="nx">强制将main分支指向当前HEAD的3个之前的提交版本</span>
-<span class="nx">git</span> <span class="nx">branch</span> <span class="o">-</span><span class="nx">d</span> <span class="nx">dev</span>  <span class="err">#</span> <span class="nx">删除dev分支</span>
-<span class="nx">git</span> <span class="nx">branch</span> <span class="o">-</span><span class="nx">u</span> <span class="p">&lt;</span><span class="nt">origin</span><span class="err">/</span><span class="na">branch1</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">branch2</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">使branch分支跟踪远程分支的状态</span>
-<span class="nx">git</span> <span class="nx">checkoput</span> <span class="o">-</span><span class="nx">b</span> <span class="p">&lt;</span><span class="nt">branch2</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">origin</span><span class="err">/</span><span class="na">branch1</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">同上</span>
-<span class="nx">git</span> <span class="nx">branch</span>   <span class="err">#</span> <span class="nx">查看分支</span>
-<span class="nx">git</span> <span class="nx">checkout</span> <span class="p">&lt;</span><span class="nt">name</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">切换分支</span>
-<span class="nx">git</span> <span class="k">switch</span> <span class="p">&lt;</span><span class="nt">name</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">切换分支</span> <span class="nx">同上</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">branch</span> <span class="p">&lt;</span><span class="nt">branch_name</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">commit_id</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">在对应位置创建分支</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">checkout</span> <span class="o">-</span><span class="nx">b</span> <span class="p">&lt;</span><span class="nt">branch_name</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">commit_id</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">在对应位置创建分支并切换到新分支</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">branch</span> <span class="o">-</span><span class="nx">f</span> <span class="p">&lt;</span><span class="nt">branch_name</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">commit_id</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">强制将某分支移动到某次commit_id的位置</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">branch</span> <span class="o">-</span><span class="nx">f</span> <span class="nx">main</span> <span class="nx">HEAD</span><span class="o">~</span><span class="mi">3</span>   <span class="err">#</span> <span class="nx">强制将main分支指向当前HEAD的3个之前的提交版本</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">branch</span> <span class="o">-</span><span class="nx">d</span> <span class="nx">dev</span>  <span class="err">#</span> <span class="nx">删除dev分支</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">branch</span> <span class="o">-</span><span class="nx">u</span> <span class="p">&lt;</span><span class="nt">origin</span><span class="err">/</span><span class="na">branch1</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">branch2</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">使branch分支跟踪远程分支的状态</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">checkoput</span> <span class="o">-</span><span class="nx">b</span> <span class="p">&lt;</span><span class="nt">branch2</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">origin</span><span class="err">/</span><span class="na">branch1</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">同上</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">branch</span>   <span class="err">#</span> <span class="nx">查看分支</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">checkout</span> <span class="p">&lt;</span><span class="nt">name</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">切换分支</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="k">switch</span> <span class="p">&lt;</span><span class="nt">name</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">切换分支</span> <span class="nx">同上</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="4-git的分支合并之merge与rebase">4. Git的分支合并之merge与rebase</h2>
 <p><img
@@ -255,8 +254,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nx">git</span> <span class="nx">merge</span> <span class="p">&lt;</span><span class="nt">name</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">将某分支合并到当前分支</span><span class="err">，</span><span class="nx">注意当前的位置</span><span class="err">，</span><span class="nx">可以是分支名</span><span class="err">、</span><span class="nx">commit_id</span><span class="err">，</span><span class="nx">tag等</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">merge</span> <span class="p">&lt;</span><span class="nt">name</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">将某分支合并到当前分支</span><span class="err">，</span><span class="nx">注意当前的位置</span><span class="err">，</span><span class="nx">可以是分支名</span><span class="err">、</span><span class="nx">commit_id</span><span class="err">，</span><span class="nx">tag等</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>🔔缺点</strong></p>
 <p>虽然merge 不会改变已有的提交历史，但是当commit操作不规范，或者项目过于庞大时，过多的分支会导致项目难以管理。</p>
@@ -272,11 +271,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nx">git</span> <span class="nx">rebase</span>  <span class="p">[</span><span class="nx">startpoint</span><span class="p">]</span>  <span class="p">[</span><span class="nx">endpoint</span><span class="p">]</span>   <span class="err">#</span> <span class="nx">这里的start和end可以是分支名或commit_id等</span>
-<span class="nx">git</span> <span class="nx">rebase</span> <span class="o">-</span><span class="nx">i</span> <span class="p">[</span><span class="nx">startpoint</span><span class="p">]</span>  <span class="p">[</span><span class="nx">endpoint</span><span class="p">]</span>   <span class="err">#</span> <span class="nx">交互式</span><span class="err">，</span><span class="nx">在vim中修改各个分支的顺序</span><span class="err">、</span><span class="nx">状态等</span>
-<span class="nx">git</span> <span class="nx">rebase</span> <span class="o">--</span><span class="k">continue</span>   <span class="err">#</span> <span class="nx">用于解决rebase的冲突之后</span><span class="err">，</span><span class="nx">继续进行rebase</span>
-<span class="nx">git</span> <span class="nx">rebase</span> <span class="o">--</span><span class="nx">abort</span>   <span class="err">#</span> <span class="nx">终止rebase</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">rebase</span>  <span class="p">[</span><span class="nx">startpoint</span><span class="p">]</span>  <span class="p">[</span><span class="nx">endpoint</span><span class="p">]</span>   <span class="err">#</span> <span class="nx">这里的start和end可以是分支名或commit_id等</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">rebase</span> <span class="o">-</span><span class="nx">i</span> <span class="p">[</span><span class="nx">startpoint</span><span class="p">]</span>  <span class="p">[</span><span class="nx">endpoint</span><span class="p">]</span>   <span class="err">#</span> <span class="nx">交互式</span><span class="err">，</span><span class="nx">在vim中修改各个分支的顺序</span><span class="err">、</span><span class="nx">状态等</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">rebase</span> <span class="o">--</span><span class="k">continue</span>   <span class="err">#</span> <span class="nx">用于解决rebase的冲突之后</span><span class="err">，</span><span class="nx">继续进行rebase</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">rebase</span> <span class="o">--</span><span class="nx">abort</span>   <span class="err">#</span> <span class="nx">终止rebase</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>🔔缺点</strong></p>
 <p>rebase 修改了提交树的历史，比如, 提交 C1 可以被 rebase 到 C3 之后。这看起来 C1 中的工作是在 C3 之后进行的，但实际上是在 C3 之前。</p>
@@ -297,8 +296,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nx">git</span> <span class="nx">cherry</span><span class="o">-</span><span class="nx">pick</span> <span class="p">[</span><span class="nx">point1</span><span class="p">]</span> <span class="p">[</span><span class="nx">point2</span><span class="p">]</span> <span class="p">[</span><span class="nx">point3</span><span class="p">]</span> <span class="p">[</span><span class="nx">point4</span><span class="p">]</span> <span class="p">...</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">cherry</span><span class="o">-</span><span class="nx">pick</span> <span class="p">[</span><span class="nx">point1</span><span class="p">]</span> <span class="p">[</span><span class="nx">point2</span><span class="p">]</span> <span class="p">[</span><span class="nx">point3</span><span class="p">]</span> <span class="p">[</span><span class="nx">point4</span><span class="p">]</span> <span class="p">...</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="6-git中的head以及相关操作">6. Git中的HEAD以及相关操作</h2>
 <h3 id="61-什么是head">6.1 <strong>什么是HEAD？</strong></h3>
@@ -355,14 +354,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="err">###############</span> <span class="nx">git</span> <span class="nx">reset</span> <span class="err">#########################</span>
-<span class="nx">git</span> <span class="nx">reset</span> <span class="nx">HEAD</span>   <span class="err">#</span> <span class="nx">回退到指定版本</span><span class="err">，</span><span class="nx">具体的HEAD的值可以通过git</span> <span class="nx">log查看</span>
-<span class="nx">git</span> <span class="nx">reset</span> <span class="err">—</span><span class="nx">soft</span> <span class="nx">HEAD</span>   <span class="err">#</span> <span class="o">--</span><span class="nx">soft</span> <span class="nx">用于回退到某个版本</span>
-<span class="nx">git</span> <span class="nx">reset</span> <span class="err">—</span><span class="nx">hard</span> <span class="nx">HEAD</span>   <span class="err">#</span> <span class="o">--</span><span class="nx">hard</span> <span class="nx">表示撤销工作区中所有未提交的修改内容</span><span class="err">，</span><span class="nx">将暂存区与工作区都回到HEAD对应的版本</span><span class="err">，</span><span class="nx">并删除之前的所有信息提交</span>
-
-<span class="err">###############</span> <span class="nx">git</span> <span class="nx">revert</span> <span class="err">############################</span>
-<span class="nx">git</span> <span class="nx">revert</span> <span class="nx">HEAD</span>   <span class="err">#</span> <span class="nx">与HEAD版本中相反修改的操作</span><span class="err">，</span><span class="nx">并形成一次新的提交</span><span class="err">，</span><span class="nx">不会修改历史</span><span class="err">，</span><span class="nx">适用于公共仓库的修改</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="err">###############</span> <span class="nx">git</span> <span class="nx">reset</span> <span class="err">#########################</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">reset</span> <span class="nx">HEAD</span>   <span class="err">#</span> <span class="nx">回退到指定版本</span><span class="err">，</span><span class="nx">具体的HEAD的值可以通过git</span> <span class="nx">log查看</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">reset</span> <span class="err">—</span><span class="nx">soft</span> <span class="nx">HEAD</span>   <span class="err">#</span> <span class="o">--</span><span class="nx">soft</span><span class="err"> </span><span class="nx">用于回退到某个版本</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">reset</span> <span class="err">—</span><span class="nx">hard</span> <span class="nx">HEAD</span>   <span class="err">#</span> <span class="o">--</span><span class="nx">hard</span><span class="err"> </span><span class="nx">表示撤销工作区中所有未提交的修改内容</span><span class="err">，</span><span class="nx">将暂存区与工作区都回到HEAD对应的版本</span><span class="err">，</span><span class="nx">并删除之前的所有信息提交</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">###############</span> <span class="nx">git</span> <span class="nx">revert</span> <span class="err">############################</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">revert</span> <span class="nx">HEAD</span>   <span class="err">#</span> <span class="nx">与HEAD版本中相反修改的操作</span><span class="err">，</span><span class="nx">并形成一次新的提交</span><span class="err">，</span><span class="nx">不会修改历史</span><span class="err">，</span><span class="nx">适用于公共仓库的修改</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>
@@ -388,8 +387,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nx">git</span> <span class="nx">tag</span> <span class="p">&lt;</span><span class="nt">tag_name</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">commit_id</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">给对应的位置打标签</span><span class="err">，</span><span class="nx">可以是版本号</span><span class="err">，</span><span class="nx">或分支名所指向的位置</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">tag</span> <span class="p">&lt;</span><span class="nt">tag_name</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">commit_id</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">给对应的位置打标签</span><span class="err">，</span><span class="nx">可以是版本号</span><span class="err">，</span><span class="nx">或分支名所指向的位置</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="82-使用describe查看tag的信息">8.2 使用describe查看tag的信息</h3>
 <p><code>git describe</code> 的语法是：<code>git describe &lt;ref&gt;</code></p>
@@ -410,9 +409,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nx">git</span> <span class="nx">clone</span> <span class="p">&lt;</span><span class="nt">address</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">下载指定地址的git</span> <span class="nx">仓库</span>
-<span class="nx">git</span> <span class="nx">clone</span> <span class="o">--</span><span class="nx">recurisive</span> <span class="p">&lt;</span><span class="nt">address</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">递归地下载</span><span class="err">，</span><span class="nx">适用于仓库中包含submodule的情况</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">clone</span> <span class="p">&lt;</span><span class="nt">address</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">下载指定地址的git</span> <span class="nx">仓库</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">clone</span> <span class="o">--</span><span class="nx">recurisive</span> <span class="p">&lt;</span><span class="nt">address</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">递归地下载</span><span class="err">，</span><span class="nx">适用于仓库中包含submodule的情况</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="92-git-fetch将远程仓库同步到本地">9.2. git fetch将远程仓库同步到本地</h3>
 <p><strong>git fetch 做了些什么</strong></p>
@@ -435,10 +434,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nx">git</span> <span class="nx">fetch</span> <span class="nx">origin</span> <span class="nx">main</span>   <span class="err">#</span> <span class="nx">拉取远程origin中main分支的改动</span>
-<span class="nx">git</span> <span class="nx">fetch</span> <span class="nx">origin</span> <span class="nx">main</span><span class="o">:</span><span class="nx">bug</span>   <span class="err">#</span> <span class="nx">拉取远程origin中main分支到本地的bug分支中</span>
-<span class="nx">git</span> <span class="nx">fetch</span> <span class="nx">origin</span> <span class="o">:</span><span class="nx">bug</span>   <span class="err">#</span> <span class="nx">创建新的分支bug在本地</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">fetch</span> <span class="nx">origin</span> <span class="nx">main</span>   <span class="err">#</span> <span class="nx">拉取远程origin中main分支的改动</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">fetch</span> <span class="nx">origin</span> <span class="nx">main</span><span class="o">:</span><span class="nx">bug</span>   <span class="err">#</span> <span class="nx">拉取远程origin中main分支到本地的bug分支中</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">fetch</span> <span class="nx">origin</span> <span class="o">:</span><span class="nx">bug</span>   <span class="err">#</span> <span class="nx">创建新的分支bug在本地</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="93-git-pull在拉取的同时整合版本">9.3 git pull在拉取的同时整合版本</h3>
 <p>既然我们已经知道了如何用 <code>git fetch</code> 获取远程的数据, 现在我们学习如何将这些变化更新到我们的工作当中。</p>
@@ -458,10 +457,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nx">git</span> <span class="nx">pull</span> <span class="nx">origin</span> <span class="nx">main</span>   <span class="err">#</span> <span class="nx">拉取远程origin中main分支的改动</span><span class="err">，</span><span class="nx">并merge</span>
-<span class="nx">git</span> <span class="nx">pull</span> <span class="nx">origin</span> <span class="nx">main</span><span class="o">:</span><span class="nx">bug</span>   <span class="err">#</span> <span class="nx">拉取远程origin中main分支到本地的bug分支中</span><span class="err">，</span><span class="nx">并merge</span>
-<span class="nx">git</span> <span class="nx">pull</span> <span class="nx">origin</span> <span class="o">:</span><span class="nx">bug</span>   <span class="err">#</span> <span class="nx">创建新的分支bug在本地</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">pull</span> <span class="nx">origin</span> <span class="nx">main</span>   <span class="err">#</span> <span class="nx">拉取远程origin中main分支的改动</span><span class="err">，</span><span class="nx">并merge</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">pull</span> <span class="nx">origin</span> <span class="nx">main</span><span class="o">:</span><span class="nx">bug</span>   <span class="err">#</span> <span class="nx">拉取远程origin中main分支到本地的bug分支中</span><span class="err">，</span><span class="nx">并merge</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">pull</span> <span class="nx">origin</span> <span class="o">:</span><span class="nx">bug</span>   <span class="err">#</span> <span class="nx">创建新的分支bug在本地</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="94-git-push">9.4 git push</h3>
 <p><code>git push</code> 负责将<strong>你的</strong>变更上传到指定的远程仓库，并在远程仓库上合并你的新提交记录。一旦 <code>git push</code> 完成, 你的朋友们就可以从这个远程仓库下载你分享的成果了！</p>
@@ -477,10 +476,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nx">git</span> <span class="nx">push</span> <span class="p">&lt;</span><span class="nt">remote</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">place</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">推送远程origin中place分支的改动</span>
-<span class="nx">git</span> <span class="nx">push</span> <span class="nx">origin</span> <span class="p">&lt;</span><span class="nt">source</span><span class="p">&gt;</span><span class="o">:</span><span class="p">&lt;</span><span class="nt">destination</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">将source本地分支推送到远程名为destination的分支</span><span class="err">，</span><span class="nx">如果没有</span><span class="err">，</span><span class="nx">会自动创建</span>
-<span class="nx">git</span> <span class="nx">push</span> <span class="nx">origin</span> <span class="o">:</span><span class="p">&lt;</span><span class="nt">destination</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">删除远程分支destination</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">push</span> <span class="p">&lt;</span><span class="nt">remote</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">place</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">推送远程origin中place分支的改动</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">push</span> <span class="nx">origin</span> <span class="p">&lt;</span><span class="nt">source</span><span class="p">&gt;</span><span class="o">:</span><span class="p">&lt;</span><span class="nt">destination</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">将source本地分支推送到远程名为destination的分支</span><span class="err">，</span><span class="nx">如果没有</span><span class="err">，</span><span class="nx">会自动创建</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">push</span> <span class="nx">origin</span> <span class="o">:</span><span class="p">&lt;</span><span class="nt">destination</span><span class="p">&gt;</span>   <span class="err">#</span> <span class="nx">删除远程分支destination</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>&lt;place&gt;</code> 参数是什么意思呢？我们稍后会深入其中的细节, 先看看例子, 这个命令是:</p>
 <p><code>git push origin main</code></p>
@@ -507,8 +506,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="p">&lt;</span><span class="nt">type</span><span class="p">&gt;(&lt;</span><span class="nt">scope</span><span class="p">&gt;)</span><span class="o">:</span> <span class="p">&lt;</span><span class="nt">subject</span><span class="p">&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">type</span><span class="p">&gt;(&lt;</span><span class="nt">scope</span><span class="p">&gt;)</span><span class="o">:</span> <span class="p">&lt;</span><span class="nt">subject</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>
@@ -527,14 +526,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">feat：新功能（feature）
-fix：修补bug
-docs：文档（documentation）
-style： 格式（不影响代码运行的变动）
-refactor：重构（即不是新增功能，也不是修改bug的代码变动）
-test：增加测试
-chore：构建过程或辅助工具的变动
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">feat：新功能（feature）
+</span></span><span class="line"><span class="cl">fix：修补bug
+</span></span><span class="line"><span class="cl">docs：文档（documentation）
+</span></span><span class="line"><span class="cl">style： 格式（不影响代码运行的变动）
+</span></span><span class="line"><span class="cl">refactor：重构（即不是新增功能，也不是修改bug的代码变动）
+</span></span><span class="line"><span class="cl">test：增加测试
+</span></span><span class="line"><span class="cl">chore：构建过程或辅助工具的变动
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
@@ -557,10 +556,10 @@ chore：构建过程或辅助工具的变动
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">1.以动词开头，使用第一人称现在时，比如change，而不是changed或changes
-2.第一个字母小写
-3.结尾不加句号（.）
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1.以动词开头，使用第一人称现在时，比如change，而不是changed或changes
+</span></span><span class="line"><span class="cl">2.第一个字母小写
+</span></span><span class="line"><span class="cl">3.结尾不加句号（.）
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
@@ -622,58 +621,58 @@ chore：构建过程或辅助工具的变动
 </span><span class="lnt">51
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">git init
-git status
-git add &lt;file&gt;
-git commit - m <span class="s1">&#39;xxx&#39;</span>
-git log  <span class="c1"># 显示从最近到最远的提交日志</span>
-git reflog  <span class="c1"># 记录你的每一次命令,相比于log，记录每次动作</span>
-
-git branch &lt;branch_name&gt; &lt;commit_id&gt;   <span class="c1"># 在对应位置创建分支</span>
-git checkout -b &lt;branch_name&gt; &lt;commit_id&gt;   <span class="c1"># 在对应位置创建分支并切换到新分支</span>
-git branch -f &lt;branch_name&gt; &lt;commit_id&gt;   <span class="c1"># 强制将某分支移动到某次commit_id的位置</span>
-git branch -f main HEAD~3   <span class="c1"># 强制将main分支指向当前HEAD的3个之前的提交版本</span>
-git branch -d dev  <span class="c1"># 删除dev分支</span>
-git branch -u &lt;origin/branch1&gt; &lt;branch2&gt;   <span class="c1"># 使branch分支跟踪远程分支的状态</span>
-git checkoput -b &lt;branch2&gt; &lt;origin/branch1&gt;   <span class="c1"># 同上</span>
-git branch   <span class="c1"># 查看分支</span>
-git checkout &lt;name&gt;   <span class="c1"># 切换分支</span>
-git switch &lt;name&gt;   <span class="c1"># 切换分支 同上</span>
-
-git checkout &lt;branch name&gt;   <span class="c1"># 切换到某个分支</span>
-git checkout &lt;commit id&gt;   <span class="c1"># 分离HEAD 到某次历史版本</span>
-git checkout &lt;tag name&gt;   <span class="c1"># 分离HEAD到某次Tag中</span>
-git checkout -b &lt;branch name&gt; &lt;commit id&gt;   <span class="c1"># 创建并切换到指定分支，基于某次历史版本</span>
-git checkout -- &lt;file&gt;   <span class="c1"># 撤销某个文件的修改，对照本地版本库</span>
-
-git merge bug <span class="c1">#合并bug分支到当前分支</span>
-
-git rebase  <span class="o">[</span>startpoint<span class="o">]</span>  <span class="o">[</span>endpoint<span class="o">]</span>   <span class="c1"># 这里的start和end可以是分支名或commit_id等</span>
-git rebase -i <span class="o">[</span>startpoint<span class="o">]</span>  <span class="o">[</span>endpoint<span class="o">]</span>   <span class="c1"># 交互式，在vim中修改各个分支的顺序、状态等</span>
-git rebase --continue   <span class="c1"># 用于解决rebase的冲突之后，继续进行rebase</span>
-git rebase --abort   <span class="c1"># 终止rebase</span>
-
-git cherry-pick ...
-
-git reset --hard HEAD^  <span class="c1"># 回退到上一个版本</span>
-git reset --hard HEAD^^  <span class="c1"># 回退到上上个版本</span>
-git reset --hard HEAD~100  <span class="c1"># 回退到100个之前的版本</span>
-git revert HEAD   <span class="c1"># 回退到上一个版本，但是会在当前基础上改回去，新建一个commit</span>
-
-git remote add origin git@github.com:michaelliao/learngit.git
-git remote -v  <span class="c1"># 查看远程库信息</span>
-git remote rm origin  <span class="c1"># 删除远程origin</span>
-
-git clone --recurisive &lt;address&gt;   <span class="c1"># 递归地下载，适用于仓库中包含submodule的情况</span>
-
-git pull origin main   <span class="c1"># 拉取远程origin中main分支的改动，并merge</span>
-git pull origin main:bug   <span class="c1"># 拉取远程origin中main分支到本地的bug分支中，并merge</span>
-git pull origin :bug   <span class="c1"># 创建新的分支bug在本地</span>
-
-git push &lt;remote&gt; &lt;place&gt;   <span class="c1"># 推送远程origin中place分支的改动</span>
-git push origin &lt;source&gt;:&lt;destination&gt;   <span class="c1"># 将source本地分支推送到远程名为destination的分支，如果没有，会自动创建</span>
-git push origin :&lt;destination&gt;   <span class="c1"># 删除远程分支destination</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git init
+</span></span><span class="line"><span class="cl">git status
+</span></span><span class="line"><span class="cl">git add &lt;file&gt;
+</span></span><span class="line"><span class="cl">git commit - m <span class="s1">&#39;xxx&#39;</span>
+</span></span><span class="line"><span class="cl">git log  <span class="c1"># 显示从最近到最远的提交日志</span>
+</span></span><span class="line"><span class="cl">git reflog  <span class="c1"># 记录你的每一次命令,相比于log，记录每次动作</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git branch &lt;branch_name&gt; &lt;commit_id&gt;   <span class="c1"># 在对应位置创建分支</span>
+</span></span><span class="line"><span class="cl">git checkout -b &lt;branch_name&gt; &lt;commit_id&gt;   <span class="c1"># 在对应位置创建分支并切换到新分支</span>
+</span></span><span class="line"><span class="cl">git branch -f &lt;branch_name&gt; &lt;commit_id&gt;   <span class="c1"># 强制将某分支移动到某次commit_id的位置</span>
+</span></span><span class="line"><span class="cl">git branch -f main HEAD~3   <span class="c1"># 强制将main分支指向当前HEAD的3个之前的提交版本</span>
+</span></span><span class="line"><span class="cl">git branch -d dev  <span class="c1"># 删除dev分支</span>
+</span></span><span class="line"><span class="cl">git branch -u &lt;origin/branch1&gt; &lt;branch2&gt;   <span class="c1"># 使branch分支跟踪远程分支的状态</span>
+</span></span><span class="line"><span class="cl">git checkoput -b &lt;branch2&gt; &lt;origin/branch1&gt;   <span class="c1"># 同上</span>
+</span></span><span class="line"><span class="cl">git branch   <span class="c1"># 查看分支</span>
+</span></span><span class="line"><span class="cl">git checkout &lt;name&gt;   <span class="c1"># 切换分支</span>
+</span></span><span class="line"><span class="cl">git switch &lt;name&gt;   <span class="c1"># 切换分支 同上</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git checkout &lt;branch name&gt;   <span class="c1"># 切换到某个分支</span>
+</span></span><span class="line"><span class="cl">git checkout &lt;commit id&gt;   <span class="c1"># 分离HEAD 到某次历史版本</span>
+</span></span><span class="line"><span class="cl">git checkout &lt;tag name&gt;   <span class="c1"># 分离HEAD到某次Tag中</span>
+</span></span><span class="line"><span class="cl">git checkout -b &lt;branch name&gt; &lt;commit id&gt;   <span class="c1"># 创建并切换到指定分支，基于某次历史版本</span>
+</span></span><span class="line"><span class="cl">git checkout -- &lt;file&gt;   <span class="c1"># 撤销某个文件的修改，对照本地版本库</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git merge bug <span class="c1">#合并bug分支到当前分支</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git rebase  <span class="o">[</span>startpoint<span class="o">]</span>  <span class="o">[</span>endpoint<span class="o">]</span>   <span class="c1"># 这里的start和end可以是分支名或commit_id等</span>
+</span></span><span class="line"><span class="cl">git rebase -i <span class="o">[</span>startpoint<span class="o">]</span>  <span class="o">[</span>endpoint<span class="o">]</span>   <span class="c1"># 交互式，在vim中修改各个分支的顺序、状态等</span>
+</span></span><span class="line"><span class="cl">git rebase --continue   <span class="c1"># 用于解决rebase的冲突之后，继续进行rebase</span>
+</span></span><span class="line"><span class="cl">git rebase --abort   <span class="c1"># 终止rebase</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git cherry-pick ...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git reset --hard HEAD^  <span class="c1"># 回退到上一个版本</span>
+</span></span><span class="line"><span class="cl">git reset --hard HEAD^^  <span class="c1"># 回退到上上个版本</span>
+</span></span><span class="line"><span class="cl">git reset --hard HEAD~100  <span class="c1"># 回退到100个之前的版本</span>
+</span></span><span class="line"><span class="cl">git revert HEAD   <span class="c1"># 回退到上一个版本，但是会在当前基础上改回去，新建一个commit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git remote add origin git@github.com:michaelliao/learngit.git
+</span></span><span class="line"><span class="cl">git remote -v  <span class="c1"># 查看远程库信息</span>
+</span></span><span class="line"><span class="cl">git remote rm origin  <span class="c1"># 删除远程origin</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git clone --recurisive &lt;address&gt;   <span class="c1"># 递归地下载，适用于仓库中包含submodule的情况</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git pull origin main   <span class="c1"># 拉取远程origin中main分支的改动，并merge</span>
+</span></span><span class="line"><span class="cl">git pull origin main:bug   <span class="c1"># 拉取远程origin中main分支到本地的bug分支中，并merge</span>
+</span></span><span class="line"><span class="cl">git pull origin :bug   <span class="c1"># 创建新的分支bug在本地</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git push &lt;remote&gt; &lt;place&gt;   <span class="c1"># 推送远程origin中place分支的改动</span>
+</span></span><span class="line"><span class="cl">git push origin &lt;source&gt;:&lt;destination&gt;   <span class="c1"># 将source本地分支推送到远程名为destination的分支，如果没有，会自动创建</span>
+</span></span><span class="line"><span class="cl">git push origin :&lt;destination&gt;   <span class="c1"># 删除远程分支destination</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li><code>HEAD</code>指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令<code>git reset --hard commit_id</code>。 此外，可以使用<code>cat .git/HEAD</code> 查看<code>HEAD</code>的指向</li>
@@ -714,7 +713,7 @@ git push origin :&lt;destination&gt;   <span class="c1"># 删除远程分支dest
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

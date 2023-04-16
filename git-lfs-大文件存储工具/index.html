@@ -11,7 +11,6 @@
 <meta property="og:url" content="http://shanjiayao.com/git-lfs-%E5%A4%A7%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E5%B7%A5%E5%85%B7/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-07-23T18:19:06+00:00" />
 <meta property="article:modified_time" content="2022-07-23T18:19:06+00:00" />
-
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
 
@@ -158,8 +157,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git push --no-verify
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git push --no-verify
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>--no-verify</code>选项告诉 <code>git push</code>完全跳过 <code>pre-push</code>钩子。</p>
 <p>前面提到被LFS管理的文件，本地仓库中保存的内容实际上是指针文件，其格式类似于下面这样：</p>
@@ -172,12 +171,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git show HEAD:2.svg
-version https://git-lfs.github.com/spec/v1
-oid sha256:158213f90f8b27012034c6f58db63e1861b12aa122d98910de311bf1cb1e50a0
-size <span class="m">14651</span>
-<span class="o">(</span>END<span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git show HEAD:2.svg
+</span></span><span class="line"><span class="cl">version https://git-lfs.github.com/spec/v1
+</span></span><span class="line"><span class="cl">oid sha256:158213f90f8b27012034c6f58db63e1861b12aa122d98910de311bf1cb1e50a0
+</span></span><span class="line"><span class="cl">size <span class="m">14651</span>
+</span></span><span class="line"><span class="cl"><span class="o">(</span>END<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>version</code>表示LFS的版本，<code>oid</code>表示文件对象的唯一hash值，<code>size</code>表示文件的大小</p>
 <h2 id="安装git-lfs">安装git lfs</h2>
@@ -189,8 +188,8 @@ size <span class="m">14651</span>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh <span class="p">|</span> sudo bash
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh <span class="p">|</span> sudo bash
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="2">
 <li>终端会提示脚本运行的输出</li>
@@ -212,20 +211,20 @@ size <span class="m">14651</span>
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Detected operating system as Ubuntu/bionic.
-Checking <span class="k">for</span> curl...
-Detected curl...
-Checking <span class="k">for</span> gpg...
-Detected gpg...
-Running apt-get update... <span class="k">done</span>.
-Installing apt-transport-https... <span class="k">done</span>.
-Installing /etc/apt/sources.list.d/github_git-lfs.list...done.
-Importing packagecloud gpg key... gpg: WARNING: unsafe ownership on homedir <span class="s1">&#39;/home/echo/.gnupg&#39;</span>
-<span class="k">done</span>.
-Running apt-get update... <span class="k">done</span>.
-
-The repository is setup! You can now install packages.
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Detected operating system as Ubuntu/bionic.
+</span></span><span class="line"><span class="cl">Checking <span class="k">for</span> curl...
+</span></span><span class="line"><span class="cl">Detected curl...
+</span></span><span class="line"><span class="cl">Checking <span class="k">for</span> gpg...
+</span></span><span class="line"><span class="cl">Detected gpg...
+</span></span><span class="line"><span class="cl">Running apt-get update... <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Installing apt-transport-https... <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Installing /etc/apt/sources.list.d/github_git-lfs.list...done.
+</span></span><span class="line"><span class="cl">Importing packagecloud gpg key... gpg: WARNING: unsafe ownership on homedir <span class="s1">&#39;/home/echo/.gnupg&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Running apt-get update... <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">The repository is setup! You can now install packages.
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="3">
 <li>然后使用apt工具安装即可</li>
@@ -235,8 +234,8 @@ The repository is setup! You can now install packages.
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt install git-lfs
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install git-lfs
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="使用流程">使用流程</h2>
 <h3 id="examples">Examples</h3>
@@ -264,26 +263,26 @@ The repository is setup! You can now install packages.
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Examples
---------
-To get started with Git LFS, the following commands can be used.
- 1. Setup Git LFS on your system. You only have to <span class="k">do</span> this once per
-    repository per machine:
-        git lfs install
-        
- 2. Choose the <span class="nb">type</span> of files you want to track, <span class="k">for</span> examples all ISO
-    images, with git lfs track:
-        git lfs track <span class="s2">&#34;*.iso&#34;</span>
-        
- 3. The above stores this information in gitattributes<span class="o">(</span>5<span class="o">)</span> files, so
-    that file needs to be added to the repository:
-        git add .gitattributes
-
- 4. Commit, push and work with the files normally:
-        git add file.iso
-        git commit -m <span class="s2">&#34;Add disk image&#34;</span>
-        git push
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Examples
+</span></span><span class="line"><span class="cl">--------
+</span></span><span class="line"><span class="cl">To get started with Git LFS, the following commands can be used.
+</span></span><span class="line"><span class="cl"> 1. Setup Git LFS on your system. You only have to <span class="k">do</span> this once per
+</span></span><span class="line"><span class="cl">    repository per machine:
+</span></span><span class="line"><span class="cl">        git lfs install
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl"> 2. Choose the <span class="nb">type</span> of files you want to track, <span class="k">for</span> examples all ISO
+</span></span><span class="line"><span class="cl">    images, with git lfs track:
+</span></span><span class="line"><span class="cl">        git lfs track <span class="s2">&#34;*.iso&#34;</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl"> 3. The above stores this information in gitattributes<span class="o">(</span>5<span class="o">)</span> files, so
+</span></span><span class="line"><span class="cl">    that file needs to be added to the repository:
+</span></span><span class="line"><span class="cl">        git add .gitattributes
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> 4. Commit, push and work with the files normally:
+</span></span><span class="line"><span class="cl">        git add file.iso
+</span></span><span class="line"><span class="cl">        git commit -m <span class="s2">&#34;Add disk image&#34;</span>
+</span></span><span class="line"><span class="cl">        git push
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>总结来说，应该就是三板斧，init-&gt;track-&gt;add</p>
 <p>需要注意的是，track的时候应该加<strong>双引号</strong>。</p>
@@ -295,9 +294,9 @@ To get started with Git LFS, the following commands can be used.
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git init
-Initialized empty Git repository in xxx
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git init
+</span></span><span class="line"><span class="cl">Initialized empty Git repository in xxx
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="初始化git-lfs">初始化git lfs</h4>
 <div class="highlight"><div class="chroma">
@@ -316,19 +315,19 @@ Initialized empty Git repository in xxx
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git lfs install
-Updated Git hooks.
-Git LFS initialized.
-
-Tips:
-这个命令会自动改变Git配置文件 <span class="sb">`</span>.gitconfig<span class="sb">`</span>，而且是全局性质的，会自动在配置文件中增加如下配置：
-
-<span class="o">[</span>filter <span class="s2">&#34;lfs&#34;</span><span class="o">]</span>  
-<span class="nv">clean</span> <span class="o">=</span> git-lfs clean -- %f  
-<span class="nv">smudge</span> <span class="o">=</span> git-lfs smudge -- %f  
-<span class="nv">process</span> <span class="o">=</span> git-lfs filter-process  
-<span class="nv">required</span> <span class="o">=</span> <span class="nb">true</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git lfs install
+</span></span><span class="line"><span class="cl">Updated Git hooks.
+</span></span><span class="line"><span class="cl">Git LFS initialized.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Tips:
+</span></span><span class="line"><span class="cl">这个命令会自动改变Git配置文件 <span class="sb">`</span>.gitconfig<span class="sb">`</span>，而且是全局性质的，会自动在配置文件中增加如下配置：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>filter <span class="s2">&#34;lfs&#34;</span><span class="o">]</span>  
+</span></span><span class="line"><span class="cl"><span class="nv">clean</span> <span class="o">=</span> git-lfs clean -- %f  
+</span></span><span class="line"><span class="cl"><span class="nv">smudge</span> <span class="o">=</span> git-lfs smudge -- %f  
+</span></span><span class="line"><span class="cl"><span class="nv">process</span> <span class="o">=</span> git-lfs filter-process  
+</span></span><span class="line"><span class="cl"><span class="nv">required</span> <span class="o">=</span> <span class="nb">true</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="添加要跟踪的大文件类型">添加要跟踪的大文件类型</h4>
 <div class="highlight"><div class="chroma">
@@ -347,19 +346,19 @@ Tips:
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git lfs track <span class="s2">&#34;*.svg&#34;</span>
-Tracking <span class="s2">&#34;*.svg&#34;</span>
-$ git lfs track <span class="s2">&#34;*.png&#34;</span>
-Tracking <span class="s2">&#34;*.png&#34;</span>
-
-Tips:
-
-这个命令会更改仓库中的 <span class="sb">`</span>.gitattributes<span class="sb">`</span>配置文件<span class="o">(</span>如果之前不存在这个文件，则会自动新建<span class="o">)</span>:  
-查看如下：  
-$ cat .gitattributes  
-*.svg <span class="nv">filter</span><span class="o">=</span>lfs <span class="nv">diff</span><span class="o">=</span>lfs <span class="nv">merge</span><span class="o">=</span>lfs -text  
-*.png <span class="nv">filter</span><span class="o">=</span>lfs <span class="nv">diff</span><span class="o">=</span>lfs <span class="nv">merge</span><span class="o">=</span>lfs -text
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git lfs track <span class="s2">&#34;*.svg&#34;</span>
+</span></span><span class="line"><span class="cl">Tracking <span class="s2">&#34;*.svg&#34;</span>
+</span></span><span class="line"><span class="cl">$ git lfs track <span class="s2">&#34;*.png&#34;</span>
+</span></span><span class="line"><span class="cl">Tracking <span class="s2">&#34;*.png&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Tips:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">这个命令会更改仓库中的 <span class="sb">`</span>.gitattributes<span class="sb">`</span>配置文件<span class="o">(</span>如果之前不存在这个文件，则会自动新建<span class="o">)</span>:  
+</span></span><span class="line"><span class="cl">查看如下：  
+</span></span><span class="line"><span class="cl">$ cat .gitattributes  
+</span></span><span class="line"><span class="cl">*.svg <span class="nv">filter</span><span class="o">=</span>lfs <span class="nv">diff</span><span class="o">=</span>lfs <span class="nv">merge</span><span class="o">=</span>lfs -text  
+</span></span><span class="line"><span class="cl">*.png <span class="nv">filter</span><span class="o">=</span>lfs <span class="nv">diff</span><span class="o">=</span>lfs <span class="nv">merge</span><span class="o">=</span>lfs -text
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="保存配置并commit">保存配置并commit</h4>
 <div class="highlight"><div class="chroma">
@@ -368,9 +367,9 @@ $ cat .gitattributes
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git add .gitattributes
-$ git commit -m <span class="s2">&#34;add .gitattributes&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git add .gitattributes
+</span></span><span class="line"><span class="cl">$ git commit -m <span class="s2">&#34;add .gitattributes&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="上传到remote">上传到remote</h4>
 <p>上传的时候，直接使用 git push，就可以将lfs文件自动上传，而git实际跟踪的是文件的哈希值</p>
@@ -384,13 +383,13 @@ $ git commit -m <span class="s2">&#34;add .gitattributes&#34;</span>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git push -u origin main
-Uploading LFS objects: 100% <span class="o">(</span>10/10<span class="o">)</span>, <span class="m">10</span> MB <span class="p">|</span> 2.2 MB/s, <span class="k">done</span>.                    
-Counting objects: 34, <span class="k">done</span>.
-Delta compression using up to <span class="m">12</span> threads.
-Compressing objects: 100% <span class="o">(</span>34/34<span class="o">)</span>, <span class="k">done</span>.
-Writing objects: 100% <span class="o">(</span>34/34<span class="o">)</span>, 37.70 KiB <span class="p">|</span> 2.22 MiB/s, <span class="k">done</span>.
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git push -u origin main
+</span></span><span class="line"><span class="cl">Uploading LFS objects: 100% <span class="o">(</span>10/10<span class="o">)</span>, <span class="m">10</span> MB <span class="p">|</span> 2.2 MB/s, <span class="k">done</span>.                    
+</span></span><span class="line"><span class="cl">Counting objects: 34, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Delta compression using up to <span class="m">12</span> threads.
+</span></span><span class="line"><span class="cl">Compressing objects: 100% <span class="o">(</span>34/34<span class="o">)</span>, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Writing objects: 100% <span class="o">(</span>34/34<span class="o">)</span>, 37.70 KiB <span class="p">|</span> 2.22 MiB/s, <span class="k">done</span>.
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="查看git-lfs跟踪的文件列表">查看git lfs跟踪的文件列表</h3>
 <p>如下，前面的表示文件的哈希值oid，后面的表示实际的大文件名称路径。</p>
@@ -401,10 +400,10 @@ Writing objects: 100% <span class="o">(</span>34/34<span class="o">)</span>, 37.
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git lfs ls-files
-71890506b2 * model/big_dataset_384.png
-fdcbf5e956 * model/big_dataset_384.svg
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git lfs ls-files
+</span></span><span class="line"><span class="cl">71890506b2 * model/big_dataset_384.png
+</span></span><span class="line"><span class="cl">fdcbf5e956 * model/big_dataset_384.svg
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="取消跟踪文件">取消跟踪文件</h3>
 <div class="highlight"><div class="chroma">
@@ -413,9 +412,9 @@ fdcbf5e956 * model/big_dataset_384.svg
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">git lfs untrack <span class="s2">&#34;xxx&#34;</span>  <span class="c1"># 取消跟踪某个文件</span>
-git lfs uninstall  <span class="c1"># 取消lfs的全局配置</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git lfs untrack <span class="s2">&#34;xxx&#34;</span>  <span class="c1"># 取消跟踪某个文件</span>
+</span></span><span class="line"><span class="cl">git lfs uninstall  <span class="c1"># 取消lfs的全局配置</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="使用lfs管理历史大文件">使用LFS管理历史大文件</h3>
 <p>如果一个仓库中原来已经提交了一些大文件，此时即使运行 <code>git lfs track</code>也不会有效的。</p>
@@ -432,15 +431,15 @@ git lfs uninstall  <span class="c1"># 取消lfs的全局配置</span>
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git lfs migrate import --include-ref<span class="o">=</span>master --include<span class="o">=</span><span class="s2">&#34;biger.zip&#34;</span>
-migrate: override changes in your working copy?  All uncommitted changes will be lost! <span class="o">[</span>y/N<span class="o">]</span> y
-migrate: changes in your working copy will be overridden ...
-migrate: Sorting commits: ..., <span class="k">done</span>.
-migrate: Rewriting commits: 100% <span class="o">(</span>11/11<span class="o">)</span>, <span class="k">done</span>.
-  master        f9be3c554e9010ea5e0e23a6a0c6e53dca6c23b0 -&gt; 53d5e655fe7cfd985f75384b92ac5414ad2ff394
-migrate: Updating refs: ..., <span class="k">done</span>.
-migrate: checkout: ..., <span class="k">done</span>.
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git lfs migrate import --include-ref<span class="o">=</span>master --include<span class="o">=</span><span class="s2">&#34;biger.zip&#34;</span>
+</span></span><span class="line"><span class="cl">migrate: override changes in your working copy?  All uncommitted changes will be lost! <span class="o">[</span>y/N<span class="o">]</span> y
+</span></span><span class="line"><span class="cl">migrate: changes in your working copy will be overridden ...
+</span></span><span class="line"><span class="cl">migrate: Sorting commits: ..., <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">migrate: Rewriting commits: 100% <span class="o">(</span>11/11<span class="o">)</span>, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">  master        f9be3c554e9010ea5e0e23a6a0c6e53dca6c23b0 -&gt; 53d5e655fe7cfd985f75384b92ac5414ad2ff394
+</span></span><span class="line"><span class="cl">migrate: Updating refs: ..., <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">migrate: checkout: ..., <span class="k">done</span>.
+</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>&ndash;include-ref 选项指定导入的分支</p>
@@ -453,8 +452,8 @@ migrate: checkout: ..., <span class="k">done</span>.
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git lfs migrate import --no-rewrite -m <span class="s2">&#34;lfs import&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git lfs migrate import --no-rewrite -m <span class="s2">&#34;lfs import&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>将本地历史提交中的文件纳入到LFS管理后，如果重改了历史，再次推送代码时，需要使用强制推送。</p>
 <p>这里选择改变提交历史，所以还需要使用 <code>--force</code>强制推送：</p>
@@ -476,21 +475,21 @@ migrate: checkout: ..., <span class="k">done</span>.
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git push origin master --force
-Enter passphrase <span class="k">for</span> key <span class="s1">&#39;/home/git/.ssh/id_ed25519&#39;</span>:
-Locking support detected on remote <span class="s2">&#34;origin&#34;</span>. Consider enabling it with:
-  $ git config lfs.https://gitee.com/hightest/lfs-demo.git/info/lfs.locksverify <span class="nb">true</span>
-Uploading LFS objects: 100% <span class="o">(</span>8/8<span class="o">)</span>, <span class="m">419</span> MB <span class="p">|</span> <span class="m">0</span> B/s, <span class="k">done</span>.
-Enumerating objects: 38, <span class="k">done</span>.
-Counting objects: 100% <span class="o">(</span>38/38<span class="o">)</span>, <span class="k">done</span>.
-Delta compression using up to <span class="m">6</span> threads
-Compressing objects: 100% <span class="o">(</span>37/37<span class="o">)</span>, <span class="k">done</span>.
-Writing objects: 100% <span class="o">(</span>38/38<span class="o">)</span>, 136.26 MiB <span class="p">|</span> 943.00 KiB/s, <span class="k">done</span>.
-Total <span class="m">38</span> <span class="o">(</span>delta 12<span class="o">)</span>, reused <span class="m">10</span> <span class="o">(</span>delta 0<span class="o">)</span>, pack-reused <span class="m">0</span>
-remote: Powered by GITEE.COM <span class="o">[</span>GNK-6.1<span class="o">]</span>
-To gitee.com:hightest/lfs-demo.git
- + cefd169...53d5e65 master -&gt; master <span class="o">(</span>forced update<span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git push origin master --force
+</span></span><span class="line"><span class="cl">Enter passphrase <span class="k">for</span> key <span class="s1">&#39;/home/git/.ssh/id_ed25519&#39;</span>:
+</span></span><span class="line"><span class="cl">Locking support detected on remote <span class="s2">&#34;origin&#34;</span>. Consider enabling it with:
+</span></span><span class="line"><span class="cl">  $ git config lfs.https://gitee.com/hightest/lfs-demo.git/info/lfs.locksverify <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">Uploading LFS objects: 100% <span class="o">(</span>8/8<span class="o">)</span>, <span class="m">419</span> MB <span class="p">|</span> <span class="m">0</span> B/s, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Enumerating objects: 38, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Counting objects: 100% <span class="o">(</span>38/38<span class="o">)</span>, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Delta compression using up to <span class="m">6</span> threads
+</span></span><span class="line"><span class="cl">Compressing objects: 100% <span class="o">(</span>37/37<span class="o">)</span>, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Writing objects: 100% <span class="o">(</span>38/38<span class="o">)</span>, 136.26 MiB <span class="p">|</span> 943.00 KiB/s, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Total <span class="m">38</span> <span class="o">(</span>delta 12<span class="o">)</span>, reused <span class="m">10</span> <span class="o">(</span>delta 0<span class="o">)</span>, pack-reused <span class="m">0</span>
+</span></span><span class="line"><span class="cl">remote: Powered by GITEE.COM <span class="o">[</span>GNK-6.1<span class="o">]</span>
+</span></span><span class="line"><span class="cl">To gitee.com:hightest/lfs-demo.git
+</span></span><span class="line"><span class="cl"> + cefd169...53d5e65 master -&gt; master <span class="o">(</span>forced update<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>至此，已经将历史提交中的大文件迁移到远程LFS服务器，本地Git仓库，只保留这个大文件的指针文件，所以推送也不会再触发额度限制。推送成功之后，远程仓库就与本地保存一致，如场景一中的图示，它只管理这个大文件的指针文件。</p>
 <h2 id="参考">参考</h2>
@@ -525,7 +524,7 @@ To gitee.com:hightest/lfs-demo.git
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

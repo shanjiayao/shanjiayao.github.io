@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>ubuntu22_04升级记录 - Jiayao&#39;s blog</title><meta name="Description" content="jiayao&#39;s blog"><meta property="og:title" content="ubuntu22_04升级记录" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shanjiayao.com/ubuntu_2204_install/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-09T14:03:16+00:00" />
+<meta property="article:modified_time" content="2023-04-09T14:03:16+00:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
+
+<meta name="twitter:title" content="ubuntu22_04升级记录"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://shanjiayao.com/ubuntu_2204_install/" /><link rel="prev" href="http://shanjiayao.com/win11%E9%85%8D%E7%BD%AE/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "ubuntu22_04升级记录",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/shanjiayao.com\/ubuntu_2204_install\/"
+        },"genre": "posts","keywords": "Ubuntu","wordcount":  1022 ,
+        "url": "http:\/\/shanjiayao.com\/ubuntu_2204_install\/","datePublished": "2023-04-09T14:03:16+00:00","dateModified": "2023-04-09T14:03:16+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "jiayao"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Jiayao&#39;s blog"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/collections/"> 收集 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Jiayao&#39;s blog"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/collections/" title="">收集</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">ubuntu22_04升级记录</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%B3%BB%E7%BB%9F%E8%A3%85%E6%9C%BA/"><i class="far fa-folder fa-fw"></i>系统装机</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-04-09">2023-04-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1022 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#安装deep-wine系列">安装deep wine系列</a></li>
+        <li><a href="#system-load-monitor">system load monitor</a></li>
+        <li><a href="#neovim--config">neovim &amp;&amp; config</a></li>
+        <li><a href="#ffmpeg--youtube-dl--lux">ffmpeg &amp;&amp; youtube-dl &amp;&amp; lux</a></li>
+        <li><a href="#docker">docker</a></li>
+        <li><a href="#自动挂载sftp的目录">自动挂载sftp的目录</a></li>
+        <li><a href="#通过samba挂载极空间">通过samba挂载极空间</a></li>
+        <li><a href="#安装cuda">安装cuda</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;h=1080&amp;ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlLHdhdGVyfHx8fHx8MTY4MTAyMDIxNQ&amp;ixlib=rb-4.0.3&amp;q=80&amp;utm_campaign=api-credit&amp;utm_medium=referral&amp;utm_source=unsplash_source&amp;w=1920"
+        data-srcset="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;h=1080&amp;ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlLHdhdGVyfHx8fHx8MTY4MTAyMDIxNQ&amp;ixlib=rb-4.0.3&amp;q=80&amp;utm_campaign=api-credit&amp;utm_medium=referral&amp;utm_source=unsplash_source&amp;w=1920, https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;h=1080&amp;ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlLHdhdGVyfHx8fHx8MTY4MTAyMDIxNQ&amp;ixlib=rb-4.0.3&amp;q=80&amp;utm_campaign=api-credit&amp;utm_medium=referral&amp;utm_source=unsplash_source&amp;w=1920 1.5x, https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;h=1080&amp;ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlLHdhdGVyfHx8fHx8MTY4MTAyMDIxNQ&amp;ixlib=rb-4.0.3&amp;q=80&amp;utm_campaign=api-credit&amp;utm_medium=referral&amp;utm_source=unsplash_source&amp;w=1920 2x"
+        data-sizes="auto"
+        alt="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;h=1080&amp;ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlLHdhdGVyfHx8fHx8MTY4MTAyMDIxNQ&amp;ixlib=rb-4.0.3&amp;q=80&amp;utm_campaign=api-credit&amp;utm_medium=referral&amp;utm_source=unsplash_source&amp;w=1920"
+        title="tp.web.random_picture" /></p>
+<h3 id="安装deep-wine系列">安装deep wine系列</h3>
+<p>参考 <a href="https://github.com/zq1997/deepin-wine" target="_blank" rel="noopener noreffer">https://github.com/zq1997/deepin-wine</a></p>
+<p>2204直接安装即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget -O- https://deepin-wine.i-m.dev/setup.sh <span class="p">|</span> sh
+</span></span><span class="line"><span class="cl">sudo apt-get install com.qq.weixin.deepin
+</span></span><span class="line"><span class="cl">sudo apt-get install com.qq.office.deepin
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install snapd
+</span></span><span class="line"><span class="cl">sudo snap install slack
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="system-load-monitor">system load monitor</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo apt install python3-psutil gir1.2-appindicator3-0.1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git clone https://github.com/fossfreedom/indicator-sysmonitor.git
+</span></span><span class="line"><span class="cl">cd indicator-sysmonitor
+</span></span><span class="line"><span class="cl">sudo make install
+</span></span><span class="line"><span class="cl">cd ..
+</span></span><span class="line"><span class="cl">rm -rf indicator-sysmonitor
+</span></span><span class="line"><span class="cl">nohup indicator-sysmonitor &amp;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="neovim--config">neovim &amp;&amp; config</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo apt install neovim
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="ffmpeg--youtube-dl--lux">ffmpeg &amp;&amp; youtube-dl &amp;&amp; lux</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install ffmpeg
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="docker">docker</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  <span class="m">231</span>  sudo apt install apt-transport-https curl gnupg-agent ca-certificates software-properties-common -y
+</span></span><span class="line"><span class="cl">  <span class="m">232</span>  curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span class="p">|</span> sudo apt-key add -
+</span></span><span class="line"><span class="cl">  <span class="m">233</span>  sudo add-apt-repository <span class="s2">&#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="m">234</span>  sudo apt install docker-ce docker-ce-cli containerd.io -y
+</span></span><span class="line"><span class="cl">  <span class="m">236</span>  sudo usermod -aG docker jiayao
+</span></span><span class="line"><span class="cl">  <span class="m">237</span>  newgrp docker
+</span></span><span class="line"><span class="cl">  <span class="m">238</span>  docker version
+</span></span><span class="line"><span class="cl">  <span class="m">239</span>  sudo systemctl status docker
+</span></span><span class="line"><span class="cl">  <span class="m">240</span>  docker run hello-world
+</span></span><span class="line"><span class="cl">  <span class="m">241</span>  docker login
+</span></span><span class="line"><span class="cl">  <span class="m">242</span>  docker images
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="自动挂载sftp的目录">自动挂载sftp的目录</h3>
+<p>来自chatgpt～,使用时需要注意，目录名字不是18742038032，而是187XXXX8032
+如果您想在Ubuntu启动时自动挂载sftp目录，可以通过使用SSHFS工具实现。 SSHFS是一个基于FUSE的工具，它可以通过SSH协议连接到远程服务器，并将远程文件系统挂载到本地文件系统上。</p>
+<p>以下是实现自动挂载sftp目录的步骤：</p>
+<ol>
+<li>安装SSHFS</li>
+</ol>
+<p>首先，您需要安装SSHFS。在终端中输入以下命令进行安装：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo apt-get update
+</span></span><span class="line"><span class="cl">sudo apt-get install sshfs
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>创建本地目录</li>
+</ol>
+<p>在本地文件系统上创建一个目录，用于挂载远程目录。您可以选择任何名称和位置。例如，我们将创建一个名为“remote_dir”的目录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mkdir ~/remote_dir
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>编辑/etc/fstab文件</li>
+</ol>
+<p>打开/etc/fstab文件并在文件末尾添加以下行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">user@host:/remote/directory /path/to/local/mountpoint fuse.sshfs defaults,_netdev,user,idmap=user,IdentityFile=/path/to/private/key 0 0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将“user”和“host”替换为您的远程服务器用户名和主机名。将“/remote/directory”替换为您要挂载的远程目录的路径。将“/path/to/local/mountpoint”替换为本地目录的路径，也就是在第2步中创建的目录。将“/path/to/private/key”替换为您的私钥文件的路径。</p>
+<ol start="4">
+<li>重新挂载文件系统</li>
+</ol>
+<p>现在，您可以重新挂载文件系统以使更改生效。输入以下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo mount -a
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果一切顺利，您应该可以在本地文件系统中看到挂载的远程目录了。</p>
+<h3 id="通过samba挂载极空间">通过samba挂载极空间</h3>
+<p>首先安装 cmbclient</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get install smbclient
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后可以通过如下命令查看</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mbclient -L 192.168.1.9 -U your_username
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过如下命令挂载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo mount.cifs -o username=username,password=&#34;passwd&#34; //192.168.1.9/18742038032 /efs
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>写入fstab</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo vim /etc/fstab
+</span></span><span class="line"><span class="cl">//192.168.1.9/187XXXX8032 /efs cifs <span class="nv">username</span><span class="o">=</span>username,password<span class="o">=</span>passwd. <span class="m">0</span> <span class="m">0</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="安装cuda">安装cuda</h3>
+<p>To install CUDA on Ubuntu 22.04, follow these steps:</p>
+<ol>
+<li>
+<p>Download the CUDA toolkit installer from the NVIDIA website. You can find the latest version at <a href="https://developer.nvidia.com/cuda-downloads" target="_blank" rel="noopener noreffer">https://developer.nvidia.com/cuda-downloads</a>.</p>
+</li>
+<li>
+<p>Open a terminal window and navigate to the directory where the CUDA installer was downloaded.</p>
+</li>
+<li>
+<p>Make the installer executable by running the following command:</p>
+<p>arduinoCopy code</p>
+<p><code>chmod +x cuda_&lt;version&gt;_linux.run</code></p>
+<p>Replace <code>&lt;version&gt;</code> with the version number of the CUDA toolkit that you downloaded.</p>
+</li>
+<li>
+<p>Disable the Nouveau driver by creating a file in the <code>/etc/modprobe.d/</code> directory with the following content:</p>
+<p>Copy code</p>
+<p><code>blacklist nouveau options nouveau modeset=0</code></p>
+</li>
+<li>
+<p>Update the initramfs by running the following command:</p>
+<p>sqlCopy code</p>
+<p><code>sudo update-initramfs -u</code></p>
+</li>
+<li>
+<p>Reboot your computer.</p>
+</li>
+<li>
+<p>Switch to a console terminal by pressing <code>Ctrl+Alt+F3</code>.</p>
+</li>
+<li>
+<p>Stop the X server by running the following command:</p>
+<p>arduinoCopy code</p>
+<p><code>sudo service lightdm stop</code></p>
+</li>
+<li>
+<p>Run the CUDA installer by running the following command:</p>
+<p>arduinoCopy code</p>
+<p><code>sudo ./cuda_&lt;version&gt;_linux.run</code></p>
+<p>Replace <code>&lt;version&gt;</code> with the version number of the CUDA toolkit that you downloaded.</p>
+</li>
+<li>
+<p>Follow the prompts in the installer to complete the installation.</p>
+</li>
+<li>
+<p>Reboot your computer.</p>
+</li>
+<li>
+<p>Verify that CUDA is installed correctly by running the following command:</p>
+</li>
+</ol>
+<p>cssCopy code</p>
+<p><code>nvcc --version</code></p>
+<p>This should display the version number of the CUDA toolkit that you installed.</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-04-09</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/ubuntu_2204_install/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://shanjiayao.com/ubuntu_2204_install/" data-title="ubuntu22_04升级记录" data-hashtags="Ubuntu"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://shanjiayao.com/ubuntu_2204_install/" data-hashtag="Ubuntu"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://shanjiayao.com/ubuntu_2204_install/" data-title="ubuntu22_04升级记录" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://shanjiayao.com/ubuntu_2204_install/" data-title="ubuntu22_04升级记录"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Pocket" data-sharer="pocket" data-url="http://shanjiayao.com/ubuntu_2204_install/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://shanjiayao.com/ubuntu_2204_install/" data-title="ubuntu22_04升级记录"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://shanjiayao.com/ubuntu_2204_install/" data-title="ubuntu22_04升级记录" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://shanjiayao.com/ubuntu_2204_install/" data-title="ubuntu22_04升级记录" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://shanjiayao.com/ubuntu_2204_install/" data-title="ubuntu22_04升级记录"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ubuntu/">ubuntu</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/win11%E9%85%8D%E7%BD%AE/" class="prev" rel="prev" title="win11配置"><i class="fas fa-angle-left fa-fw"></i>win11配置</a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"$$","right":"$$"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"},{"display":false,"left":"$","right":"$"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-THB0NH45ZM', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-THB0NH45ZM" async></script></body>
+</html>

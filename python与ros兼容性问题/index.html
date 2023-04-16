@@ -11,7 +11,6 @@
 <meta property="og:url" content="http://shanjiayao.com/python%E4%B8%8Eros%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/" /><meta property="og:image" content="http://shanjiayao.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-03-06T16:10:19+00:00" />
 <meta property="article:modified_time" content="2020-03-06T16:10:19+00:00" />
-
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://shanjiayao.com/logo.png"/>
 
@@ -141,14 +140,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript">  <span class="p">(</span><span class="nx">python3</span><span class="p">)</span> <span class="nx">$</span> <span class="nx">CUDA_VISIBLE_DEVICES</span><span class="o">=</span><span class="mi">0</span> <span class="nx">python</span> <span class="o">-</span><span class="nx">u</span> <span class="nx">train</span><span class="p">.</span><span class="nx">py</span> <span class="o">--</span><span class="nx">work</span><span class="o">-</span><span class="nx">path</span> <span class="p">.</span><span class="o">/</span><span class="nx">experiments</span><span class="o">/</span><span class="nx">cifar10</span><span class="o">/</span><span class="nx">lenet</span> 
-  <span class="nx">Traceback</span> <span class="p">(</span><span class="nx">most</span> <span class="nx">recent</span> <span class="nx">call</span> <span class="nx">last</span><span class="p">)</span><span class="o">:</span>
-    <span class="nx">File</span> <span class="s2">&#34;train.py&#34;</span><span class="p">,</span> <span class="nx">line</span> <span class="mi">9</span><span class="p">,</span> <span class="k">in</span> <span class="o">&lt;</span><span class="nx">module</span><span class="o">&gt;</span>
-      <span class="kr">import</span> <span class="nx">yaml</span>
-    <span class="nx">File</span> <span class="s2">&#34;/opt/ros/kinetic/lib/python2.7/dist-packages/yaml/__init__.py&#34;</span><span class="p">,</span> <span class="nx">line</span> <span class="mi">1</span><span class="p">,</span> <span class="k">in</span> <span class="o">&lt;</span><span class="nx">module</span><span class="o">&gt;</span>
-      <span class="nx">from</span> <span class="nx">error</span> <span class="kr">import</span> <span class="o">*</span>
-  <span class="nx">ModuleNotFoundError</span><span class="o">:</span> <span class="nx">No</span> <span class="nx">module</span> <span class="nx">named</span> <span class="s1">&#39;error&#39;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl">  <span class="p">(</span><span class="nx">python3</span><span class="p">)</span> <span class="nx">$</span> <span class="nx">CUDA_VISIBLE_DEVICES</span><span class="o">=</span><span class="mi">0</span> <span class="nx">python</span> <span class="o">-</span><span class="nx">u</span> <span class="nx">train</span><span class="p">.</span><span class="nx">py</span> <span class="o">--</span><span class="nx">work</span><span class="o">-</span><span class="nx">path</span> <span class="p">.</span><span class="o">/</span><span class="nx">experiments</span><span class="o">/</span><span class="nx">cifar10</span><span class="o">/</span><span class="nx">lenet</span> 
+</span></span><span class="line"><span class="cl">  <span class="nx">Traceback</span> <span class="p">(</span><span class="nx">most</span> <span class="nx">recent</span> <span class="nx">call</span> <span class="nx">last</span><span class="p">)</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">File</span> <span class="s2">&#34;train.py&#34;</span><span class="p">,</span> <span class="nx">line</span> <span class="mi">9</span><span class="p">,</span> <span class="k">in</span> <span class="o">&lt;</span><span class="nx">module</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">import</span> <span class="nx">yaml</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">File</span> <span class="s2">&#34;/opt/ros/kinetic/lib/python2.7/dist-packages/yaml/__init__.py&#34;</span><span class="p">,</span> <span class="nx">line</span> <span class="mi">1</span><span class="p">,</span> <span class="k">in</span> <span class="o">&lt;</span><span class="nx">module</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">from</span> <span class="nx">error</span> <span class="kr">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">ModuleNotFoundError</span><span class="o">:</span> <span class="nx">No</span> <span class="nx">module</span> <span class="nx">named</span> <span class="s1">&#39;error&#39;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用pip list查找之后，发现对应的yaml包是有安装的</p>
 <p><strong>这种问题的原因就是</strong>：在sys的路径中，混入了ros的python路径，导致找不到对应的包，所以我们可以在对应的python文件最上面，加入以下代码：</p>
@@ -160,11 +159,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript">  <span class="kr">import</span> <span class="nx">sys</span>
-  <span class="nx">ros_path</span> <span class="o">=</span> <span class="s1">&#39;/opt/ros/kinetic/lib/python2.7/dist-packages&#39;</span>
-  <span class="k">if</span> <span class="nx">ros_path</span> <span class="k">in</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">path</span><span class="o">:</span>
-      <span class="nx">sys</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">ros_path</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl">  <span class="kr">import</span> <span class="nx">sys</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">ros_path</span> <span class="o">=</span> <span class="s1">&#39;/opt/ros/kinetic/lib/python2.7/dist-packages&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="nx">ros_path</span> <span class="k">in</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">path</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">sys</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">ros_path</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="2-python3ros以及cv_bridge的兼容性问题">2. python3、ros以及cv_bridge的兼容性问题</h2>
 <p>在使用python3以及ros中的cv包的时候，想要通过python3来创建一个节点接收话题形式的图像信息，然而在消息回调中如果想要通过cv_bridge来将消息格式进行转换，则会报错，形式如下：</p>
@@ -185,20 +184,20 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">[</span><span class="nx">ERROR</span><span class="p">]</span> <span class="p">[</span><span class="mf">1520780674.845066</span><span class="p">]</span><span class="o">:</span> <span class="nx">bad</span> <span class="nx">callback</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">bound</span> <span class="nx">method</span> <span class="nx">ViewsBuffer</span><span class="p">.</span><span class="nx">update</span> <span class="k">of</span> <span class="o">&lt;</span><span class="nx">__main__</span><span class="p">.</span><span class="nx">ViewsBuffer</span> <span class="nx">object</span> <span class="nx">at</span> <span class="mh">0x7f5f45a07f28</span><span class="o">&gt;&gt;</span>
-<span class="nx">Traceback</span> <span class="p">(</span><span class="nx">most</span> <span class="nx">recent</span> <span class="nx">call</span> <span class="nx">last</span><span class="p">)</span><span class="o">:</span>
-  <span class="nx">File</span> <span class="s2">&#34;/opt/ros/kinetic/lib/python2.7/dist-packages/rospy/topics.py&#34;</span><span class="p">,</span> <span class="nx">line</span> <span class="mi">750</span><span class="p">,</span> <span class="k">in</span> <span class="nx">_invoke_callback</span>
-    <span class="nx">cb</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span>
-  <span class="nx">File</span> <span class="s2">&#34;test.py&#34;</span><span class="p">,</span> <span class="nx">line</span> <span class="mi">48</span><span class="p">,</span> <span class="k">in</span> <span class="nx">update</span>
-    <span class="nx">im</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">bridge</span><span class="p">.</span><span class="nx">imgmsg_to_cv2</span><span class="p">(</span><span class="nx">im</span><span class="p">,</span> <span class="s2">&#34;bgr8&#34;</span><span class="p">)</span>
-  <span class="nx">File</span> <span class="s2">&#34;/opt/ros/kinetic/lib/python2.7/dist-packages/cv_bridge/core.py&#34;</span><span class="p">,</span> <span class="nx">line</span> <span class="mi">163</span><span class="p">,</span> <span class="k">in</span> <span class="nx">imgmsg_to_cv2</span>
-    <span class="nx">dtype</span><span class="p">,</span> <span class="nx">n_channels</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">encoding_to_dtype_with_channels</span><span class="p">(</span><span class="nx">img_msg</span><span class="p">.</span><span class="nx">encoding</span><span class="p">)</span>
-  <span class="nx">File</span> <span class="s2">&#34;/opt/ros/kinetic/lib/python2.7/dist-packages/cv_bridge/core.py&#34;</span><span class="p">,</span> <span class="nx">line</span> <span class="mi">99</span><span class="p">,</span> <span class="k">in</span> <span class="nx">encoding_to_dtype_with_channels</span>
-    <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">cvtype2_to_dtype_with_channels</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">encoding_to_cvtype2</span><span class="p">(</span><span class="nx">encoding</span><span class="p">))</span>
-  <span class="nx">File</span> <span class="s2">&#34;/opt/ros/kinetic/lib/python2.7/dist-packages/cv_bridge/core.py&#34;</span><span class="p">,</span> <span class="nx">line</span> <span class="mi">91</span><span class="p">,</span> <span class="k">in</span> <span class="nx">encoding_to_cvtype2</span>
-    <span class="nx">from</span> <span class="nx">cv_bridge</span><span class="p">.</span><span class="nx">boost</span><span class="p">.</span><span class="nx">cv_bridge_boost</span> <span class="kr">import</span> <span class="nx">getCvType</span>
-<span class="nx">ImportError</span><span class="o">:</span> <span class="nx">dynamic</span> <span class="nx">module</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">define</span> <span class="nx">module</span> <span class="kr">export</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">PyInit_cv_bridge_boost</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="p">[</span><span class="nx">ERROR</span><span class="p">]</span> <span class="p">[</span><span class="mf">1520780674.845066</span><span class="p">]</span><span class="o">:</span> <span class="nx">bad</span> <span class="nx">callback</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">bound</span> <span class="nx">method</span> <span class="nx">ViewsBuffer</span><span class="p">.</span><span class="nx">update</span> <span class="k">of</span> <span class="o">&lt;</span><span class="nx">__main__</span><span class="p">.</span><span class="nx">ViewsBuffer</span> <span class="nx">object</span> <span class="nx">at</span> <span class="mh">0x7f5f45a07f28</span><span class="o">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Traceback</span> <span class="p">(</span><span class="nx">most</span> <span class="nx">recent</span> <span class="nx">call</span> <span class="nx">last</span><span class="p">)</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">File</span> <span class="s2">&#34;/opt/ros/kinetic/lib/python2.7/dist-packages/rospy/topics.py&#34;</span><span class="p">,</span> <span class="nx">line</span> <span class="mi">750</span><span class="p">,</span> <span class="k">in</span> <span class="nx">_invoke_callback</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">cb</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">File</span> <span class="s2">&#34;test.py&#34;</span><span class="p">,</span> <span class="nx">line</span> <span class="mi">48</span><span class="p">,</span> <span class="k">in</span> <span class="nx">update</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">im</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">bridge</span><span class="p">.</span><span class="nx">imgmsg_to_cv2</span><span class="p">(</span><span class="nx">im</span><span class="p">,</span> <span class="s2">&#34;bgr8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">File</span> <span class="s2">&#34;/opt/ros/kinetic/lib/python2.7/dist-packages/cv_bridge/core.py&#34;</span><span class="p">,</span> <span class="nx">line</span> <span class="mi">163</span><span class="p">,</span> <span class="k">in</span> <span class="nx">imgmsg_to_cv2</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">dtype</span><span class="p">,</span> <span class="nx">n_channels</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">encoding_to_dtype_with_channels</span><span class="p">(</span><span class="nx">img_msg</span><span class="p">.</span><span class="nx">encoding</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">File</span> <span class="s2">&#34;/opt/ros/kinetic/lib/python2.7/dist-packages/cv_bridge/core.py&#34;</span><span class="p">,</span> <span class="nx">line</span> <span class="mi">99</span><span class="p">,</span> <span class="k">in</span> <span class="nx">encoding_to_dtype_with_channels</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">cvtype2_to_dtype_with_channels</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">encoding_to_cvtype2</span><span class="p">(</span><span class="nx">encoding</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">File</span> <span class="s2">&#34;/opt/ros/kinetic/lib/python2.7/dist-packages/cv_bridge/core.py&#34;</span><span class="p">,</span> <span class="nx">line</span> <span class="mi">91</span><span class="p">,</span> <span class="k">in</span> <span class="nx">encoding_to_cvtype2</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">from</span> <span class="nx">cv_bridge</span><span class="p">.</span><span class="nx">boost</span><span class="p">.</span><span class="nx">cv_bridge_boost</span> <span class="kr">import</span> <span class="nx">getCvType</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ImportError</span><span class="o">:</span> <span class="nx">dynamic</span> <span class="nx">module</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">define</span> <span class="nx">module</span> <span class="kr">export</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">PyInit_cv_bridge_boost</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里我尝试了stackflow中给出的解决方案，如下：</p>
 <div class="highlight"><div class="chroma">
@@ -233,35 +232,35 @@
 </span><span class="lnt">28
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="err">#</span> <span class="sb">`python-catkin-tools`</span> <span class="nx">is</span> <span class="nx">needed</span> <span class="k">for</span> <span class="nx">catkin</span> <span class="nx">tool</span>
-<span class="err">#</span> <span class="sb">`python3-dev`</span> <span class="nx">and</span> <span class="sb">`python3-catkin-pkg-modules`</span> <span class="nx">is</span> <span class="nx">needed</span> <span class="nx">to</span> <span class="nx">build</span> <span class="nx">cv_bridge</span>
-<span class="err">#</span> <span class="sb">`python3-numpy`</span> <span class="nx">and</span> <span class="sb">`python3-yaml`</span> <span class="nx">is</span> <span class="nx">cv_bridge</span> <span class="nx">dependencies</span>
-<span class="err">#</span> <span class="sb">`ros-kinetic-cv-bridge`</span> <span class="nx">is</span> <span class="nx">needed</span> <span class="nx">to</span> <span class="nx">install</span> <span class="nx">a</span> <span class="nx">lot</span> <span class="k">of</span> <span class="nx">cv_bridge</span> <span class="nx">deps</span><span class="p">.</span> <span class="nx">Probaply</span> <span class="nx">you</span> <span class="nx">already</span> <span class="nx">have</span> <span class="nx">it</span> <span class="nx">installed</span><span class="p">.</span>
-<span class="nx">sudo</span> <span class="nx">apt</span><span class="o">-</span><span class="nx">get</span> <span class="nx">install</span> <span class="nx">python</span><span class="o">-</span><span class="nx">catkin</span><span class="o">-</span><span class="nx">tools</span> <span class="nx">python3</span><span class="o">-</span><span class="nx">dev</span> <span class="nx">python3</span><span class="o">-</span><span class="nx">catkin</span><span class="o">-</span><span class="nx">pkg</span><span class="o">-</span><span class="nx">modules</span> <span class="nx">python3</span><span class="o">-</span><span class="nx">numpy</span> <span class="nx">python3</span><span class="o">-</span><span class="nx">yaml</span> <span class="nx">ros</span><span class="o">-</span><span class="nx">kinetic</span><span class="o">-</span><span class="nx">cv</span><span class="o">-</span><span class="nx">bridge</span>
-<span class="err">#</span> <span class="nx">Create</span> <span class="nx">catkin</span> <span class="nx">workspace</span>
-<span class="nx">mkdir</span> <span class="nx">catkin_workspace</span>
-<span class="nx">cd</span> <span class="nx">catkin_workspace</span>
-<span class="nx">catkin</span> <span class="nx">init</span>
-<span class="err">#</span> <span class="nx">Instruct</span> <span class="nx">catkin</span> <span class="nx">to</span> <span class="nx">set</span> <span class="nx">cmake</span> <span class="nx">variables</span>
-<span class="nx">catkin</span> <span class="nx">config</span> <span class="o">-</span><span class="nx">DPYTHON_EXECUTABLE</span><span class="o">=</span><span class="err">/usr/bin/python3 -DPYTHON_INCLUDE_DIR=/usr/include/python3.5m -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.5m.so</span>
-
-<span class="err">#</span> <span class="nx">Instruct</span> <span class="nx">catkin</span> <span class="nx">to</span> <span class="nx">install</span> <span class="nx">built</span> <span class="nx">packages</span> <span class="nx">into</span> <span class="nx">install</span> <span class="nx">place</span><span class="p">.</span> <span class="nx">It</span> <span class="nx">is</span> <span class="nx">$CATKIN_WORKSPACE</span><span class="o">/</span><span class="nx">install</span> <span class="nx">folder</span>
-<span class="nx">catkin</span> <span class="nx">config</span> <span class="o">--</span><span class="nx">install</span>
-<span class="nx">catkin</span> <span class="nx">config</span> <span class="o">--</span><span class="nx">space</span><span class="o">-</span><span class="nx">suffix</span> <span class="nx">_cb</span>
-<span class="err">#</span> <span class="nx">Clone</span> <span class="nx">cv_bridge</span> <span class="nx">src</span>
-<span class="nx">git</span> <span class="nx">clone</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/ros-perception/vision_opencv.git src/vision_opencv
-</span><span class="c1"></span><span class="err">#</span> <span class="nx">Find</span> <span class="nx">version</span> <span class="k">of</span> <span class="nx">cv_bridge</span> <span class="k">in</span> <span class="nx">your</span> <span class="nx">repository</span>
-<span class="nx">apt</span><span class="o">-</span><span class="nx">cache</span> <span class="nx">show</span> <span class="nx">ros</span><span class="o">-</span><span class="nx">kinetic</span><span class="o">-</span><span class="nx">cv</span><span class="o">-</span><span class="nx">bridge</span> <span class="o">|</span> <span class="nx">grep</span> <span class="nx">Version</span>
-    <span class="nx">Version</span><span class="o">:</span> <span class="mf">1.12</span><span class="p">.</span><span class="mi">8</span><span class="o">-</span><span class="mh">0xe</span><span class="nx">nial</span><span class="o">-</span><span class="mi">20180416</span><span class="o">-</span><span class="mi">143935</span><span class="o">-</span><span class="mi">0800</span>
-<span class="err">#</span> <span class="nx">Checkout</span> <span class="nx">right</span> <span class="nx">version</span> <span class="k">in</span> <span class="nx">git</span> <span class="nx">repo</span><span class="p">.</span> <span class="nx">In</span> <span class="nx">our</span> <span class="k">case</span> <span class="nx">it</span> <span class="nx">is</span> <span class="mf">1.12</span><span class="p">.</span><span class="mi">8</span>
-<span class="nx">cd</span> <span class="nx">src</span><span class="o">/</span><span class="nx">vision_opencv</span><span class="o">/</span>
-<span class="nx">git</span> <span class="nx">checkout</span> <span class="mf">1.12</span><span class="p">.</span><span class="mi">8</span>
-<span class="nx">cd</span> <span class="p">..</span><span class="o">/</span><span class="p">..</span><span class="o">/</span>
-<span class="err">#</span> <span class="nx">Build</span>
-<span class="nx">catkin</span> <span class="nx">build</span> <span class="nx">cv_bridge</span>
-<span class="err">#</span> <span class="nx">Extend</span> <span class="nx">environment</span> <span class="kd">with</span> <span class="k">new</span> <span class="kr">package</span>
-<span class="nx">source</span> <span class="nx">install</span><span class="o">/</span><span class="nx">setup</span><span class="p">.</span><span class="nx">bash</span> <span class="o">--</span><span class="nx">extend</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="err">#</span> <span class="sb">`python-catkin-tools`</span> <span class="nx">is</span> <span class="nx">needed</span> <span class="k">for</span> <span class="nx">catkin</span> <span class="nx">tool</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="sb">`python3-dev`</span> <span class="nx">and</span> <span class="sb">`python3-catkin-pkg-modules`</span> <span class="nx">is</span> <span class="nx">needed</span> <span class="nx">to</span> <span class="nx">build</span> <span class="nx">cv_bridge</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="sb">`python3-numpy`</span> <span class="nx">and</span> <span class="sb">`python3-yaml`</span> <span class="nx">is</span> <span class="nx">cv_bridge</span> <span class="nx">dependencies</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="sb">`ros-kinetic-cv-bridge`</span> <span class="nx">is</span> <span class="nx">needed</span> <span class="nx">to</span> <span class="nx">install</span> <span class="nx">a</span> <span class="nx">lot</span> <span class="k">of</span> <span class="nx">cv_bridge</span> <span class="nx">deps</span><span class="p">.</span> <span class="nx">Probaply</span> <span class="nx">you</span> <span class="nx">already</span> <span class="nx">have</span> <span class="nx">it</span> <span class="nx">installed</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">sudo</span> <span class="nx">apt</span><span class="o">-</span><span class="nx">get</span> <span class="nx">install</span> <span class="nx">python</span><span class="o">-</span><span class="nx">catkin</span><span class="o">-</span><span class="nx">tools</span> <span class="nx">python3</span><span class="o">-</span><span class="nx">dev</span> <span class="nx">python3</span><span class="o">-</span><span class="nx">catkin</span><span class="o">-</span><span class="nx">pkg</span><span class="o">-</span><span class="nx">modules</span> <span class="nx">python3</span><span class="o">-</span><span class="nx">numpy</span> <span class="nx">python3</span><span class="o">-</span><span class="nx">yaml</span> <span class="nx">ros</span><span class="o">-</span><span class="nx">kinetic</span><span class="o">-</span><span class="nx">cv</span><span class="o">-</span><span class="nx">bridge</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">Create</span> <span class="nx">catkin</span> <span class="nx">workspace</span>
+</span></span><span class="line"><span class="cl"><span class="nx">mkdir</span> <span class="nx">catkin_workspace</span>
+</span></span><span class="line"><span class="cl"><span class="nx">cd</span> <span class="nx">catkin_workspace</span>
+</span></span><span class="line"><span class="cl"><span class="nx">catkin</span> <span class="nx">init</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">Instruct</span> <span class="nx">catkin</span> <span class="nx">to</span> <span class="nx">set</span> <span class="nx">cmake</span> <span class="nx">variables</span>
+</span></span><span class="line"><span class="cl"><span class="nx">catkin</span> <span class="nx">config</span> <span class="o">-</span><span class="nx">DPYTHON_EXECUTABLE</span><span class="o">=</span><span class="err">/usr/bin/python3 -DPYTHON_INCLUDE_DIR=/usr/include/python3.5m -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.5m.so</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">Instruct</span> <span class="nx">catkin</span> <span class="nx">to</span> <span class="nx">install</span> <span class="nx">built</span> <span class="nx">packages</span> <span class="nx">into</span> <span class="nx">install</span> <span class="nx">place</span><span class="p">.</span> <span class="nx">It</span> <span class="nx">is</span> <span class="nx">$CATKIN_WORKSPACE</span><span class="o">/</span><span class="nx">install</span> <span class="nx">folder</span>
+</span></span><span class="line"><span class="cl"><span class="nx">catkin</span> <span class="nx">config</span> <span class="o">--</span><span class="nx">install</span>
+</span></span><span class="line"><span class="cl"><span class="nx">catkin</span> <span class="nx">config</span> <span class="o">--</span><span class="nx">space</span><span class="o">-</span><span class="nx">suffix</span> <span class="nx">_cb</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">Clone</span> <span class="nx">cv_bridge</span> <span class="nx">src</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">clone</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/ros-perception/vision_opencv.git src/vision_opencv
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">#</span> <span class="nx">Find</span> <span class="nx">version</span> <span class="k">of</span> <span class="nx">cv_bridge</span> <span class="k">in</span> <span class="nx">your</span> <span class="nx">repository</span>
+</span></span><span class="line"><span class="cl"><span class="nx">apt</span><span class="o">-</span><span class="nx">cache</span> <span class="nx">show</span> <span class="nx">ros</span><span class="o">-</span><span class="nx">kinetic</span><span class="o">-</span><span class="nx">cv</span><span class="o">-</span><span class="nx">bridge</span> <span class="o">|</span> <span class="nx">grep</span> <span class="nx">Version</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Version</span><span class="o">:</span> <span class="mf">1.12</span><span class="p">.</span><span class="mi">8</span><span class="o">-</span><span class="mh">0xe</span><span class="nx">nial</span><span class="o">-</span><span class="mi">20180416</span><span class="o">-</span><span class="mi">143935</span><span class="o">-</span><span class="mi">0800</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">Checkout</span> <span class="nx">right</span> <span class="nx">version</span> <span class="k">in</span> <span class="nx">git</span> <span class="nx">repo</span><span class="p">.</span> <span class="nx">In</span> <span class="nx">our</span> <span class="k">case</span> <span class="nx">it</span> <span class="nx">is</span> <span class="mf">1.12</span><span class="p">.</span><span class="mi">8</span>
+</span></span><span class="line"><span class="cl"><span class="nx">cd</span> <span class="nx">src</span><span class="o">/</span><span class="nx">vision_opencv</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">checkout</span> <span class="mf">1.12</span><span class="p">.</span><span class="mi">8</span>
+</span></span><span class="line"><span class="cl"><span class="nx">cd</span> <span class="p">..</span><span class="o">/</span><span class="p">..</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">Build</span>
+</span></span><span class="line"><span class="cl"><span class="nx">catkin</span> <span class="nx">build</span> <span class="nx">cv_bridge</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">Extend</span> <span class="nx">environment</span> <span class="kd">with</span> <span class="k">new</span> <span class="kr">package</span>
+</span></span><span class="line"><span class="cl"><span class="nx">source</span> <span class="nx">install</span><span class="o">/</span><span class="nx">setup</span><span class="p">.</span><span class="nx">bash</span> <span class="o">--</span><span class="nx">extend</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>还有一种方案,需要替换系统中的libboost_python到指定的环境下，因为我使用的是connda 环境，所以测试之后并不好用。</p>
 <h4 id="最终方案">最终方案</h4>
@@ -288,20 +287,20 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="err">#</span><span class="nx">__conda_setup</span><span class="o">=</span><span class="s2">&#34;$(&#39;/home/echo/anaconda2/bin/conda&#39; &#39;shell.bash&#39; &#39;hook&#39; 2&gt; /dev/null)&#34;</span>
-<span class="err">#</span><span class="k">if</span> <span class="p">[</span> <span class="nx">$</span><span class="o">?</span> <span class="o">-</span><span class="nx">eq</span> <span class="mi">0</span> <span class="p">];</span> <span class="nx">then</span>
-<span class="err">#</span>    <span class="nb">eval</span> <span class="s2">&#34;$__conda_setup&#34;</span>
-<span class="err">#</span><span class="k">else</span>
-<span class="err">#</span>    <span class="k">if</span> <span class="p">[</span> <span class="o">-</span><span class="nx">f</span> <span class="s2">&#34;/home/echo/anaconda2/etc/profile.d/conda.sh&#34;</span> <span class="p">];</span> <span class="nx">then</span>
-<span class="err">#</span>        <span class="p">.</span> <span class="s2">&#34;/home/echo/anaconda2/etc/profile.d/conda.sh&#34;</span>
-<span class="err">#</span>    <span class="k">else</span>
-<span class="err">#</span>        <span class="kr">export</span> <span class="nx">PATH</span><span class="o">=</span><span class="s2">&#34;/home/echo/anaconda2/bin:$PATH&#34;</span>
-<span class="err">#</span>    <span class="nx">fi</span>
-<span class="err">#</span><span class="nx">fi</span>
-<span class="err">#</span><span class="nx">unset</span> <span class="nx">__conda_setup</span>
-
-<span class="nx">alias</span> <span class="nx">python</span><span class="o">=</span><span class="nx">python3</span> <span class="err">#</span><span class="nx">切换系统默认的python3</span><span class="p">.</span><span class="mi">5</span>　<span class="nx">屏蔽以后默认为python2</span><span class="p">.</span><span class="mi">7</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="err">#</span><span class="nx">__conda_setup</span><span class="o">=</span><span class="s2">&#34;$(&#39;/home/echo/anaconda2/bin/conda&#39; &#39;shell.bash&#39; &#39;hook&#39; 2&gt; /dev/null)&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="k">if</span> <span class="p">[</span> <span class="nx">$</span><span class="o">?</span> <span class="o">-</span><span class="nx">eq</span> <span class="mi">0</span> <span class="p">];</span> <span class="nx">then</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span>    <span class="nb">eval</span> <span class="s2">&#34;$__conda_setup&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="k">else</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span>    <span class="k">if</span> <span class="p">[</span> <span class="o">-</span><span class="nx">f</span> <span class="s2">&#34;/home/echo/anaconda2/etc/profile.d/conda.sh&#34;</span> <span class="p">];</span> <span class="nx">then</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span>        <span class="p">.</span> <span class="s2">&#34;/home/echo/anaconda2/etc/profile.d/conda.sh&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span>    <span class="k">else</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span>        <span class="kr">export</span> <span class="nx">PATH</span><span class="o">=</span><span class="s2">&#34;/home/echo/anaconda2/bin:$PATH&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span>    <span class="nx">fi</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="nx">fi</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="nx">unset</span> <span class="nx">__conda_setup</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">alias</span> <span class="nx">python</span><span class="o">=</span><span class="nx">python3</span> <span class="err">#</span><span class="nx">切换系统默认的python3</span><span class="p">.</span><span class="mi">5</span><span class="err">　</span><span class="nx">屏蔽以后默认为python2</span><span class="p">.</span><span class="mi">7</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -343,37 +342,37 @@
 </span><span class="lnt">30
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="err">#</span> <span class="sb">`python-catkin-tools`</span> <span class="nx">is</span> <span class="nx">needed</span> <span class="k">for</span> <span class="nx">catkin</span> <span class="nx">tool</span>
-<span class="err">#</span> <span class="sb">`python3-dev`</span> <span class="nx">and</span> <span class="sb">`python3-catkin-pkg-modules`</span> <span class="nx">is</span> <span class="nx">needed</span> <span class="nx">to</span> <span class="nx">build</span> <span class="nx">cv_bridge</span>
-<span class="err">#</span> <span class="sb">`python3-numpy`</span> <span class="nx">and</span> <span class="sb">`python3-yaml`</span> <span class="nx">is</span> <span class="nx">cv_bridge</span> <span class="nx">dependencies</span>
-<span class="err">#</span> <span class="sb">`ros-kinetic-cv-bridge`</span> <span class="nx">is</span> <span class="nx">needed</span> <span class="nx">to</span> <span class="nx">install</span> <span class="nx">a</span> <span class="nx">lot</span> <span class="k">of</span> <span class="nx">cv_bridge</span> <span class="nx">deps</span><span class="p">.</span> <span class="nx">Probaply</span> <span class="nx">you</span> <span class="nx">already</span> <span class="nx">have</span> <span class="nx">it</span> <span class="nx">installed</span><span class="p">.</span>
-<span class="nx">sudo</span> <span class="nx">apt</span><span class="o">-</span><span class="nx">get</span> <span class="nx">install</span> <span class="nx">python</span><span class="o">-</span><span class="nx">catkin</span><span class="o">-</span><span class="nx">tools</span> <span class="nx">python3</span><span class="o">-</span><span class="nx">dev</span> <span class="nx">python3</span><span class="o">-</span><span class="nx">catkin</span><span class="o">-</span><span class="nx">pkg</span><span class="o">-</span><span class="nx">modules</span> <span class="nx">python3</span><span class="o">-</span><span class="nx">numpy</span> <span class="nx">python3</span><span class="o">-</span><span class="nx">yaml</span> <span class="nx">ros</span><span class="o">-</span><span class="nx">kinetic</span><span class="o">-</span><span class="nx">cv</span><span class="o">-</span><span class="nx">bridge</span>
-<span class="err">#</span> <span class="nx">Create</span> <span class="nx">catkin</span> <span class="nx">workspace</span>
-<span class="nx">mkdir</span> <span class="nx">catkin_workspace</span>
-<span class="nx">cd</span> <span class="nx">catkin_workspace</span>
-<span class="nx">catkin</span> <span class="nx">init</span>
-<span class="err">#</span> <span class="nx">Instruct</span> <span class="nx">catkin</span> <span class="nx">to</span> <span class="nx">set</span> <span class="nx">cmake</span> <span class="nx">variables</span>
-<span class="nx">catkin</span> <span class="nx">config</span> <span class="o">-</span><span class="nx">DPYTHON_EXECUTABLE</span><span class="o">=</span><span class="err">/usr/bin/python3 -DPYTHON_INCLUDE_DIR=/usr/include/python3.5m -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.5m.so</span>
-
-<span class="err">#</span> <span class="nx">Instruct</span> <span class="nx">catkin</span> <span class="nx">to</span> <span class="nx">install</span> <span class="nx">built</span> <span class="nx">packages</span> <span class="nx">into</span> <span class="nx">install</span> <span class="nx">place</span><span class="p">.</span> <span class="nx">It</span> <span class="nx">is</span> <span class="nx">$CATKIN_WORKSPACE</span><span class="o">/</span><span class="nx">install</span> <span class="nx">folder</span>
-<span class="nx">catkin</span> <span class="nx">config</span> <span class="o">--</span><span class="nx">install</span>
-<span class="err">#</span> <span class="nx">因为需要同时使用catkin_make</span> <span class="nx">和</span> <span class="nx">catkin</span> <span class="nx">build</span>　<span class="nx">所以需要指定catkin</span> <span class="nx">build</span> <span class="nx">的路径</span>
-<span class="nx">catkin</span> <span class="nx">config</span> <span class="o">-</span><span class="nx">d</span> <span class="nx">devel_cb</span>
-<span class="nx">catkin</span> <span class="nx">config</span> <span class="o">-</span><span class="nx">b</span> <span class="nx">build_cb</span>
-<span class="err">#</span> <span class="nx">Clone</span> <span class="nx">cv_bridge</span> <span class="nx">src</span>
-<span class="nx">git</span> <span class="nx">clone</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/ros-perception/vision_opencv.git src/vision_opencv
-</span><span class="c1"></span><span class="err">#</span> <span class="nx">Find</span> <span class="nx">version</span> <span class="k">of</span> <span class="nx">cv_bridge</span> <span class="k">in</span> <span class="nx">your</span> <span class="nx">repository</span>
-<span class="nx">apt</span><span class="o">-</span><span class="nx">cache</span> <span class="nx">show</span> <span class="nx">ros</span><span class="o">-</span><span class="nx">kinetic</span><span class="o">-</span><span class="nx">cv</span><span class="o">-</span><span class="nx">bridge</span> <span class="o">|</span> <span class="nx">grep</span> <span class="nx">Version</span>
-    <span class="nx">Version</span><span class="o">:</span> <span class="mf">1.12</span><span class="p">.</span><span class="mi">8</span><span class="o">-</span><span class="mh">0xe</span><span class="nx">nial</span><span class="o">-</span><span class="mi">20180416</span><span class="o">-</span><span class="mi">143935</span><span class="o">-</span><span class="mi">0800</span>
-<span class="err">#</span> <span class="nx">Checkout</span> <span class="nx">right</span> <span class="nx">version</span> <span class="k">in</span> <span class="nx">git</span> <span class="nx">repo</span><span class="p">.</span> <span class="nx">In</span> <span class="nx">our</span> <span class="k">case</span> <span class="nx">it</span> <span class="nx">is</span> <span class="mf">1.12</span><span class="p">.</span><span class="mi">8</span>
-<span class="nx">cd</span> <span class="nx">src</span><span class="o">/</span><span class="nx">vision_opencv</span><span class="o">/</span>
-<span class="nx">git</span> <span class="nx">checkout</span> <span class="mf">1.12</span><span class="p">.</span><span class="mi">8</span>
-<span class="nx">cd</span> <span class="p">..</span><span class="o">/</span><span class="p">..</span><span class="o">/</span>
-<span class="err">#</span> <span class="nx">Build</span>
-<span class="nx">catkin</span> <span class="nx">build</span> <span class="nx">cv_bridge</span>
-<span class="err">#</span> <span class="nx">Extend</span> <span class="nx">environment</span> <span class="kd">with</span> <span class="k">new</span> <span class="kr">package</span>
-<span class="nx">source</span> <span class="nx">install</span><span class="o">/</span><span class="nx">setup</span><span class="p">.</span><span class="nx">bash</span> <span class="o">--</span><span class="nx">extend</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="err">#</span> <span class="sb">`python-catkin-tools`</span> <span class="nx">is</span> <span class="nx">needed</span> <span class="k">for</span> <span class="nx">catkin</span> <span class="nx">tool</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="sb">`python3-dev`</span> <span class="nx">and</span> <span class="sb">`python3-catkin-pkg-modules`</span> <span class="nx">is</span> <span class="nx">needed</span> <span class="nx">to</span> <span class="nx">build</span> <span class="nx">cv_bridge</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="sb">`python3-numpy`</span> <span class="nx">and</span> <span class="sb">`python3-yaml`</span> <span class="nx">is</span> <span class="nx">cv_bridge</span> <span class="nx">dependencies</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="sb">`ros-kinetic-cv-bridge`</span> <span class="nx">is</span> <span class="nx">needed</span> <span class="nx">to</span> <span class="nx">install</span> <span class="nx">a</span> <span class="nx">lot</span> <span class="k">of</span> <span class="nx">cv_bridge</span> <span class="nx">deps</span><span class="p">.</span> <span class="nx">Probaply</span> <span class="nx">you</span> <span class="nx">already</span> <span class="nx">have</span> <span class="nx">it</span> <span class="nx">installed</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">sudo</span> <span class="nx">apt</span><span class="o">-</span><span class="nx">get</span> <span class="nx">install</span> <span class="nx">python</span><span class="o">-</span><span class="nx">catkin</span><span class="o">-</span><span class="nx">tools</span> <span class="nx">python3</span><span class="o">-</span><span class="nx">dev</span> <span class="nx">python3</span><span class="o">-</span><span class="nx">catkin</span><span class="o">-</span><span class="nx">pkg</span><span class="o">-</span><span class="nx">modules</span> <span class="nx">python3</span><span class="o">-</span><span class="nx">numpy</span> <span class="nx">python3</span><span class="o">-</span><span class="nx">yaml</span> <span class="nx">ros</span><span class="o">-</span><span class="nx">kinetic</span><span class="o">-</span><span class="nx">cv</span><span class="o">-</span><span class="nx">bridge</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">Create</span> <span class="nx">catkin</span> <span class="nx">workspace</span>
+</span></span><span class="line"><span class="cl"><span class="nx">mkdir</span> <span class="nx">catkin_workspace</span>
+</span></span><span class="line"><span class="cl"><span class="nx">cd</span> <span class="nx">catkin_workspace</span>
+</span></span><span class="line"><span class="cl"><span class="nx">catkin</span> <span class="nx">init</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">Instruct</span> <span class="nx">catkin</span> <span class="nx">to</span> <span class="nx">set</span> <span class="nx">cmake</span> <span class="nx">variables</span>
+</span></span><span class="line"><span class="cl"><span class="nx">catkin</span> <span class="nx">config</span> <span class="o">-</span><span class="nx">DPYTHON_EXECUTABLE</span><span class="o">=</span><span class="err">/usr/bin/python3 -DPYTHON_INCLUDE_DIR=/usr/include/python3.5m -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.5m.so</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">Instruct</span> <span class="nx">catkin</span> <span class="nx">to</span> <span class="nx">install</span> <span class="nx">built</span> <span class="nx">packages</span> <span class="nx">into</span> <span class="nx">install</span> <span class="nx">place</span><span class="p">.</span> <span class="nx">It</span> <span class="nx">is</span> <span class="nx">$CATKIN_WORKSPACE</span><span class="o">/</span><span class="nx">install</span> <span class="nx">folder</span>
+</span></span><span class="line"><span class="cl"><span class="nx">catkin</span> <span class="nx">config</span> <span class="o">--</span><span class="nx">install</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">因为需要同时使用catkin_make</span> <span class="nx">和</span> <span class="nx">catkin</span> <span class="nx">build</span><span class="err">　</span><span class="nx">所以需要指定catkin</span> <span class="nx">build</span> <span class="nx">的路径</span>
+</span></span><span class="line"><span class="cl"><span class="nx">catkin</span> <span class="nx">config</span> <span class="o">-</span><span class="nx">d</span> <span class="nx">devel_cb</span>
+</span></span><span class="line"><span class="cl"><span class="nx">catkin</span> <span class="nx">config</span> <span class="o">-</span><span class="nx">b</span> <span class="nx">build_cb</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">Clone</span> <span class="nx">cv_bridge</span> <span class="nx">src</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">clone</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/ros-perception/vision_opencv.git src/vision_opencv
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">#</span> <span class="nx">Find</span> <span class="nx">version</span> <span class="k">of</span> <span class="nx">cv_bridge</span> <span class="k">in</span> <span class="nx">your</span> <span class="nx">repository</span>
+</span></span><span class="line"><span class="cl"><span class="nx">apt</span><span class="o">-</span><span class="nx">cache</span> <span class="nx">show</span> <span class="nx">ros</span><span class="o">-</span><span class="nx">kinetic</span><span class="o">-</span><span class="nx">cv</span><span class="o">-</span><span class="nx">bridge</span> <span class="o">|</span> <span class="nx">grep</span> <span class="nx">Version</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Version</span><span class="o">:</span> <span class="mf">1.12</span><span class="p">.</span><span class="mi">8</span><span class="o">-</span><span class="mh">0xe</span><span class="nx">nial</span><span class="o">-</span><span class="mi">20180416</span><span class="o">-</span><span class="mi">143935</span><span class="o">-</span><span class="mi">0800</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">Checkout</span> <span class="nx">right</span> <span class="nx">version</span> <span class="k">in</span> <span class="nx">git</span> <span class="nx">repo</span><span class="p">.</span> <span class="nx">In</span> <span class="nx">our</span> <span class="k">case</span> <span class="nx">it</span> <span class="nx">is</span> <span class="mf">1.12</span><span class="p">.</span><span class="mi">8</span>
+</span></span><span class="line"><span class="cl"><span class="nx">cd</span> <span class="nx">src</span><span class="o">/</span><span class="nx">vision_opencv</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">checkout</span> <span class="mf">1.12</span><span class="p">.</span><span class="mi">8</span>
+</span></span><span class="line"><span class="cl"><span class="nx">cd</span> <span class="p">..</span><span class="o">/</span><span class="p">..</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">Build</span>
+</span></span><span class="line"><span class="cl"><span class="nx">catkin</span> <span class="nx">build</span> <span class="nx">cv_bridge</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">Extend</span> <span class="nx">environment</span> <span class="kd">with</span> <span class="k">new</span> <span class="kr">package</span>
+</span></span><span class="line"><span class="cl"><span class="nx">source</span> <span class="nx">install</span><span class="o">/</span><span class="nx">setup</span><span class="p">.</span><span class="nx">bash</span> <span class="o">--</span><span class="nx">extend</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -390,15 +389,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">.
-├── build
-├── build_cb
-├── devel
-├── devel_cb
-├── install
-├── logs
-└── src
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── build
+</span></span><span class="line"><span class="cl">├── build_cb
+</span></span><span class="line"><span class="cl">├── devel
+</span></span><span class="line"><span class="cl">├── devel_cb
+</span></span><span class="line"><span class="cl">├── install
+</span></span><span class="line"><span class="cl">├── logs
+</span></span><span class="line"><span class="cl">└── src
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ul></div><div class="post-footer" id="post-footer">
@@ -431,7 +430,7 @@
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">年龄是时间的箭头，裹挟着我们，在匆匆的人世间，匆匆前行</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
