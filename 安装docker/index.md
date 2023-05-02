@@ -158,11 +158,11 @@ nvidia-docker2已经弃用，现在都是装nvidia-container-toolkit
     ```bash
     # 这里我在注册阿里云之后，将镜像仓库更改为阿里的云仓库，使用如下命令
     
-    sudo tee /etc/docker/daemon.json <<-'EOF'
-    
-    > {
-    > "registry-mirrors": ["https://b68wbkqs.mirror.aliyuncs.com"]
-    > }
-    > EOF                                                                  
-    ```
+sudo tee /etc/docker/daemon.json <<-'EOF'
+
+> {
+> "registry-mirrors": ["https://b68wbkqs.mirror.aliyuncs.com"]
+> }
+> EOF                                                                  
+```
 

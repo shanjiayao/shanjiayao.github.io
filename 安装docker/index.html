@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/shanjiayao.com\/%E5%AE%89%E8%A3%85docker\/"
-        },"genre": "posts","keywords": "docker","wordcount":  979 ,
+        },"genre": "posts","keywords": "docker","wordcount":  968 ,
         "url": "http:\/\/shanjiayao.com\/%E5%AE%89%E8%A3%85docker\/","datePublished": "2020-09-26T16:10:19+00:00","dateModified": "2020-09-26T16:10:19+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -105,7 +105,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">docker安装记录</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>jiayao</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%B3%BB%E7%BB%9F%E8%A3%85%E6%9C%BA/"><i class="far fa-folder fa-fw"></i>系统装机</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-09-26">2020-09-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 979 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-09-26">2020-09-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 968 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -385,28 +385,27 @@
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 这里我在注册阿里云之后，将镜像仓库更改为阿里的云仓库，使用如下命令</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">sudo tee /etc/docker/daemon.json <span class="s">&lt;&lt;-&#39;EOF&#39;
-</span></span></span><span class="line"><span class="cl"><span class="s">
-</span></span></span><span class="line"><span class="cl"><span class="s">&gt; {
-</span></span></span><span class="line"><span class="cl"><span class="s">&gt; &#34;registry-mirrors&#34;: [&#34;https://b68wbkqs.mirror.aliyuncs.com&#34;]
-</span></span></span><span class="line"><span class="cl"><span class="s">&gt; }
-</span></span></span><span class="line"><span class="cl"><span class="s">&gt; EOF</span>                                                                  
 </span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>
-</div><div class="post-footer" id="post-footer">
+<p>sudo tee /etc/docker/daemon.json &laquo;-&lsquo;EOF&rsquo;</p>
+<blockquote>
+<p>{
+&ldquo;registry-mirrors&rdquo;: [&ldquo;https://b68wbkqs.mirror.aliyuncs.com&rdquo;]
+}
+EOF</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
