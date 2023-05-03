@@ -71,6 +71,9 @@ sudo apt install ffmpeg
 
 ```
 
+使用nvidia gpu的设置
+https://cloud.tencent.com/developer/article/1924792
+
 
 ### 自动挂载sftp的目录
 
